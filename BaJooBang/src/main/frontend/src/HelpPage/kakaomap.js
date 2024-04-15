@@ -2,19 +2,14 @@
 //지우면 안됌 api 사용불가함
 import "./kakaomap.css";
 import React, { useEffect } from "react";
-import {Route,Routes } from 'react-router-dom';
 import {Link} from 'react-router-dom';
-import Info from './helpinfo';
+//import Imfor from "./helpinfo";
 //import Swal from "sweetalert2";
 //import dummy from "..data.json"
 
-
-
-const MypageMap = () => {
-  // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
+ // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
      // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-     var positions = [
-      {
+const positions=[      {
           content: '카카오',
           money1 : '300',
           money2 : '30' ,
@@ -48,10 +43,14 @@ const MypageMap = () => {
       }
   ];
 
+const MypageMap = () => {
+  
+ 
+     
+
   useEffect(() => { 
     // 마커를 담을 배열입니다
     try {
-      var markers = [];
 
       var mapContainer = document.getElementById("map"); // 지도를 표시할 div
 
@@ -113,7 +112,7 @@ const MypageMap = () => {
       console.log(err);
     }
     
-  }, []);
+  });
 
   return (
     <div className="map_wrap">
@@ -121,17 +120,15 @@ const MypageMap = () => {
       <div id="menu_wrap" className="bg_white">
         <ul id="placesList">
           {positions.map((position, index) => (
-           <li key={index}>
-            <h4 id="housename"><Link to ='/helpinfo'>{position.content}</Link></h4>
-            <p>월세:{Number(position.money1)}/{Number(position.money2)}</p>
-            <p>층수:{Number(position.stair)}층</p>
-            <p>평수:{Number(position.money1)}m3</p>
-           </li>
-           ))}
+            <li key={index}>
+              <h4 id="housename"><Link to={"/helpinfo"}>{position.content}</Link></h4>
+              <p>월세:{Number(position.money1)}/{Number(position.money2)}</p>
+              <p>층수:{Number(position.stair)}층</p>
+              <p>평수:{Number(position.size)}m3</p>
+            </li>
+          ))}
         </ul>
-        <Routes>
-          <Route path="/helpinfo" element= {<Info/>}/>
-        </Routes>
+        
         <div id="pagination"></div>
       </div>
     </div>

@@ -1,17 +1,13 @@
 import React from 'react';
 
-
-function Info() {
-  return (
-  <p>페이지입니다</p>);
-}
-const Helpinfo = () => {
-  return (
+// 매물지도의 검색라인
+function Imfor(){
+  return(
     <div>
-      <Info/>
+      hello
     </div>
-  );
-};
+  )
+}
 
-export default Info;
 
+export default Imfor;
