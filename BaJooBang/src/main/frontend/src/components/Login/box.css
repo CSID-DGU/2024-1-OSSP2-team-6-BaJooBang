@@ -1,0 +1,82 @@
+.box{
+    width: 900px;
+    height: 650px;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    box-shadow: 
+        10px 15px 30px rgba(0, 0, 0, 0.2), /* 오른쪽 그림자 */
+        -10px 15px 30px rgba(0, 0, 0, 0.2); /* 왼쪽 그림자 */
+}
+
+.leftBox{
+    width: 450px;
+    height: 650px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    /* background-color: #61AF77; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rightBox{
+    width: 450px;
+    height: 650px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: white;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    /* align-items: center; */
+}
+
+.title{
+    font-size: 45px;
+    font-weight: 550;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.button{
+    width: 330px;
+    height: 50px;
+    border-radius: 10px;
+    /* background-color: #377D3E; */
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 17px;
+    /* display: flex; */
+    border: none;
+    margin: 25px;
+}
+
+.line {
+    width: 360px;
+    height: 1px;
+    background-color: #ECECEC;
+}
+
+.bottomButton {
+    width: 80px;
+    height: 40px;
+    background-color: transparent;
+    border-radius: 14px;
+    font-size: 15px;
+    color: #acacac;
+    margin: 15px;
+    border: none;
+}
+
+.bottomButton:hover {
+    background-color: #ececec;
+}
+
+
+.emptyBox {
+    width: 70px;
+    height: 70px;
+}

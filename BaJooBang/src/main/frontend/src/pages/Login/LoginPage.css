@@ -1,0 +1,8 @@
+.background {
+    display: flex; /* Flex 컨테이너 설정 */
+    flex-direction: column; /* 자식 요소들을 세로로 정렬 */
+    justify-content: center; /* 세로 축 중앙 정렬 */
+    align-items: center; /* 수평 축 중앙 정렬 */
+    height: 100vh; /* 뷰포트 높이의 100% */
+    background-color: #ffffdd; /* 배경색 설정 */
+}
