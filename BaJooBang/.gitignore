@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# 빌드 할때마다 resoureces/static 안에 뭐가 생겨서 만듬
+/src/main/resources/static
