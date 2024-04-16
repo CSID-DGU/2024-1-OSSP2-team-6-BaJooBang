@@ -16,32 +16,33 @@ import java.util.List;
 @AllArgsConstructor
 public class Request {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="request_id")
-    private Long request_id;
+    private Long requestId;
+
     // 발품 기간
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate request_data;
+    private LocalDate requestDate;
     // 발품 가격
-    private int request_price;
+    private int priceRequest;
 
-    // 수압 radio
-    private String water_power;
-    // ? 추가 정보
+    // 수압
+    private int powerWater;
+    private int powerWash;
+    private int powerShower;
 
-    // 온수 radio
-    private String water_temp;
-    // ? 추가 정보
-
-    // 샤워기 radio
-    private String shower_power;
-    // ? 추가 정보
+    // 온수 시간
+    private String timeWater;
 
     // 채광
     private String lighting;
 
     // 곰팡이
-    private String mold;
+    private boolean moldLiving;
+    private boolean moldRest;
+    private boolean moldVeranda;
+    private boolean moldShoes;
+    private boolean moldWindow;
 
     @OneToMany
     @JoinColumn(name = "plus_id")
@@ -49,13 +50,18 @@ public class Request {
 
     public static Request toEntity(RequestDTO dto){
         return Request.builder()
-                .request_data(dto.getRequest_date())
-                .request_price(dto.getRequest_price())
-                .water_power(dto.getWater_power())
-                .water_temp(dto.getWater_temp())
-                .shower_power(dto.getShower_power())
+                .requestDate(dto.getRequest_date())
+                .priceRequest(dto.getPrice_request())
+                .powerWater(dto.getPower_water())
+                .powerWash(dto.getPower_wash())
+                .powerShower(dto.getPower_shower())
+                .timeWater(dto.getTime_water())
                 .lighting(dto.getLighting())
-                .mold(dto.getMold())
+                .moldLiving(dto.isMold_living())
+                .moldRest(dto.isMold_rest())
+                .moldVeranda(dto.isMold_veranda())
+                .moldShoes(dto.isMold_shoes())
+                .moldWindow(dto.isMold_window())
                 .build();
     }
 }

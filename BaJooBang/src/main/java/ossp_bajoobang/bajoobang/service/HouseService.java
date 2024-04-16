@@ -8,6 +8,7 @@ import ossp_bajoobang.bajoobang.repository.HouseRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -29,6 +30,14 @@ public class HouseService {
     public HouseDTO getHouseDetail(Long house_id){
         House house = houseRepository.findByHouseId(house_id);
         return HouseDTO.toDTO(house);
+    }
+
+    public ArrayList<Object> getAddress(long house_id){
+        ArrayList<Object> addressList = new ArrayList<>();
+        House house = houseRepository.findByHouseId(house_id);
+        addressList.add(house.getContent());
+        addressList.add(house.getStair());
+        return addressList;
     }
 
 }
