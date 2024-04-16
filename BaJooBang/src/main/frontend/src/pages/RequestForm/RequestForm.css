@@ -1,0 +1,27 @@
+.footWorkBG {
+    width: 60%;
+    /* background-color: antiquewhite; */
+
+}
+
+.pageTitle {
+    width: 100%;
+    font-size: 30px;
+    font-weight: 400;
+    padding-bottom: 2%;
+}
+
+.title2 {
+    width: 100%;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.plusInput {
+    border: none;
+    width: 100%;
+}
+
+.plusInput:focus {
+    outline: none;
+}

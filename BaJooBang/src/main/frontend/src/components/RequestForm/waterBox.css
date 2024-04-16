@@ -1,0 +1,60 @@
+.waterBox {
+    width: 15vw;
+    height: 17vw;
+    background-color: #F5F4F4;
+    border-radius: 20px;
+    
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1vw;
+}
+
+.waterTitle {
+    width: 12vw;
+    height: 3vw;
+    background-color: white;
+    border-radius: 15px;
+    color: #5F5F5F;
+    font-size: 17px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.waterContent {
+    width: 12vw;
+    height: 13vw;
+    /* background-color: antiquewhite; */
+}
+
+.waterSmallTitle {
+    width: 100%;
+    height: 1vw;
+    /* background-color: aquamarine; */
+    font-size: 0.9vw;
+    color: #5F5F5F;
+    padding-top: 0.5vw;
+}
+
+.waterTimeBox {
+    width: 100%;
+    height: 2.5vw;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0.3vw;
+    /* background-color: cadetblue; */
+}
+
+.waterTextInput {
+    width: 8vw;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #C2C2C2;
+}
+
+.waterTextInput:focus {
+    outline: none;
+}

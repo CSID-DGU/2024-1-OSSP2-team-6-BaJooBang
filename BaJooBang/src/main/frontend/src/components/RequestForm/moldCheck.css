@@ -1,0 +1,17 @@
+.checkbox-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .checkbox-container label {
+    margin-right: 8px; /* 라벨과 체크박스 사이 간격 조정 */
+    cursor: pointer;
+  }
+  
+  .checkbox-container input[type="checkbox"] {
+    margin-right: 5px; /* 체크박스와 텍스트 사이 간격 조정 */
+    width: 1vw;
+    height: 1vw;
+    border-radius: 50%;
+  }
+  
