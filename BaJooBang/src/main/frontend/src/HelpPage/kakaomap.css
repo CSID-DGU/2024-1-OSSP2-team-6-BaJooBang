@@ -1,5 +1,4 @@
 .map_wrap {
-  
   border-top:1px solid black;
   display: flex;
   flex-direction: row;
@@ -11,118 +10,116 @@
   position: relative;
   overflow: hidden;
 }
-#placesList{
-  width: auto;
-  margin:0px;
-  padding:0px;
-  
-}
-#menu_wrap {
 
+#menu_wrap {
   height: 500px;
   flex: 1;
   padding: 0px;
   overflow-y: scroll;
   border-left:1px solid black;
-
 }
-#placesList li {
-  padding : 10px;
-  padding-left : 3px;
-  border-bottom:1px solid black;
-
-}
-#placesList .item {
-  position: relative;
-  border-bottom: 1px solid #888;
-  overflow: hidden;
-  cursor: pointer;
-  min-height: 65px;
-}
-#placesList .item span {
-  display: block;
-  margin-top: 4px;
-}
-#placesList .item h4,
-.placesList .item .info {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-#housename {
-  margin :0px;
-}
-#placesList .item h4{
-  margin-top:0px;
-}
-#placesList .item .info {
-  padding: 10px 0px 10px 5px;
-}
-#placesList .info {
-  color: black;
-}
-#placesList .info .gray {
-  color: #8a8a8a;
-}
-#placesList .info .tel {
-  color: #009900;
-}
-#placesList .item .marker_1 {
-  background-position: 0 -10px;
-}
-#placesList .item .marker_2 {
-  background-position: 0 -56px;
-}
-#placesList .item .marker_3 {
-  background-position: 0 -102px;
-}
-#placesList .item .marker_4 {
-  background-position: 0 -148px;
-}
-#placesList .item .marker_5 {
-  background-position: 0 -194px;
-}
-#placesList .item .marker_6 {
-  background-position: 0 -240px;
-}
-#placesList .item .marker_7 {
-  background-position: 0 -286px;
-}
-#placesList .item .marker_8 {
-  background-position: 0 -332px;
-}
-#placesList .item .marker_9 {
-  background-position: 0 -378px;
-}
-#placesList .item .marker_10 {
-  background-position: 0 -423px;
-}
-#placesList .item .marker_11 {
-  background-position: 0 -470px;
-}
-#placesList .item .marker_12 {
-  background-position: 0 -516px;
-}
-#placesList .item .marker_13 {
-  background-position: 0 -562px;
-}
-#placesList .item .marker_14 {
-  background-position: 0 -608px;
-}
-#placesList .item .marker_15 {
-  background-position: 0 -654px;
+#menu_wrap li {
+  list-style: none;
+  margin-bottom: 10px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 1px 2px 4px rgba(0.1, 0.1, 0.1, 0.1);
 }
 
-#pagination {
-  margin: 10px auto;
-  text-align: center;
+
+#menu_wrap li p {
+  margin: 5px 0;
 }
-#pagination a {
-  display: inline-block;
-  margin-right: 10px;
+
+#menu_wrap ol {
+  padding-left:0px;
+  margin : 0px;
 }
-#pagination .on {
+
+#menu_wrap li p {
+  margin: 5px 0;
+}
+
+#menu_wrap li .location {
+  font-size: 18px;
   font-weight: bold;
-  cursor: default;
-  color: #777;
 }
+
+#menu_wrap li .rent {
+  font-size: 14px;
+}
+
+#menu_wrap li .details {
+  font-size: 14px;
+}
+
+#menu_wrap li .details span {
+  font-weight: bold;
+}
+
+#menu_wrap li .details .divider {
+  margin: 0 5px;
+}
+
+#menu_wrap li {
+  list-style: none;
+  margin-bottom: 10px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+#menu_wrap li p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+#menu_wrap li .location {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#menu_wrap li .rent {
+  font-size: 14px;
+}
+
+#menu_wrap li .details {
+  font-size: 14px;
+}
+
+#menu_wrap li .details span {
+  font-weight: bold;
+}
+
+#menu_wrap li .details .divider {
+  margin: 0 5px;
+}
+
+#menu_wrap ol {
+  padding-left: 0;
+  margin: 0;
+}
+#menu_wrap li .rent span,
+#menu_wrap li .details span {
+  color: green;
+}
+
+
+
+span {
+  background-color: rgba(236, 236, 236, 1);
+
+  width: 50px; /* 너비 지정 */
+  height: 20px; /* 높이 지정 */
+  display: inline-block; /* 인라인 요소를 블록 요소로 변경하여 너비와 높이 적용 */
+  text-align: center; /* 내용 가운데 정렬 */
+  line-height: 20px; /* 텍스트 세로 중앙 정렬을 위한 높이 값 */
+  margin: 0px; /* 여백 조절 */
+}
+
