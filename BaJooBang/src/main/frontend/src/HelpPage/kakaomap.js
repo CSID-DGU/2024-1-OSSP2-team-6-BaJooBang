@@ -1,57 +1,91 @@
 /*global kakao*/
-//지우면 안됌 api 사용불가함
 import "./kakaomap.css";
 import React, { useEffect } from "react";
-import {Route,Routes } from 'react-router-dom';
 import {Link} from 'react-router-dom';
-import Info from './helpinfo';
-//import Swal from "sweetalert2";
-//import dummy from "..data.json"
+//import Imfor from "./helpinfo";
 
-
-
-const MypageMap = () => {
-  // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
+ // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
      // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-     var positions = [
-      {
-          content: '카카오',
+export const positions=[  {
+          id:0,
+          content: '서울특별시 양천구 목동',
           money1 : '300',
           money2 : '30' ,
           stair : '6',
+          managment : '4',
           size : '23',
           latlng: new kakao.maps.LatLng(33.450705, 126.570677)
       },
       {
-          content: '생태연못',
-          money1 : '300',
+        id:1,
+        content: '서울특별시 종구 신당동',
+          money1 : '400',
           money2 : '30' ,
           stair : '6',
+          managment : '4',
           size : '23', 
           latlng: new kakao.maps.LatLng(33.450936, 126.569477)
       },
       {
-          content: '텃밭',
-          money1 : '300',
+        id:2,
+        content: '광주광역시 북구 신용동',
+          money1 : '500',
           money2 : '30' ,
           stair : '6',
+          managment : '4',
           size : '23', 
           latlng: new kakao.maps.LatLng(33.450879, 126.569940)
       },
       {
-          content: '근린공원',
-          money1 : '300',
+          id:3,
+          content: '부산광역시 광안리',
+          money1 : '600',
           money2 : '30' ,
           stair : '6',
+          managment : '4',
           size : '23',
           latlng: new kakao.maps.LatLng(33.451393, 126.570738)
       }
   ];
+  
+  const handleBookmark = (id) => {
+    // 여기에 찜하기 동작 구현
+    const updatedPositions = positions.map(pos => {
+      if (pos.id === id) {
+        return { ...pos, bookmarked: !pos.bookmarked };
+      }
+      return pos;
+    });
+    positions(updatedPositions);
+  };
+
+function Nav(props){
+  const lis =[]
+  for(let i=0; i<props.positions.length; i++){
+    let t=props.positions[i];
+    lis.push(<li key={t.id}><Link to ={`/helpinfo/${t.id}`}>{t.content}</Link>
+    <p>월세 | {t.money1} / {t.money2} </p>
+    <p>층수 | <span>{t.stair}층</span> 관리비 | <span>{t.managment}만원</span></p>
+    <p>평수 | <span>{t.size}m3</span></p>
+    <button onClick={() => handleBookmark(t.id)} className={t.bookmarked ? 'bookmarked' : ''}>
+      {t.bookmarked ? '❤️' : '🤍'} 찜하기
+    </button>
+
+    </li>);
+  }
+  return (
+    <nav>
+      <ol>
+        {lis}
+      </ol>
+    </nav>
+  )
+}
+const MypageMap = () => {
 
   useEffect(() => { 
     // 마커를 담을 배열입니다
     try {
-      var markers = [];
 
       var mapContainer = document.getElementById("map"); // 지도를 표시할 div
 
@@ -113,25 +147,13 @@ const MypageMap = () => {
       console.log(err);
     }
     
-  }, []);
+  });
 
   return (
     <div className="map_wrap">
       <div id="map"></div>
       <div id="menu_wrap" className="bg_white">
-        <ul id="placesList">
-          {positions.map((position, index) => (
-           <li key={index}>
-            <h4 id="housename"><Link to ='/helpinfo'>{position.content}</Link></h4>
-            <p>월세:{Number(position.money1)}/{Number(position.money2)}</p>
-            <p>층수:{Number(position.stair)}층</p>
-            <p>평수:{Number(position.money1)}m3</p>
-           </li>
-           ))}
-        </ul>
-        <Routes>
-          <Route path="/helpinfo" element= {<Info/>}/>
-        </Routes>
+        <Nav positions={positions}></Nav>
         <div id="pagination"></div>
       </div>
     </div>

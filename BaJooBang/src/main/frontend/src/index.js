@@ -1,15 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css'; // 전역 스타일을 위한 CSS 파일
-import App from './App'; // App 컴포넌트 임포트
-import reportWebVitals from './reportWebVitals'; // 성능 측정을 위한 추가 스크립트 (선택적)
+import {StrictMode} from 'react';
+import {createRoot} from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App';
 
-ReactDOM.render(
-  <React.StrictMode>
+// 👇️ IMPORTANT: div ID has to match with index.html
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+
+// 👇️ if you use TypeScript, add non-null (!) assertion operator
+// const root = createRoot(rootElement!);
+
+root.render(
+  
+  <StrictMode><Router>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Router></StrictMode>
 );
-
-// 웹 바이탈스를 리포트하는 선택적 기능, 성능 측정을 위해 사용
-reportWebVitals();

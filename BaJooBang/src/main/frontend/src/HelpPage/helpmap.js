@@ -11,8 +11,7 @@ const SearchBar = () => {
       <label htmlFor="searchfor">매물검색 |</label>
       <input type="text" placeholder="매물을 검색하세요" />
       <div className="house_type_buttons">
-        <span>월세/전세</span>
-        <span>|</span>
+        월세/전세  |
         <button>월세</button>
         <button>전세</button>
         <button>전체</button>
