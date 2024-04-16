@@ -15,7 +15,7 @@ public class House {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long house_id;
+    private Long houseId;
 
     // 지역 아이디
     private Long localId;

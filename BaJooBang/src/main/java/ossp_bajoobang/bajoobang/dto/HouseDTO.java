@@ -23,7 +23,7 @@ public class HouseDTO {
         LatLng latLng = new LatLng(entity.getLatitude(), entity.getLongitude());
 
         return HouseDTO.builder()
-                .house_id(entity.getHouse_id())
+                .house_id(entity.getHouseId())
                 .content(entity.getContent())
                 .money1(entity.getMoney1())
                 .money2(entity.getMoney2())

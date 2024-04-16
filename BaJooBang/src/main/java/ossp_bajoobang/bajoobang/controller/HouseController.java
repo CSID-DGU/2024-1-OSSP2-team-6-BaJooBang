@@ -24,6 +24,14 @@ public class HouseController {
         return houseList;
     }
 
+    @GetMapping("/helpinfo/detail")
+    @ResponseBody
+    public HouseDTO getHouseDetail(@RequestParam Long house_id){
+        // 아마도 매물 정보 text 처리하려면 HouseDetailDTO랑 House 테이블 수정 필요할 거로 보임.
+        HouseDTO houseDTO = houseService.getHouseDetail(house_id);
+        return houseDTO;
+    }
+
 }
 
 

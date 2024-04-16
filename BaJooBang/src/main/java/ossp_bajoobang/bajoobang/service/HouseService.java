@@ -26,4 +26,9 @@ public class HouseService {
         return dtoList;
     }
 
+    public HouseDTO getHouseDetail(Long house_id){
+        House house = houseRepository.findByHouseId(house_id);
+        return HouseDTO.toDTO(house);
+    }
+
 }
