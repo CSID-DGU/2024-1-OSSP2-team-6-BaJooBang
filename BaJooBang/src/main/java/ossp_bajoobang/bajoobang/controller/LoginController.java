@@ -17,6 +17,6 @@ public class LoginController {
 
     @PostMapping("/login")
     public void login(@RequestBody MemberDTO memberDTO){
-        memberService.login(memberDTO);
+//        memberService.login(memberDTO);
     }
 }

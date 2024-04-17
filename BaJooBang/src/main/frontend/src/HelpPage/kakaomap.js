@@ -6,47 +6,34 @@ import {Link} from 'react-router-dom';
 
  // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
      // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
-export const positions=[  {
-          id:0,
-          content: '서울특별시 양천구 목동',
-          money1 : '300',
-          money2 : '30' ,
-          stair : '6',
-          managment : '4',
-          size : '23',
-          latlng: new kakao.maps.LatLng(33.450705, 126.570677)
-      },
-      {
-        id:1,
-        content: '서울특별시 종구 신당동',
-          money1 : '400',
-          money2 : '30' ,
-          stair : '6',
-          managment : '4',
-          size : '23', 
-          latlng: new kakao.maps.LatLng(33.450936, 126.569477)
-      },
-      {
-        id:2,
-        content: '광주광역시 북구 신용동',
-          money1 : '500',
-          money2 : '30' ,
-          stair : '6',
-          managment : '4',
-          size : '23', 
-          latlng: new kakao.maps.LatLng(33.450879, 126.569940)
-      },
-      {
-          id:3,
-          content: '부산광역시 광안리',
-          money1 : '600',
-          money2 : '30' ,
-          stair : '6',
-          managment : '4',
-          size : '23',
-          latlng: new kakao.maps.LatLng(33.451393, 126.570738)
-      }
-  ];
+export const positions=[
+    {
+        "house_id": 1,
+        "content": "서울특별시 중구 필동로1길 30",
+        "money1": 300,
+        "money2": 30,
+        "stair": 6,
+        "management": 4,
+        "size": 23,
+        "latLng": {
+            "lat": 37.558077,
+            "lng": 127.000882
+        }
+    },
+    {
+        "house_id": 2,
+        "content": "서울특별시 중구 동호로 지하256",
+        "money1": 400,
+        "money2": 20,
+        "stair": 2,
+        "management": 4,
+        "size": 46,
+        "latLng": {
+            "lat": 37.559023,
+            "lng": 127.005296
+        }
+    }
+];
   
   const handleBookmark = (id) => {
     // 여기에 찜하기 동작 구현
@@ -90,7 +77,7 @@ const MypageMap = () => {
       var mapContainer = document.getElementById("map"); // 지도를 표시할 div
 
       var mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(37.559023, 127.005296), // 지도의 중심좌표
         level: 3, // 지도의 확대 레벨
       };
 
@@ -113,7 +100,7 @@ const MypageMap = () => {
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
               map: map, // 마커를 표시할 지도
-              position: positions[i].latlng // 마커의 위치
+              position: new kakao.maps.LatLng(positions[i].latLng.lat, positions[i].latLng.lng) // 마커의 위치
           });
 
           // 마커에 표시할 인포윈도우를 생성합니다 
