@@ -13,7 +13,7 @@ public class MemberService {
 
     // 회원가입
     public void register(MemberDTO dto) {
-        Member entity = dtoToEntity(dto);
+        Member entity = Member.toEntity(dto);
         memberRepository.save(entity);
     }
 
@@ -22,14 +22,4 @@ public class MemberService {
         Member member = Member.builder().pw(dto.)
     }
      */
-
-    // dto를 엔티티로 변환
-    Member dtoToEntity(MemberDTO dto) {
-        Member entity = Member.builder()
-                .id(dto.getId())
-                .email(dto.getEmail())
-                .pw(dto.getPw())
-                .build();
-        return entity;
-    }
 }
