@@ -31,7 +31,6 @@ public class Member {
     // dto를 엔티티로 변환
     public static Member toEntity(MemberDTO dto) {
         return Member.builder()
-                .id(dto.getId())
                 .email(dto.getEmail())
                 .pw(dto.getPw())
                 .address(dto.getAddress())
