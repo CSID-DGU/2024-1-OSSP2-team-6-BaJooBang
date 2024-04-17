@@ -10,4 +10,5 @@ public class MemberDTO {
     private Long id;
     private String email;
     private String pw;
+    private String address;
 }

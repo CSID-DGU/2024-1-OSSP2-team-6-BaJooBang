@@ -23,6 +23,8 @@ public class Member {
 
     private String pw;
 
+    private String address;
+
     @OneToMany(mappedBy = "member")
     private List<Request> request = new ArrayList<>();
 
@@ -32,6 +34,7 @@ public class Member {
                 .id(dto.getId())
                 .email(dto.getEmail())
                 .pw(dto.getPw())
+                .address(dto.getAddress())
                 .build();
     }
 }
