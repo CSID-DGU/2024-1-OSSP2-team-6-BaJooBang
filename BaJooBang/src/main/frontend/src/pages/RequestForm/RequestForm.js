@@ -1,17 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './RequestForm.css'
 import Roominfo from './../../components/RequestForm/roominfo';
 import CheckText from '../../components/RequestForm/checkText';
 import WaterBox from '../../components/RequestForm/waterBox';
 import MoldBox from '../../components/RequestForm/moldBox';
+import LightSelect from '../../components/RequestForm/lightSelect';
 import { ReactComponent as Water } from '../../components/images/water.svg';
 import { ReactComponent as Sun } from '../../components/images/sun.svg';
 import { ReactComponent as Mold } from '../../components/images/mold.svg';
 import { ReactComponent as Sink1 } from '../../components/images/sink1.svg';
 import { ReactComponent as Sink2 } from '../../components/images/sink2.svg';
 import { ReactComponent as Shower } from '../../components/images/shower.svg';
+import { ReactComponent as Plus1 } from '../../components/images/plus1.svg';
 
 function RequestForm() {
+    const [additionalRequests, setAdditionalRequests] = useState([]);
+
+    const handleAddRequest = () => {
+        // 추가 요청사항 폼을 배열에 추가
+        setAdditionalRequests(prevRequests => [...prevRequests, {}]);
+    };
+
     return (
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <div className='footWorkBG'>
@@ -43,12 +52,15 @@ function RequestForm() {
                         <WaterBox Icon={Sink2} title={'세면대'}/>
                         <WaterBox Icon={Shower} title={'샤워기'}/>
                     </div>
+                    <div className='requestLine' style={{marginTop: '3vw', marginBottom: '3vw'}}/>
                     
 
                 <div style={{display: 'flex', marginLeft: '2.2%', alignItems: 'center'}}>
                     <Sun/>
                     <p style={{color: '#5F5F5F', fontSize: '21px'}}>채광</p>
                 </div>
+                <LightSelect/>
+                <div className='requestLine' style={{marginTop: '3vw', marginBottom: '3vw'}}/>
 
                 <div style={{display: 'flex', flexDirection: 'row', marginLeft: '2.2%', alignItems: 'center'}}>
                     <Mold/>
@@ -62,19 +74,59 @@ function RequestForm() {
                     <MoldBox title={'신발장'}/>
                     <MoldBox title={'창틀'}/>
                 </div>
-                
-                <div className='title2'>
-                    추가 요청 사항
+                <div className='requestLine' style={{marginTop: '3vw', marginBottom: '3vw'}}/>
+
+                <div className='title2'>추가 요청 사항</div>
+
+                <div style={{
+                        width: '100%', 
+                        display: 'flex', 
+                        flexDirection: 'column',
+                        alignItems: 'center', 
+                        justifyContent: 'center'
+                    }}>
+                        <div style={{
+                            display: 'flex', 
+                            flexDirection: 'row', 
+                            alignItems: 'center', 
+                            marginBottom: '3px',
+                            width: '93%',
+                        }}>
+                            <p style={{fontSize: '18px', color: '#5F5F5F', paddingRight: '0.7vw'}}>Q</p>
+                            <input className='plusInput' type='text' placeholder='추가 요청사항을 작성해주세요.'/>
+                        </div>
+                        <div className='requestLine' style={{width: '55vw'}}/>
+                    </div>
+                    
+                {additionalRequests.map((request, index) => (
+                    <div key={index} style={{
+                        width: '100%', 
+                        display: 'flex', 
+                        flexDirection: 'column',
+                        alignItems: 'center', 
+                        justifyContent: 'center'
+                    }}>
+                        <div style={{
+                            display: 'flex', 
+                            flexDirection: 'row', 
+                            alignItems: 'center', 
+                            marginBottom: '3px',
+                            width: '93%',
+                        }}>
+                            <p style={{fontSize: '18px', color: '#5F5F5F', paddingRight: '0.7vw'}}>Q</p>
+                            <input className='plusInput' type='text' placeholder='추가 요청사항을 작성해주세요.'/>
+                        </div>
+                        <div className='requestLine' style={{width: '55vw'}}/>
+                    </div>
+                ))}
+                <div style={{width: '100%', height: '8vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <div className='plusCircle' onClick={handleAddRequest}>
+                        <Plus1/>
+                    </div>
                 </div>
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                    <p style={{fontSize: '15px', color: '#5F5F5F'}}>Q</p>
-                    <input className='plusInput' type='text' placeholder='추가 요청사항을 작성해주세요.'/>
-                </div>
-                
             </div>
         </div>
-      
     );
-  }
-  
-  export default RequestForm;
+}
+
+export default RequestForm;
