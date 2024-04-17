@@ -12,6 +12,7 @@ import { ReactComponent as Sink1 } from '../../components/images/sink1.svg';
 import { ReactComponent as Sink2 } from '../../components/images/sink2.svg';
 import { ReactComponent as Shower } from '../../components/images/shower.svg';
 import { ReactComponent as Plus1 } from '../../components/images/plus1.svg';
+import { ReactComponent as Check } from '../../components/images/check(heavy).svg';
 
 function RequestForm() {
     const [additionalRequests, setAdditionalRequests] = useState([]);
@@ -22,7 +23,7 @@ function RequestForm() {
     };
 
     return (
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5vw', paddingBottom: '5vw'}}>
             <div className='footWorkBG'>
                 <div className='pageTitle'>
                     발품 요청서 작성
@@ -30,8 +31,8 @@ function RequestForm() {
                 <p className='title2'>매물 정보</p>
                 <Roominfo title={'매물 주소'} placeholder={'매물 주소를 입력해주세요.'}/>
                 <Roominfo title={'발품 기간'} placeholder={'발품 기간을 입력해주세요.'}/>
-                <Roominfo title={'발품 가격'} placeholder={'발품 가격을 입력해주세요.'}/>
-                <div className='title2'>
+                <Roominfo title={'발품 가격'} placeholder={'발품 가격을 입력해주세요.'} />
+                <div className='title2' style={{marginTop: '5vw'}}>
                     기본 요청 사항
                 </div>
                 <div style={{display: 'flex', marginLeft: '2.2%', alignItems: 'center'}}>
@@ -97,7 +98,7 @@ function RequestForm() {
                         </div>
                         <div className='requestLine' style={{width: '55vw'}}/>
                     </div>
-                    
+
                 {additionalRequests.map((request, index) => (
                     <div key={index} style={{
                         width: '100%', 
@@ -122,6 +123,12 @@ function RequestForm() {
                 <div style={{width: '100%', height: '8vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <div className='plusCircle' onClick={handleAddRequest}>
                         <Plus1/>
+                    </div>
+                </div>
+                <div style={{width: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end'}}>
+                    <div style={{width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <Check />
+                        <p style={{fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw'}}>작성완료</p>
                     </div>
                 </div>
             </div>
