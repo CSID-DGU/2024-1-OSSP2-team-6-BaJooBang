@@ -23,8 +23,8 @@ public class Member {
 
     private String pw;
 
-//    @OneToMany(mappedBy = "member")
-//    private List<Request> request = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<Request> request = new ArrayList<>();
 
     // dto를 엔티티로 변환
     public static Member toEntity(MemberDTO dto) {

@@ -48,6 +48,15 @@ public class Request {
     @JoinColumn(name = "plus_id")
     private List<PlusRequest> plusRequests = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public void setMember(Member member) {
+        this.member = member;
+        member.getRequest().add(this);
+    }
+
     public static Request toEntity(RequestDTO dto){
         return Request.builder()
                 .requestDate(dto.getRequest_date())
