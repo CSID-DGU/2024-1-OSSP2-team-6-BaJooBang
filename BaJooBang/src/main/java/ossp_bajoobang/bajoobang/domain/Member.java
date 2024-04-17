@@ -22,6 +22,6 @@ public class Member {
 
     private String pw;
 
-    @OneToMany(mappedBy = "member")
-    private List<Request> request = new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<Request> request = new ArrayList<>();
 }
