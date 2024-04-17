@@ -1,8 +1,10 @@
 package ossp_bajoobang.bajoobang.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -12,7 +14,14 @@ import lombok.*;
 public class Member {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
+    private Long id;
+
     private String email;
 
     private String pw;
+
+    @OneToMany(mappedBy = "member")
+    private List<Request> request = new ArrayList<>();
 }
