@@ -1,22 +1,49 @@
 package ossp_bajoobang.bajoobang.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.dto.MemberDTO;
-import ossp_bajoobang.bajoobang.service.MemberService;
+import ossp_bajoobang.bajoobang.service.LoginService;
 
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 public class LoginController {
-    private final MemberService memberService;
+    private final LoginService loginService;
+    @PostMapping("/login")
+    public String login(@RequestBody MemberDTO memberDTO, HttpServletRequest request){
+        Member loginMember = loginService.login(memberDTO.getEmail(), memberDTO.getPw());
 
-    public LoginController(MemberService memberService) {
-        this.memberService = memberService;
+        // 로그인 실패
+        if (loginMember == null) return "FAIL";
+        // 로그인 성공
+        else {
+            HttpSession session = request.getSession();
+            session.setAttribute("loginMember", loginMember);
+            return "GOOD";
+        }
     }
 
-    @PostMapping("/login")
-    public void login(@RequestBody MemberDTO memberDTO){
-//        memberService.login(memberDTO);
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "GOOD";
+    }
+
+    @GetMapping("/testHome")
+    public String home(
+            @SessionAttribute(name = "loginMember", required = false) Member loginMember) {
+        // 세션 만료 테스트
+        if (loginMember == null) {
+            return "expired";
+        }
+        return "GOOD";
     }
 }
