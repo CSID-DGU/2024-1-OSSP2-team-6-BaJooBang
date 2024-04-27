@@ -8,14 +8,14 @@ import ossp_bajoobang.bajoobang.domain.Member;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberDTO {
+    private Long id;
     private String email;
-    private String pw;
     private String address;
 
     public static MemberDTO toDTO(Member entity){
         return MemberDTO.builder()
+                .id(entity.getId())
                 .email(entity.getEmail())
-                .pw(entity.getPw())
                 .address(entity.getAddress())
                 .build();
     }

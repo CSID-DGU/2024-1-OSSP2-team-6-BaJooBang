@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
+import ossp_bajoobang.bajoobang.dto.LoginForm;
 import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.service.LoginService;
 
@@ -15,16 +16,15 @@ import ossp_bajoobang.bajoobang.service.LoginService;
 public class LoginController {
     private final LoginService loginService;
     @PostMapping("/login")
-    public Object login(@RequestBody MemberDTO memberDTO, HttpServletRequest request){
-        Member loginMember = loginService.login(memberDTO.getEmail(), memberDTO.getPw());
-
+    public Object login(@RequestBody LoginForm loginForm, HttpServletRequest request){
+        Member loginMember = loginService.login(loginForm.getEmail(), loginForm.getPw());
         // 로그인 실패
         if (loginMember == null) return "FAIL";
         // 로그인 성공
         else {
             HttpSession session = request.getSession();
             session.setAttribute("loginMember", loginMember);
-            return loginMember;
+            return MemberDTO.toDTO(loginMember);
         }
     }
 
