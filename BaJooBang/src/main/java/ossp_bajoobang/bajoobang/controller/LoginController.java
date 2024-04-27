@@ -15,7 +15,7 @@ import ossp_bajoobang.bajoobang.service.LoginService;
 public class LoginController {
     private final LoginService loginService;
     @PostMapping("/login")
-    public String login(@RequestBody MemberDTO memberDTO, HttpServletRequest request){
+    public Object login(@RequestBody MemberDTO memberDTO, HttpServletRequest request){
         Member loginMember = loginService.login(memberDTO.getEmail(), memberDTO.getPw());
 
         // 로그인 실패
@@ -24,7 +24,7 @@ public class LoginController {
         else {
             HttpSession session = request.getSession();
             session.setAttribute("loginMember", loginMember);
-            return "GOOD";
+            return MemberDTO.toDTO(loginMember);
         }
     }
 
@@ -35,6 +35,17 @@ public class LoginController {
             session.invalidate();
         }
         return "GOOD";
+    }
+
+    @GetMapping("/check-login-status")
+    public Object checkLoginStatus(HttpServletRequest request) {
+        // 세션에서 사용자의 로그인 상태 확인
+        HttpSession session = request.getSession(false);
+        if(session != null && session.getAttribute("loginMember") != null) {
+            Member loginMember = (Member)session.getAttribute("loginMember");
+            return MemberDTO.toDTO(loginMember);
+        }
+        else return "FAIL";
     }
 
     @GetMapping("/testHome")
