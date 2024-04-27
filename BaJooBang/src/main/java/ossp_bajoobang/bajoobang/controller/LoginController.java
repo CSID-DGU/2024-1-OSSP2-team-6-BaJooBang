@@ -24,7 +24,7 @@ public class LoginController {
         else {
             HttpSession session = request.getSession();
             session.setAttribute("loginMember", loginMember);
-            return MemberDTO.toDTO(loginMember);
+            return loginMember;
         }
     }
 
@@ -41,10 +41,7 @@ public class LoginController {
     public Object checkLoginStatus(HttpServletRequest request) {
         // 세션에서 사용자의 로그인 상태 확인
         HttpSession session = request.getSession(false);
-        if(session != null && session.getAttribute("loginMember") != null) {
-            Member loginMember = (Member)session.getAttribute("loginMember");
-            return MemberDTO.toDTO(loginMember);
-        }
+        if(session != null && session.getAttribute("loginMember") != null) return "GOOD";
         else return "FAIL";
     }
 
