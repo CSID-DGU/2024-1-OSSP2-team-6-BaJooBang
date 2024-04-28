@@ -44,8 +44,7 @@ public class Request {
 //    private boolean moldShoes;
 //    private boolean moldWindow;
 
-    @OneToMany
-    @JoinColumn(name = "plus_id")
+    @OneToMany(mappedBy = "request")
     private List<PlusRequest> plusRequests = new ArrayList<>();
 
     @ManyToOne
