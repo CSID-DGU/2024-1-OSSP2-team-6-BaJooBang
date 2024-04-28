@@ -24,7 +24,6 @@ public class RequestController {
         HttpSession session = request.getSession(false);
         if (session != null) {
             Member member = (Member) session.getAttribute("loginMember");
-            log.info(String.valueOf(member));
             requestService.saveRequest(requestDTO, member);
             return "GOOD";
         }
