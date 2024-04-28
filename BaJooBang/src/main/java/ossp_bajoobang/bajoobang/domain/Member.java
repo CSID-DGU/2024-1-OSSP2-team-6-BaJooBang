@@ -19,6 +19,8 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    private String name;
+
     private String email;
 
     private String pw;
@@ -31,6 +33,7 @@ public class Member {
     // dto를 엔티티로 변환
     public static Member toEntity(SignupForm signupForm) {
         return Member.builder()
+                .name(signupForm.getName())
                 .email(signupForm.getEmail())
                 .pw(signupForm.getPw())
                 .address(signupForm.getAddress())
