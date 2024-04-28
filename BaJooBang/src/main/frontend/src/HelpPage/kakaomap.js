@@ -50,10 +50,16 @@ function Nav(props){
   const lis =[]
   for(let i=0; i<props.positions.length; i++){
     let t=props.positions[i];
-    lis.push(<li key={t.id}><Link to ={`/helpinfo/${t.id}`}>{t.content}</Link>
-    <p>월세 | {t.money1} / {t.money2} </p>
+    lis.push(<li key={t.id} ><Link to ={`/helpinfo/${t.id}`} className="helpMapTitle">{t.content}</Link>
+    <p className="helpMapPrice">월세 | {t.money1} / {t.money2} </p>
     <p>층수 | <span>{t.stair}층</span> 관리비 | <span>{t.managment}만원</span></p>
     <p>평수 | <span>{t.size}m3</span></p>
+    <Link to={{
+      pathname: "/request",
+      state: { content: t.content }
+    }}>
+      <p className="helpMapRequest">발품 요청서 작성</p>
+    </Link>
     <button onClick={() => handleBookmark(t.id)} className={t.bookmarked ? 'bookmarked' : ''}>
       {t.bookmarked ? '❤️' : '🤍'} 찜하기
     </button>

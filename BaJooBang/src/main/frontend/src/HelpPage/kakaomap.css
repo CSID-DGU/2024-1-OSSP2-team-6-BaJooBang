@@ -123,3 +123,20 @@ span {
   margin: 0px; /* 여백 조절 */
 }
 
+.helpMapTitle{
+  font-size: 20px;
+  font-weight: 600;
+  color: black; /* 파란색 대신 원하는 색으로 변경 */
+  text-decoration: none;
+}
+
+.helpMapRequest{
+  color: black; /* 파란색 대신 원하는 색으로 변경 */
+  text-decoration: none;
+}
+
+.helpMapPrice{
+  font-size: 5px;
+  font-weight: 600;
+  color: black;
+}

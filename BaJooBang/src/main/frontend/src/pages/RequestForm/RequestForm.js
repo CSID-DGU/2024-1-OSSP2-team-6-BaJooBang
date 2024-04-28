@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useLocation } from 'react-router-dom';
 import './RequestForm.css'
 import Roominfo from './../../components/RequestForm/roominfo';
 import CheckText from '../../components/RequestForm/checkText';
@@ -16,6 +17,11 @@ import { ReactComponent as Check } from '../../components/images/check(heavy).sv
 
 function RequestForm() {
     const [additionalRequests, setAdditionalRequests] = useState([]);
+    const location = useLocation();
+    console.log(location.state);  // 전체 state 로깅
+
+    const content = location.state ? location.state.content : '기본값';
+    console.log(content);  // content 값 로깅
 
     const handleAddRequest = () => {
         // 추가 요청사항 폼을 배열에 추가
@@ -29,7 +35,7 @@ function RequestForm() {
                     발품 요청서 작성
                 </div>
                 <p className='title2'>매물 정보</p>
-                <Roominfo title={'매물 주소'} placeholder={'매물 주소를 입력해주세요.'}/>
+                <Roominfo title={'매물 주소'} content={content}/>
                 <Roominfo title={'발품 기간'} placeholder={'발품 기간을 입력해주세요.'}/>
                 <Roominfo title={'발품 가격'} placeholder={'발품 가격을 입력해주세요.'} />
                 <div className='title2' style={{marginTop: '5vw'}}>
