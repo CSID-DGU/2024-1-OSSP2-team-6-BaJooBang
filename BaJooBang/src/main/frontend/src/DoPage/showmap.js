@@ -73,7 +73,7 @@ const DopageMap = () => {
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
               map: map, // 마커를 표시할 지도
-              position: DOpositions[i].latlng // 마커의 위치
+              position: new kakao.maps.LatLng(DOpositions[i].latLng.lat, DOpositions[i].latLng.lng) // 마커의 위치
           });
 
           // 마커에 표시할 인포윈도우를 생성합니다 
