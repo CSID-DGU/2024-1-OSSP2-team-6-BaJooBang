@@ -31,18 +31,34 @@ public class PlusRequest {
     @JoinColumn(name = "request_id")
     private Request request;
 
-    public static PlusRequest toEntity(List<PlusRequest> dto){
+//    public static PlusRequest toEntity(List<PlusRequest> dto){
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        PlusRequestBuilder builder = new PlusRequestBuilder();
+//        TypeReference<List<Map<String, String>>> typeReference = new TypeReference<List<Map<String, String>>>() {};
+//        try{
+//            String plusListJson = objectMapper.writeValueAsString(dto);
+//            List<Map<String, String>>  plusRequests = objectMapper.readValue(plusListJson, typeReference);
+//            for(Map<String, String> plusRequest : plusRequests){
+//                builder.q_type(plusRequest.get("q_type"));
+//                builder.question(plusRequest.get("question"));
+//                builder.build();
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return builder.build();
+//    }
+
+    public static PlusRequest toEntity2(PlusRequest plus){
         ObjectMapper objectMapper = new ObjectMapper();
         PlusRequestBuilder builder = new PlusRequestBuilder();
-        TypeReference<List<Map<String, String>>> typeReference = new TypeReference<List<Map<String, String>>>() {};
+        TypeReference<Map<String, String>> typeReference = new TypeReference<Map<String, String>>() {};
         try{
-            String plusListJson = objectMapper.writeValueAsString(dto);
-            List<Map<String, String>>  plusRequests = objectMapper.readValue(plusListJson, typeReference);
-            for(Map<String, String> plusRequest : plusRequests){
-                builder.q_type(plusRequest.get("q_type"));
-                builder.question(plusRequest.get("question"));
-                builder.build();
-            }
+            String plusListJson = objectMapper.writeValueAsString(plus);
+            Map<String, String>  plusRequest = objectMapper.readValue(plusListJson, typeReference);
+            builder.q_type(plusRequest.get("q_type"));
+            builder.question(plusRequest.get("question"));
+            builder.build();
         }catch (Exception e){
             e.printStackTrace();
         }
