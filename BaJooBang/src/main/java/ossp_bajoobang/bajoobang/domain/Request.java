@@ -61,16 +61,6 @@ public class Request {
         return Request.builder()
                 .requestDate(dto.getRequest_date())
                 .priceRequest(dto.getPrice_request())
-                .powerWater(dto.getPower_water())
-                .powerWash(dto.getPower_wash())
-                .powerShower(dto.getPower_shower())
-                .timeWater(dto.getTime_water())
-                .lighting(dto.getLighting())
-                .moldLiving(dto.isMold_living())
-                .moldRest(dto.isMold_rest())
-                .moldVeranda(dto.isMold_veranda())
-                .moldShoes(dto.isMold_shoes())
-                .moldWindow(dto.isMold_window())
                 .build();
     }
 }

@@ -30,7 +30,7 @@ public class LoginController {
     @PostMapping("/login")
     public Object login(@RequestBody LoginForm loginForm, HttpServletRequest request){
         Member loginMember = loginService.login(loginForm.getEmail(), loginForm.getPw());
-        // 로그인 실패
+//         로그인 실패
         if (loginMember == null) return "FAIL";
         // 로그인 성공
         else {
