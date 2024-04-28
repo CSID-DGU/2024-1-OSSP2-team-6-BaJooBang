@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.dto.LoginForm;
-import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.SignupForm;
 import ossp_bajoobang.bajoobang.service.LoginService;
 import ossp_bajoobang.bajoobang.service.MemberService;
@@ -37,8 +36,7 @@ public class LoginController {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("loginMember", loginMember);
-            MemberDTO memberDTO = MemberDTO.toDTO(loginMember);
-            return ResponseEntity.ok(memberDTO); // 로그인 성공
+            return ResponseEntity.ok("GOOD"); // 로그인 성공
         }
     }
 
