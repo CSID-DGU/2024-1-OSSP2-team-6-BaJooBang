@@ -16,7 +16,7 @@ const SearchBar = () => {
 
 const Dopage = () => {
   return (
-    <div>
+    <div className='screen'>
       <SearchBar />
       <DopageMap/>
     </div>

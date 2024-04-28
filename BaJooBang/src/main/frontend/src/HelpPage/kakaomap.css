@@ -1,19 +1,24 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 .map_wrap {
-  border-top:1px solid black;
   display: flex;
   flex-direction: row;
+  height: 83vh; 
+  border-top: 1px solid black;
 }
 
 #map {
-  width: 1000px;
-  height: 500px;
+  flex: 1 1 75%; 
   position: relative;
   overflow: hidden;
 }
 
 #menu_wrap {
-  height: 500px;
-  flex: 1;
+  height: 100%;
+  flex: 1 1 25%;
   padding: 0px;
   overflow-y: scroll;
   border-left:1px solid black;
