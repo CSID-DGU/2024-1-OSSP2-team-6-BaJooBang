@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './RequestForm.css'
 import Roominfo from './../../components/RequestForm/roominfo';
 import CheckText from '../../components/RequestForm/checkText';
@@ -16,7 +18,8 @@ import { ReactComponent as Plus1 } from '../../components/images/plus1.svg';
 import { ReactComponent as Check } from '../../components/images/check(heavy).svg';
 
 function RequestForm() {
-    const [additionalRequests, setAdditionalRequests] = useState([]);
+    const navigate = useNavigate();
+    // const [additionalRequests, setAdditionalRequests] = useState([]);
     const location = useLocation();
     console.log(location.state);  // 전체 state 로깅
 
@@ -25,8 +28,44 @@ function RequestForm() {
 
     const handleAddRequest = () => {
         // 추가 요청사항 폼을 배열에 추가
-        setAdditionalRequests(prevRequests => [...prevRequests, {}]);
+        // setAdditionalRequests(prevRequests => [...prevRequests, {}]);
+        setInputs([...inputs, { plus_q: '' }]);
     };
+
+    const [inputs, setInputs] = useState([{ plus_q: '' }]);  // 입력을 담당할 상태
+    const [price, setPrice] = useState('');
+    const [date, setDate] = useState('');
+
+    const handleInputChange = (index, event) => {
+        const newInputs = inputs.map((input, i) => i === index ? { plus_q: event.target.value } : input);
+        setInputs(newInputs);
+    };
+
+    // const handleAddRequest = () => {
+    //     setInputs([...inputs, { plus_q: '' }]);
+    // };
+
+    async function RequestPost() {
+        const data = {
+            price_request: price,
+            request_date: date,
+            plus_list: inputs
+        };
+        try {
+            console.log(price);
+            console.log(date);
+            console.log(inputs);
+            const response = await axios.post('http://localhost:8000/request-form', data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log('Request success:', response.data);
+            navigate('/kakaomap');
+        } catch (error) {
+            console.error('Request failed:', error);
+        }
+    }
 
     return (
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5vw', paddingBottom: '5vw'}}>
@@ -36,8 +75,8 @@ function RequestForm() {
                 </div>
                 <p className='title2'>매물 정보</p>
                 <Roominfo title={'매물 주소'} content={content}/>
-                <Roominfo title={'발품 기간'} placeholder={'발품 기간을 입력해주세요.'}/>
-                <Roominfo title={'발품 가격'} placeholder={'발품 가격을 입력해주세요.'} />
+                <Roominfo title={'발품 기간'} placeholder={'발품 기간을 입력해주세요.'} onChange={(e) => setDate(e.target.value)}/>
+                <Roominfo title={'발품 가격'} placeholder={'발품 가격을 입력해주세요.'} onChange={(e) => setPrice(e.target.value)}/>
                 <div className='title2' style={{marginTop: '5vw'}}>
                     기본 요청 사항
                 </div>
@@ -85,27 +124,8 @@ function RequestForm() {
 
                 <div className='title2'>추가 요청 사항</div>
 
-                <div style={{
-                        width: '100%', 
-                        display: 'flex', 
-                        flexDirection: 'column',
-                        alignItems: 'center', 
-                        justifyContent: 'center'
-                    }}>
-                        <div style={{
-                            display: 'flex', 
-                            flexDirection: 'row', 
-                            alignItems: 'center', 
-                            marginBottom: '3px',
-                            width: '93%',
-                        }}>
-                            <p style={{fontSize: '18px', color: '#5F5F5F', paddingRight: '0.7vw'}}>Q</p>
-                            <input className='plusInput' type='text' placeholder='추가 요청사항을 작성해주세요.'/>
-                        </div>
-                        <div className='requestLine' style={{width: '55vw'}}/>
-                    </div>
 
-                {additionalRequests.map((request, index) => (
+                {inputs.map((request, index) => (
                     <div key={index} style={{
                         width: '100%', 
                         display: 'flex', 
@@ -121,7 +141,7 @@ function RequestForm() {
                             width: '93%',
                         }}>
                             <p style={{fontSize: '18px', color: '#5F5F5F', paddingRight: '0.7vw'}}>Q</p>
-                            <input className='plusInput' type='text' placeholder='추가 요청사항을 작성해주세요.'/>
+                            <input className='plusInput' type='text' placeholder='추가 요청사항을 작성해주세요.' onChange={e => handleInputChange(index, e)}/>
                         </div>
                         <div className='requestLine' style={{width: '55vw'}}/>
                     </div>
@@ -132,7 +152,7 @@ function RequestForm() {
                     </div>
                 </div>
                 <div style={{width: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                    <div style={{width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <div onClick={RequestPost} style={{width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                         <Check />
                         <p style={{fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw'}}>작성완료</p>
                     </div>

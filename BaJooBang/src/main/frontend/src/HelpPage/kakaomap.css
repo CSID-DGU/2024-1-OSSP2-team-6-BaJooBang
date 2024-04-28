@@ -111,8 +111,7 @@
 }
 
 
-
-span {
+.blank{
   background-color: rgba(236, 236, 236, 1);
 
   width: 50px; /* 너비 지정 */
@@ -122,6 +121,7 @@ span {
   line-height: 20px; /* 텍스트 세로 중앙 정렬을 위한 높이 값 */
   margin: 0px; /* 여백 조절 */
 }
+
 
 .helpMapTitle{
   font-size: 20px;
