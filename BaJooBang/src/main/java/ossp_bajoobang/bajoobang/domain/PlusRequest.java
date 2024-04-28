@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import ossp_bajoobang.bajoobang.repository.PlusRequestRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -28,8 +26,9 @@ public class PlusRequest {
     // 질문 타입
     private String q_type;
 
+    //    @JoinColumn(name="request_id", insertable = false, updatable = false)
     @ManyToOne
-    @JoinColumn(name="request_id", insertable = false, updatable = false)
+    @JoinColumn(name = "request_id")
     private Request request;
 
     public static PlusRequest toEntity(List<PlusRequest> dto){
