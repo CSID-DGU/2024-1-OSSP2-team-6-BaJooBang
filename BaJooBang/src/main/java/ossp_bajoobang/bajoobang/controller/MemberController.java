@@ -12,10 +12,10 @@ import ossp_bajoobang.bajoobang.service.MemberService;
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping("/signup")
+   /* @PostMapping("/signup")
     public String signup(@RequestBody SignupForm signupForm){
         memberService.register(signupForm);
 
         return "GOOD";
-    }
+    }*/
 }
