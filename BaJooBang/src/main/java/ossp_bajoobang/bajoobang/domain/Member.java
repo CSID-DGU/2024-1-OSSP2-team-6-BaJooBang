@@ -27,7 +27,7 @@ public class Member {
 
     private String address;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<Request> request = new ArrayList<>();
 
     // dto를 엔티티로 변환

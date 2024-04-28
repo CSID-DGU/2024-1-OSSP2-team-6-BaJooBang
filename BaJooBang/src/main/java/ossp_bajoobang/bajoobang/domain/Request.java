@@ -44,11 +44,10 @@ public class Request {
 //    private boolean moldShoes;
 //    private boolean moldWindow;
 
-    @OneToMany
-    @JoinColumn(name = "plus_id")
+    @OneToMany(mappedBy = "request")
     private List<PlusRequest> plusRequests = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -57,8 +56,10 @@ public class Request {
         member.getRequest().add(this);
     }
 
-    public static Request toEntity(RequestDTO dto){
+    public static Request toEntity(RequestDTO dto, Member member){
+
         return Request.builder()
+                .member(member)
                 .requestDate(dto.getRequest_date())
                 .priceRequest(dto.getPrice_request())
                 .build();
