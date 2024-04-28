@@ -4,10 +4,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.dto.LoginForm;
-import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.SignupForm;
 import ossp_bajoobang.bajoobang.service.LoginService;
 import ossp_bajoobang.bajoobang.service.MemberService;
@@ -26,19 +27,19 @@ public class LoginController {
 
         return "GOOD";
     }
-    // 로그인
+
     @PostMapping("/login")
-    public Object login(@RequestBody LoginForm loginForm, HttpServletRequest request){
+    public ResponseEntity<?> login(@RequestBody LoginForm loginForm, HttpServletRequest request) {
         Member loginMember = loginService.login(loginForm.getEmail(), loginForm.getPw());
-//         로그인 실패
-        if (loginMember == null) return "FAIL";
-        // 로그인 성공
-        else {
+        if (loginMember == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("FAIL"); // 로그인 실패
+        } else {
             HttpSession session = request.getSession();
             session.setAttribute("loginMember", loginMember);
-            return MemberDTO.toDTO(loginMember);
+            return ResponseEntity.ok("GOOD"); // 로그인 성공
         }
     }
+
     // 로그아웃
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {

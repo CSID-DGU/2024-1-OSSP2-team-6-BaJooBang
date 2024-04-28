@@ -29,10 +29,8 @@ public class PlusRequest {
     @JoinColumn(name="request_id", insertable = false, updatable = false)
     private Request request;
 
-    /*public static PlusRequest toEntity(RequestDTO requestDTO){
-        List<PlusRequest> plusList = requestDTO.getPlus_list().stream().toList();
-        plusList[0]
-
-        return ;
-    }*/
+//    public static PlusRequest toEntity(RequestDTO requestDTO){
+//        List<PlusRequest> plusList = requestDTO.getPlus_list().stream().toList();
+//        return PlusRequest.builder().
+//    }
 }

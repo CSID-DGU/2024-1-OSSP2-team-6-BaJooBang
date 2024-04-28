@@ -26,8 +26,15 @@ function LoginBox() {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log('Signup success:', response.data);
-            navigate('/login');
+            if (response.status === 200) {
+                // 로그인 성공 시 세션 값 저장
+                sessionStorage.setItem('loggedIn', true);
+                navigate('/helpmap'); // 로그인 성공 후 리다이렉트할 경로 설정
+            } else {
+                console.error('Login failed:', response.data);
+                // 오류 표시?? 어떻게 하지
+                navigate('/login');
+            }
         } catch (error) {
             console.error('Signup failed:', error);
         }

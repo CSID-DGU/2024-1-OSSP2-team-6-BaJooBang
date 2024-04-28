@@ -26,23 +26,23 @@ public class Request {
     // 발품 가격
     private int priceRequest;
 
-    // 수압
-    private int powerWater;
-    private int powerWash;
-    private int powerShower;
-
-    // 온수 시간
-    private String timeWater;
-
-    // 채광
-    private String lighting;
-
-    // 곰팡이
-    private boolean moldLiving;
-    private boolean moldRest;
-    private boolean moldVeranda;
-    private boolean moldShoes;
-    private boolean moldWindow;
+//    // 수압
+//    private int powerWater;
+//    private int powerWash;
+//    private int powerShower;
+//
+//    // 온수 시간
+//    private String timeWater;
+//
+//    // 채광
+//    private String lighting;
+//
+//    // 곰팡이
+//    private boolean moldLiving;
+//    private boolean moldRest;
+//    private boolean moldVeranda;
+//    private boolean moldShoes;
+//    private boolean moldWindow;
 
     @OneToMany
     @JoinColumn(name = "plus_id")
