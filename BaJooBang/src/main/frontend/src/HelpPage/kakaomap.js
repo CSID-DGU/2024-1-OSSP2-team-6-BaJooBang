@@ -1,7 +1,8 @@
 /*global kakao*/
 import "./kakaomap.css";
-import React, { useEffect } from "react";
-import {Link} from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 //import Imfor from "./helpinfo";
 
  // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
@@ -34,48 +35,53 @@ export const positions=[
         }
     }
 ];
+
+  const Nav = ({ positions }) => {
+    return (
+      <nav>
+        <ol>
+          {positions.map(position => (
+            <li key={position.house_id}>
+              <Link to={`/helpinfo/${position.house_id}`} className="helpMapTitle">{position.content}</Link>
+              <p className="helpMapPrice">월세 | {position.money1} / {position.money2} </p>
+              <p>층수 | <span className="blank">{position.stair}층</span> 관리비 | <span className="blank">{position.management}만원</span></p>
+              <p>평수 | <span className="blank">{position.size}m3</span></p>
+              <Link to={`/helpinfo/${position.house_id}`}> 상세 정보 확인하기</Link>
   
-  const handleBookmark = (id) => {
-    // 여기에 찜하기 동작 구현
-    const updatedPositions = positions.map(pos => {
-      if (pos.id === id) {
-        return { ...pos, bookmarked: !pos.bookmarked };
-      }
-      return pos;
-    });
-    positions(updatedPositions);
+           
+            </li>
+          ))}
+        </ol>
+      </nav>
+    );
   };
 
-function Nav(props){
-  const lis =[]
-  for(let i=0; i<props.positions.length; i++){
-    let t=props.positions[i];
-    lis.push(<li key={t.id} ><Link to ={`/helpinfo/${t.id}`} className="helpMapTitle">{t.content}</Link>
-    <p className="helpMapPrice">월세 | {t.money1} / {t.money2} </p>
-    <p>층수 | <span>{t.stair}층</span> 관리비 | <span>{t.managment}만원</span></p>
-    <p>평수 | <span>{t.size}m3</span></p>
-    <Link to={{
-      pathname: "/request",
-      state: { content: t.content }
-    }}>
-      <p className="helpMapRequest">발품 요청서 작성</p>
-    </Link>
-    <button onClick={() => handleBookmark(t.id)} className={t.bookmarked ? 'bookmarked' : ''}>
-      {t.bookmarked ? '❤️' : '🤍'} 찜하기
-    </button>
 
-    </li>);
-  }
-  return (
-    <nav>
-      <ol>
-        {lis}
-      </ol>
-    </nav>
-  )
-}
 const MypageMap = () => {
+  /*
+//--------------------------------------------api 매물지도 get------------------------------------------
+  const [positions, setPositions] = useState([]);
+  const { local_id } = useParams();
 
+  useEffect(() => {
+    // API로부터 데이터를 가져오는 함수 정의
+    const fetchData = async () => {
+      try {
+        // axios를 사용하여 GET 요청 보내고 데이터 받아오기
+        const response = await axios.get(`/helpinfo?local_id=${local_id}`);
+        // API에서 받은 데이터를 positions 상태에 설정
+        setPositions(response.data);
+      } catch (error) {
+        console.error('api 에러:', error);
+      }
+    };
+
+    // fetchData 함수 호출
+    fetchData();
+  }, []);
+//----------------------------------------------------------------------------------------------------
+
+*/
   useEffect(() => { 
     // 마커를 담을 배열입니다
     try {
@@ -152,4 +158,5 @@ const MypageMap = () => {
     </div>
   );
 };
+
 export default MypageMap;

@@ -21,7 +21,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/helpmap" element={<HelpMap />} />
           <Route path="/domap" element={<DoMap/>} />
-          <Route path='/helpinfo/:id' element={<Imformation positions={positions} />}></Route>
+          <Route path='/helpinfo/:house_id' element={<Imformation positions={positions} />}></Route>
           <Route path="/request" element={<Request/>} />
       </Routes>
       </div>

@@ -1,0 +1,120 @@
+.container {
+  display: flex;
+  height: 100vh;
+  position:relative;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; 
+}
+.leftinfo {
+  width: 70%; 
+  overflow-y: auto;
+  height:100%; 
+  margin-left: 30px;
+}
+
+.rightinfo {
+  margin-left:30px;
+  margin-top:80px;
+  width: 300px;
+  height: 100%; 
+  border-left: 0px; 
+}
+
+.card {
+  background-image: '../components/images/profile.svg';
+  margin:10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.card-header {
+  font-size: 15px;
+  color: #333;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.profile .avatar {
+  background-image: '../components/images/profile_circle.svg';
+  background-size: cover;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+}
+
+.profile .name {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+
+.contact-details p {
+  color: #666;
+  font-size: 14px;
+}
+.actions {
+  display: flex; 
+  justify-content: space-between; 
+  padding: 0 10px; 
+}
+
+.actions .btn {
+  background: #f2f2f2;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 8px;
+  cursor: pointer;
+  flex-basis: 48%;
+}
+
+.actions .btn.heart {
+  color: darkgray;
+  font-weight: bold;
+}
+
+.actions .btn.message {
+  color: darkgray;
+  font-weight: bold;
+}
+
+#naming{
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+#moneying{
+  color: grey;     
+  font-size: 15px;  
+  margin-top: 1px;
+}
+
+#house_detail{
+  margin-left:40px;
+}
+.detailblank{
+  width: 100px;
+  display: inline-block;
+}
+#house_info{
+  margin-left:20px;
+}
+#house_image{
+  margin-top:50px;
+  margin-bottom:50px;
+}
