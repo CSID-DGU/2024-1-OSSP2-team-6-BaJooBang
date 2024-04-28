@@ -2,7 +2,7 @@ package ossp_bajoobang.bajoobang.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ossp_bajoobang.bajoobang.dto.MemberDTO;
+import ossp_bajoobang.bajoobang.dto.SignupForm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +29,11 @@ public class Member {
     private List<Request> request = new ArrayList<>();
 
     // dto를 엔티티로 변환
-    public static Member toEntity(MemberDTO dto) {
+    public static Member toEntity(SignupForm signupForm) {
         return Member.builder()
-                .email(dto.getEmail())
-                .pw(dto.getPw())
-                .address(dto.getAddress())
+                .email(signupForm.getEmail())
+                .pw(signupForm.getPw())
+                .address(signupForm.getAddress())
                 .build();
     }
 }

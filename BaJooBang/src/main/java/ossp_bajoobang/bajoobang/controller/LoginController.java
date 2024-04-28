@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
+import ossp_bajoobang.bajoobang.dto.LoginForm;
 import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.service.LoginService;
 
@@ -15,9 +16,8 @@ import ossp_bajoobang.bajoobang.service.LoginService;
 public class LoginController {
     private final LoginService loginService;
     @PostMapping("/login")
-    public Object login(@RequestBody MemberDTO memberDTO, HttpServletRequest request){
-        Member loginMember = loginService.login(memberDTO.getEmail(), memberDTO.getPw());
-
+    public Object login(@RequestBody LoginForm loginForm, HttpServletRequest request){
+        Member loginMember = loginService.login(loginForm.getEmail(), loginForm.getPw());
         // 로그인 실패
         if (loginMember == null) return "FAIL";
         // 로그인 성공
@@ -41,10 +41,7 @@ public class LoginController {
     public Object checkLoginStatus(HttpServletRequest request) {
         // 세션에서 사용자의 로그인 상태 확인
         HttpSession session = request.getSession(false);
-        if(session != null && session.getAttribute("loginMember") != null) {
-            Member loginMember = (Member)session.getAttribute("loginMember");
-            return MemberDTO.toDTO(loginMember);
-        }
+        if(session != null && session.getAttribute("loginMember") != null) return "GOOD";
         else return "FAIL";
     }
 
