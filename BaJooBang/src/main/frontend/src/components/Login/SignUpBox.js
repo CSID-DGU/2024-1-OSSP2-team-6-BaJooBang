@@ -1,28 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './box.css';
+import axios from 'axios';
 import { ReactComponent as LoginLeft } from '../images/loginLeft.svg';
 import Input from './Input';
 import { useNavigate } from 'react-router-dom';
 
 function SignUpBox() {
     const navigate = useNavigate();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [pw, setPw] = useState('');
+    const [address, setAddress] = useState('');
+
     const handleLoginClick = () => {
-        navigate('/login'); // 여기서 '/signup'은 LoginPage.js 컴포넌트로 라우팅될 경로입니다.
+        navigate('/login');
     };
+
+    async function SignUpPost() {
+        const data = {
+            name: name,
+            email: email,
+            pw: pw,
+            address: address,
+        };
+        try {
+            const response = await axios.post('http://localhost:8000/signup', data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log('Signup success:', response.data);
+        } catch (error) {
+            console.error('Signup failed:', error);
+        }
+    }
 
     return (
         <div className='box'>
-            <div className='leftBox' style={{backgroundColor: '#61AF77'}}>
+            <div className='leftBox' style={{ backgroundColor: '#61AF77' }}>
                 <LoginLeft />
             </div>
             <div className='rightBox'>
                 <p className='title'>Sign Up</p>
-                <Input title={"Name"} placeholder={'Name'}/>
-                <Input title={"Email Address"} placeholder={'Email Address'}/>
-                <Input title={"Password"} placeholder={'Password'}/>
-                <Input title={"Location Address"} placeholder={'Location Address'}/>
-                <button className='button' style={{backgroundColor: '#377D3E'}}>Sign up</button>
-                <div className='line'/>
+                <Input title={"Name"} placeholder={'Name'} onChange={(e) => setName(e.target.value)} />
+                <Input title={"Email Address"} placeholder={'Email Address'} onChange={(e) => setEmail(e.target.value)} />
+                <Input title={"Password"} placeholder={'Password'} onChange={(e) => setPw(e.target.value)} />
+                <Input title={"Location Address"} placeholder={'Location Address'} onChange={(e) => setAddress(e.target.value)} />
+                <button className='button' style={{ backgroundColor: '#377D3E' }} onClick={SignUpPost}>Sign up</button>
+                <div className='line' />
                 <button className='bottomButton' onClick={handleLoginClick}>Log in</button>
             </div>
         </div>
