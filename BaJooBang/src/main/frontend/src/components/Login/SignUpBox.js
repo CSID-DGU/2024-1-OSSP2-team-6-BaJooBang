@@ -31,6 +31,7 @@ function SignUpBox() {
                 }
             });
             console.log('Signup success:', response.data);
+            navigate('/login');
         } catch (error) {
             console.error('Signup failed:', error);
         }
