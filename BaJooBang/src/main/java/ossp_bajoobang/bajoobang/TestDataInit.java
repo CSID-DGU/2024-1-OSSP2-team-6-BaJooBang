@@ -27,5 +27,12 @@ public class TestDataInit {
         member2.setPw("222");
         member2.setAddress("seoul");
         memberRepository.save(member2);
+
+        Member member3 = new Member();
+        member3.setName("asd");
+        member3.setEmail("asd");
+        member3.setPw("asd");
+        member3.setAddress("asd");
+        memberRepository.save(member3);
     }
 }
