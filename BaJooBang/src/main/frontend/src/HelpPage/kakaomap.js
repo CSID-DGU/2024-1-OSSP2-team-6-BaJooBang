@@ -8,32 +8,32 @@ import axios from 'axios';
  // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
      // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 export const positions=[
-    {
-        "house_id": 1,
-        "content": "서울특별시 중구 필동로1길 30",
-        "money1": 300,
-        "money2": 30,
-        "stair": 6,
-        "management": 4,
-        "size": 23,
-        "latLng": {
-            "lat": 37.558077,
-            "lng": 127.000882
-        }
-    },
-    {
-        "house_id": 2,
-        "content": "서울특별시 중구 동호로 지하256",
-        "money1": 400,
-        "money2": 20,
-        "stair": 2,
-        "management": 4,
-        "size": 46,
-        "latLng": {
-            "lat": 37.559023,
-            "lng": 127.005296
-        }
-    }
+    // {
+    //     "house_id": 1,
+    //     "content": "서울특별시 중구 필동로1길 30",
+    //     "money1": 300,
+    //     "money2": 30,
+    //     "stair": 6,
+    //     "management": 4,
+    //     "size": 23,
+    //     "latLng": {
+    //         "lat": 37.558077,
+    //         "lng": 127.000882
+    //     }
+    // },
+    // {
+    //     "house_id": 2,
+    //     "content": "서울특별시 중구 동호로 지하256",
+    //     "money1": 400,
+    //     "money2": 20,
+    //     "stair": 2,
+    //     "management": 4,
+    //     "size": 46,
+    //     "latLng": {
+    //         "lat": 37.559023,
+    //         "lng": 127.005296
+    //     }
+    // }
 ];
 
   const Nav = ({ positions }) => {
@@ -58,17 +58,16 @@ export const positions=[
 
 
 const MypageMap = () => {
-  /*
+
 //--------------------------------------------api 매물지도 get------------------------------------------
   const [positions, setPositions] = useState([]);
   const { local_id } = useParams();
-
   useEffect(() => {
     // API로부터 데이터를 가져오는 함수 정의
     const fetchData = async () => {
       try {
         // axios를 사용하여 GET 요청 보내고 데이터 받아오기
-        const response = await axios.get(`/helpinfo?local_id=${local_id}`);
+        const response = await axios.get(`http://localhost:8000/helpinfo?local_id=1`);
         // API에서 받은 데이터를 positions 상태에 설정
         setPositions(response.data);
       } catch (error) {
@@ -81,7 +80,7 @@ const MypageMap = () => {
   }, []);
 //----------------------------------------------------------------------------------------------------
 
-*/
+
   useEffect(() => { 
     // 마커를 담을 배열입니다
     try {
