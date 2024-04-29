@@ -91,12 +91,9 @@ const Imformation = ({ positions }) => {
             <div className="actions">
                    
                  <button className="btn heart"><Heart/>찜하기</button>
-                 <Link to={{
-                      pathname: "/request",
-                      state: { content: position.content }
-                      }}>
-                      <button className="btn message"><List/>발품 요청서 작성</button>
-                    </Link>
+                 <Link to={`/request/${position.house_id}`}>
+                    <button className="btn message"><List/>발품 요청서 작성</button>
+                  </Link>
               </div>
           </div>
 
