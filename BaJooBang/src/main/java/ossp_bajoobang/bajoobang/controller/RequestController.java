@@ -20,8 +20,10 @@ public class RequestController {
     private final HouseService houseService;
 
     @PostMapping("/request-form")
-    public String requestForm(@RequestBody RequestDTO requestDTO, HttpServletRequest request){
+    public String requestForm(@RequestBody RequestDTO requestDTO, HttpServletRequest request, @RequestParam Long house_id){
         HttpSession session = request.getSession(false);
+        log.info("---------------");
+        log.info("house id: " + house_id);
         if (session != null) {
             Member member = (Member) session.getAttribute("loginMember");
             requestService.saveRequest(requestDTO, member);

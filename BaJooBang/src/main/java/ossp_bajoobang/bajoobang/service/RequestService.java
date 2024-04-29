@@ -22,8 +22,10 @@ public class RequestService {
 
     public void saveRequest(RequestDTO requestDTO, Member member){
         Request request = Request.toEntity(requestDTO, member);
-        log.info(String.valueOf(member));
         request.setMember(member); // member랑 request랑 조인할 때 쓰일듯 아직 맞는 건지 모름
+
+        // 저장할 때, house_id와 함께 저장해주어야 함. => 테이블도 join해주어야 함!!!
+
         requestRepository.save(request);
 
         // test
