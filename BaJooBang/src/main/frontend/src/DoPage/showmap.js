@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
-export const DOpositions=[ 
+export const dopositions=[ 
   {
     "id": 1,
     "money" : "20,000",
@@ -21,8 +21,8 @@ export const DOpositions=[
 
   function DONav(props){
     const lis =[]
-    for(let i=0; i<props.DOpositions.length; i++){
-      let t=props.DOpositions[i];
+    for(let i=0; i<props.dopositions.length; i++){
+      let t=props.dopositions[i];
       lis.push(
         <li key={t.id}>
         <h3>비용 {t.money}</h3>
@@ -69,16 +69,16 @@ const DopageMap = () => {
       map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);   
 
 
-      for (var i = 0; i < DOpositions.length; i ++) {
+      for (var i = 0; i < dopositions.length; i ++) {
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
               map: map, // 마커를 표시할 지도
-              position: new kakao.maps.LatLng(DOpositions[i].latLng.lat, DOpositions[i].latLng.lng) // 마커의 위치
+              position: new kakao.maps.LatLng(dopositions[i].latLng.lat, dopositions[i].latLng.lng) // 마커의 위치
           });
 
           // 마커에 표시할 인포윈도우를 생성합니다 
           var infowindow = new kakao.maps.InfoWindow({
-              content: DOpositions[i].content // 인포윈도우에 표시할 내용
+              content: dopositions[i].content // 인포윈도우에 표시할 내용
           });
 
           // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록
@@ -113,7 +113,7 @@ const DopageMap = () => {
     <div className="map_wrap">
       <div id="map"></div>
       <div id="menu_wrap" className="bg_white">
-      <DONav DOpositions={DOpositions}></DONav>
+      <DONav dopositions={dopositions}></DONav>
         <div id="pagination"></div>
       </div>
     </div>

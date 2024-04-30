@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 import './helpinfo.css';
 import { ReactComponent as Location } from '../components/images/location.svg';
 import { ReactComponent as Call } from '../components/images/call.svg';
@@ -11,7 +12,22 @@ const Imformation = ({ positions }) => {
   const { house_id } = useParams();
 
   // 파라미터로 전달된 id 값이 숫자인지 확인하고, positions 배열에서 해당하는 위치 정보를 가져옵니다.
-  const position = positions.find(pos => pos.house_id === parseInt(house_id));
+  // const position = positions.find(pos => pos.house_id === parseInt(house_id));
+
+  const [position, setPosition] = useState(null);
+
+  useEffect(() => {
+    const fetchPosition = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/helpinfo/detail?house_id=${house_id}`);
+        setPosition(response.data);
+      } catch (error) {
+        console.error('Failed to fetch position:', error);
+      }
+    };
+
+    fetchPosition();
+  }, [house_id]);
 
   // position이 존재하지 않는 경우에 대한 오류 처리
   if (!position) {
@@ -75,12 +91,9 @@ const Imformation = ({ positions }) => {
             <div className="actions">
                    
                  <button className="btn heart"><Heart/>찜하기</button>
-                 <Link to={{
-                      pathname: "/request",
-                      state: { content: position.content }
-                      }}>
-                      <button className="btn message"><List/>발품 요청서 작성</button>
-                    </Link>
+                 <Link to={`/request/${house_id}`}>
+                    <button className="btn message"><List/>발품 요청서 작성</button>
+                  </Link>
               </div>
           </div>
 
