@@ -1,10 +1,10 @@
 package ossp_bajoobang.bajoobang.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -16,6 +16,9 @@ public class House {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long houseId;
+
+    @OneToMany(mappedBy = "house", fetch = FetchType.EAGER)
+    private List<Request> request = new ArrayList<>();
 
     // 지역 아이디
     private Long localId;
