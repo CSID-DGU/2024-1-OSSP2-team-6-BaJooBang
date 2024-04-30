@@ -62,7 +62,7 @@ import { ReactComponent as Check } from '../../components/images/check(heavy).sv
                     }
                 });
                 console.log('Request success:', response.data);
-                navigate('/kakaomap');
+                navigate('/domap');
             } catch (error) {
                 console.error('Request failed:', error);
             }

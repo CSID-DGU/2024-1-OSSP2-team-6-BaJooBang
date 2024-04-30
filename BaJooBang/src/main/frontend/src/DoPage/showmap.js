@@ -1,10 +1,10 @@
 /*global kakao*/
 import React, { useEffect, useState } from "react";
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import axios from 'axios';
 
 export const dopositions=[ 
-  {
+/*  {
     "id": 1,
     "money" : "20,000",
     "time":10,
@@ -16,7 +16,7 @@ export const dopositions=[
         "lat": 37.558077,
         "lng": 127.000882
     }
-}
+}*/
   ];
 
   function DONav(props){
@@ -43,14 +43,35 @@ export const dopositions=[
 
 const DopageMap = () => {
 
-  useEffect(() => { 
+    const [dopositions, setDopositions] = useState([]);
+    const { local_id } = useParams();
+    useEffect(() => {
+        // API로부터 데이터를 가져오는 함수 정의
+        const fetchData = async () => {
+            try {
+                // axios를 사용하여 GET 요청 보내고 데이터 받아오기
+                const response = await axios.get(`http://localhost:8000/balpoom?local_id=1`);
+                // API에서 받은 데이터를 positions 상태에 설정
+                setDopositions(response.data);
+            } catch (error) {
+                console.error('api 에러:', error);
+            }
+        };
+
+        // fetchData 함수 호출
+        fetchData();
+    }, []);
+//----------------------------------------------------------------------------------------------------
+
+
+    useEffect(() => {
     // 마커를 담을 배열입니다
     try {
 
       var mapContainer = document.getElementById("map"); // 지도를 표시할 div
 
       var mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(37.559023, 127.005296), // 지도의 중심좌표
         level: 3, // 지도의 확대 레벨
       };
 
