@@ -8,7 +8,7 @@ import axios from 'axios';
  // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
      // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 export const positions=[
-   
+
 ];
 
   const Nav = ({ positions }) => {
@@ -33,17 +33,28 @@ export const positions=[
 
 
 const MypageMap = () => {
+<<<<<<< HEAD
   
 //--------------------------------------------api 매물지도 get------------------------------------------
   const [positions, setPositions] = useState([]);
   const { house_id } = useParams();
 
+=======
+
+//--------------------------------------------api 매물지도 get------------------------------------------
+  const [positions, setPositions] = useState([]);
+  const { local_id } = useParams();
+>>>>>>> 0634aa0b64e93427539b642f1e81f7cead2d9c4a
   useEffect(() => {
     // API로부터 데이터를 가져오는 함수 정의
     const fetchData = async () => {
       try {
         // axios를 사용하여 GET 요청 보내고 데이터 받아오기
+<<<<<<< HEAD
         const response = await axios.get(`http://local:8000/helpinfo?local_id=1`);
+=======
+        const response = await axios.get(`http://localhost:8000/helpinfo?local_id=1`);
+>>>>>>> 0634aa0b64e93427539b642f1e81f7cead2d9c4a
         // API에서 받은 데이터를 positions 상태에 설정
         setPositions(response.data);
       } catch (error) {

@@ -51,14 +51,24 @@ public class Request {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "house_id")
+    private House house;
+
     public void setMember(Member member) {
         this.member = member;
         member.getRequest().add(this);
     }
 
-    public static Request toEntity(RequestDTO dto, Member member){
+    public void setHouse(House house) {
+        this.house = house;
+        house.getRequest().add(this);
+    }
+
+    public static Request toEntity(RequestDTO dto, Member member, House house){
 
         return Request.builder()
+                .house(house)
                 .member(member)
                 .requestDate(dto.getRequest_date())
                 .priceRequest(dto.getPrice_request())

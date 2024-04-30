@@ -22,7 +22,7 @@ public class PlusRequest {
     @Column(name = "plus_id")
     private Long id;
     // 질문 내용
-    private String question;
+    private String plus_q;
     // 질문 타입
     private String q_type;
 
@@ -57,7 +57,7 @@ public class PlusRequest {
             String plusListJson = objectMapper.writeValueAsString(plus);
             Map<String, String>  plusRequest = objectMapper.readValue(plusListJson, typeReference);
             builder.q_type(plusRequest.get("q_type"));
-            builder.question(plusRequest.get("question"));
+            builder.plus_q(plusRequest.get("plus_q"));
             builder.build();
         }catch (Exception e){
             e.printStackTrace();
