@@ -8,53 +8,79 @@ import axios from 'axios';
  // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
      // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 export const positions=[
+  {
+    "house_id": 1,
+    "content": "서울특별시 중구 필동로1길 30",
+    "money1": 300,
+    "money2": 30,
+    "stair": 6,
+    "management": 4,
+    "size": 23,
+    "latLng": {
+        "lat": 37.558077,
+        "lng": 127.000882
+    }
+},
+{
+    "house_id": 2,
+    "content": "서울특별시 중구 동호로 지하256",
+    "money1": 400,
+    "money2": 20,
+    "stair": 2,
+    "management": 4,
+    "size": 46,
+    "latLng": {
+        "lat": 37.559023,
+        "lng": 127.005296
+    }
+}
 
 ];
 
-  const Nav = ({ positions }) => {
-    return (
-      <nav>
-        <ol>
-          {positions.map(position => (
-            <li key={position.house_id}>
-              <Link to={`/helpinfo/${position.house_id}`} className="helpMapTitle">{position.content}</Link>
-              <p className="helpMapPrice">월세 | {position.money1} / {position.money2} </p>
-              <p>층수 | <span className="blank">{position.stair}층</span> 관리비 | <span className="blank">{position.management}만원</span></p>
-              <p>평수 | <span className="blank">{position.size}m3</span></p>
-              <Link to={`/helpinfo/${position.house_id}`}> 상세 정보 확인하기</Link>
-  
-           
-            </li>
-          ))}
-        </ol>
-      </nav>
-    );
+const Nav = ({ positions }) => {
+  const [favoriteIds, setFavoriteIds] = useState([]);
+
+  const toggleFavorite = (id) => {
+    setFavoriteIds(favs => {
+      if (favs.includes(id)) {
+        return favs.filter(favId => favId !== id);
+      } else {
+        return [...favs, id];
+      }
+    });
   };
+
+  return (
+    <nav>
+      <ol>
+        {positions.map(position => (
+          <li key={position.house_id}>
+            <Link to={`/helpinfo/${position.house_id}`} className="helpMapTitle">월세 {position.money1} / {position.money2}</Link>
+            <p><span className="blank"></span>층수 | <span className="blank_gray">{position.stair}층</span> 관리비 | <span className="blank_gray">{position.management}만원</span></p>
+            <p><span className="blank"></span>평수 | <span className="blank_gray">{position.size}m3</span></p>
+            <p><span className="blank"></span>위치 | {position.content}</p>
+            <button onClick={() => toggleFavorite(position.house_id)} className="favorite-button">
+              {favoriteIds.includes(position.house_id) ? <><span className="text-normal">찜 취소 </span><span className="heart-red">♥</span></> : <><span className="text-normal">찜하기 </span><span className="heart-red">♡</span></>}
+            </button>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+};
 
 
 const MypageMap = () => {
-<<<<<<< HEAD
-  
+/*
 //--------------------------------------------api 매물지도 get------------------------------------------
   const [positions, setPositions] = useState([]);
   const { house_id } = useParams();
-
-=======
-
-//--------------------------------------------api 매물지도 get------------------------------------------
-  const [positions, setPositions] = useState([]);
-  const { local_id } = useParams();
->>>>>>> 0634aa0b64e93427539b642f1e81f7cead2d9c4a
   useEffect(() => {
     // API로부터 데이터를 가져오는 함수 정의
     const fetchData = async () => {
       try {
         // axios를 사용하여 GET 요청 보내고 데이터 받아오기
-<<<<<<< HEAD
-        const response = await axios.get(`http://local:8000/helpinfo?local_id=1`);
-=======
         const response = await axios.get(`http://localhost:8000/helpinfo?local_id=1`);
->>>>>>> 0634aa0b64e93427539b642f1e81f7cead2d9c4a
         // API에서 받은 데이터를 positions 상태에 설정
         setPositions(response.data);
       } catch (error) {
@@ -66,7 +92,7 @@ const MypageMap = () => {
     fetchData();
   }, []);
 //----------------------------------------------------------------------------------------------------
-
+*/
 
   useEffect(() => { 
     // 마커를 담을 배열입니다
