@@ -8,33 +8,7 @@ import axios from 'axios';
  // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
      // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 export const positions=[
-  {
-    "house_id": 1,
-    "content": "서울특별시 중구 필동로1길 30",
-    "money1": 300,
-    "money2": 30,
-    "stair": 6,
-    "management": 4,
-    "size": 23,
-    "latLng": {
-        "lat": 37.558077,
-        "lng": 127.000882
-    }
-},
-{
-    "house_id": 2,
-    "content": "서울특별시 중구 동호로 지하256",
-    "money1": 400,
-    "money2": 20,
-    "stair": 2,
-    "management": 4,
-    "size": 46,
-    "latLng": {
-        "lat": 37.559023,
-        "lng": 127.005296
-    }
-}
-
+  
 ];
 
 const Nav = ({ positions }) => {
@@ -71,7 +45,7 @@ const Nav = ({ positions }) => {
 
 
 const MypageMap = () => {
-/*
+
 //--------------------------------------------api 매물지도 get------------------------------------------
   const [positions, setPositions] = useState([]);
   const { house_id } = useParams();
@@ -92,7 +66,7 @@ const MypageMap = () => {
     fetchData();
   }, []);
 //----------------------------------------------------------------------------------------------------
-*/
+
 
   useEffect(() => { 
     // 마커를 담을 배열입니다
