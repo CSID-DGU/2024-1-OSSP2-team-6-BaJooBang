@@ -7,7 +7,16 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden; /* 전체 페이지의 스크롤바를 제거 */
 }
+
+.container {
+  display: flex;
+  height: 100vh; /* 뷰포트 높이에 맞춤 */
+  position: relative;
+  overflow: hidden; /* 컨테이너 내부의 오버플로를 숨김 */
+}
+
 .leftinfo {
   width: 70%; 
   overflow-y: auto;
@@ -106,6 +115,21 @@ html, body {
 #house_detail{
   margin-left:40px;
 }
+
+#house_detail {
+  display: flex;  /* Flexbox 레이아웃 사용 */
+  align-items: flex-start;  /* 자식 요소들을 위쪽으로 정렬 */
+  
+}
+
+#house_detail_title, .house_detail_more {
+  margin-right: 100px;  /* 요소들 사이에 공간 추가 */
+}
+
+.house_detail_more {
+  margin-right: 100px;  /* 요소들 사이에 공간 추가 */
+}
+
 .detailblank{
   width: 100px;
   display: inline-block;
