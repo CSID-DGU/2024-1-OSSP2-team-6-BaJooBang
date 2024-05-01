@@ -10,6 +10,7 @@ import HelpMap from './HelpPage/helpmap';
 import DoMap from './DoPage/domap';
 import Imformation from "./HelpPage/helpinfo";
 import RequestForm from './pages/RequestForm/RequestForm';
+import MyPage from './pages/MyPage/Mypage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/domap" element={<DoMap/>} />
           <Route path='/helpinfo/:house_id' element={<Imformation positions={positions} />}></Route>
           <Route path="/request/:house_id" element={<RequestForm />} />
+          <Route path='/mypage' element={<MyPage />} />
       </Routes>
       </div>
     
