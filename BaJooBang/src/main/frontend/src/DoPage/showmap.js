@@ -2,16 +2,16 @@
 import React, { useEffect, useState } from "react";
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import './showmap.css'
 
 export const dopositions=[ 
   {
-    "id": 1,
-    "money" : "20,000",
+    "house_id": 1,
+    "dealmoney" : "20,000",
     "time":10,
-    "dealmoney": 2,
     "distance": 765,
     "human": "홍길동",
-    "address": "서울특별시 양천구",
+    "content": "서울특별시 양천구",
     "latLng": {
         "lat": 37.558077,
         "lng": 127.000882
@@ -20,25 +20,25 @@ export const dopositions=[
   ];
 
   function DONav(props){
-    const lis =[]
-    for(let i=0; i<props.dopositions.length; i++){
-      let t=props.dopositions[i];
-      lis.push(
-        <li key={t.id}>
-        <h3>비용 {t.money}</h3>
-        <p>도보 | <span>{t.time}분</span> 거래비 | <span>{t.dealmoney}만원</span></p>
-        <p>거리 | <span>{t.distance}m</span> 요청인 : {t.human}</p>
-        <p>위치 | <span>{t.address}</span>  </p>
-        <Link to ={`/`}> 요청서 보러가기 </Link>
-      </li>);
-    }
     return (
       <nav>
         <ol>
-          {lis}
+          {dopositions.map(position => (
+            <li key={position.house_id}>
+              <h2>W {position.dealmoney}</h2>
+              <p><span className="blank"></span>위치 | {position.content}</p>
+              <p><span className="blank"></span>
+              요청인<span className="blank"></span>|<span className="blank"></span>{position.human}</p>
+              <p><span className="blank"></span>도보 | <span className="blank_gray">{position.time}분</span><span className="blank"></span>
+               거리 | <span className="blank_gray">{position.distance}m</span></p>
+              
+              
+              <Link to={`/`}><span className="blank"></span>요청서 보러가기 {'>>'}</Link>
+            </li>
+          ))}
         </ol>
       </nav>
-    )
+    );
   }
 
 const DopageMap = () => {
@@ -50,7 +50,7 @@ const DopageMap = () => {
       var mapContainer = document.getElementById("map"); // 지도를 표시할 div
 
       var mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(37.559023, 127.005296), // 지도의 중심좌표
         level: 3, // 지도의 확대 레벨
       };
 

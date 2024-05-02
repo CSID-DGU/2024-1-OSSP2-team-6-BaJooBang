@@ -1,0 +1,24 @@
+h2{
+  margin:0px;
+}
+
+nav a {
+  text-decoration: none; /* 밑줄 없애기 */
+  color: rgb(0, 0, 0); 
+  transition: color 0.3s; /* 색상 변경 애니메이션을 부드럽게 */
+  font-weight: 4000;
+  font-size:14px;
+  margin:7px;
+  margin-left: 0px;
+}
+nav ol li p,
+nav ol li a {
+  margin-bottom: 3px; /* 하단 마진을 7px로 설정 */
+}
+nav a:hover, nav a:active {
+  color: gray; /* 마우스 오버 및 활성화 상태에서 검정색으로 변경 */
+}
+
+.gray-text {
+  color: gray; /* 지정된 클래스를 가진 요소의 글씨색을 회색으로 설정 */
+}

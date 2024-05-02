@@ -1,6 +1,7 @@
 import React from 'react';
 import './domap.css';
 import DopageMap from './showmap';
+import { ReactComponent as Closer } from '../components/images/closer.svg';
 
 
 
@@ -8,9 +9,9 @@ import DopageMap from './showmap';
 const SearchBar = () => {
   return (
     <div className="search">
-      <label htmlFor="searchfor">매물검색 |</label>
-      <input type="text" placeholder="매물을 검색하세요" />
-    </div>
+      <label htmlFor="searchfor">매물 검색<span className='blank'></span>|</label><span className='blank'></span>
+      <div className='searchbox'><Closer/><input type="text" placeholder="매물을 검색하세요" /></div>
+      </div>
   );
 };
 
