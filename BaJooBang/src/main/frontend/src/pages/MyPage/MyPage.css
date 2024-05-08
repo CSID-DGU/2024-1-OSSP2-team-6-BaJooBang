@@ -7,7 +7,21 @@
     background-color: white; /* 배경색 설정 */
 }
 
-.MPName {
+.MyName {
     font-size: 25px;
     color: black;
 }
+
+.MyBottom {
+    background-color: #B1CE8E;
+    width: 100%;
+    height: 17vw;
+    margin-top: 3vw;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-left: 30vw;
+    padding-right: 30vw;
+}
+

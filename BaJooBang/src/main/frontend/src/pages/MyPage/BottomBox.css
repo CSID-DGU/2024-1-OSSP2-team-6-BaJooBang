@@ -1,0 +1,21 @@
+.MBBox {
+    width: 15vw;
+    height: 13vw;
+    background-color: white;
+    border-radius: 15%;
+}
+
+.MBTextBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 23px;
+    margin-right: 23px;
+    margin-top: -10px;
+}
+
+.MBText {
+    color: black;
+    font-size: 25px;
+    font-weight: 500;
+}
