@@ -1,7 +1,3 @@
-.container {
-  display: flex;
-  position:relative;
-}
 html, body {
   height: 100%;
   margin: 0;
@@ -10,29 +6,28 @@ html, body {
 
 .container {
   display: flex;
-  height: 100vh; /* 뷰포트 높이에 맞춤 */
   position: relative;
-  overflow: hidden; /* 컨테이너 내부의 오버플로를 숨김 */
 }
 
 .leftinfo {
-  width: 70%; 
-  overflow-y: auto;
-  height:100%; 
+  width: 70%;
   margin-left: 30px;
+  padding-bottom: 100px; /* Ensure some padding at the bottom */
 }
 
 .rightinfo {
-  margin-left:30px;
-  margin-top:80px;
+  position: fixed;
+  top: 180px; /* Adjusted to align with the desired top margin */
+  right: 0;
   width: 300px;
-  height: 100%; 
-  border-left: 0px; 
+  height: calc(100% - 80px); /* Ensure it doesn't overflow the viewport */
+  border-left: 0px;
+  margin-right: 50px;
 }
 
 .card {
   background-image: '../components/images/profile.svg';
-  margin:10px;
+  margin: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -68,15 +63,15 @@ html, body {
   margin: 10px 0;
 }
 
-
 .contact-details p {
   color: #666;
   font-size: 14px;
 }
+
 .actions {
-  display: flex; 
-  justify-content: space-between; 
-  padding: 0 10px; 
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
 }
 
 .actions .btn {
@@ -98,44 +93,49 @@ html, body {
   font-weight: bold;
 }
 
-#naming{
+#naming {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 3px;
 }
 
-#moneying{
-  color: grey;     
-  font-size: 15px;  
+#moneying {
+  color: grey;
+  font-size: 15px;
   margin-top: 1px;
 }
 
-#house_detail{
-  margin-left:40px;
-}
-
 #house_detail {
-  display: flex;  /* Flexbox 레이아웃 사용 */
-  align-items: flex-start;  /* 자식 요소들을 위쪽으로 정렬 */
-  
+  display:inline-flex;
+  align-items: flex-start;
+  background-image: url('../components/images/detailback.svg');
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top:30px;
 }
 
-#house_detail_title, .house_detail_more {
-  margin-right: 100px;  /* 요소들 사이에 공간 추가 */
+#house_detail_title {
+  margin-right: 100px;
 }
+.house_detail_more{
+  margin-left:80px;
+}
+
 
 .house_detail_more {
-  margin-right: 100px;  /* 요소들 사이에 공간 추가 */
+  margin-right: 50px;
 }
 
-.detailblank{
+.detailblank {
   width: 100px;
   display: inline-block;
 }
-#house_info{
-  margin-left:20px;
+
+#house_info {
+  margin-left: 20px;
 }
-#house_image{
-  margin-top:50px;
-  margin-bottom:50px;
+
+#house_image {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
