@@ -3,43 +3,101 @@ import "./kakaomap.css";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { ReactComponent as House_image1 } from '../components/images/house_image1.svg';
+import { ReactComponent as House_image2 } from '../components/images/house_image2.svg';
+import { ReactComponent as House_all_image } from '../components/images/house_all_image.svg';
 //import Imfor from "./helpinfo";
 
  // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
      // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 export const positions=[
+  /*{
+    "house_id": 1,
+    "content": "서울특별시 중구 필동로1길 30",
+    "money1": 300,
+    "money2": 30,
+    "stair": 6,
+    "management": 4,
+    "size": 23,
+    "house_image1":<House_image1></House_image1>,
+    "house_image2":<House_image2></House_image2>,
+    "house_all_image":<House_all_image></House_all_image>,
+    "type" : "월세",
+    "latLng": {
+        "lat": 37.558077,
+        "lng": 127.000882
+    }
+},
+{
+    "house_id": 2,
+    "content": "서울특별시 중구 을지로 지하256",
+    "money1": 400,
+    "money2": 20,
+    "stair": 2,
+    "management": 4,
+    "size": 46,
+    "type" : "전세",
+    "latLng": {
+        "lat": 38.559023,
+        "lng": 127.005296
+    }
+},
+{
+  "house_id": 3,
+  "content": "서울특별시 중구 장충로 지하256",
+  "money1": 400,
+  "money2": 20,
+  "stair": 2,
+  "management": 4,
+  "size": 46,
+  "type" : "전세",
+  "latLng": {
+      "lat": 32.559023,
+      "lng": 127.005296
+  }
+}*/
 
 ];
 
-  const Nav = ({ positions }) => {
-    return (
-      <nav>
-        <ol>
-          {positions.map(position => (
-            <li key={position.house_id}>
-              <Link to={`/helpinfo/${position.house_id}`} className="helpMapTitle">{position.content}</Link>
-              <p className="helpMapPrice">월세 | {position.money1} / {position.money2} </p>
-              <p>층수 | <span className="blank">{position.stair}층</span> 관리비 | <span className="blank">{position.management}만원</span></p>
-              <p>평수 | <span className="blank">{position.size}m3</span></p>
-              <Link to={`/helpinfo/${position.house_id}`}> 상세 정보 확인하기</Link>
-  
-           
-            </li>
-          ))}
-        </ol>
-      </nav>
-    );
+const Nav = ({ positions }) => {
+  const [favoriteIds, setFavoriteIds] = useState([]);
+
+  const toggleFavorite = (id) => {
+    setFavoriteIds(favs => {
+      if (favs.includes(id)) {
+        return favs.filter(favId => favId !== id);
+      } else {
+        return [...favs, id];
+      }
+    });
   };
 
+  return (
+    <nav>
+      <ol>
+        {positions.map(position => (
+          <li key={position.house_id}>
+            <Link to={`/helpinfo/${position.house_id}`} className="helpMapTitle">
+              <h3>월세 {position.money1} / {position.money2}</h3>
+            <p><span className="blank"></span>층수 | <span className="blank_gray">{position.stair}층</span> 관리비 | <span className="blank_gray">{position.management}만원</span></p>
+            <p><span className="blank"></span>평수 | <span className="blank_gray">{position.size}m3</span></p>
+            <p><span className="blank"></span>위치 | {position.content}</p></Link>
+            <button onClick={() => toggleFavorite(position.house_id)} className="favorite-button">
+              {favoriteIds.includes(position.house_id) ? <><span className="text-normal">찜 취소 </span><span className="heart-red">♥</span></> : <><span className="text-normal">찜하기 </span><span className="heart-red">♡</span></>}
+            </button>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+};
 
-const MypageMap = () => {
 
-//--------------------------------------------api 매물지도 get------------------------------------------
-  const { house_id } = useParams();
+const MypageMap = ({filter}) => {
 
 //--------------------------------------------api 매물지도 get------------------------------------------
   const [positions, setPositions] = useState([]);
-  const { local_id } = useParams();
+  const { house_id } = useParams();
   useEffect(() => {
     // API로부터 데이터를 가져오는 함수 정의
     const fetchData = async () => {
@@ -59,6 +117,17 @@ const MypageMap = () => {
 //----------------------------------------------------------------------------------------------------
 
 
+    //월세,전세,전체 클릭 시 해당 매물만 표시
+    const [filteredPositions, setFilteredPositions] = useState(positions);
+
+    useEffect(() => {
+      let updatedPositions = positions;
+      if (filter !== '전체') {
+        updatedPositions = positions.filter(position => position.type === filter);
+      }
+      setFilteredPositions(updatedPositions);
+    }, [filter]);
+    
   useEffect(() => { 
     // 마커를 담을 배열입니다
     try {
@@ -123,13 +192,13 @@ const MypageMap = () => {
       console.log(err);
     }
     
-  });
+  }, [filteredPositions]);
 
   return (
     <div className="map_wrap">
       <div id="map"></div>
       <div id="menu_wrap" className="bg_white">
-        <Nav positions={positions}></Nav>
+        <Nav positions={filteredPositions} />
         <div id="pagination"></div>
       </div>
     </div>

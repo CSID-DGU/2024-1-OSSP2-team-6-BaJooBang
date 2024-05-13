@@ -10,30 +10,32 @@ import { ReactComponent as Heart } from '../components/images/heart.svg';
 
 const Imformation = ({ positions }) => {
   const { house_id } = useParams();
-
-  // 파라미터로 전달된 id 값이 숫자인지 확인하고, positions 배열에서 해당하는 위치 정보를 가져옵니다.
-  // const position = positions.find(pos => pos.house_id === parseInt(house_id));
+  const numericHouseId = parseInt(house_id); // 문자열을 숫자로 변환
 
   const [position, setPosition] = useState(null);
 
   useEffect(() => {
-    const fetchPosition = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8000/helpinfo/detail?house_id=${house_id}`);
-        setPosition(response.data);
-      } catch (error) {
-        console.error('Failed to fetch position:', error);
-      }
-    };
+    // 선택된 house_id가 유효한지 확인하고 해당하는 position을 찾습니다.
+    const selectedPosition = positions.find(pos => pos.house_id === numericHouseId);
+    if (selectedPosition) {
+      setPosition(selectedPosition); // 직접적으로 positions 배열에서 데이터를 로드
+    } else {
+      // 서버에서 데이터를 가져오는 경우
+      const fetchPosition = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8000/helpinfo/detail?house_id=${house_id}`);
+          setPosition(response.data);
+        } catch (error) {
+          console.error('Failed to fetch position:', error);
+        }
+      };
+      fetchPosition();
+    }
+  }, [house_id, positions]); // dependencies에 positions도 추가
 
-    fetchPosition();
-  }, [house_id]);
-
-  // position이 존재하지 않는 경우에 대한 오류 처리
   if (!position) {
     return <div>해당하는 위치 정보를 찾을 수 없습니다.</div>;
   }
-
   return (
     <div>
       <div className="container">
@@ -41,26 +43,30 @@ const Imformation = ({ positions }) => {
           <div className='leftinfo'>
             <div id='house_image'>
               <p id='naming'>{position.content}</p>
-              <p id='moneying'>월세 {position.money1} / {position.money2}</p>
-              
-            </div>
+              <p id='moneying'>월세 {position.money1} / {position.money2}</p>    
+          </div>
+
             <div id='house_info'>
               <h3> 매물 사진 </h3>
+              <p><span className='blank'></span>{position.house_image1}<span className='blank'></span>{position.house_image2}</p>
+              <h3> 매물 평면도 </h3>
+              <p><span className='blank'></span>{position.house_all_image}</p>
               <h3> 매물 정보 </h3>
               <div id='house_detail'>
-                <p>월 관리비 <span className='detailblank'></span> {position.money1}</p>
-                <p>관리비 포함 </p>
-                <p>해당 층 / 총 층 </p>
-                <p>방 수 </p>
-                <p>. </p>
-                <p>.  </p>
-                <p>. </p>
-                <p>. </p>
-                <p>.  </p>
-                <p>. </p>
-                <p>. </p>
-                <p>.  </p>
-                <p>. </p>
+                <div id='house_detail_title'>
+                  <p >월 관리비  </p>
+                  <p >관리비 포함 </p>
+                  <p>전용면적</p>
+                  <p >해당 층 / 총 층 </p>
+                  <p >방 수 </p>
+                  <p >방향</p>
+                  <p >입주 가능일</p>
+            
+                </div>
+                <div className='house_detail_more'> 
+                <p>{position.money1}</p>
+                <p>{position.money2}</p>
+                </div>
               </div>
             </div>
           </div>

@@ -1,13 +1,11 @@
 .container {
   display: flex;
-  height: 100vh;
   position:relative;
 }
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* 전체 페이지의 스크롤바를 제거 */
 }
 
 .container {
