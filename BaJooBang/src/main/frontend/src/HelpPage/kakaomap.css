@@ -7,9 +7,11 @@ html, body {
   display: flex;
   flex-direction: row;
   height: 83vh; 
-  border-top: 1px solid black;
+  border-top: 1px solid gray;
 }
-
+h3{
+  margin:0px;
+}
 #map {
   flex: 1 1 75%; 
   position: relative;
@@ -21,15 +23,7 @@ html, body {
   flex: 1 1 25%;
   padding: 0px;
   overflow-y: scroll;
-  border-left:1px solid black;
-}
-#menu_wrap li {
-  list-style: none;
-  margin-bottom: 10px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 1px 2px 4px rgba(0.1, 0.1, 0.1, 0.1);
+  border-left:1px solid gray;
 }
 
 
@@ -69,19 +63,19 @@ html, body {
 
 #menu_wrap li {
   list-style: none;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   padding: 15px;
   background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid gray;
 }
 
 
 
 #menu_wrap li p {
-  margin: 5px 0;
+  margin: 7px 0;
   font-size: 14px;
 }
 
@@ -114,11 +108,15 @@ html, body {
 #menu_wrap li .details span {
   color: green;
 }
-
-
 .blank{
-  background-color: rgba(236, 236, 236, 1);
+  width: 10px; /* 너비 지정 */
+  height: 20px; /* 높이 지정 */
+  display: inline-block;
+}
 
+.blank_gray{
+  background-color: rgba(236, 236, 236, 1);
+  border-radius: 5px;
   width: 50px; /* 너비 지정 */
   height: 20px; /* 높이 지정 */
   display: inline-block; /* 인라인 요소를 블록 요소로 변경하여 너비와 높이 적용 */
@@ -127,12 +125,31 @@ html, body {
   margin: 0px; /* 여백 조절 */
 }
 
+.favorite-button {
+  background: none;
+  border: none;
+  color: black; /* 텍스트 색상을 검정으로 설정 */
+  font-size: 14px; /* 하트 크기 조정 */
+  flex-direction: column;
+  font-weight: 400;
+  cursor: pointer;
+  padding-left: 10px;
+  margin: 0px;
+}
+
+.heart-red {
+  color: red; /* 하트 부분만 빨간색으로 설정 */
+}
+
+.text-normal {
+  color: black; /* 나머지 텍스트는 검정색으로 유지 */
+}
 
 .helpMapTitle{
   font-size: 20px;
-  font-weight: 600;
   color: black; /* 파란색 대신 원하는 색으로 변경 */
   text-decoration: none;
+  margin:0px;
 }
 
 .helpMapRequest{
