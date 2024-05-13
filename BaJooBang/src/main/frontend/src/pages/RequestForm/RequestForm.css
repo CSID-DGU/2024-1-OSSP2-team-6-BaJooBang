@@ -1,7 +1,11 @@
 .footWorkBG {
     width: 60%;
-    /* background-color: antiquewhite; */
-
+    background-color: white;
+    padding: 5vw;
+    border-radius: 40px;
+    box-shadow: 
+        10px 15px 30px rgba(0, 0, 0, 0.2), /* 오른쪽 그림자 */
+        -10px 15px 30px rgba(0, 0, 0, 0.2); /* 왼쪽 그림자 */
 }
 
 .pageTitle {

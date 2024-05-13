@@ -13,16 +13,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BalpoomService {
 
-//    private final HouseRepository houseRepository;
+    private final HouseRepository houseRepository;
 
-//    public List<HouseDTO> getBalpoom(Long local_id){
-//        List<House> houseList = houseRepository.findByLocalIdAndRequet(local_id);
-//        List<HouseDTO> dtoList = new ArrayList<>();
-//
-//        for(House house : houseList){
-//            dtoList.add(HouseDTO.toDTO(house));
-//        }
-//        return dtoList;
-//    }
+    public List<HouseDTO> getBalpoom(Long local_id){
+        List<House> houseList = houseRepository.findByLocalIdAndRequest(local_id);
+        List<HouseDTO> dtoList = new ArrayList<>();
 
+        for(House house : houseList){
+            dtoList.add(HouseDTO.toDTO(house));
+        }
+        return dtoList;
+    }
 }

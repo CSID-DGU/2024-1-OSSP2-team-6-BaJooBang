@@ -65,6 +65,27 @@ const DopageMap = ({ search }) => {
     position.content.includes(search)
   );
 
+    const [dopositions, setDopositions] = useState([]);
+    const { local_id } = useParams();
+    useEffect(() => {
+        // API로부터 데이터를 가져오는 함수 정의
+        const fetchData = async () => {
+            try {
+                // axios를 사용하여 GET 요청 보내고 데이터 받아오기
+                const response = await axios.get(`http://localhost:8000/balpoom?local_id=1`);
+                // API에서 받은 데이터를 positions 상태에 설정
+                setDopositions(response.data);
+            } catch (error) {
+                console.error('api 에러:', error);
+            }
+        };
+
+        // fetchData 함수 호출
+        fetchData();
+    }, []);
+//----------------------------------------------------------------------------------------------------
+
+
   useEffect(() => {
     // 마커를 담을 배열입니다
     let markers = [];
