@@ -69,7 +69,7 @@ import { ReactComponent as Check } from '../../components/images/check(heavy).sv
         }
 
         return (
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5vw', paddingBottom: '5vw'}}>
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5vw', paddingBottom: '5vw', backgroundColor: '#ffffdd'}}>
                 <div className='footWorkBG'>
                     <div className='pageTitle'>
                         발품 요청서 작성
