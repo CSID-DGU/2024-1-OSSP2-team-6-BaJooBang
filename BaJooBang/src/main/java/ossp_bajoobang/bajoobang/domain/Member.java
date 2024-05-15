@@ -26,6 +26,8 @@ public class Member {
     private String pw;
 
     private String address;
+    private double latitude;
+    private double longitude;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<Request> request = new ArrayList<>();
@@ -37,6 +39,8 @@ public class Member {
                 .email(signupForm.getEmail())
                 .pw(signupForm.getPw())
                 .address(signupForm.getAddress())
+                .latitude(signupForm.getLatitude())
+                .longitude(signupForm.getLongitude())
                 .build();
     }
 }

@@ -20,21 +20,21 @@ public class TestDataInit {
         member1.setName("철수");
         member1.setEmail("aaa");
         member1.setPw("111");
-        member1.setAddress("seoul");
+        member1.setAddress("서울 중구 필동로 37");
         memberRepository.save(member1);
 
         Member member2 = new Member();
         member2.setName("영희");
         member2.setEmail("bbb");
         member2.setPw("222");
-        member2.setAddress("seoul");
+        member2.setAddress("서울 중구 퇴계로36가길 21");
         memberRepository.save(member2);
 
         Member member3 = new Member();
         member3.setName("asd");
         member3.setEmail("asd");
         member3.setPw("asd");
-        member3.setAddress("asd");
+        member3.setAddress("서울 중구 퇴계로46길 26");
         memberRepository.save(member3);
 
         House house1 = new House();

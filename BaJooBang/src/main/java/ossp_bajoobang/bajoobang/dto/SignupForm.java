@@ -8,4 +8,6 @@ public class SignupForm {
     private String email;
     private String pw;
     private String address;
+    private double latitude;
+    private double longitude;
 }
