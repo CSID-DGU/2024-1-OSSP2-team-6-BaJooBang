@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ListPage1.css';
-import ListBlock from './ListBlock';
+import ListBlock from './ListBlock1';
 
 function ListPage1() {
     const listData = [

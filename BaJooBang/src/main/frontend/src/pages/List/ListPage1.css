@@ -21,7 +21,7 @@
     flex-direction: row;
 }
 
-.ListTitleText_num, .ListTitleText_address, .ListTitleText_person, .ListTitleText_star { 
+.ListTitleText_num, .ListTitleText_address, .ListTitleText_person, .ListTitleText_star, .ListTitleText2, .ListTitleText2_address { 
     height: 100%;
     display: flex;
     align-items: center;

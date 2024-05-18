@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './ListPage1.css';
-import ListBlock from './ListBlock';
+import ListBlock2 from './ListBlock2';
 
 function ListPage2() {
     const listData = [
-        { Num: '1', Address: '서울특별시 서초구 서초동', Person: '홍길동', Star: '4.8' },
-        { Num: '2', Address: '서울특별시 강남구 역삼동', Person: '이순신', Star: '4.9' },
-        { Num: '3', Address: '서울특별시 강동구 천호동', Person: '장보고', Star: '4.7' },
+        { Num: '1', Address: '서울특별시 서초구 서초동', month: '2000/130', date: '2024.03.29', request: '0', state: '요청 중' },
+        { Num: '2', Address: '서울특별시 강남구 역삼동', month: '1000/50', date: '2024.03.28', request: '1', state: '요청 중' },
+        { Num: '3', Address: '서울특별시 강동구 천호동', month: '100/23', date: '2024.03.24', request: '4', state: '매칭 완료' },
         // 추가적인 데이터를 여기에 입력
     ];
 
@@ -27,7 +27,7 @@ function ListPage2() {
                 </div>
                 {listData.map((item, index) => (
                     <React.Fragment key={index}>
-                        <ListBlock Num={item.Num} Address={item.Address} Person={item.Person} Star={item.Star} />
+                        <ListBlock2 Num={item.Num} Address={item.Address} month={item.month} date={item.date} request={item.request} state={item.state} />
                         <div className='ListLine' />
                     </React.Fragment>
                 ))}
