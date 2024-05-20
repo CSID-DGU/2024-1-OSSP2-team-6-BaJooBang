@@ -43,6 +43,15 @@ public class TestDataInit {
         member3.setLongitude(126.96935276436112);
         memberRepository.save(member3);
 
+        Member member4 = new Member();
+        member4.setName("ddd");
+        member4.setEmail("ddd");
+        member4.setPw("ddd");
+        member4.setAddress("서울 동작구 흑석로 84");
+        member4.setLatitude(37.505063811811645);
+        member4.setLongitude(126.95724358215766);
+        memberRepository.save(member3);
+
         House house1 = new House();
         house1.setContent("서울특별시 중구 묵정동");
         house1.setLatitude(37.561208);

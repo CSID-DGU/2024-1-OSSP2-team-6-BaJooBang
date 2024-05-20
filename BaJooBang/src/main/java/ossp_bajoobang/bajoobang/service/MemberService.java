@@ -72,14 +72,27 @@ public class MemberService {
 
             JSONObject jsonObject = new JSONObject(response);
             int totalTime = 0;
+            double startX = 0;
+            double startY = 0;
+            double endX = 0;
+            double endY = 0;
+
 
             if(!response.substring(2,7).equals("error")){
                 JSONObject result = jsonObject.getJSONObject("result");
                 JSONObject firstPath = result.getJSONArray("path").getJSONObject(0);
                 totalTime = firstPath.getJSONObject("info").getInt("totalTime");
+
+                JSONObject firstSubPath = firstPath.getJSONArray("subPath").getJSONObject(1);
+
+                startX = firstSubPath.getDouble("startX");
+                startY = firstSubPath.getDouble("startY");
+                endX = firstSubPath.getDouble("endX");
+                endY = firstSubPath.getDouble("endY");
             }
 
             log.info("totalTime: " + String.valueOf(totalTime));
+            log.info("startX: " + String.valueOf(startX));
             log.info("----------------------------");
 
         }catch (Exception e){
