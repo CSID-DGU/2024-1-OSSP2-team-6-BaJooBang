@@ -43,4 +43,5 @@ public class Member {
                 .longitude(signupForm.getLongitude())
                 .build();
     }
+
 }

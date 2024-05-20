@@ -20,7 +20,9 @@ public class TestDataInit {
         member1.setName("철수");
         member1.setEmail("aaa");
         member1.setPw("111");
-        member1.setAddress("서울 중구 필동로 37");
+        member1.setAddress("서울 중구 퇴계로46길 26");
+        member1.setLatitude(37.561492233389956);
+        member1.setLongitude(126.99947370136589);
         memberRepository.save(member1);
 
         Member member2 = new Member();
@@ -28,13 +30,17 @@ public class TestDataInit {
         member2.setEmail("bbb");
         member2.setPw("222");
         member2.setAddress("서울 중구 퇴계로36가길 21");
+        member2.setLatitude(37.56534846575874);
+        member2.setLongitude(126.99718726985);
         memberRepository.save(member2);
 
         Member member3 = new Member();
         member3.setName("asd");
         member3.setEmail("asd");
         member3.setPw("asd");
-        member3.setAddress("서울 중구 퇴계로46길 26");
+        member3.setAddress("서울 용산구 원효로97길 15");
+        member3.setLatitude(37.54135995650307);
+        member3.setLongitude(126.96935276436112);
         memberRepository.save(member3);
 
         House house1 = new House();

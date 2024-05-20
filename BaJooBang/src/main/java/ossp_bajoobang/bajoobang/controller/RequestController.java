@@ -7,10 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.House;
 import ossp_bajoobang.bajoobang.domain.Member;
+import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
 import ossp_bajoobang.bajoobang.repository.HouseRepository;
 import ossp_bajoobang.bajoobang.repository.MemberRepository;
 import ossp_bajoobang.bajoobang.service.HouseService;
+import ossp_bajoobang.bajoobang.service.MemberService;
 import ossp_bajoobang.bajoobang.service.RequestService;
 
 import java.util.ArrayList;
@@ -24,6 +26,9 @@ public class RequestController {
     private final RequestService requestService;
     private final HouseService houseService;
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
+
+
 
     @PostMapping("/request-form")
     public String requestForm(@RequestBody RequestDTO requestDTO, HttpServletRequest request, @RequestParam Long house_id){
@@ -38,11 +43,13 @@ public class RequestController {
             // 새로운 요청서 저장
             requestService.saveRequest(requestDTO, member, house);
 
-            // 주어진 house의 위도와 경도로부터 가까운 회원 10명 검색
-            List<Member> nearbyMembers = memberRepository.findTop10MembersByDistance(house.getLatitude(), house.getLongitude());
+            // 주어진 house의 위도와 경도로부터 가까운 회원 20명 검색
+            List<Member> nearbyMembers = memberRepository.findTop20MembersByDistance(house.getLatitude(), house.getLongitude());
             nearbyMembers.forEach(m -> log.info("Member Address: " + m.getAddress()));
 
-
+            // 20명 정도면 충분한 비교군이라 생각함.
+            // 더 복잡하게 하면...힘들어...
+             memberService.findMembersByTravelTime(nearbyMembers, house.getLatitude(), house.getLongitude());
 
             return "GOOD";
         }
