@@ -1,5 +1,6 @@
 package ossp_bajoobang.bajoobang.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -45,6 +46,7 @@ public class Request {
 //    private boolean moldWindow;
 
     @OneToMany(mappedBy = "request")
+    @JsonManagedReference
     private List<PlusRequest> plusRequests = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,10 +1,12 @@
 package ossp_bajoobang.bajoobang.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
+import ossp_bajoobang.bajoobang.dto.PlusRequestDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ public class PlusRequest {
     //    @JoinColumn(name="request_id", insertable = false, updatable = false)
     @ManyToOne
     @JoinColumn(name = "request_id")
+    @JsonBackReference
     private Request request;
 
 //    public static PlusRequest toEntity(List<PlusRequest> dto){

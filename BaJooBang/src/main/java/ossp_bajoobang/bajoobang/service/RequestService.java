@@ -13,6 +13,9 @@ import ossp_bajoobang.bajoobang.dto.RequestDTO;
 import ossp_bajoobang.bajoobang.repository.PlusRequestRepository;
 import ossp_bajoobang.bajoobang.repository.RequestRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +43,21 @@ public class RequestService {
         plusRequest.setRequest(request);
         plusRequestRepository.save(plusRequest);*/
 
+    }
+
+    public List<RequestDTO> findMyRequests(Long memberId) {
+        List<RequestDTO> myRequestsDTO = new ArrayList<>();
+        List<Request> requestList = requestRepository.findByMemberId(memberId);
+
+        for (Request request : requestList) {
+            myRequestsDTO.add(RequestDTO.toDTO(request));
+        }
+        return myRequestsDTO;
+    }
+
+    // 신청 조회시 필요?
+    public List<RequestDTO> findReceivedRequests(Long memberId) {
+        List<RequestDTO> receivedRequests = new ArrayList<>();
+        return receivedRequests;
     }
 }

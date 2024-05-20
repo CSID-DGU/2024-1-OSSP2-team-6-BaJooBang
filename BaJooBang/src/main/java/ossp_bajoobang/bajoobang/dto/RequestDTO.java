@@ -1,6 +1,7 @@
 package ossp_bajoobang.bajoobang.dto;
 
 import lombok.*;
+import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.domain.PlusRequest;
 import ossp_bajoobang.bajoobang.domain.Request;
 
@@ -24,4 +25,13 @@ public class RequestDTO {
     // 매물 주소
     private String house_address;
     private int stair;
+
+    public static RequestDTO toDTO(Request entity){
+
+        return RequestDTO.builder()
+                .request_date(entity.getRequestDate())
+                .price_request(entity.getPriceRequest())
+                .plus_list(entity.getPlusRequests())
+                .build();
+    }
 }
