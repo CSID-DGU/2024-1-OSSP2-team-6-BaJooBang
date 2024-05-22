@@ -37,3 +37,18 @@
   background-color: #D2DE32;
   color: rgb(255, 255, 255);
 }
+.search {
+  display: flex;
+  align-items: center;
+  width: 100%; /* 전체 너비를 사용하도록 설정 */
+}
+
+.searchbox {
+  display: flex;
+  align-items: center;
+}
+
+.right_elements {
+  margin-left: auto;
+  margin-right: 150px;
+}
