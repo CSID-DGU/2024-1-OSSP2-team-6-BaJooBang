@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import './ListPage1.css';
 import ListBlock from './ListBlock1';
+import Modal from './Modal';
 
 function ListPage1() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalData, setModalData] = useState(null);
+
     const listData = [
         { Num: '1', Address: '서울특별시 서초구 서초동', Person: '홍길동', Star: '4.8' },
         { Num: '2', Address: '서울특별시 강남구 역삼동', Person: '이순신', Star: '4.9' },
         { Num: '3', Address: '서울특별시 강동구 천호동', Person: '장보고', Star: '4.7' },
         // 추가적인 데이터를 여기에 입력
     ];
+
+    const handleBlockClick = (data) => {
+        setModalData(data);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setModalData(null);
+    };
 
     return(
         <div className='ListBackground'>
@@ -25,12 +39,18 @@ function ListPage1() {
                 </div>
                 {listData.map((item, index) => (
                     <React.Fragment key={index}>
-                        <ListBlock Num={item.Num} Address={item.Address} Person={item.Person} Star={item.Star} />
+                        <ListBlock 
+                            Num={item.Num} 
+                            Address={item.Address} 
+                            Person={item.Person} 
+                            Star={item.Star} 
+                            onClick={() => handleBlockClick(item)}
+                        />
                         <div className='ListLine' />
                     </React.Fragment>
                 ))}
             </div>
-        
+            <Modal isOpen={isModalOpen} onClose={closeModal} data={modalData} />
         </div>
     )
 }

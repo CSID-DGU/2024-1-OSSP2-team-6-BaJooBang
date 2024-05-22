@@ -1,5 +1,6 @@
 import {React, useState } from 'react';
 import './MyPage.css'; 
+import { Link } from 'react-router-dom';
 import {ReactComponent as Profile} from '../../components/images/mp_profile.svg';
 import InfoBox from '../../components/MyPage/MyInfoBox';
 import BottomBox from './BottomBox';
@@ -29,8 +30,13 @@ function MyPage() {
       {mode ?
         <div className='MyBottom1'>
           <BottomBox content={'찜한 방'} number={'5'} Icon={Heart}/> 
-          <BottomBox content={'등록 매물'} number={'5'} Icon={File}/>
-          <BottomBox content={'신청 조회'} number={'5'} Icon={Person}/>
+          <Link to='/list2'>
+            <BottomBox content={'등록 매물'} number={'5'} Icon={File}/>
+          </Link>
+          <Link to="/list1">
+            <BottomBox content={'신청 조회'} number={'5'} Icon={Person}/>
+          </Link>
+          
         </div>
         :
         <div className='MyBottom2'>
