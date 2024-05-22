@@ -11,6 +11,8 @@ import DoMap from './DoPage/domap';
 import Imformation from "./HelpPage/helpinfo";
 import RequestForm from './pages/RequestForm/RequestForm';
 import MyPage from './pages/MyPage/Mypage';
+import ListPage1 from './pages/List/ListPage1';
+import ListPage2 from './pages/List/ListPage2';
 
 function App() {
   return (
@@ -24,7 +26,10 @@ function App() {
           <Route path="/domap" element={<DoMap/>} />
           <Route path='/helpinfo/:house_id' element={<Imformation positions={positions} />}></Route>
           <Route path="/request/:house_id" element={<RequestForm />} />
+          {/* <Route path="/request" element={<RequestForm />} /> */}
           <Route path='/mypage' element={<MyPage />} />
+          <Route path='/list1' element={<ListPage1 />} />
+          <Route path='/list2' element={<ListPage2 />} />
       </Routes>
       </div>
     
