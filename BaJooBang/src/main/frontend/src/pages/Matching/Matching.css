@@ -1,0 +1,48 @@
+.MatchingPerson {
+    width: 15vw;
+    height: 18vw;
+    background-color: rgba(162, 197, 121, 0.3);
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.MatchingContent {
+    width: 40vw;
+    height: 15vw;
+    background-color: #FBFBFB;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+}
+
+.MatchingContentLeft {
+    width: 20vw;
+    height: 30vw;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.MatchingPartition {
+    width: 2px;
+    height: 40px;
+    background-color: #393939;
+
+}
+
+.MatchingDocument {
+    width: 8vw;
+    height: 4vw;
+    border-radius: 20px;
+    background-color: #E9EBEF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -25,7 +25,7 @@ function Modal({ isOpen, onClose, data }) {
                             요청 거부
                         </div>
                         <div className='modalButton' style={{backgroundColor: 'rgba(210, 222, 50, 0.4)'}}>
-                            요청 승인
+                            요청 수락
                         </div>
                         <div/>
                     </div>

@@ -13,6 +13,7 @@ import RequestForm from './pages/RequestForm/RequestForm';
 import MyPage from './pages/MyPage/Mypage';
 import ListPage1 from './pages/List/ListPage1';
 import ListPage2 from './pages/List/ListPage2';
+import Matching from './pages/Matching/Matching';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path='/mypage' element={<MyPage />} />
           <Route path='/list1' element={<ListPage1 />} />
           <Route path='/list2' element={<ListPage2 />} />
+          <Route path='/matching' element={<Matching />} />
       </Routes>
       </div>
     

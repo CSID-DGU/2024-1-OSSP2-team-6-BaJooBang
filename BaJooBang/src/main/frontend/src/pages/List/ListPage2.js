@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ListPage1.css';
 import ListBlock2 from './ListBlock2';
+import { Link } from 'react-router-dom';
 
 function ListPage2() {
     const listData = [
@@ -27,7 +28,10 @@ function ListPage2() {
                 </div>
                 {listData.map((item, index) => (
                     <React.Fragment key={index}>
-                        <ListBlock2 Num={item.Num} Address={item.Address} month={item.month} date={item.date} request={item.request} state={item.state} />
+                        <Link to='/matching'>
+                            <ListBlock2 Num={item.Num} Address={item.Address} month={item.month} date={item.date} request={item.request} state={item.state} />
+                        </Link>
+                        
                         <div className='ListLine' />
                     </React.Fragment>
                 ))}
