@@ -7,7 +7,6 @@
 
 .ListBox {
     width: 70vw;
-    height: 40vw;
     border-top: 2px solid black;  /* 위쪽 테두리 */
     border-bottom: 2px solid black;  /* 아래쪽 테두리 */
     margin-top: 5vw;
@@ -62,3 +61,28 @@
     background-color: #F5F4F4;
 }
 
+.ListLinkNotLine {
+    text-decoration: none;
+    color: inherit; /* 링크 색상도 상속받도록 설정 (선택 사항) */
+}
+
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.page-item {
+    margin: 0 0.5rem;
+}
+
+.page-link {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.page-link:hover {
+    text-decoration: underline;
+}
