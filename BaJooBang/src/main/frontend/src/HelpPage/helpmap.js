@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import './helpmap.css';
 import MypageMap from './kakaomap';
 import { ReactComponent as Closer } from '../components/images/closer.svg';
-import { ReactComponent as Bell } from '../components/images/bell.svg';
-import { ReactComponent as BellActive } from '../components/images/bellactive.svg';
+import Bell from './bell.js';
 
 // 매물지도의 검색라인
 const SearchBar = ({ onFilterChange, onSearchChange, currentFilter, hasNotification }) => {
@@ -40,7 +39,7 @@ const SearchBar = ({ onFilterChange, onSearchChange, currentFilter, hasNotificat
         </button>
       </div>
       <div className="right_elements">
-        {hasNotification ? <BellActive /> : <Bell />}
+        <Bell></Bell>
       </div>
     </div>
   );
@@ -50,7 +49,6 @@ const SearchBar = ({ onFilterChange, onSearchChange, currentFilter, hasNotificat
 const Helppage = () => {
   const [filter, setFilter] = useState('전체');
   const [search, setSearch] = useState('');
-  const [hasNotification, setHasNotification] = useState(false); // 알림 상태를 추적하기 위한 상태
 
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
@@ -61,11 +59,6 @@ const Helppage = () => {
   };
 
 
-  // 실제 알림 확인 로직으로 교체 필요
-  const checkForNotifications = () => {
-    // 알림이 있는지 확인하는 로직
-    setHasNotification(true); // 알림이 있으면 true로 설정
-  };
 
   return (
     <div>
@@ -73,7 +66,6 @@ const Helppage = () => {
         onFilterChange={handleFilterChange} 
         onSearchChange={handleSearchChange} 
         currentFilter={filter}
-        hasNotification={hasNotification}
       />
       <MypageMap filter={filter} search={search} />
     </div>
