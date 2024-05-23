@@ -159,7 +159,7 @@ import { ReactComponent as Check } from '../../components/images/check(heavy).sv
                                     <p style={{fontSize: '18px', color: '#5F5F5F', paddingRight: '0.7vw'}}>Q</p>
                                     <input className='plusInput' type='text' placeholder='추가 요청사항을 작성해주세요.' onChange={e => handleInputChange(index, e)}/>
                                 </div>
-                                <div className='requestLine' style={{width: '51vw'}}/>
+                                <div className='requestLine' style={{width: '51vw', marginBottom: '1vw'}}/>
                             </div>
                         ))}
                         <div style={{width: '100%', height: '8vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
