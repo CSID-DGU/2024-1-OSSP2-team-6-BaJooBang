@@ -75,19 +75,26 @@ import { ReactComponent as Check } from '../../components/images/check(heavy).sv
                         발품 요청서 작성
                     </div>
                     <p className='title2'>매물 정보</p>
-                    <Roominfo title={'매물 주소'} content={content}/>
-                    <Roominfo title={'발품 기간'} placeholder={'발품 기간을 입력해주세요.'} onChange={(e) => setDate(e.target.value)}/>
-                    <Roominfo title={'발품 가격'} placeholder={'발품 가격을 입력해주세요.'} onChange={(e) => setPrice(e.target.value)}/>
-                    <div className='title2' style={{marginTop: '5vw'}}>
+                    <div className='requestBox'>
+                        <Roominfo title={'매물 주소'} content={content}/>
+                        <Roominfo title={'발품 기간'} placeholder={'발품 기간을 입력해주세요.'} onChange={(e) => setDate(e.target.value)}/>
+                        <Roominfo title={'발품 가격'} placeholder={'발품 가격을 입력해주세요.'} onChange={(e) => setPrice(e.target.value)}/>
+                    </div>
+                    
+
+                    <div className='title2' style={{marginTop: '5vw', marginBottom: '1.5vw'}}>
                         기본 요청 사항
                     </div>
-                    <div style={{display: 'flex', marginLeft: '2.2%', alignItems: 'center'}}>
-                        <div style={{display: 'flex'}}>
-                            <Water/>
+                    
+
+                    <div className='requestBox'>
+                        <div style={{display: 'flex', marginLeft: '2.2%', alignItems: 'center', marginBottom: '1.5vw'}}>
+                            <div style={{display: 'flex'}}>
+                                <Water/>
+                            </div>
+                            
+                            <p style={{display: 'flex',color: '#5F5F5F', fontSize: '21px'}}>수압 & 온수</p>
                         </div>
-                        
-                        <p style={{display: 'flex',color: '#5F5F5F', fontSize: '21px'}}>수압 & 온수</p>
-                    </div>
                         <CheckText title={'수압 체크'} content1={'가이드 사진을 토대로 비교하여 상 중 하 선택'}/>
                         <CheckText 
                         title={'온수 체크(온수 조절기를 가장 뜨거운 쪽으로 둔 상태에서 수행)'} 
@@ -99,59 +106,69 @@ import { ReactComponent as Check } from '../../components/images/check(heavy).sv
                             <WaterBox Icon={Sink2} title={'세면대'}/>
                             <WaterBox Icon={Shower} title={'샤워기'}/>
                         </div>
-                        <div className='requestLine' style={{marginTop: '3vw', marginBottom: '3vw'}}/>
+                    </div>
                         
 
-                    <div style={{display: 'flex', marginLeft: '2.2%', alignItems: 'center'}}>
-                        <Sun/>
-                        <p style={{color: '#5F5F5F', fontSize: '21px'}}>채광</p>
-                    </div>
-                    <LightSelect/>
-                    <div className='requestLine' style={{marginTop: '3vw', marginBottom: '3vw'}}/>
-
-                    <div style={{display: 'flex', flexDirection: 'row', marginLeft: '2.2%', alignItems: 'center'}}>
-                        <Mold/>
-                        <p style={{color: '#5F5F5F', fontSize: '21px'}}>곰팡이</p>
                     
+
+                    <div className='requestBox'>
+
+                        <div style={{display: 'flex', marginLeft: '2.2%', alignItems: 'center', marginBottom: '1.5vw'}}>
+                            <Sun/>
+                            <p style={{color: '#5F5F5F', fontSize: '21px'}}>채광</p>
+                        </div>
+                        <LightSelect/>
                     </div>
-                    <div style={{display:'flex', alignItems: 'center', justifyContent: 'space-around'}}>
-                        <MoldBox title={'거실'}/>
-                        <MoldBox title={'화장실'}/>
-                        <MoldBox title={'베란다'}/>
-                        <MoldBox title={'신발장'}/>
-                        <MoldBox title={'창틀'}/>
+                    
+                    
+                    <div className='requestBox'>
+                        <div style={{display: 'flex', flexDirection: 'row', marginLeft: '2.2%', alignItems: 'center', marginBottom: '1.5vw'}}>
+                            <Mold/>
+                            <p style={{color: '#5F5F5F', fontSize: '21px'}}>곰팡이</p>
+                        
+                        </div>
+                        <div style={{display:'flex', alignItems: 'center', justifyContent: 'space-around'}}>
+                            <MoldBox title={'거실'}/>
+                            <MoldBox title={'화장실'}/>
+                            <MoldBox title={'베란다'}/>
+                            <MoldBox title={'신발장'}/>
+                            <MoldBox title={'창틀'}/>
+                        </div>
                     </div>
-                    <div className='requestLine' style={{marginTop: '3vw', marginBottom: '3vw'}}/>
+                        
+                    
 
-                    <div className='title2'>추가 요청 사항</div>
+                    <div className='title2' style={{marginBottom: '1.5vw'}}>추가 요청 사항</div>
 
-
-                    {inputs.map((request, index) => (
-                        <div key={index} style={{
-                            width: '100%', 
-                            display: 'flex', 
-                            flexDirection: 'column',
-                            alignItems: 'center', 
-                            justifyContent: 'center'
-                        }}>
-                            <div style={{
+                    <div className='requestBox'>
+                        {inputs.map((request, index) => (
+                            <div key={index} style={{
+                                width: '100%', 
                                 display: 'flex', 
-                                flexDirection: 'row', 
+                                flexDirection: 'column',
                                 alignItems: 'center', 
-                                marginBottom: '3px',
-                                width: '93%',
+                                justifyContent: 'center'
                             }}>
-                                <p style={{fontSize: '18px', color: '#5F5F5F', paddingRight: '0.7vw'}}>Q</p>
-                                <input className='plusInput' type='text' placeholder='추가 요청사항을 작성해주세요.' onChange={e => handleInputChange(index, e)}/>
+                                <div style={{
+                                    display: 'flex', 
+                                    flexDirection: 'row', 
+                                    alignItems: 'center', 
+                                    marginBottom: '3px',
+                                    width: '93%',
+                                }}>
+                                    <p style={{fontSize: '18px', color: '#5F5F5F', paddingRight: '0.7vw'}}>Q</p>
+                                    <input className='plusInput' type='text' placeholder='추가 요청사항을 작성해주세요.' onChange={e => handleInputChange(index, e)}/>
+                                </div>
+                                <div className='requestLine' style={{width: '51vw'}}/>
                             </div>
-                            <div className='requestLine' style={{width: '55vw'}}/>
-                        </div>
-                    ))}
-                    <div style={{width: '100%', height: '8vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                        <div className='plusCircle' onClick={handleAddRequest}>
-                            <Plus1/>
+                        ))}
+                        <div style={{width: '100%', height: '8vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                            <div className='plusCircle' onClick={handleAddRequest}>
+                                <Plus1/>
+                            </div>
                         </div>
                     </div>
+
                     <div style={{width: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end'}}>
                         <div onClick={RequestPost} style={{width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                             <Check />

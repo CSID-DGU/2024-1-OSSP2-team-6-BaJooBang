@@ -1,6 +1,6 @@
 .footWorkBG {
     width: 60%;
-    background-color: white;
+    background-color: #F3F3F3;
     padding: 5vw;
     border-radius: 40px;
     box-shadow: 
@@ -46,3 +46,16 @@
     height: 1.5px;
     background-color: #C1BBBB;
 }
+
+.requestBox {
+    border-radius: 30px;
+    background-color: white;
+    
+    display: flex;
+    flex-direction: column;
+    padding: 2vw;
+    padding-top: 1vw;
+    justify-content: center;
+    margin-bottom: 4vw;
+}
+
