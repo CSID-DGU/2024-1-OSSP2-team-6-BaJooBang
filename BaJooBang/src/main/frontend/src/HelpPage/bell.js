@@ -3,7 +3,7 @@ import './bell.css';
 import { ReactComponent as BellinActive } from '../components/images/bell.svg';
 import { ReactComponent as BellActive } from '../components/images/bellactive.svg';
 
-const NotificationIcon = ({ hasNotification, notificationCount }) => {
+const NotificationIcon = ({ hasNotification, notificationCount, onClickNotification }) => {
   const [hover, setHover] = useState(false);
 
   const handleMouseEnter = () => {
@@ -20,27 +20,21 @@ const NotificationIcon = ({ hasNotification, notificationCount }) => {
         {hasNotification ? <BellActive /> : <BellinActive />}
       </div>
       {hover && (
-        <span className="notification-tooltip">{hasNotification ? `요청 받은 알림 ${notificationCount}개 도착` : `요청 받은 알림이 없어요`}</span>
+        <span className="notification-tooltip" onClick={onClickNotification}>
+          {hasNotification ? `받은 요청 : ${notificationCount}개` : `받은 요청 : 0개`}
+        </span>
       )}
     </div>
   );
 };
 
-const Bell = () => {
-  const [hasNotification, setHasNotification] = useState(false);
-  const [notificationCount, setNotificationCount] = useState(0);
-
-  // 알림 상태 업데이트 로직
-  const checkNotifications = () => {
-    // API 호출을 통해 알림 확인
-    setHasNotification(true); // 예시로 true 설정
-    setNotificationCount(3); // 예시로 알림 3개 설정
-  };
+const Bell = ({ onNotificationClick }) => {
+  const [hasNotification, setHasNotification] = useState(true); // 예시: 알림 상태 초기화
+  const [notificationCount, setNotificationCount] = useState(3); // 예시: 알림 개수 초기화
 
   return (
     <div>
-      <button onClick={checkNotifications}>알림 확인</button>
-      <NotificationIcon hasNotification={hasNotification} notificationCount={notificationCount} />
+      <NotificationIcon hasNotification={hasNotification} notificationCount={notificationCount} onClickNotification={() => onNotificationClick(hasNotification)} />
     </div>
   );
 };

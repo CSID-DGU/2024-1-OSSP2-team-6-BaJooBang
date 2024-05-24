@@ -39,7 +39,7 @@ const SearchBar = ({ onFilterChange, onSearchChange, currentFilter, hasNotificat
         </button>
       </div>
       <div className="right_elements">
-        <Bell></Bell>
+        
       </div>
     </div>
   );
@@ -49,6 +49,7 @@ const SearchBar = ({ onFilterChange, onSearchChange, currentFilter, hasNotificat
 const Helppage = () => {
   const [filter, setFilter] = useState('전체');
   const [search, setSearch] = useState('');
+  const [showOnlyNotified, setShowOnlyNotified] = useState(false);
 
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
@@ -58,18 +59,22 @@ const Helppage = () => {
     setSearch(newSearch);
   };
 
-
+  const handleNotificationClick = (isActive) => {
+    setShowOnlyNotified(isActive);
+  };
 
   return (
     <div>
-      <SearchBar 
-        onFilterChange={handleFilterChange} 
-        onSearchChange={handleSearchChange} 
+       <SearchBar 
+        onFilterChange={handleFilterChange} // 함수를 props로 전달
+        onSearchChange={setSearch} // setSearch 함수를 직접 전달
         currentFilter={filter}
       />
-      <MypageMap filter={filter} search={search} />
+      <Bell onNotificationClick={handleNotificationClick} />
+      <MypageMap filter={filter} search={search} showOnlyNotified={showOnlyNotified} />
     </div>
   );
 };
+
 
 export default Helppage;

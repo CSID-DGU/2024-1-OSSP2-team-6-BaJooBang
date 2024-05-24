@@ -64,7 +64,7 @@ function DONav({ positions }) {
 const DopageMap = ({ search }) => {
   const filteredPositions = dopositions.filter(position =>
     position.content.includes(search)
-  );
+  );/*
 
     const [dopositions, setDopositions] = useState([]);
     const { local_id } = useParams();
@@ -83,7 +83,7 @@ const DopageMap = ({ search }) => {
 
         // fetchData 함수 호출
         fetchData();
-    }, []);
+    }, []);*/
 //----------------------------------------------------------------------------------------------------
 
 
