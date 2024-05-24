@@ -32,6 +32,9 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<Request> request = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    private List<Alarm> alarms = new ArrayList<>();
+
     // dto를 엔티티로 변환
     public static Member toEntity(SignupForm signupForm) {
         return Member.builder()

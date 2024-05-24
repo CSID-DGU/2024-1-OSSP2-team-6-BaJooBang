@@ -49,6 +49,9 @@ public class Request {
     @JsonManagedReference
     private List<PlusRequest> plusRequests = new ArrayList<>();
 
+    @OneToMany(mappedBy = "request")
+    private List<Alarm> alarms = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
