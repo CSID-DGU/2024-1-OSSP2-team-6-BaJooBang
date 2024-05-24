@@ -43,6 +43,7 @@ public class MemberService {
         Map<Double, Member> travelTimeToMemberMap  = new HashMap<>();
         for(Member member : nearbyMembers){
             double travelTime = getTravelTime(member, latitude, longitude);
+            log.info("travel Time : " + travelTime);
             travelTimeToMemberMap.put(travelTime, member);
         }
 
@@ -57,20 +58,18 @@ public class MemberService {
             }
         }
 
-        log.info("##############################");
-        log.info("sortedMembers size : " + sortedMembers.size());
         for(Member member : sortedMembers){
-            log.info(member.getAddress());
+            log.info("sorted Member Address : " + member.getAddress());
         }
 
         return sortedMembers;
     }
 
-    public double getTravelTime(Member member, double houseX, double houseY){
+    public double getTravelTime(Member member, double houseLat, double houseLong){
         double totalTime = 0;
 
         String urlInfo = String.format("https://api.odsay.com/v1/api/searchPubTransPathT?apiKey=%s&SX=%f&SY=%f&EX=%f&EY=%f&OPT=0",
-                apiKey, member.getLongitude(), member.getLatitude(),houseY, houseX);
+                apiKey, member.getLongitude(), member.getLatitude(),houseLong, houseLat);
         try{
             URL url = new URL(urlInfo);
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -89,15 +88,15 @@ public class MemberService {
             conn.disconnect();
 
             String response = sb.toString();
-            log.info("^^^^^^^^^^^^^^^^^^^^^^^");
-            log.info(response.substring(0, 40));
+//            log.info("^^^^^^^^^^^^^^^^^^^^^^^");
+//            log.info(response.substring(0, 40));
 
 
             JSONObject jsonObject = new JSONObject(response);
-            double startX = member.getLongitude();
-            double startY = member.getLatitude();
-            double endX = houseY;
-            double endY = houseX;
+            double startX = 0;
+            double startY = 0;
+            double endX = 0;
+            double endY = 0;
 
             if(!response.substring(2,7).equals("error")){
                 JSONObject result = jsonObject.getJSONObject("result");
@@ -111,40 +110,39 @@ public class MemberService {
                 endX = firstSubPath.getDouble("endX");
                 endY = firstSubPath.getDouble("endY");
             }
-
-            totalTime = getTotalTime(member, startX, startY, endX, endY, totalTime, houseX, houseY);
+            // member long lat long lat time lat long
+            totalTime = getTotalTime(member, startX, startY, endX, endY, totalTime, houseLat, houseLong);
 
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        log.info("^^^^^^^^^^^^^^^^^^");
-        log.info("totaltime : " + totalTime);
-        log.info("vvvvvvvvvvvvvvvvvv");
-
         return totalTime;
     }
 
-    public double getTotalTime(Member member, double startX, double startY, double endX, double endY, double totalTime, double houseX, double houseY){
-        if(member.getLatitude() == startX){
+    public double getTotalTime(Member member, double startX, double startY, double endX, double endY, double totalTime, double houseLat, double houseLong){
+        // member
+        if(startX == 0){
             // start와 end
-            totalTime += getDistanceTime(startX,startY,endX,endY);
+            log.info("도보 이용자");
+            totalTime += getDistanceTime(member.getLongitude(),member.getLatitude(),houseLong, houseLat);
         }else{
             // member와 start
             totalTime += getDistanceTime(member.getLongitude(), member.getLatitude(), startX, startY);
             // end와 house
-            totalTime += getDistanceTime(endX, endY, houseY, houseX);
+            totalTime += getDistanceTime(endX, endY, houseLong, houseLat); //long lat long lat
         }
 
         return totalTime;
     }
 
     public double getDistanceTime(double startX, double startY, double endX, double endY){
+        // long lat long lat
         double time = 0;
 
         final int R = 6371000; // Radius of the Earth in meters
-        double latDistance = Math.toRadians(endY - startY);
-        double lonDistance = Math.toRadians(endX - startX);
+        double latDistance = Math.toRadians(endY - startY); // latitude
+        double lonDistance = Math.toRadians(endX - startX); // longitude
         double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
                 + Math.cos(Math.toRadians(startY)) * Math.cos(Math.toRadians(endY))
                 * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
