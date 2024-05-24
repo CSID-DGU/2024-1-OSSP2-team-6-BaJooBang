@@ -24,13 +24,13 @@ public class RequestService {
     private final RequestRepository requestRepository;
     private final PlusRequestRepository plusRequestRepository;
 
-    public void saveRequest(RequestDTO requestDTO, Member member, House house){
+    public Request saveRequest(RequestDTO requestDTO, Member member, House house){
         Request request = Request.toEntity(requestDTO, member, house);
         request.setMember(member); // member랑 request랑 조인할 때 쓰일듯 아직 맞는 건지 모름
         request.setHouse(house);
         // 저장할 때, house_id와 함께 저장해주어야 함. => 테이블도 join해주어야 함!!! --> 위에 함
 
-        requestRepository.save(request);
+        Request saveRequest = requestRepository.save(request);
 
         // test
         for(int i=0; i< requestDTO.getPlus_list().size(); i++){
@@ -43,6 +43,7 @@ public class RequestService {
         plusRequest.setRequest(request);
         plusRequestRepository.save(plusRequest);*/
 
+        return saveRequest;
     }
 
     public List<RequestDTO> findMyRequests(Long memberId) {

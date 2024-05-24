@@ -8,6 +8,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter @Setter
 public class Alarm {
 
     @Id
@@ -25,13 +26,15 @@ public class Alarm {
 
     // 알람 T/F?
 
-    public void setMember(Member member) {
-        this.member = member;
-        member.getAlarms().add(this);
-    }
+//    public void setMember(Member member) {
+//        this.member = member;
+//        member.getAlarms().add(this);
+//    }
+//
+//    public void setRequest(Request request) {
+//        this.request = request;
+//        request.getAlarms().add(this);
+//    }
 
-    public void setRequest(Request request) {
-        this.request = request;
-        request.getAlarms().add(this);
-    }
+
 }

@@ -58,10 +58,6 @@ public class MemberService {
             }
         }
 
-        for(Member member : sortedMembers){
-            log.info("sorted Member Address : " + member.getAddress());
-        }
-
         return sortedMembers;
     }
 

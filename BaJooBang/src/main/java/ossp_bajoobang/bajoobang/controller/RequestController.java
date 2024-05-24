@@ -7,10 +7,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.House;
 import ossp_bajoobang.bajoobang.domain.Member;
+import ossp_bajoobang.bajoobang.domain.Request;
 import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
+import ossp_bajoobang.bajoobang.repository.AlarmRepository;
 import ossp_bajoobang.bajoobang.repository.HouseRepository;
 import ossp_bajoobang.bajoobang.repository.MemberRepository;
+import ossp_bajoobang.bajoobang.service.AlarmService;
 import ossp_bajoobang.bajoobang.service.HouseService;
 import ossp_bajoobang.bajoobang.service.MemberService;
 import ossp_bajoobang.bajoobang.service.RequestService;
@@ -27,6 +30,8 @@ public class RequestController {
     private final HouseService houseService;
     private final MemberRepository memberRepository;
     private final MemberService memberService;
+    private final AlarmService alarmService;
+
 
 
 
@@ -41,7 +46,7 @@ public class RequestController {
             // 퀴리 파라미터로 매물 가져오기
             House house = houseRepository.findByHouseId(house_id);
             // 새로운 요청서 저장
-            requestService.saveRequest(requestDTO, member, house);
+            Request newRequest = requestService.saveRequest(requestDTO, member, house);
 
             // 주어진 house의 위도와 경도로부터 가까운 회원 20명 검색
             List<Member> nearbyMembers = memberRepository.findTop20MembersByDistance(house.getLatitude(), house.getLongitude());
@@ -49,7 +54,11 @@ public class RequestController {
 
             // 20명 정도면 충분한 비교군이라 생각함.
             // 더 복잡하게 하면...힘들어...
-             List<Member> alarmMembers = memberService.findMembersByTravelTime(nearbyMembers, house.getLatitude(), house.getLongitude());
+            List<Member> alarmMembers = memberService.findMembersByTravelTime(nearbyMembers, house.getLatitude(), house.getLongitude());
+
+            for(Member mem : alarmMembers){
+                alarmService.saveMemberRequest(mem, newRequest);
+            }
 
             return "GOOD";
         }
