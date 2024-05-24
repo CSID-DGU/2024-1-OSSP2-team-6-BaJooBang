@@ -49,7 +49,7 @@ public class RequestController {
 
             // 20명 정도면 충분한 비교군이라 생각함.
             // 더 복잡하게 하면...힘들어...
-             memberService.findMembersByTravelTime(nearbyMembers, house.getLatitude(), house.getLongitude());
+             List<Member> alarmMembers = memberService.findMembersByTravelTime(nearbyMembers, house.getLatitude(), house.getLongitude());
 
             return "GOOD";
         }
