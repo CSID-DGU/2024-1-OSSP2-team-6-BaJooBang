@@ -26,7 +26,7 @@
          "lat": 37.558077,
          "lng": 127.000882
      },
-     hasNotification: true
+     "hasNotification": true
  },
  {
      "house_id": 2,
@@ -41,7 +41,7 @@
          "lat": 37.566882968825,
          "lng": 126.99092687291
      },
-     hasNotification: false
+     "hasNotification": true
  },
  {
    "house_id": 3,
@@ -55,7 +55,8 @@
    "latLng": {
        "lat": 37.560413254084,
        "lng": 127.00768457766
-   }
+   },
+   "hasNotification": false
  },
  {
    "house_id": 4,
@@ -69,7 +70,8 @@
    "latLng": {
        "lat": 37.564817444932,
        "lng": 127.00385183088
-   }
+   },
+   "hasNotification": false
  },
  {
    "house_id": 5,
@@ -83,7 +85,8 @@
    "latLng": {
        "lat": 37.562795037739,
        "lng": 126.98548564325
-   }
+   },
+   "hasNotification": false
  },
  {
    "house_id": 6,
@@ -97,7 +100,8 @@
    "latLng": {
        "lat": 37.560285512326,
        "lng": 126.99536275539
-   }
+   },
+   "hasNotification": false
  }
  
  ];

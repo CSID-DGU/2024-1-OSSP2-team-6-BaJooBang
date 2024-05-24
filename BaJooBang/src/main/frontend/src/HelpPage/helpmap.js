@@ -3,6 +3,7 @@ import './helpmap.css';
 import MypageMap from './kakaomap';
 import { ReactComponent as Closer } from '../components/images/closer.svg';
 import Bell from './bell.js';
+import { positions } from './kakaomap';
 
 // 매물지도의 검색라인
 const SearchBar = ({ onFilterChange, onSearchChange, currentFilter, hasNotification }) => {
@@ -70,7 +71,7 @@ const Helppage = () => {
         onSearchChange={setSearch} // setSearch 함수를 직접 전달
         currentFilter={filter}
       />
-      <Bell onNotificationClick={handleNotificationClick} />
+      <Bell  positions={positions} onNotificationClick={handleNotificationClick} />
       <MypageMap filter={filter} search={search} showOnlyNotified={showOnlyNotified} />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './bell.css';
 import { ReactComponent as BellinActive } from '../components/images/bell.svg';
 import { ReactComponent as BellActive } from '../components/images/bellactive.svg';
@@ -28,13 +28,18 @@ const NotificationIcon = ({ hasNotification, notificationCount, onClickNotificat
   );
 };
 
-const Bell = ({ onNotificationClick }) => {
-  const [hasNotification, setHasNotification] = useState(true); // 예시: 알림 상태 초기화
-  const [notificationCount, setNotificationCount] = useState(3); // 예시: 알림 개수 초기화
+const Bell = ({ onNotificationClick, positions }) => {
+  // positions 배열에서 hasNotification이 true인 요소의 개수를 계산합니다.
+  const notificationCount = positions.filter(position => position.hasNotification).length;
+  const hasNotification = notificationCount > 0; // 0개 이상이면 true, 아니면 false
 
   return (
     <div>
-      <NotificationIcon hasNotification={hasNotification} notificationCount={notificationCount} onClickNotification={() => onNotificationClick(hasNotification)} />
+      <NotificationIcon 
+        hasNotification={hasNotification} 
+        notificationCount={notificationCount} 
+        onClickNotification={() => onNotificationClick(hasNotification)}
+      />
     </div>
   );
 };
