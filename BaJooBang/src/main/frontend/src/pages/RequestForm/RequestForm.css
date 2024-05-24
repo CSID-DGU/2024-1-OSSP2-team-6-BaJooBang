@@ -67,6 +67,7 @@
     flex-direction: column;
     justify-content: center;
     margin-bottom: 3vw;
+    position: relative;
 }
 
 .plusrequestTitle {
@@ -81,6 +82,7 @@
     display: flex;
     flex-direction: row;
     margin: 0.5vw;
+    margin-bottom: 0.9vw;
     align-items: center;
 }
 
@@ -97,6 +99,7 @@
     min-height: 10vw; /* 최소 높이 지정 */
     resize: vertical; /* 내용이 늘어나면 높이가 늘어나도록 설정 */
     overflow: hidden; /* 내용이 넘치지 않도록 설정 */
+    position: relative;
 }
 
 .plusrequestContent::placeholder {
@@ -112,4 +115,72 @@
 .plusrequestContent:empty::before {
     content: attr(placeholder);
     color: #9b9b9b;
+}
+
+.plusrequestFile {
+    width: 6vw;
+    height: 2.5vw;
+    position: absolute;
+    bottom: 1.5vw;
+    right: 1.2vw;
+    background-color: #E9EBEF;
+    border-radius: 15px;
+    border: none;
+}
+
+.plusrequestImageBox {
+    width: 80%;
+    height: 4vw;
+    position: absolute;
+    bottom: 1.5vw;
+    left: 2vw;
+}
+
+
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 30%; /* 화면 너비의 80%로 제한 */
+    max-height: 100%; /* 화면 높이의 80%로 제한 */
+    width: auto;
+    height: auto;
+}
+
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.plusrequestImageBox img {
+    width: 5vw;
+    height: 5vw;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0.3vw;
 }

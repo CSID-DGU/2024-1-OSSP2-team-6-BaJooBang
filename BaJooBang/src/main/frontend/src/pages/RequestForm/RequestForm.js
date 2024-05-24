@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './RequestForm.css';
@@ -23,7 +23,7 @@ function RequestForm() {
 
     const content = location.state ? location.state.content : '기본값';
 
-    const [requests] = useState([
+    const [requests, setRequests] = useState([
         { title: '콘센트 위치 확인하고 사진으로 찍어주세요.' },
         { title: '방음 상태 확인해주세요.' },
         { title: '창문 잠금장치 상태 확인해주세요.' }
@@ -33,10 +33,23 @@ function RequestForm() {
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
     const [write, setWrite] = useState(false);
+    const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: '' })));
+    const contentRefs = useRef([]);
+    const imageBoxRefs = useRef([]);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const handleInputChange = (index, event) => {
         const newInputs = inputs.map((input, i) => i === index ? { plus_q: event.target.value } : input);
         setInputs(newInputs);
+    };
+
+    const handleContentEditableChange = (index, event) => {
+        const newContentEditableStates = contentEditableStates.map((state, i) => i === index ? { text: event.target.textContent } : state);
+        setContentEditableStates(newContentEditableStates);
+    };
+
+    const handleAddRequest = () => {
+        setInputs([...inputs, { plus_q: '' }]);
     };
 
     async function RequestPost() {
@@ -60,6 +73,29 @@ function RequestForm() {
             console.error('Request failed:', error);
         }
     }
+
+    const handleFileChange = (index, event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = '50px'; // 이미지 정사각형 크기 조절
+                img.style.height = '50px';
+                img.style.cursor = 'pointer';
+                img.onclick = () => setSelectedImage(img.src); // 이미지 클릭 시 모달 열기
+                if (imageBoxRefs.current[index]) {
+                    imageBoxRefs.current[index].appendChild(img);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const closeModal = () => {
+        setSelectedImage(null);
+    };
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5vw', paddingBottom: '5vw', backgroundColor: '#ffffdd' }}>
@@ -123,22 +159,74 @@ function RequestForm() {
                 <div className='title2' style={{ marginBottom: '1.5vw' }}>추가 요청 사항</div>
 
                 <div className='requestBox' style={{ paddingTop: '3vw' }}>
-                    {requests.map((input, index) => (
-                        <div className='plusrequestBox' key={index}>
-                            <div>
-                                <div className='plusrequestTitle'>
-                                    요청 사항
-                                    <div style={{ width: '1.5px', height: '1.5vw', backgroundColor: '#5F5F5F', borderRadius: '1px', marginLeft: '1vw', marginRight: '1vw' }} />
-                                    Q. {input.title}
+                    {write ? (
+                        <>
+                            {inputs.map((request, index) => (
+                                <div key={index} style={{
+                                    width: '100%', 
+                                    display: 'flex', 
+                                    flexDirection: 'column',
+                                    alignItems: 'center', 
+                                    justifyContent: 'center'
+                                }}>
+                                    <div style={{
+                                        display: 'flex', 
+                                        flexDirection: 'row', 
+                                        alignItems: 'center', 
+                                        marginBottom: '3px',
+                                        width: '93%',
+                                    }}>
+                                        <p style={{fontSize: '18px', color: '#5F5F5F', paddingRight: '0.7vw'}}>Q</p>
+                                        <textarea 
+                                            className='plusrequestContent' 
+                                            placeholder='추가 요청사항을 작성해주세요.' 
+                                            onChange={e => handleInputChange(index, e)}
+                                        />
+                                    </div>
+                                    <div className='requestLine' style={{width: '51vw', marginBottom: '1vw'}}/>
                                 </div>
-                                <div
-                                    className="plusrequestContent"
-                                    contentEditable="true"
-                                    placeholder="요청 사항을 작성해주세요."
-                                ></div>
+                            ))}
+                            <div style={{width: '100%', height: '8vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                <div className='plusCircle' onClick={handleAddRequest}>
+                                    <Plus1/>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        </>
+                    ) : (
+                        <>
+                            {requests.map((input, index) => (
+                                <div className='plusrequestBox' key={index}>
+                                    <div>
+                                        <div className='plusrequestTitle'>
+                                            요청 사항
+                                            <div style={{ width: '1.5px', height: '1.5vw', backgroundColor: '#5F5F5F', borderRadius: '1px', marginLeft: '1vw', marginRight: '1vw' }} />
+                                            Q. {input.title}
+                                        </div>
+                                        <div
+                                            className="plusrequestContent"
+                                            contentEditable="true"
+                                            placeholder="요청 사항을 작성해주세요."
+                                            onInput={e => handleContentEditableChange(index, e)}
+                                            ref={el => contentRefs.current[index] = el}
+                                        >
+                                            {/* {contentEditableStates[index].text} */}
+                                        </div>
+                                        <div className='plusrequestImageBox' ref={el => imageBoxRefs.current[index] = el}></div>
+                                        <button className='plusrequestFile' contentEditable="false" onClick={() => document.getElementById(`fileInput-${index}`).click()}>
+                                            파일 업로드
+                                        </button>
+                                        <input 
+                                            type="file" 
+                                            id={`fileInput-${index}`} 
+                                            style={{ display: 'none' }} 
+                                            onChange={e => handleFileChange(index, e)}
+                                            accept="image/*"
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                        </>
+                    )}
                 </div>
 
                 <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
@@ -147,6 +235,13 @@ function RequestForm() {
                         <p style={{ fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw' }}>작성완료</p>
                     </div>
                 </div>
+
+                {selectedImage && (
+                    <div className='modal' onClick={closeModal}>
+                        <span className='close' onClick={closeModal}>&times;</span>
+                        <img className='modal-content' src={selectedImage} alt='Selected' />
+                    </div>
+                )}
             </div>
         </div>
     );
