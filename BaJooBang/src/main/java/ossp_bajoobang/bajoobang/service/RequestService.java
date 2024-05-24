@@ -55,7 +55,8 @@ public class RequestService {
         return myRequestsDTO;
     }
 
-    // 신청 조회시 필요?
+    // 알람 조회
+    // 매물 리스트?, 요청서 리스트?
     public List<RequestDTO> findReceivedRequests(Long memberId) {
         List<RequestDTO> receivedRequests = new ArrayList<>();
         return receivedRequests;
