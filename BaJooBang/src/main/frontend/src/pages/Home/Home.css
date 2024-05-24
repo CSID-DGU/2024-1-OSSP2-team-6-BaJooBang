@@ -1,0 +1,86 @@
+.Homepage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 전체 화면 높이 */
+  /*background-color: rgba(0, 0, 0, 0.7); /* 검은색 반투명 배경 추가 */
+  position: relative; 
+  z-index: 1;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInAnimation 2s ease-out forwards;
+}
+
+.fade-in.description {
+  animation-delay: 1s; /* 설명 텍스트에 약간의 지연을 추가 */
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.message {
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.fade-in-out {
+  animation: fadeInOut 8s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  25%, 75% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-arrow {
+  animation: blinkAnimation 1s infinite; /* 무한 반복 */
+  font-size: 24px; /* 화살표 크기 */
+  color: white; /* 화살표 색상 */
+  padding-top: 20px; /* 텍스트로부터 여백 */
+  margin-top: 300px; /* 화살표를 더 아래로 이동 */
+}
+
+
+@keyframes blinkAnimation {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+video {
+  width: 100%;
+  opacity: 0.1;
+  filter: invert(100%); /*영상 반전요소*/
+}
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

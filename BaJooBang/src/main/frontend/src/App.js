@@ -16,6 +16,7 @@ import ListPage2 from './pages/List/ListPage2';
 import ListPage3 from './pages/List/ListPage3';
 import ListPage4 from './pages/List/ListPage4';
 import Matching from './pages/Matching/Matching';
+import Homepage from './pages/Home/Home';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <div>
         <HeaderBar />
         <Routes>
+        <Route path="/" element={<Homepage/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/helpmap" element={<HelpMap />} />
