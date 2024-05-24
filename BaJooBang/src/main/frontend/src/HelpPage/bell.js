@@ -28,11 +28,13 @@ const NotificationIcon = ({ hasNotification, notificationCount, onClickNotificat
   );
 };
 
-const Bell = ({ onNotificationClick, positions }) => {
-  // positions 배열에서 hasNotification이 true인 요소의 개수를 계산합니다.
-  const notificationCount = positions.filter(position => position.hasNotification).length;
+const Bell = ({ onNotificationClick, dopositions }) => {
+  // dopositions 배열에서 hasNotification이 true인 요소의 개수를 계산합니다.
+  const notificationCount = dopositions.filter(doposition => doposition.hasNotification).length;
   const hasNotification = notificationCount > 0; // 0개 이상이면 true, 아니면 false
-
+  const handleNotificationClick = () => {
+    onNotificationClick(!hasNotification); // 현재 상태의 반대로 설정
+  };
   return (
     <div>
       <NotificationIcon 

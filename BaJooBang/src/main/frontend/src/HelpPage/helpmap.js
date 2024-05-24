@@ -6,7 +6,7 @@ import Bell from './bell.js';
 import { positions } from './kakaomap';
 
 // 매물지도의 검색라인
-const SearchBar = ({ onFilterChange, onSearchChange, currentFilter, hasNotification }) => {
+const SearchBar = ({ onFilterChange, onSearchChange, currentFilter}) => {
   return (
     <div className="search">
       <label htmlFor="searchfor">매물 검색<span className='blank'></span>|</label><span className='blank'></span>
@@ -50,7 +50,6 @@ const SearchBar = ({ onFilterChange, onSearchChange, currentFilter, hasNotificat
 const Helppage = () => {
   const [filter, setFilter] = useState('전체');
   const [search, setSearch] = useState('');
-  const [showOnlyNotified, setShowOnlyNotified] = useState(false);
 
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
@@ -60,22 +59,22 @@ const Helppage = () => {
     setSearch(newSearch);
   };
 
-  const handleNotificationClick = (isActive) => {
-    setShowOnlyNotified(isActive);
-  };
+
 
   return (
-    <div>
-       <SearchBar 
-        onFilterChange={handleFilterChange} // 함수를 props로 전달
-        onSearchChange={setSearch} // setSearch 함수를 직접 전달
-        currentFilter={filter}
-      />
-      <Bell  positions={positions} onNotificationClick={handleNotificationClick} />
-      <MypageMap filter={filter} search={search} showOnlyNotified={showOnlyNotified} />
+    <div className="container">  
+      <div className="search-and-bell">
+        <SearchBar 
+          onFilterChange={handleFilterChange} 
+          onSearchChange={handleSearchChange} 
+          currentFilter={filter}
+        />
+      </div>
+      <MypageMap filter={filter} search={search}  />
     </div>
   );
 };
+
 
 
 export default Helppage;

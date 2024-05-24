@@ -15,7 +15,8 @@ export const dopositions = [
     "latLng": {
       "lat": 37.558077,
       "lng": 127.000882
-    }
+    },
+   "hasNotification": true
   },
   {
     "house_id": 2,
@@ -27,7 +28,9 @@ export const dopositions = [
     "latLng": {
       "lat": 37.566882968825,
         "lng": 126.99092687291
-    }
+    },
+    
+   "hasNotification": false
   },
   {
     "house_id": 3,
@@ -39,7 +42,8 @@ export const dopositions = [
     "latLng": {
       "lat": 37.560413254084,
       "lng": 127.00768457766
-    }
+    },
+    "hasNotification": false
   }
 ];
 
@@ -61,10 +65,12 @@ function DONav({ positions }) {
   );
 }
 
-const DopageMap = ({ search }) => {
+const DopageMap = ({ search, showOnlyNotified}) => {
   const filteredPositions = dopositions.filter(position =>
-    position.content.includes(search)
-  );/*
+    position.content.includes(search) &&
+    (!showOnlyNotified || (showOnlyNotified && position.hasNotification))
+  );
+  /*
 
     const [dopositions, setDopositions] = useState([]);
     const { local_id } = useParams();
