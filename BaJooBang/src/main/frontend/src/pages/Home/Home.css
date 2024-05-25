@@ -10,6 +10,27 @@
 
 .center-text {
   text-align: center;
+  margin-top: 700px;
+}
+.content2 {
+  position: relative;
+  margin-top :400px;
+}
+
+.message-video {
+  position: absolute;
+  width: 100%; /* 필요에 따라 조정 */
+  height: auto; /* 비디오의 높이를 조정하려면 이 값을 조정 */
+  top: 0;
+}
+
+.message {
+  position: relative;
+  z-index: 2;
+  color: black;
+  opacity: 0; /* 초기 투명도 설정 */
+  transition: opacity 2s ease-in-out, transform 2s ease-in-out; /* 투명도와 위치 변화의 전환 효과 추가 */
+  margin-top: 20px;
 }
 
 .fade-in {
@@ -32,34 +53,46 @@
     transform: translateY(0);
   }
 }
-.message {
-  opacity: 0;
-  transition: opacity 2s ease-in-out;
-}
 
 .fade-in-out {
-  animation: fadeInOut 8s ease-in-out infinite;
+  animation: fadeInOut 8s ease-in-out infinite; /* 수정된 애니메이션 적용 */
 }
 
 @keyframes fadeInOut {
   0%, 100% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(20px); /* 시작과 끝에 메시지가 아래로 조금 내려가면서 페이드 아웃 */
   }
-  25%, 75% {
+  50% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0); /* 중간에 완전히 보이면서 원래 위치로 */
   }
 }
+
 
 .scroll-arrow {
   animation: blinkAnimation 1s infinite; /* 무한 반복 */
   font-size: 24px; /* 화살표 크기 */
   color: white; /* 화살표 색상 */
   padding-top: 20px; /* 텍스트로부터 여백 */
-  margin-top: 300px; /* 화살표를 더 아래로 이동 */
+  margin-top: 140px; /* 화살표를 더 아래로 이동 */
+}
+.video-row {
+  padding-top: 0; 
+  padding-right: 0;
+  height: auto;
+  position: relative;
+  left: -40%;
+  transform: translateX(50%);
 }
 
+video {
+  width: 10%; /* Set each video to take half the width of the container */
+  height: auto;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 @keyframes blinkAnimation {
   0%, 100% {
@@ -69,18 +102,63 @@
     opacity: 1;
   }
 }
-video {
+#video1 {
   width: 100%;
   opacity: 0.1;
   filter: invert(100%); /*영상 반전요소*/
 }
+#video2, #video3 {
+  width: 20%; /* Set each video to take half the width of the container */
+  height: auto;
+  position: relative;
+  left: 85%;
+  transform: translateX(-50%);
+}
+
 .content {
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 0;
+  top: 30%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.reason{
+  
+  position: absolute;
+  
+  padding-top: 900px;
+}
+
+.reason_title{
+  text-align: center;
+  padding-left: 230px;
+  
+}
+.row-container {
+  display: flex;
+  align-items: center; 
+  justify-content: space-around; 
+  width: 100%; 
+  padding-top: 400px; 
+
+}
+
+
+.three_reason {
+  width: 70%; 
+  border-right: 00px;
+}
+
+.part{
+  margin : 50px;
+  margin-right: 250px;
+  padding: 20px;
+  background-color: #FFFFDD;
+  border-radius: 10px;
+  color: gray; /* 글씨 색상을 회색으로 설정 */
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* 박스에 그림자를 추가 */
 }
