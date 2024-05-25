@@ -33,3 +33,13 @@
   
   padding: 1px 9px;
 }
+
+@font-face {
+  font-family: "NotoSansKR-Black_wght";
+  font-weight: normal;
+  src: url("./fonts/NotoSansKR-Black.ttf") format("truetype");
+}
+
+body {
+  font-family: "NotoSansKR-Black";
+}

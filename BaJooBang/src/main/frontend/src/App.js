@@ -17,6 +17,7 @@ import ListPage3 from './pages/List/ListPage3';
 import ListPage4 from './pages/List/ListPage4';
 import Matching from './pages/Matching/Matching';
 import Homepage from './pages/Home/Home';
+import "./fonts/fonts.css";
 
 function App() {
   return (
