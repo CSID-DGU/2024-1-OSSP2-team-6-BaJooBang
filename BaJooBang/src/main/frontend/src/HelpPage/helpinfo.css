@@ -7,8 +7,6 @@ html, body {
 .container {
   display: flex;
   position: relative;
-  padding-top: 3vw;
-  padding-left: 10vw;
 }
 
 .leftinfo {

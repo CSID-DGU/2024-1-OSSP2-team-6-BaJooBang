@@ -130,7 +130,7 @@ video {
   
   position: absolute;
   
-  padding-top: 900px;
+  padding-top: 700px;
 }
 
 .reason_title{
@@ -138,6 +138,7 @@ video {
   padding-left: 230px;
   
 }
+
 .row-container {
   display: flex;
   align-items: center; 
@@ -156,9 +157,45 @@ video {
 .part{
   margin : 50px;
   margin-right: 250px;
+  text-align: center;
   padding: 20px;
   background-color: #FFFFDD;
   border-radius: 10px;
   color: gray; /* 글씨 색상을 회색으로 설정 */
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* 박스에 그림자를 추가 */
+}
+.footer {
+  background-color: #f8f9fa;
+  color: #212529;
+  padding: 150px 0;
+  width :100%;
+  padding-bottom: 0px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.footer-logo {
+  margin-bottom: 20px;
+}
+
+.footer-links,
+.footer-social {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.footer-links a,
+.footer-social a {
+  color: #0b3c23;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  font-size: 0.8rem;
 }
