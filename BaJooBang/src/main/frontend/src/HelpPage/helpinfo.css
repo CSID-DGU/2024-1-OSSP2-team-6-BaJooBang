@@ -7,6 +7,8 @@ html, body {
 .container {
   display: flex;
   position: relative;
+  padding-top: 3vw;
+  padding-left: 10vw;
 }
 
 .leftinfo {
@@ -17,8 +19,8 @@ html, body {
 
 .rightinfo {
   position: fixed;
-  top: 180px; /* Adjusted to align with the desired top margin */
-  right: 0;
+  top: 12vw; /* Adjusted to align with the desired top margin */
+  right: 10vw;
   width: 300px;
   height: calc(100% - 80px); /* Ensure it doesn't overflow the viewport */
   border-left: 0px;
@@ -30,8 +32,14 @@ html, body {
   margin: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding-top: 3vw;
   text-align: center;
+  width: 20vw;
+  height: 23vw;
+  background-color: #F6F7F8;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-header {
@@ -53,25 +61,36 @@ html, body {
 .profile .name {
   font-size: 18px;
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 2.5vw;
 }
 
-.contact-info p {
+.contact-info {
+  width: 15vw;
+  height: 10vw;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 10px 0;
+  background-color: white;
+  border-radius: 20px;
+  padding-bottom: 1vw;
+  gap: -1vw; /* 요소들 간의 간격을 줄이기 위해 추가 */
 }
 
 .contact-details p {
   color: #666;
   font-size: 14px;
+  margin: 0; /* 기본 margin 제거 */
+  padding: 0vw 0; /* 상하 padding을 추가하여 간격 조절 */
 }
+
 
 .actions {
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
+  width: 20vw;
+  margin-top: 1.4vw;
 }
 
 .actions .btn {
@@ -94,14 +113,14 @@ html, body {
 }
 
 #naming {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 25px;
+  font-weight: 500;
   margin-bottom: 3px;
 }
 
 #moneying {
   color: grey;
-  font-size: 15px;
+  font-size: 18px;
   margin-top: 1px;
 }
 
@@ -112,19 +131,24 @@ html, body {
   margin-left: 40px;
   margin-right: 40px;
   margin-top:30px;
+  padding: 2vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
 }
 
 #house_detail_title {
-  margin-right: 100px;
+  margin-right: 8vw;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* 요소들 간의 간격을 20px로 설정합니다. 필요에 따라 조절할 수 있습니다. */
 }
 .house_detail_more{
-  margin-left:80px;
+  margin-left:3vw;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-
-.house_detail_more {
-  margin-right: 50px;
-}
 
 .detailblank {
   width: 100px;
@@ -138,4 +162,15 @@ html, body {
 #house_image {
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.helpinfoBtn {
+  width: 8vw;
+  height: 3.5vw;
+  border-radius: 20px; 
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
 }

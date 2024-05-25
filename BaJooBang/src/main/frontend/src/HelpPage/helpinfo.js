@@ -46,11 +46,11 @@ const Imformation = ({ positions }) => {
         </div>
 
         <div id="house_info">
-          <h3> 매물 사진 </h3>
+          <p style={{fontWeight: '500', fontSize: '22px'}}> 매물 사진 </p>
           <p><span className="blank"></span>{position.house_image1}<span className="blank"></span>{position.house_image2}</p>
-          <h3> 매물 평면도 </h3>
+          <p style={{fontWeight: '500', fontSize: '22px', marginTop: '6vw'}}> 매물 평면도 </p>
           <p><span className="blank"></span>{position.house_all_image}</p>
-          <h3> 매물 정보 </h3>
+          <p style={{fontWeight: '500', fontSize: '22px', marginTop: '6vw'}}> 매물 정보 </p>
           <div id="house_detail">
             <div id="house_detail_title">
               <p>월 관리비</p>
@@ -64,6 +64,7 @@ const Imformation = ({ positions }) => {
             <div className="house_detail_more">
               <p>{position.money1}</p>
               <p>{position.money2}</p>
+              <p>100</p>
             </div>
           </div>
         </div>
@@ -79,20 +80,20 @@ const Imformation = ({ positions }) => {
             <div className="name">대표 홍길동</div>
           </div>
           <div className="contact-info">
-            <p><Location /><span className="icon location"></span> 위치</p>
+            <p><Location /> 위치</p>
             <div className="contact-details">
               <p>서울특별시 서울로 123길 45</p>
             </div>
-            <p><Call /><span className="icon phone"></span> 전화</p>
+            <p><Call /> 전화</p>
             <div className="contact-details">
               <p>010-1234-5678</p>
             </div>
           </div>
         </div>
         <div className="actions">
-          <button className="btn heart"><Heart />찜하기</button>
+          <button className='helpinfoBtn'><Heart style={{paddingRight: '0.5vw'}}/>찜하기</button>
           <Link to={`/request/${house_id}`}>
-            <button className="btn message"><List />발품 요청서 작성</button>
+            <button className="helpinfoBtn" style={{width: '11vw'}}><List style={{paddingRight: '0.5vw'}}/>발품 요청서 작성</button>
           </Link>
         </div>
       </div>
