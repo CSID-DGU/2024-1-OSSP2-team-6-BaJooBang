@@ -12,6 +12,6 @@ public interface HouseRepository extends JpaRepository<House, Long> {
     List<House> findByLocalId(Long local_id);
     House findByHouseId(Long house_id);
 
-    @Query("select h from House h inner JOIN FETCH h.request r where h.localId = ?1")
+    @Query("select h from House h inner JOIN FETCH h.requests r where h.localId = ?1")
     List<House> findByLocalIdAndRequest(Long localId);
 }

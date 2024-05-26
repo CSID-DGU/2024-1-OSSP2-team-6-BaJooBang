@@ -3,7 +3,9 @@ package ossp_bajoobang.bajoobang.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ossp_bajoobang.bajoobang.domain.House;
+import ossp_bajoobang.bajoobang.domain.Request;
 import ossp_bajoobang.bajoobang.dto.HouseDTO;
+import ossp_bajoobang.bajoobang.dto.RequestDTO;
 import ossp_bajoobang.bajoobang.repository.HouseRepository;
 
 import java.util.ArrayList;
@@ -39,5 +41,17 @@ public class HouseService {
         addressList.add(house.getStair());
         return addressList;
     }
+
+    public List<RequestDTO> getRequests(Long house_id) {
+        List<RequestDTO> requestListDTO = new ArrayList<>();
+        House house = houseRepository.findByHouseId(house_id);
+        List<Request> requests = house.getRequests();
+        for (Request request : requests) {
+            requestListDTO.add(RequestDTO.toDTO(request));
+        }
+        return requestListDTO;
+    }
+
+
 
 }

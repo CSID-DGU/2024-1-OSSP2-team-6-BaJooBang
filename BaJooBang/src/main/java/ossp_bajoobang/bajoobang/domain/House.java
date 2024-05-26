@@ -18,7 +18,7 @@ public class House {
     private Long houseId;
 
     @OneToMany(mappedBy = "house", fetch = FetchType.EAGER)
-    private List<Request> request = new ArrayList<>();
+    private List<Request> requests = new ArrayList<>();
 
     // 지역 아이디
     private Long localId;
