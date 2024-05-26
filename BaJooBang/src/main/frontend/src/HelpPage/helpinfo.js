@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Link, useParams } from 'react-router-dom';
+import {Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './helpinfo.css';
 import { ReactComponent as Location } from '../components/images/location.svg';
@@ -9,6 +9,7 @@ import { ReactComponent as List } from '../components/images/list.svg';
 import { ReactComponent as Heart } from '../components/images/heart.svg';
 
 const Imformation = ({ positions }) => {
+  const navigate = useNavigate();
   const { house_id } = useParams();
   const numericHouseId = parseInt(house_id); // 문자열을 숫자로 변환
 
@@ -37,6 +38,11 @@ const Imformation = ({ positions }) => {
     return <div>해당하는 위치 정보를 찾을 수 없습니다.</div>;
   }
 
+  const handleClick = (content) => {
+    console.log(content);
+    navigate(`/request/${house_id}`, { state: { content: content } });
+  };
+  
   return (
     <div className="container">
       <div className="leftinfo">
@@ -92,9 +98,16 @@ const Imformation = ({ positions }) => {
         </div>
         <div className="actions">
           <button className='helpinfoBtn'><Heart style={{paddingRight: '0.5vw'}}/>찜하기</button>
-          <Link to={`/request/${house_id}`}>
-            <button className="helpinfoBtn" style={{width: '11vw'}}><List style={{paddingRight: '0.5vw'}}/>발품 요청서 작성</button>
-          </Link>
+          <button
+            className="helpinfoBtn"
+            style={{ width: '11vw' }}
+            onClick={() => handleClick(position.content)}
+          >
+            <List style={{ paddingRight: '0.5vw' }} />
+            발품 요청서 작성
+          </button>
+
+
         </div>
       </div>
     </div>

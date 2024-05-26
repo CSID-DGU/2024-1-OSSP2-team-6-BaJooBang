@@ -11,7 +11,7 @@ function RequestForm({title, placeholder, content, onChange}) {
             ) : (
                 <>
                 <p className='textInput'>{content}</p>
-                <p>{content}</p>
+                
                 </>
             )}
             <div className='roomline'/>

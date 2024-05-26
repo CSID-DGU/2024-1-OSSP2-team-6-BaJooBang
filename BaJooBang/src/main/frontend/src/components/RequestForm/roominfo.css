@@ -1,6 +1,7 @@
 .room-box {
     flex-direction: 'row';
     padding-left: 30px;
+    width: 92%;
 }
 
 .roomtitle {

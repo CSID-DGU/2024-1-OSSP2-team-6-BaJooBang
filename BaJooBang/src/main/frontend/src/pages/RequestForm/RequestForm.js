@@ -21,6 +21,8 @@ function RequestForm() {
     const location = useLocation();
     const { house_id } = useParams();
 
+    console.log("Location state:", location.state);
+
     const content = location.state ? location.state.content : '기본값';
 
     const [requests, setRequests] = useState([
@@ -105,9 +107,20 @@ function RequestForm() {
                 </div>
                 <p className='title2'>매물 정보</p>
                 <div className='requestBox'>
-                    <Roominfo title={'매물 주소'} content={content} />
-                    <Roominfo title={'발품 기간'} placeholder={'발품 기간을 입력해주세요.'} onChange={(e) => setDate(e.target.value)} />
-                    <Roominfo title={'발품 가격'} placeholder={'발품 가격을 입력해주세요.'} onChange={(e) => setPrice(e.target.value)} />
+                    {write ? 
+                    <>
+                        <Roominfo title={'매물 주소'} content={content} />
+                        <Roominfo title={'발품 기간'} placeholder={'발품 기간을 입력해주세요.'} onChange={(e) => setDate(e.target.value)} />
+                        <Roominfo title={'발품 가격'} placeholder={'발품 가격을 입력해주세요.'} onChange={(e) => setPrice(e.target.value)} />
+                    </>
+                        :
+                    <>
+                        <Roominfo title={'매물 주소'} content={'서울특별시 중구 필동'} />
+                        <Roominfo title={'발품 기간'} content={'2024/05/26 ~ 2024/05/30'} />
+                        <Roominfo title={'발품 가격'} content={'10,000원'} />
+                    </>
+                     }
+                    
                 </div>
 
                 <div className='title2' style={{ marginTop: '5vw', marginBottom: '1.5vw' }}>
@@ -167,7 +180,7 @@ function RequestForm() {
                                     display: 'flex', 
                                     flexDirection: 'column',
                                     alignItems: 'center', 
-                                    justifyContent: 'center'
+                                    justifyContent: 'center',
                                 }}>
                                     <div style={{
                                         display: 'flex', 
@@ -177,13 +190,13 @@ function RequestForm() {
                                         width: '93%',
                                     }}>
                                         <p style={{fontSize: '18px', color: '#5F5F5F', paddingRight: '0.7vw'}}>Q</p>
-                                        <textarea 
-                                            className='plusrequestContent' 
+                                        <input
+                                            className='plusInput' 
                                             placeholder='추가 요청사항을 작성해주세요.' 
                                             onChange={e => handleInputChange(index, e)}
                                         />
                                     </div>
-                                    <div className='requestLine' style={{width: '51vw', marginBottom: '1vw'}}/>
+                                    <div className='requestLine' style={{width: '51vw', marginTop: '-10px', marginBottom: '4vw'}}/>
                                 </div>
                             ))}
                             <div style={{width: '100%', height: '8vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
