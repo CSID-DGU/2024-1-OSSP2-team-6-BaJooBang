@@ -4,25 +4,33 @@ import { ReactComponent as Arrow } from '../../components/images/arrow.svg';
 import video from '../../components/images/background.mp4';
 import video2 from '../../components/images/moving_people.mp4';
 import video3 from '../../components/images/moving_house.mp4';
-
+import { ReactComponent as Twitter } from '../../components/images/twitter.svg';
+import { ReactComponent as Instagram } from '../../components/images/instagram.svg';
+import { ReactComponent as Facebook } from '../../components/images/facebook.svg';
 
 export function Footer() {
   return (
     <div className="footer">
       <div className="footer-content">
+        
         <div className="footer-links">
           <a href="/about">회사 소개</a>
           <a href="/contact">연락처</a>
           <a href="/privacy">개인정보 처리방침</a>
           <a href="/terms">이용약관</a>
+          <a href="/sitemap">사이트맵</a>
         </div>
+        
         <div className="footer-social">
-          <a href="https://facebook.com">Facebook</a>
-          <a href="https://twitter.com">Twitter</a>
-          <a href="https://instagram.com">Instagram</a>
+          <a href="https://facebook.com"><i className="fab fa-facebook-f"><Facebook/></i></a>
+          <a href="https://twitter.com"><i className="fab fa-twitter"><Twitter/></i></a>
+          <a href="https://instagram.com"><i className="fab fa-instagram"><Instagram/></i></a>
         </div>
+        
+        
         <div className="footer-bottom">
           <p>© 2024 바줘방. All rights reserved.</p>
+          <p>Contact us at : bajoobang@gmail.com</p>
         </div>
       </div>
     </div>
@@ -39,7 +47,7 @@ function Homepage() {
         
         <div className="center-text">
           <h1 className="fade-in">더 빠르고 편리한 발품을 위해</h1>
-          <p><p></p></p><p className="fade-in description">바줘방은 서울 지역 자취방을 알아보기 위해 돈과 시간을 투자해야하는 이들에게, <p>돈과 시간을 절약해주기위한 효윈적인 대리 발품인을 제공합니다.  </p></p>
+          <p><p></p></p><p className="fade-in description">바줘방은 서울 지역 자취방을 알아보기 위해 돈과 시간을 투자해야하는 이들에게, <p>돈과 시간을 절약해주기위한 효율적인 대리 발품인을 이어줍니다.  </p></p>
         </div>
 
         <div className="scroll-arrow"><Arrow/></div>
@@ -58,10 +66,10 @@ function Homepage() {
       </video>
     </div>
     <div className='three_reason'>
-      <h2 className='part'>누구나 집을 알아볼 수 있도록</h2>
-      <h2 className='part'>언제나 집을 알아볼 수 있도록</h2>
-      <h2 className='part'>어디서든  집을 알아볼 수 있도록</h2>
-    </div>
+        <h2 className='part'><span className="highlight">누구나</span> 집을 알아볼 수 있도록</h2>
+        <h2 className='part'><span className="highlight">언제나</span> 집을 알아볼 수 있도록</h2>
+        <h2 className='part'><span className="highlight">언제든지</span> 집을 알아볼 수 있도록</h2>
+      </div>
   </div>
 
       <Footer/>
