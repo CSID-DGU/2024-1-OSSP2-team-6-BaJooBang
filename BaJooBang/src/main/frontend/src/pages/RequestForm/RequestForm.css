@@ -177,6 +177,36 @@
     cursor: pointer;
 }
 
+.modal-input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    
+}
+
+.modal-input:focus {
+    border: none; /* Remove border on focus */
+    box-shadow: none; /* Remove shadow on focus */
+}
+
+.modal-button {
+    background-color: #33BE42;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 30%;
+}
+
+.modal-button:hover {
+    background-color: #28a745;
+}
+
 .plusrequestImageBox img {
     width: 5vw;
     height: 5vw;

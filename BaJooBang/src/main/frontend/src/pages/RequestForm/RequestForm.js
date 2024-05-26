@@ -34,11 +34,13 @@ function RequestForm() {
     const [inputs, setInputs] = useState([{ plus_q: '' }]);
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
-    const [write, setWrite] = useState(false);
+    const [write, setWrite] = useState(false); // 요청인이 발품 요청서를 작성할 상태인지 아닌지를 저장
+    const [apply, setApply] = useState(false);
     const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: '' })));
     const contentRefs = useRef([]);
     const imageBoxRefs = useRef([]);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달 창 상태
 
     const handleInputChange = (index, event) => {
         const newInputs = inputs.map((input, i) => i === index ? { plus_q: event.target.value } : input);
@@ -97,6 +99,11 @@ function RequestForm() {
 
     const closeModal = () => {
         setSelectedImage(null);
+        setIsModalOpen(false);
+    };
+
+    const openModal = () => {
+        setIsModalOpen(true);
     };
 
     return (
@@ -243,16 +250,37 @@ function RequestForm() {
                 </div>
 
                 <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-                    <div onClick={RequestPost} style={{ width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Check />
-                        <p style={{ fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw' }}>작성완료</p>
-                    </div>
+                    {
+                        apply ? 
+                        <div onClick={RequestPost} style={{ width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <Check />
+                            <p style={{ fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw' }}>작성완료</p>
+                        </div>
+                         :
+                        <div onClick={openModal} style={{ width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <p style={{ fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw' }}>발품 신청하기</p>
+                        </div>
+
+                    }
                 </div>
 
                 {selectedImage && (
                     <div className='modal' onClick={closeModal}>
                         <span className='close' onClick={closeModal}>&times;</span>
                         <img className='modal-content' src={selectedImage} alt='Selected' />
+                    </div>
+                )}
+
+                {isModalOpen && (
+                    <div className='modal' onClick={closeModal}>
+                        <div className='modal-content' onClick={(e) => e.stopPropagation()}>
+                            <span className='close' onClick={closeModal}>&times;</span>
+                            <p style={{fontSize: '25px', fontWeight: '500'}}>발품 신청</p>
+                            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                            <input type='text' placeholder='신청 메시지를 입력하세요.  예) 홍길동 발품 신청합니다!' className='modal-input' />
+                            <button onClick={() => { setApply(true); closeModal(); }} className='modal-button'>신청하기</button>
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>
