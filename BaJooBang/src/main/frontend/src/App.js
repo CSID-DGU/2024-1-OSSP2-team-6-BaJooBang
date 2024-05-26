@@ -1,6 +1,7 @@
 import React from 'react';
-import {  Routes, Route } from 'react-router-dom';
+import {  Routes, Route, Router } from 'react-router-dom';
 import HeaderBar from './components/header/HeaderBar';
+import { AuthProvider } from './AuthContext';
 //import Home from './pages/Home/Home';
 // import MyPage from './MyPage';
 import { positions } from './HelpPage/kakaomap';
@@ -21,7 +22,7 @@ import "./fonts/fonts.css";
 
 function App() {
   return (
-    
+    <AuthProvider>
       <div>
         <HeaderBar />
         <Routes>
@@ -41,6 +42,8 @@ function App() {
           <Route path='/matching' element={<Matching />} />
       </Routes>
       </div>
+    </AuthProvider>
+      
     
   );
 }

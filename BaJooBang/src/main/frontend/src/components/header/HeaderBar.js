@@ -1,17 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './HeaderBar.css'; // CSS 파일 임포트
+import { AuthContext } from '../../AuthContext';
 
 function HeaderBar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    // 세션 스토리지에서 로그인 상태를 확인
-    const loggedInStatus = sessionStorage.getItem('loggedIn');
-    if (loggedInStatus === 'true') {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  const { isLoggedIn } = useContext(AuthContext);
 
   return (
     <header className="header-bar">

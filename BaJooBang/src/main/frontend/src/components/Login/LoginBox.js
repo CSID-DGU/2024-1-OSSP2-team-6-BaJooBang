@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './box.css';
 import axios from 'axios';
 import { ReactComponent as LoginLeft } from '../images/loginLeft.svg';
 import Input from './Input';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../AuthContext';
+
+
 
 function LoginBox() {
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
     const handleSignUpClick = () => {
         navigate('/signup'); // 여기서 '/signup'은 LoginPage.js 컴포넌트로 라우팅될 경로입니다.
     };
@@ -28,7 +32,7 @@ function LoginBox() {
             });
             if (response.status === 200) {
                 // 로그인 성공 시 세션 값 저장
-                sessionStorage.setItem('loggedIn', true);
+                login();
                 navigate('/helpmap'); // 로그인 성공 후 리다이렉트할 경로 설정
             } else {
                 console.error('Login failed:', response.data);
