@@ -20,12 +20,12 @@ import ossp_bajoobang.bajoobang.service.RequestService;
 import java.util.List;
 
 @Slf4j
-@RestController
+@RestController("/member")
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
     private final RequestService requestService;
-    @GetMapping("/mypage")
+    @GetMapping("/info")
     public MypageDTO getMypage(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
