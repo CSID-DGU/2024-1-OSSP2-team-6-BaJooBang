@@ -1,7 +1,7 @@
  /*global kakao*/
  import "./kakaomap.css";
  import React, { useEffect, useState } from "react";
- import { Link, useParams } from 'react-router-dom';
+ import { Link, useParams, useNavigate } from 'react-router-dom';
  import { ReactComponent as House_image1 } from '../components/images/house_image1.svg';
  import { ReactComponent as House_image2 } from '../components/images/house_image2.svg';
  import { ReactComponent as House_all_image } from '../components/images/house_all_image.svg';
@@ -101,37 +101,63 @@
  ];
  
  const Nav = ({ positions }) => {
-   const [favoriteIds, setFavoriteIds] = useState([]);
- 
-   const toggleFavorite = (id) => {
-     setFavoriteIds(favs => {
-       if (favs.includes(id)) {
-         return favs.filter(favId => favId !== id);
-       } else {
-         return [...favs, id];
-       }
-     });
-   };
+  const [favoriteIds, setFavoriteIds] = useState([]);
+  const navigate = useNavigate();
+
+  const isLoggedIn = () => {
+    return sessionStorage.getItem('loggedIn') === 'true';
+  };
+
+  const handleLinkClick = (e, path) => {
+    if (!isLoggedIn()) {
+      e.preventDefault();
+      alert('로그인을 해야합니다.');
+      navigate('/login');
+    } else {
+      navigate(path);
+    }
+  };
+
+  const toggleFavorite = (id) => {
+    if (!isLoggedIn()) {
+      alert('로그인을 해야합니다.');
+      navigate('/login');
+      return;
+    }
+
+    setFavoriteIds(favs => {
+      if (favs.includes(id)) {
+        return favs.filter(favId => favId !== id);
+      } else {
+        return [...favs, id];
+      }
+    });
+  };
  
    return (
-     <nav>
-       <ol>
-         {positions.map(position => (
-           <li key={position.house_id}>
-             <Link to={`/helpinfo/${position.house_id}`} className="helpMapTitle">
-               <h3>{position.type} {position.money1} / {position.money2}</h3>
-             <p><span className="blank"></span>층수 | <span className="blank_gray">{position.stair}층</span> 관리비 | <span className="blank_gray">{position.management}만원</span></p>
-             <p><span className="blank"></span>평수 | <span className="blank_gray">{position.size}m3</span></p>
-             <p><span className="blank"></span>위치 | {position.content}</p></Link>
-             <button onClick={() => toggleFavorite(position.house_id)} className="favorite-button">
-               {favoriteIds.includes(position.house_id) ? <><span className="text-normal">찜 취소 </span><span className="heart-red">♥</span></> : <><span className="text-normal">찜하기 </span><span className="heart-red">♡</span></>}
-             </button>
-           </li>
-         ))}
-       </ol>
-     </nav>
-   );
- };
+    <nav>
+      <ol>
+        {positions.map(position => (
+          <li key={position.house_id}>
+            <Link 
+              to={`/helpinfo/${position.house_id}`} 
+              className="helpMapTitle"
+              onClick={(e) => handleLinkClick(e, `/helpinfo/${position.house_id}`)}
+            >
+              <h3>{position.type} {position.money1} / {position.money2}</h3>
+              <p><span className="blank"></span>층수 | <span className="blank_gray">{position.stair}층</span> 관리비 | <span className="blank_gray">{position.management}만원</span></p>
+              <p><span className="blank"></span>평수 | <span className="blank_gray">{position.size}m3</span></p>
+              <p><span className="blank"></span>위치 | {position.content}</p>
+            </Link>
+            <button onClick={() => toggleFavorite(position.house_id)} className="favorite-button">
+              {favoriteIds.includes(position.house_id) ? <><span className="text-normal">찜 취소 </span><span className="heart-red">♥</span></> : <><span className="text-normal">찜하기 </span><span className="heart-red">♡</span></>}
+            </button>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+};
  
  
  const MypageMap = ({filter,search, showOnlyNotified}) => {

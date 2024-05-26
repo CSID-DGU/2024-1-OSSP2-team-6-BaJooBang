@@ -1,6 +1,6 @@
 /*global kakao*/
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './showmap.css';
 
@@ -48,6 +48,20 @@ export const dopositions = [
 ];
 
 function DONav({ positions }) {
+  const navigate = useNavigate();
+
+  const isLoggedIn = () => {
+    return sessionStorage.getItem('loggedIn') === 'true';
+  };
+
+  const handleLinkClick = (e, path) => {
+    if (!isLoggedIn()) {
+      e.preventDefault();
+      alert('로그인을 해야합니다.');
+      navigate('/login');
+    }
+  };
+
   return (
     <nav>
       <ol>
@@ -57,7 +71,12 @@ function DONav({ positions }) {
             <p><span className="blank"></span>위치 | {position.content}</p>
             <p><span className="blank"></span>요청인<span className="blank"></span>|<span className="blank"></span>{position.human}</p>
             <p><span className="blank"></span>도보 | <span className="blank_gray">{position.time}분</span><span className="blank"></span>거리 | <span className="blank_gray">{position.distance}m</span></p>
-            <Link to={`/`}><span className="blank"></span>요청서 보러가기 {'>>'}</Link>
+            <Link 
+              to={`/`}
+              onClick={(e) => handleLinkClick(e, `/`)}
+            >
+              <span className="blank"></span>요청서 보러가기 {'>>'}
+            </Link>
           </li>
         ))}
       </ol>
