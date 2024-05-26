@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.House;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.domain.Request;
+import ossp_bajoobang.bajoobang.dto.HouseDTO;
 import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
 import ossp_bajoobang.bajoobang.repository.AlarmRepository;
@@ -31,8 +32,6 @@ public class RequestController {
     private final MemberRepository memberRepository;
     private final MemberService memberService;
     private final AlarmService alarmService;
-
-
 
 
     @PostMapping("/request-form")
@@ -73,5 +72,13 @@ public class RequestController {
     public ArrayList<Object> requestForm(@RequestParam Long house_id){
         ArrayList<Object> address = houseService.getAddress(house_id);
         return address;
+    }
+
+    // 발품지도에 뜬 각각의 매물에 대한 요청 리스트
+    @GetMapping("/requests")
+    @ResponseBody
+    public List<RequestDTO> GetRequests(@RequestParam Long house_id){
+        List<RequestDTO> requestDTOList = houseService.getRequests(house_id);
+        return requestDTOList;
     }
 }
