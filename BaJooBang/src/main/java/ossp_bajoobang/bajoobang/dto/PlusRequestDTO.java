@@ -1,15 +1,10 @@
 package ossp_bajoobang.bajoobang.dto;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.*;
 import lombok.*;
-import ossp_bajoobang.bajoobang.domain.Member;
+import org.springframework.web.multipart.MultipartFile;
 import ossp_bajoobang.bajoobang.domain.PlusRequest;
-import ossp_bajoobang.bajoobang.domain.Request;
 
 import java.util.List;
-import java.util.Map;
 
 @Getter @Setter
 @Builder
@@ -19,13 +14,13 @@ public class PlusRequestDTO {
 
     private String plus_q;
     private String q_type;
-    private RequestDTO requestDTO;
+    //private RequestDTO requestDTO;
+    private List<MultipartFile> images;
 
     public static PlusRequestDTO toDTO(PlusRequest entity){
         return PlusRequestDTO.builder()
                 .plus_q(entity.getPlus_q())
                 .q_type(entity.getQ_type())
-                .requestDTO(RequestDTO.toDTO(entity.getRequest()))
                 .build();
     }
 }

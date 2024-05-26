@@ -26,8 +26,6 @@ public class RequestService {
 
     public Request saveRequest(RequestDTO requestDTO, Member member, House house){
         Request request = Request.toEntity(requestDTO, member, house);
-        request.setMember(member); // member랑 request랑 조인할 때 쓰일듯 아직 맞는 건지 모름
-        request.setHouse(house);
         // 저장할 때, house_id와 함께 저장해주어야 함. => 테이블도 join해주어야 함!!! --> 위에 함
 
         Request saveRequest = requestRepository.save(request);
@@ -46,6 +44,7 @@ public class RequestService {
         return saveRequest;
     }
 
+    // 등록매물 리스트
     public List<RequestDTO> findMyRequests(Long memberId) {
         List<RequestDTO> myRequestsDTO = new ArrayList<>();
         List<Request> requestList = requestRepository.findByMemberId(memberId);

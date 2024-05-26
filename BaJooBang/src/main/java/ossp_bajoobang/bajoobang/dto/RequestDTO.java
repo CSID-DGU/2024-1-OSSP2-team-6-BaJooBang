@@ -1,12 +1,9 @@
 package ossp_bajoobang.bajoobang.dto;
 
 import lombok.*;
-import ossp_bajoobang.bajoobang.domain.Member;
-import ossp_bajoobang.bajoobang.domain.PlusRequest;
 import ossp_bajoobang.bajoobang.domain.Request;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
@@ -20,7 +17,7 @@ public class RequestDTO {
     // 발품 가격
     private int price_request;
     // 추가 요청
-    private List<PlusRequest> plus_list;
+    private List<PlusRequestDTO> plus_list;
 
     // 매물 주소
     private String house_address;
@@ -31,7 +28,7 @@ public class RequestDTO {
         return RequestDTO.builder()
                 .request_date(entity.getRequestDate())
                 .price_request(entity.getPriceRequest())
-                .plus_list(entity.getPlusRequests())
+                .plus_list(PlusRequestListDTO.toDTO(entity.getPlusRequests()))
                 .build();
     }
 }

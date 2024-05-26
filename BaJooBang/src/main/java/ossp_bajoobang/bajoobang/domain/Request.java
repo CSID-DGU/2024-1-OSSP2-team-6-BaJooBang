@@ -60,15 +60,15 @@ public class Request {
     @JoinColumn(name = "house_id")
     private House house;
 
-    public void setMember(Member member) {
-        this.member = member;
-        member.getRequest().add(this);
-    }
-
-    public void setHouse(House house) {
-        this.house = house;
-        house.getRequest().add(this);
-    }
+//    public void setMember(Member member) {
+//        this.member = member;
+//        member.getRequest().add(this);
+//    }
+//
+//    public void setHouse(House house) {
+//        this.house = house;
+//        house.getRequest().add(this);
+//    }
 
     public static Request toEntity(RequestDTO dto, Member member, House house){
 

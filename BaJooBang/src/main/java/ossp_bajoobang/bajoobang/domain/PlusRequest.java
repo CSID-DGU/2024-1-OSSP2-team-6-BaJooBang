@@ -52,7 +52,7 @@ public class PlusRequest {
 //        return builder.build();
 //    }
 
-    public static PlusRequest toEntity2(PlusRequest plus){
+    public static PlusRequest toEntity2(PlusRequestDTO plus){
         ObjectMapper objectMapper = new ObjectMapper();
         PlusRequestBuilder builder = new PlusRequestBuilder();
         TypeReference<Map<String, String>> typeReference = new TypeReference<Map<String, String>>() {};
