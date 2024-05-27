@@ -86,3 +86,22 @@
 .page-link:hover {
     text-decoration: underline;
 }
+
+.list-request-box {
+    color: #7A7676;
+    font-size: 13.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+    border-radius: 8px;
+    background-color: #EAEAEA;
+    width: 80px;
+    height: 25px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+.list-request-box:hover {
+  background-color: #C0C0C0; /* 호버 시 배경색 변경 */
+  color: white; /* 호버 시 텍스트 색 변경 */
+}

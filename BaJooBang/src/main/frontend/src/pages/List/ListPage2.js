@@ -44,12 +44,11 @@ function ListPage2() {
         <div className='ListBackground'>
             <div className='ListBox'>
                 <div className='ListTitle' style={{backgroundColor: 'rgba(162, 197, 121, 0.3)'}}>
-                   <div className='ListTitleText2'>번호</div> 
-                   <div className='ListTitleText2_address'>매물 주소</div>
-                   <div className='ListTitleText2'>월세</div>
-                   <div className='ListTitleText2'>등록일</div>
-                   <div className='ListTitleText2'>신청 수</div>
-                   <div className='ListTitleText2'>상태</div>
+                   <div className='ListTitleText2' style={{width: '12%'}}>번호</div> 
+                   <div className='ListTitleText2_address' style={{width: '45%'}}>매물 주소</div>
+                   <div className='ListTitleText2' style={{width: '15%'}}>월세</div>
+                   <div className='ListTitleText2' style={{width: '15%'}}>등록일</div>
+                   <div className='ListTitleText2' style={{width: '13%'}}>상태</div>
                 </div>
                 {currentItems.map((item, index) => (
                     <React.Fragment key={index}>

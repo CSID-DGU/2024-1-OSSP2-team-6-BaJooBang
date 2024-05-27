@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ListPage1.css'; // 페이지 스타일을 여기에 유지합니다.
-import ListBlock2 from './ListBlock2';
+import ListBlock3 from './ListBlock3';
 import { Link } from 'react-router-dom';
 
 function ListPage3() {
@@ -56,7 +56,7 @@ function ListPage3() {
                 {currentItems.map((item, index) => (
                     <React.Fragment key={index}>
                         
-                            <ListBlock2 Num={item.Num} Address={item.Address} month={item.month} date={item.date} request={item.request} state={item.state} />
+                            <ListBlock3 Num={item.Num} Address={item.Address} month={item.month} date={item.date} request={item.request} state={item.state} />
                         
                         <div className='ListLine' />
                     </React.Fragment>
