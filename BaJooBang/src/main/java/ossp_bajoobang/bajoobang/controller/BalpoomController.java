@@ -37,7 +37,7 @@ public class BalpoomController {
             MemberDTO memberDTO = MemberDTO.toDTO(member);
             // 알림 리스트 받아오기
             List<RequestDTO> receivedRequests = requestService
-                    .findReceivedRequests(memberDTO.getId());
+                    .getAlramList(memberDTO.getId());
             response.put("receivedRequests", receivedRequests);
         }
         // 발품 매물 리스트 받아오기

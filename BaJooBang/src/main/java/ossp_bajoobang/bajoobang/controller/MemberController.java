@@ -31,14 +31,21 @@ public class MemberController {
         if (session != null) {
             // 세션에서 멤버를 꺼내오기
             Member member = (Member) session.getAttribute("loginMember");
-            //memberDTO랑, 등록매물, 신청조회
+
             MemberDTO memberDTO = MemberDTO.toDTO(member);
-            // 등록 매물 어캐 받아오지
+            // 등록 매물 리스트
             List<RequestDTO> myRequests = requestService
                     .findMyRequests(memberDTO.getId());
-            List<RequestDTO> receivedRequests = requestService
-                    .findReceivedRequests(memberDTO.getId());
-            return MypageDTO.toDTO(memberDTO, myRequests, receivedRequests);
+            // 신청 조회 리스트
+            List<RequestDTO> appliedRequests = requestService
+                    .findMyRequests(memberDTO.getId());
+            // 신청 발품 리스트
+            List<RequestDTO> applyBalpooms = requestService
+                    .findMyRequests(memberDTO.getId());
+            // 알림 리스트
+            List<RequestDTO> alarmList = requestService
+                    .getAlramList(memberDTO.getId());
+            return MypageDTO.toDTO(memberDTO, myRequests, applyBalpooms, alarmList);
         }
         else {
             // 로그인 안 한 사용자

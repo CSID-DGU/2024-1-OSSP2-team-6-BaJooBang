@@ -5,11 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ossp_bajoobang.bajoobang.domain.House;
-import ossp_bajoobang.bajoobang.domain.Member;
-import ossp_bajoobang.bajoobang.domain.PlusRequest;
-import ossp_bajoobang.bajoobang.domain.Request;
+import ossp_bajoobang.bajoobang.domain.*;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
+import ossp_bajoobang.bajoobang.repository.AlarmRepository;
 import ossp_bajoobang.bajoobang.repository.PlusRequestRepository;
 import ossp_bajoobang.bajoobang.repository.RequestRepository;
 
@@ -23,6 +21,7 @@ import java.util.List;
 public class RequestService {
     private final RequestRepository requestRepository;
     private final PlusRequestRepository plusRequestRepository;
+    private final AlarmRepository alarmRepository;
 
     public Request saveRequest(RequestDTO requestDTO, Member member, House house){
         Request request = Request.toEntity(requestDTO, member, house);
@@ -57,8 +56,9 @@ public class RequestService {
 
     // 알람 조회
     // 매물 리스트?, 요청서 리스트?
-    public List<RequestDTO> findReceivedRequests(Long memberId) {
-        List<RequestDTO> receivedRequests = new ArrayList<>();
-        return receivedRequests;
+    public List<RequestDTO> getAlramList(Long memberId) {
+        List<RequestDTO> alramListDTO = new ArrayList<>();
+        // ??
+        return alramListDTO;
     }
 }
