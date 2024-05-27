@@ -44,9 +44,32 @@ export const dopositions = [
       "lng": 127.00768457766
     },
     "hasNotification": false
+  },
+  {
+    "house_id": 3,
+    "dealmoney": "30,000",
+    "time": 10,
+    "distance": 765,
+    "human": "dksljf",
+    "content": "서울특별시 장충로",
+    "latLng": {
+      "lat": 37.560413254084,
+      "lng": 127.00768457766
+    },
+    "hasNotification": false
   }
 ];
 
+// house_id를 기준으로 positions를 그룹화한 함수
+function groupByHouseId(positions) {
+  return positions.reduce((acc, position) => {
+    acc[position.house_id] = acc[position.house_id] || [];
+    acc[position.house_id].push(position);
+    return acc;
+  }, {});
+}
+
+// 로그인이 되었을 경우 안되었을 경우
 function DONav({ positions }) {
   const navigate = useNavigate();
 
@@ -112,74 +135,68 @@ const DopageMap = ({ search, showOnlyNotified}) => {
 //----------------------------------------------------------------------------------------------------
 
 
-  useEffect(() => {
-    // 마커를 담을 배열입니다
-    let markers = [];
-    let mapContainer = document.getElementById("map"); // 지도를 표시할 div
+useEffect(() => {
+  let markers = [];
+  let mapContainer = document.getElementById("map");
+  let mapOption = {
+    center: new kakao.maps.LatLng(37.559023, 127.005296),
+    level: 3,
+  };
 
-    let mapOption = {
-      center: new kakao.maps.LatLng(37.559023, 127.005296), // 지도의 중심좌표
-      level: 3, // 지도의 확대 레벨
-    };
+  let map = new kakao.maps.Map(mapContainer, mapOption);
+  let mapTypeControl = new kakao.maps.MapTypeControl();
+  map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-    // 지도를 생성합니다
-    let map = new kakao.maps.Map(mapContainer, mapOption);
+  let zoomControl = new kakao.maps.ZoomControl();
+  map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-    // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-    let mapTypeControl = new kakao.maps.MapTypeControl();
-    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+  markers.forEach(marker => marker.setMap(null));
+  markers = [];
 
-    // 지도 확대 축소를 제어할 수 있는 줌 컨트롤을 생성합니다
-    let zoomControl = new kakao.maps.ZoomControl();
-    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+  let bounds = new kakao.maps.LatLngBounds();
 
-    // 기존 마커 제거
-    markers.forEach(marker => marker.setMap(null));
-    markers = [];
+  // house_id의 개수를 계산
+  const houseIdCounts = new Map();
+  dopositions.forEach(pos => {
+    houseIdCounts.set(pos.house_id, (houseIdCounts.get(pos.house_id) || 0) + 1);
+  });
 
-    // 지도 영역을 설정하는 객체를 생성합니다
-    let bounds = new kakao.maps.LatLngBounds();
-
-    filteredPositions.forEach(position => {
-      // 마커를 생성합니다
-      let marker = new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(position.latLng.lat, position.latLng.lng)
-      });
-
-      // 마커에 표시할 인포윈도우를 생성합니다 
-      let infowindow = new kakao.maps.InfoWindow({
-        content: position.content
-      });
-
-      // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록
-      kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-      kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-
-      markers.push(marker);
-
-      // bounds 객체에 마커의 좌표를 추가합니다
-      bounds.extend(new kakao.maps.LatLng(position.latLng.lat, position.latLng.lng));
+  filteredPositions.forEach(position => {
+    let marker = new kakao.maps.Marker({
+      map: map,
+      position: new kakao.maps.LatLng(position.latLng.lat, position.latLng.lng)
     });
 
-    // 검색 결과가 있을 경우, 해당 마커들의 위치가 모두 보이도록 지도 영역을 재설정합니다
-    if (filteredPositions.length > 0) {
-      map.setBounds(bounds);
-    }
+    // house_id 개수에 따른 인포윈도우 내용 설정
+    let infowindowContent = `알림 받은 개수: ${houseIdCounts.get(position.house_id)}`;
+    let infowindow = new kakao.maps.InfoWindow({
+      content: infowindowContent
+    });
 
-    // 인포윈도우를 표시하는 클로저를 만드는 함수 
-    function makeOverListener(map, marker, infowindow) {
-      return function () {
-        infowindow.open(map, marker);
-      };
-    }
-    // 인포윈도우를 닫는 클로저를 만드는 함수
-    function makeOutListener(infowindow) {
-      return function () {
-        infowindow.close();
-      };
-    }
-  }, [filteredPositions]);
+    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+
+    markers.push(marker);
+    bounds.extend(new kakao.maps.LatLng(position.latLng.lat, position.latLng.lng));
+  });
+
+  if (filteredPositions.length > 0) {
+    map.setBounds(bounds);
+  }
+
+  function makeOverListener(map, marker, infowindow) {
+    return function () {
+      infowindow.open(map, marker);
+    };
+  }
+
+  function makeOutListener(infowindow) {
+    return function () {
+      infowindow.close();
+    };
+  }
+}, [filteredPositions]);
+
 
   return (
     <div className="map_wrap">
