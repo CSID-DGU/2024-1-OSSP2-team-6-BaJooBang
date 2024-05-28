@@ -33,6 +33,9 @@ public class Member {
     private List<Request> request = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    private List<Request> requestAsBalpoomin = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<Alarm> alarms = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
