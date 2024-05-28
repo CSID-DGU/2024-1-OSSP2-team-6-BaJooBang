@@ -58,7 +58,7 @@ public class RequestController {
             for(Member mem : alarmMembers){
                 alarmService.saveMemberRequest(mem, newRequest);
             }
-
+            log.info("member.getRequest() = {}", member.getRequests());
             return "GOOD";
         }
         else {

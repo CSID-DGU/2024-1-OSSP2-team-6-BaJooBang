@@ -30,9 +30,9 @@ public class Member {
     private double longitude;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
-    private List<Request> request = new ArrayList<>();
+    private List<Request> requests = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "balpoomin", fetch = FetchType.EAGER)
     private List<Request> requestAsBalpoomin = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
@@ -41,6 +41,9 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<BaDream> baDreams = new ArrayList<>();
 
+    public void setRequest(Request request) {
+        this.getRequests().add(request);
+    }
     // dto를 엔티티로 변환
     public static Member toEntity(SignupForm signupForm) {
         return Member.builder()
