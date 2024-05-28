@@ -1,5 +1,6 @@
 package ossp_bajoobang.bajoobang.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ossp_bajoobang.bajoobang.domain.BaDream;
 import ossp_bajoobang.bajoobang.domain.Member;
@@ -14,10 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class InquiryService {
-    private MemberRepository memberRepository;
-    private RequestRepository requestRepository;
-    private BaDreamRepository baDreamRepository;
+    private final MemberRepository memberRepository;
+    private final RequestRepository requestRepository;
+    private final BaDreamRepository baDreamRepository;
 
     public List<BaDream> getBaDreamsByMember(Member member) {
         List<Request> requests = requestRepository.findByMember(member);

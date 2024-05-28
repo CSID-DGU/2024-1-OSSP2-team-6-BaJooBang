@@ -3,6 +3,7 @@ package ossp_bajoobang.bajoobang.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class BalpoomController {
 
     private final BalpoomService balpoomService;
@@ -56,12 +58,13 @@ public class BalpoomController {
     // 발품 신청
     @PatchMapping("/request")
     public String patchRequest(@RequestParam Long request_id,
-                               RequestPatchForm requestPatchForm,
+                               @RequestBody RequestPatchForm requestPatchForm,
                                HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             Member member = (Member) session.getAttribute("loginMember");
             // 바드림에 저장
+            log.info("requestPatchForm.getMessage()={}", requestPatchForm.getMessage());
             baDreamService.createBaDream(member, request_id, requestPatchForm.getMessage());
             return "GOOD";
         }
