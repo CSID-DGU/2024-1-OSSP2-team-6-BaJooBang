@@ -20,4 +20,6 @@ public class BaDream {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id")
     private Request request;
+
+    private String message;
 }

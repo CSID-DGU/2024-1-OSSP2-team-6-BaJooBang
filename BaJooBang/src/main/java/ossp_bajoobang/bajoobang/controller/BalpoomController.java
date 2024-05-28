@@ -4,13 +4,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.dto.HouseDTO;
 import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
+import ossp_bajoobang.bajoobang.dto.RequestPatchForm;
+import ossp_bajoobang.bajoobang.service.BaDreamService;
 import ossp_bajoobang.bajoobang.service.BalpoomService;
 import ossp_bajoobang.bajoobang.service.RequestService;
 
@@ -24,6 +24,7 @@ public class BalpoomController {
 
     private final BalpoomService balpoomService;
     private final RequestService requestService;
+    private final BaDreamService baDreamService;
 
     @GetMapping("/balpoom")
     // 우성 S
@@ -51,6 +52,21 @@ public class BalpoomController {
 //        HouseDTO houseDTO = balpoomService.getBalpoom(local_id);
 //        return houseDTO;
 //    }
+
+    // 발품 신청
+    @PatchMapping("/request")
+    public String patchRequest(@RequestParam Long request_id,
+                               RequestPatchForm requestPatchForm,
+                               HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            Member member = (Member) session.getAttribute("loginMember");
+            // 바드림에 저장
+            baDreamService.createBaDream(member, request_id, requestPatchForm.getMessage());
+            return "GOOD";
+        }
+        return "FAIL";
+    }
 
 
 }

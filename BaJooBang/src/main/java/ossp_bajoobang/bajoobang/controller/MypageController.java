@@ -7,16 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ossp_bajoobang.bajoobang.domain.BaDream;
 import ossp_bajoobang.bajoobang.domain.Member;
-import ossp_bajoobang.bajoobang.domain.Request;
-import ossp_bajoobang.bajoobang.dto.MemberDTO;
-import ossp_bajoobang.bajoobang.dto.MypageDTO;
-import ossp_bajoobang.bajoobang.dto.RequestDTO;
+import ossp_bajoobang.bajoobang.service.InquiryService;
 import ossp_bajoobang.bajoobang.service.MemberService;
 import ossp_bajoobang.bajoobang.service.RequestService;
 
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @RestController("/member")
@@ -24,71 +20,23 @@ import java.util.List;
 public class MypageController {
     private final MemberService memberService;
     private final RequestService requestService;
-    @GetMapping("/info")
-    public MypageDTO getMypage(HttpServletRequest request) {
+    private final InquiryService inquiryService;
+
+
+    // 신청조회
+    @GetMapping("/inquiry")
+    public ResponseEntity<?> getInquiry(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             // 세션에서 멤버를 꺼내오기
             Member member = (Member) session.getAttribute("loginMember");
-
-            MemberDTO memberDTO = MemberDTO.toDTO(member);
-            // 등록 매물 리스트
-            List<RequestDTO> myRequests = requestService
-                    .findMyRequests(memberDTO.getId());
-            // 신청 조회 리스트
-            List<RequestDTO> appliedRequests = requestService
-                    .findMyRequests(memberDTO.getId());
-            // 신청 발품 리스트
-            List<RequestDTO> applyBalpooms = requestService
-                    .findMyRequests(memberDTO.getId());
-            // 알림 리스트
-            List<RequestDTO> alarmList = requestService
-                    .getAlramList(memberDTO.getId());
-            return MypageDTO.toDTO(memberDTO, myRequests, applyBalpooms, alarmList);
+            // 봐드림 있는 요청서만 가져오기
+            List<Map<String, Object>> inquiries = inquiryService.getInquires(member);
+            return ResponseEntity.ok(inquiries);
         }
         else {
-            // 로그인 안 한 사용자
-            return null;
+            return ResponseEntity.status(401).body("Unauthorized");
         }
     }
-   /* @PostMapping("/signup")
-    public String signup(@RequestBody SignupForm signupForm){
-        memberService.register(signupForm);
-
-        return "GOOD";
-    }*/
-
-    // 신청조회
-//    @GetMapping("/inquiry")
-//    public ResponseEntity<?> getInquiry(HttpServletRequest request) {
-//        HttpSession session = request.getSession(false);
-//        if (session != null) {
-//            // 세션에서 멤버를 꺼내오기
-//            Member member = (Member) session.getAttribute("loginMember");// 봐드림 있는 요청서만 가져오기
-//            List<Request> requests = member.getRequest();
-//
-//
-//            return
-//        }
-//        else {
-//            // 로그인 안 한 사용자
-//            return null;
-//        }
-//    }
-
-//    @GetMapping("/registered")
-//    public ResponseEntity<?> getRegistered(HttpServletRequest request) {
-//        HttpSession session = request.getSession(false);
-//        if (session != null) {
-//            // 세션에서 멤버를 꺼내오기
-//            Member member = (Member) session.getAttribute("loginMember");
-//
-//            return
-//        }
-//        else {
-//            // 로그인 안 한 사용자
-//            return null;
-//        }
-//    }
 
 }
