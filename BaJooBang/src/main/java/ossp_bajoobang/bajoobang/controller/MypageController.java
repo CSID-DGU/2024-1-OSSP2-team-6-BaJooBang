@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.service.InquiryService;
@@ -15,7 +16,8 @@ import ossp_bajoobang.bajoobang.service.RequestService;
 import java.util.*;
 
 @Slf4j
-@RestController("/member")
+@RestController
+@RequestMapping("/member")
 @RequiredArgsConstructor
 public class MypageController {
     private final MemberService memberService;
