@@ -44,6 +44,10 @@ public class Member {
     public void setRequest(Request request) {
         this.getRequests().add(request);
     }
+
+    public void setBaDream(BaDream baDream) {
+        this.getBaDreams().add(baDream);
+    }
     // dto를 엔티티로 변환
     public static Member toEntity(SignupForm signupForm) {
         return Member.builder()

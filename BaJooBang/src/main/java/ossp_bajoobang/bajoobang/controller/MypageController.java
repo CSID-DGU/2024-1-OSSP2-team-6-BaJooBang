@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ossp_bajoobang.bajoobang.domain.Member;
-import ossp_bajoobang.bajoobang.service.InquiryService;
-import ossp_bajoobang.bajoobang.service.MemberService;
-import ossp_bajoobang.bajoobang.service.RegisteredService;
-import ossp_bajoobang.bajoobang.service.RequestService;
+import ossp_bajoobang.bajoobang.service.*;
 
 import java.util.*;
 
@@ -25,6 +22,7 @@ public class MypageController {
     private final RequestService requestService;
     private final InquiryService inquiryService;
     private final RegisteredService registeredService;
+    private final FootworkService footworkService;
 
 
     // 신청조회
@@ -52,6 +50,22 @@ public class MypageController {
             // 내가 등록한 요청 가져오기
             List<Map<String, Object>> registeredList = registeredService.getRegistered(member);
             return ResponseEntity.ok(registeredList);
+        }
+        else {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
+    }
+
+    // 신청 발품 (내가 신청한 발품 리스트)
+    @GetMapping("/footwork")
+    public ResponseEntity<?> getFootwork(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // 세션에서 멤버를 꺼내오기
+            Member member = (Member) session.getAttribute("loginMember");
+            // 내가 등록한 요청 가져오기
+            List<Map<String, Object>> footworks = footworkService.getFootworks(member);
+            return ResponseEntity.ok(footworks);
         }
         else {
             return ResponseEntity.status(401).body("Unauthorized");

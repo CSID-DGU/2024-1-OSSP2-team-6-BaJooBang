@@ -56,18 +56,22 @@ public class Request {
     private List<BaDream> baDreams = new ArrayList<>();
 
     // 요청인
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "house_id")
     private House house;
 
     // 발품인
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "balpoomin_id")
     private Member balpoomin;
+
+    public void setBaDream(BaDream baDream) {
+        this.getBaDreams().add(baDream);
+    }
 
 
     public static Request toEntity(RequestDTO dto, Member member, House house){

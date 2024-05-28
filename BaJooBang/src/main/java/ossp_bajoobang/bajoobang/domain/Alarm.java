@@ -16,11 +16,11 @@ public class Alarm {
     @Column(name = "alarm_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "request_id")
     private Request request;
 

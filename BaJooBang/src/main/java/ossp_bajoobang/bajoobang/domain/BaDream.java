@@ -13,11 +13,11 @@ public class BaDream {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long BaDreamId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id") // 발품인 id임
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "request_id")
     private Request request;
 

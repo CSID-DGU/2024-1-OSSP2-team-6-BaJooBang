@@ -22,7 +22,9 @@ public class BaDreamService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + requestId));
         BaDream baDream = new BaDream();
         baDream.setMember(member);
+        member.setBaDream(baDream);
         baDream.setRequest(request);
+        request.setBaDream(baDream);
         baDream.setMessage(message);
         baDreamRepository.save(baDream);
     }
