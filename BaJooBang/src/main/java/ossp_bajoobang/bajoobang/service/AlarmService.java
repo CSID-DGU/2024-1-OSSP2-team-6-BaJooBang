@@ -43,7 +43,7 @@ public class AlarmService {
             alarm.put("address", request.getHouse().getContent());
             alarm.put("price", request.getPriceRequest());
             alarm.put("requester", request.getMember().getName());
-            alarm.put("request_id", "");
+            alarm.put("request_id", request.getRequestId());
             alarm.put("date", request.getRequestDate());
             alarmList.add(alarm);
         }

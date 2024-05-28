@@ -26,7 +26,7 @@ public class RegisteredService {
             if (request.getBalpoomin() == null) registered.put("state", "요청 중");
             else registered.put("state", "매칭 완료");
             registered.put("date", request.getRequestDate());
-            registered.put("request_id", "");
+            registered.put("request_id", request.getRequestId());
             registeredList.add(registered);
         }
         log.info("registeredList={}", registeredList);
