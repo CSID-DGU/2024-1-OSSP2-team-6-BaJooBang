@@ -52,6 +52,9 @@ public class Request {
     @OneToMany(mappedBy = "request")
     private List<Alarm> alarms = new ArrayList<>();
 
+    @OneToMany(mappedBy = "request")
+    private List<BaDream> baDreams = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
