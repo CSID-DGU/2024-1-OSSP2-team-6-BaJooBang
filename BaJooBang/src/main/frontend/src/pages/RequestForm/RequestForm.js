@@ -39,6 +39,7 @@ function RequestForm() {
     const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: '' })));
     const contentRefs = useRef([]);
     const imageBoxRefs = useRef([]);
+    const fileInputs = useRef([]);
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 창 상태
 
@@ -55,28 +56,6 @@ function RequestForm() {
     const handleAddRequest = () => {
         setInputs([...inputs, { plus_q: '' }]);
     };
-
-    async function RequestPost() {
-        const data = {
-            price_request: price,
-            request_date: date,
-            plus_list: inputs
-        };
-        try {
-            console.log(price);
-            console.log(date);
-            console.log(inputs);
-            const response = await axios.post(`http://localhost:8000/request-form?house_id=${house_id}`, data, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log('Request success:', response.data);
-            navigate('/domap');
-        } catch (error) {
-            console.error('Request failed:', error);
-        }
-    }
 
     const handleFileChange = (index, event) => {
         const file = event.target.files[0];
@@ -105,6 +84,38 @@ function RequestForm() {
     const openModal = () => {
         setIsModalOpen(true);
     };
+
+    async function RequestPost() {
+        const formData = new FormData();
+
+        // JSON 데이터를 FormData에 추가 (plus_list만 추가)
+        formData.append('jsonData', JSON.stringify({ plus_list: inputs }));
+
+        // 요청 사항과 이미지들을 FormData에 추가
+        requests.forEach((input, index) => {
+            formData.append(`requests[${index}][title]`, input.title);
+            formData.append(`requests[${index}][text]`, contentEditableStates[index].text);
+
+            const fileInput = fileInputs.current[index];
+            if (fileInput && fileInput.files.length > 0) {
+                Array.from(fileInput.files).forEach((file, fileIndex) => {
+                    formData.append(`requests[${index}][files][${fileIndex}]`, file);
+                });
+            }
+        });
+
+        try {
+            const response = await axios.post(`http://localhost:8000/request-form?house_id=${house_id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('Request success:', response.data);
+            navigate('/domap');
+        } catch (error) {
+            console.error('Request failed:', error);
+        }
+    }
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5vw', paddingBottom: '5vw', backgroundColor: '#ffffdd' }}>
@@ -238,6 +249,7 @@ function RequestForm() {
                                         <input 
                                             type="file" 
                                             id={`fileInput-${index}`} 
+                                            ref={el => fileInputs.current[index] = el}
                                             style={{ display: 'none' }} 
                                             onChange={e => handleFileChange(index, e)}
                                             accept="image/*"
