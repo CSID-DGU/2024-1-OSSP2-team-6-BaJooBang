@@ -6,11 +6,16 @@ function ListBlock2({Num, Address, month, date, request, state}) {
         
             
                 <div className='ListTitle'>
-                   <div className='ListTitleText2' style={{fontWeight: 'bold', width: '12%'}}>{Num}</div> 
-                   <div className='ListTitleText2_address' style={{width: '45%'}}>{Address}</div>
-                   <div className='ListTitleText2' style={{width: '15%', color: '#53C15F', fontWeight: '600'}}>{month}</div>
-                   <div className='ListTitleText2' style={{width: '15%', color:'#69666E', fontWeight: '400'}}>{date}</div>
-                   <div className='ListTitleText2' style={{width: '13%'}}>{state}</div>
+                   <div className='ListTitleText2' style={{fontWeight: 'bold'}}>{Num}</div> 
+                   <div className='ListTitleText2_address'>{Address}</div>
+                   <div className='ListTitleText2' style={{ color: '#53C15F', fontWeight: '600'}}>{month}</div>
+
+                   <div className='ListTitleText2' style={{fontWeight: '500'}}>{state}</div>
+                   <div className='ListTitleText2'>
+                    <div className='list-request-box'>요청서 보기</div>
+                   </div>
+                   <div className='ListTitleText2' style={{ color:'#69666E', fontWeight: '400'}}>{date}</div>
+                   
                 </div>
         
         
