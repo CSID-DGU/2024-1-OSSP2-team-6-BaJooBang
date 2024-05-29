@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './ListPage1.css'; // 페이지 스타일을 여기에 유지합니다.
 import ListBlock3 from './ListBlock3';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function ListPage3() {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentItems, setCurrentItems] = useState([]);
+    const [listData, setListData] = useState([]);
     const itemsPerPage = 10;
 
+    /*
     const listData = [
         { Num: '1', Address: '서울특별시 서초구 서초동', month: '10,000원', date: '손흥민', request: '요청서 보기', state: '2024.03.29' },
         { Num: '2', Address: '서울특별시 강남구 역삼동', month: '20,000원', date: '김연아', request: '요청서 보기', state: '2024.03.28' },
@@ -24,7 +27,29 @@ function ListPage3() {
         { Num: '13', Address: '서울특별시 영등포구 여의도동', month: '16,000원', date: '류현진', request: '요청서 보기', state: '2024.03.17' },
         { Num: '14', Address: '서울특별시 광진구 화양동', month: '23,000원', date: '이강인', request: '요청서 보기', state: '2024.03.16' },
     ];
+    */
     
+    useEffect(() => {
+        // Fetch data from the API
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/member/alarm'); // Replace with your actual API endpoint
+                const requestData = response.data.list.map((item, index) => ({
+                    Num: index + 1,
+                    Address: item.address,
+                    Price: item.price,
+                    Requester: item.requester,
+                    Date: item.date,
+                    Request_id: item.request_id,
+                }));
+                setListData(requestData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     useEffect(() => {
         const indexOfLastItem = currentPage * itemsPerPage;
@@ -42,6 +67,8 @@ function ListPage3() {
         pageNumbers.push(i);
     }
 
+    
+
     return(
         <div className='ListBackground'>
             <div className='ListBox'>
@@ -56,7 +83,7 @@ function ListPage3() {
                 {currentItems.map((item, index) => (
                     <React.Fragment key={index}>
                         
-                            <ListBlock3 Num={item.Num} Address={item.Address} month={item.month} date={item.date} request={item.request} state={item.state} />
+                            <ListBlock3 Num={item.Num} Address={item.Address} Price={item.Price} Date={item.Date} Request_id={item.Request_id} State={item.State} />
                         
                         <div className='ListLine' />
                     </React.Fragment>
