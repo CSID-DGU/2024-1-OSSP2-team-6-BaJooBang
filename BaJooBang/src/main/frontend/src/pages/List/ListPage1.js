@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import './ListPage1.css';
 import ListBlock from './ListBlock1';
 import Modal from './Modal';
+import axios from 'axios';
 
 function ListPage1() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalData, setModalData] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [currentItems, setCurrentItems] = useState([]);
+    const [listData, setListData] = useState([]);
     const itemsPerPage = 10;
 
+    /*
     const listData = [
         { Num: '1', Address: '서울특별시 서초구 서초동', Person: '홍길동', Star: '4.8' },
         { Num: '2', Address: '서울특별시 강남구 역삼동', Person: '이순신', Star: '4.9' },
@@ -25,6 +28,28 @@ function ListPage1() {
         { Num: '12', Address: '서울특별시 성동구 성수동', Person: '김좌진', Star: '4.3' },
         { Num: '13', Address: '서울특별시 종로구 혜화동', Person: '윤봉길', Star: '4.2' },
     ];
+    */
+
+    useEffect(() => {
+        // Fetch data from the API
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/member/inquiry'); // Replace with your actual API endpoint
+                const requestData = response.data.list.map((item, index) => ({
+                    Num: index + 1,
+                    Address: item.address,
+                    Person: item.name,
+                    Star: item.star,
+                    Message: item.message
+                }));
+                setListData(requestData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const handleBlockClick = (data) => {
         setModalData(data);

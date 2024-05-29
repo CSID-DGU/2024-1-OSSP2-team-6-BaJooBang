@@ -17,7 +17,7 @@ function Modal({ isOpen, onClose, data }) {
                     <p style={{marginTop: "-10px"}}>{data.Star}</p>
                     <div style={{display: "flex", flexDirection: "row", justifyContent: 'center', alignItems: 'center', paddingTop: '2vw', paddingBottom: '2vw'}}>
                         <Message style={{paddingRight: "0.5vw"}}/>
-                        <p style={{fontSize: '16px', fontWeight: '500'}}>안녕하세요 발품 요청인 홍길동입니다. 발품 신청합니다.</p>
+                        <p style={{fontSize: '16px', fontWeight: '500'}}>{data.Message}</p>
                     </div>
                     <div className='modalButtonBox'>
                         <div/>
