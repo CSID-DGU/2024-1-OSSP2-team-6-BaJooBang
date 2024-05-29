@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './ListPage1.css'; // 페이지 스타일을 여기에 유지합니다.
 import ListBlock4 from './ListBlock4';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function ListPage4() {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentItems, setCurrentItems] = useState([]);
+    const [listData, setListData] = useState([]);
     const itemsPerPage = 10;
 
+    /*
     const listData = [
         { Num: '1', Address: '서울특별시 서초구 서초동', month: '10000원', date: '2024.03.29', state: '요청 중' },
         { Num: '2', Address: '서울특별시 강남구 역삼동', month: '10000원', date: '2024.03.28', state: '요청 중' },
@@ -23,7 +26,29 @@ function ListPage4() {
         { Num: '12', Address: '서울특별시 강남구 청담동', month: '10000원', date: '2024.03.14', state: '요청 중' },
         { Num: '13', Address: '서울특별시 영등포구 여의도동', month: '10000원', date: '2024.03.13', state: '요청 중' },
     ];
+    */
     
+    useEffect(() => {
+        // Fetch data from the API
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/member/footwork'); // Replace with your actual API endpoint
+                const requestData = response.data.list.map((item, index) => ({
+                    Num: index + 1,
+                    Address: item.address,
+                    Price: item.price,
+                    State: item.state,
+                    Date: item.date,
+                    Request_id: item.request_id,
+                }));
+                setListData(requestData);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     useEffect(() => {
         const indexOfLastItem = currentPage * itemsPerPage;
@@ -55,7 +80,7 @@ function ListPage4() {
                 {currentItems.map((item, index) => (
                     <React.Fragment key={index}>
                         
-                            <ListBlock4 Num={item.Num} Address={item.Address} month={item.month} date={item.date} request={item.request} state={item.state} />
+                            <ListBlock4 Num={item.Num} Address={item.Address} Price={item.Price} Date={item.Date} Request_id={item.Request_id} State={item.State} />
                         
                         <div className='ListLine' />
                     </React.Fragment>
