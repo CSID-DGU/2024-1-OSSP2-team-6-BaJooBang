@@ -20,7 +20,7 @@ function HeaderBar() {
         </div>
         {isLoggedIn ? (
           <div className='innerBox'>
-            <Link to="/mypage"><p>마이페이지</p></Link>
+            <Link to="/member"><p>마이페이지</p></Link>
           </div>
         ) : (
           <div className='innerBox'>

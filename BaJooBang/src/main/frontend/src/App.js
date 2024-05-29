@@ -34,11 +34,11 @@ function App() {
           <Route path='/helpinfo/:house_id' element={<Imformation positions={positions} />}></Route>
           <Route path="/request/:house_id" element={<RequestForm />} />
           {/* <Route path="/request" element={<RequestForm />} /> */}
-          <Route path='/mypage' element={<MyPage />} />
-          <Route path='/list1' element={<ListPage1 />} />
-          <Route path='/list2' element={<ListPage2 />} />
-          <Route path='/list3' element={<ListPage3 />} />
-          <Route path='/list4' element={<ListPage4 />} />
+          <Route path='/member' element={<MyPage />} />
+          <Route path='/member/inquiry' element={<ListPage1 />} />
+          <Route path='/member/registered' element={<ListPage2 />} />
+          <Route path='/member/alarm' element={<ListPage3 />} />
+          <Route path='/member/footwork' element={<ListPage4 />} />
           <Route path='/matching' element={<Matching />} />
       </Routes>
       </div>
