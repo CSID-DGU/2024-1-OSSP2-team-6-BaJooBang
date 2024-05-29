@@ -52,23 +52,27 @@ public class Request {
     @OneToMany(mappedBy = "request")
     private List<Alarm> alarms = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "request")
+    private List<BaDream> baDreams = new ArrayList<>();
+
+    // 요청인
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "house_id")
     private House house;
 
-//    public void setMember(Member member) {
-//        this.member = member;
-//        member.getRequest().add(this);
-//    }
-//
-//    public void setHouse(House house) {
-//        this.house = house;
-//        house.getRequest().add(this);
-//    }
+    // 발품인
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "balpoomin_id")
+    private Member balpoomin;
+
+    public void setBaDream(BaDream baDream) {
+        this.getBaDreams().add(baDream);
+    }
+
 
     public static Request toEntity(RequestDTO dto, Member member, House house){
 

@@ -4,37 +4,22 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class Alarm {
-
+public class BaDream {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "alarm_id")
-    private Long id;
+    private Long BaDreamId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id") // 발품인 id임
     private Member member;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "request_id")
     private Request request;
 
-    // 알람 T/F?
-
-//    public void setMember(Member member) {
-//        this.member = member;
-//        member.getAlarms().add(this);
-//    }
-//
-//    public void setRequest(Request request) {
-//        this.request = request;
-//        request.getAlarms().add(this);
-//    }
-
-
+    private String message;
 }
