@@ -88,20 +88,21 @@
 }
 
 .list-request-box {
-    color: #7A7676;
+    color: #747474;
     font-size: 13.5px;
+    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1px;
     border-radius: 8px;
-    background-color: #EAEAEA;
+    background-color: #F6F6F6;
     width: 80px;
     height: 25px;
     transition: background-color 0.3s, color 0.3s;
   }
 
 .list-request-box:hover {
-  background-color: #C0C0C0; /* 호버 시 배경색 변경 */
+  background-color: #727272; /* 호버 시 배경색 변경 */
   color: white; /* 호버 시 텍스트 색 변경 */
 }

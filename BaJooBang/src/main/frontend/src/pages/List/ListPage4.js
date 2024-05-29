@@ -16,7 +16,7 @@ function ListPage4() {
         { Num: '5', Address: '서울특별시 마포구 합정동', month: '10000원', date: '2024.03.21', state: '매칭 완료' },
         { Num: '6', Address: '서울특별시 용산구 이태원동', month: '10000원', date: '2024.03.20', state: '요청 중' },
         { Num: '7', Address: '서울특별시 성동구 성수동', month: '10000원', date: '2024.03.19', state: '요청 중' },
-        { Num: '8', Address: '서울특별시 종로구 혜화동', month: '10000원', date: '2024.03.18', state: '매칭 완료' },
+        { Num: '8', Address: '서울특별시 종로구 혜화동', month: '10000원', date: '2024.03.18', state: '작성 완료' },
         { Num: '9', Address: '서울특별시 서대문구 홍제동', month: '10000원', date: '2024.03.17', state: '요청 중' },
         { Num: '10', Address: '서울특별시 동작구 상도동', month: '10000원', date: '2024.03.16', state: '요청 중' },
         { Num: '11', Address: '서울특별시 송파구 잠실동', month: '10000원', date: '2024.03.15', state: '매칭 완료' },
