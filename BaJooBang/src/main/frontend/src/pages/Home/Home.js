@@ -38,47 +38,59 @@ export function Footer() {
 }
 
 function Homepage() {
+  useEffect(() => {
+    const fadeInElements = document.querySelectorAll('.fade-in-scroll');
+
+    const handleScroll = () => {
+      fadeInElements.forEach((element, index) => {
+        const rect = element.getBoundingClientRect();
+        if (rect.top <= window.innerHeight) {
+          setTimeout(() => {
+            element.classList.add('visible');
+          }, index * 500); // 요소별로 500ms 지연
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div className="Homepage">
-      <video id ="video1" autoPlay loop muted >
-        <source  src={video} type='video/mp4' />
+      <video id="video1" autoPlay loop muted>
+        <source src={video} type="video/mp4" />
       </video>
-      <div className='content'>
-        
+      <div className="content">
         <div className="center-text">
           <h1 className="fade-in">더 빠르고 편리한 발품을 위해</h1>
-          <p><p></p></p><p className="fade-in description">바줘방은 서울 지역 자취방을 알아보기 위해 돈과 시간을 투자해야하는 이들에게, <p>돈과 시간을 절약해주기위한 효율적인 대리 발품인을 이어줍니다.  </p></p>
+          <p className="fade-in description">바줘방은 서울 지역 자취방을 알아보기 위해 돈과 시간을 투자해야하는 이들에게, <p></p>돈과 시간을 절약해주기 위한 효율적인 대리 발품인을 이어줍니다.</p>
         </div>
-
-        <div className="scroll-arrow"><Arrow/></div>
-
-        <div className='reason'>
-          <p className='reaseon_title'>why use?</p>
-          <h1> 누구나 언제든 어디서든 발품을 팔 수 있다!!</h1>
+        <div className="scroll-arrow"><Arrow /></div>
+        <div className="reason">
+          <p className="reason_title">why use?</p>
+          <h1>누구나 언제든 어디서든 발품을 팔 수 있다!!</h1>
         </div>
         <div className="row-container">
-    <div className="video-row">
-      <video id="video2" autoPlay loop muted>
-        <source src={video2} type='video/mp4' />
-      </video>
-      <video id="video3" autoPlay loop muted>
-        <source src={video3} type='video/mp4' />
-      </video>
-    </div>
-    <div className='three_reason'>
-        <h2 className='part'><span className="highlight">누구나</span> 집을 알아볼 수 있도록</h2>
-        <h2 className='part'><span className="highlight">언제나</span> 집을 알아볼 수 있도록</h2>
-        <h2 className='part'><span className="highlight">언제든지</span> 집을 알아볼 수 있도록</h2>
+          <div className="video-row">
+            <video id="video2" autoPlay loop muted className="fade-in-scroll">
+              <source src={video2} type="video/mp4" />
+            </video>
+            <video id="video3" autoPlay loop muted className="fade-in-scroll">
+              <source src={video3} type="video/mp4" />
+            </video>
+          </div>
+          <div className="three_reason">
+            <h2 className="part fade-in-scroll"><span className="highlight">누구나</span> 집을 알아볼 수 있도록</h2>
+            <h2 className="part fade-in-scroll"><span className="highlight">언제나</span> 집을 알아볼 수 있도록</h2>
+            <h2 className="part fade-in-scroll"><span className="highlight">언제든지</span> 집을 알아볼 수 있도록</h2>
+          </div>
+        </div>
+        <Footer />
       </div>
-  </div>
-
-      <Footer/>
-      
-      </div>
-
-      
     </div>
-    
   );
 }
 

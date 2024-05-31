@@ -12,6 +12,9 @@
   text-align: center;
   margin-top: 900px;
 }
+.center-text h1 {
+  font-size: 50px;
+}
 .content2 {
   position: relative;
   margin-top :400px;
@@ -43,6 +46,17 @@
 
 .fade-in.description {
   animation-delay: 1s; /* 설명 텍스트에 약간의 지연을 추가 */
+}
+
+.fade-in-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes fadeInAnimation {
@@ -106,7 +120,7 @@ video {
 }
 #video1 {
   width: 100%;
-  opacity: 0.1;
+  opacity: 0.3;
   filter: invert(100%); /*영상 반전요소*/
 }
 #video2, #video3 {
@@ -137,7 +151,7 @@ video {
 
 .reason_title{
   text-align: center;
-  padding-left: 230px;
+  padding-left: 0px;
   
 }
 
@@ -153,13 +167,14 @@ video {
 
 .three_reason {
   width: 70%; 
-  border-right: 00px;
+  border-right: 10px;
   padding-top: 10px;
+  margin-right :80px;
 }
 
 .part{
   margin : 50px;
-  margin-right: 250px;
+  margin-right: 150px;
   text-align: center;
   padding: 20px;
   background-color: #FFFFDD;
