@@ -5,7 +5,6 @@ import { ReactComponent as Closer } from '../components/images/closer.svg';
 import { dopositions } from './showmap';
 import Bell from '../HelpPage/bell';
 
-// 매물지도의 검색라인
 const SearchBar = ({ onSearchChange }) => {
   return (
     <div className="search">
@@ -29,15 +28,21 @@ const Dopage = () => {
   const handleSearchChange = (newSearch) => {
     setSearch(newSearch);
   };
-  const handleNotificationClick = (isActive) => {
-    setShowOnlyNotified(isActive);
+  
+  const handleNotificationClick = (showOnlyNotified) => {
+    setShowOnlyNotified(showOnlyNotified);
   };
 
   return (
     <div className='screen'>
       <div className="top-controls">  
         <SearchBar onSearchChange={handleSearchChange} />
-        <Bell dopositions={dopositions} onNotificationClick={handleNotificationClick} />
+        <Bell 
+          dopositions={dopositions} 
+          onNotificationClick={handleNotificationClick} 
+          showOnlyNotified={showOnlyNotified}
+          setShowOnlyNotified={setShowOnlyNotified}
+        />
       </div>
       <DopageMap search={search} showOnlyNotified={showOnlyNotified}/>
     </div>

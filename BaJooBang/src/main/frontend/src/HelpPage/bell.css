@@ -13,6 +13,28 @@
 .slide-left {
   transform: translateX(-80px); /* 아이콘을 왼쪽으로 슬라이드 */
 }
+.notification-container {
+  position: relative;
+}
+
+.icon-wrapper {
+  display: inline-block;
+  transition: transform 0.3s ease; 
+}
+
+.slide-left {
+  transform: translateX(-80px); 
+}
+
+.notification-tooltip {
+  position: absolute;
+  top: 0;
+  left: -100%; /* Position to the left */
+  background-color: white;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
 .notification-tooltip {
   visibility: hidden;
@@ -30,7 +52,7 @@
   white-space: nowrap;
 }
 
-.notification-container:hover .notification-tooltip {
+.notification-tooltip {
   visibility: visible;
   opacity: 1;
 }
