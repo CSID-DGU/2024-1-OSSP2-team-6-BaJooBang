@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
+import ossp_bajoobang.bajoobang.domain.PlusRequest;
 import ossp_bajoobang.bajoobang.dto.HouseDTO;
 import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
@@ -71,5 +72,14 @@ public class BalpoomController {
         return "FAIL";
     }
 
+    // 발품서 작성 페이지 이동 시
+    @GetMapping("/balpoomSee")
+    public void seeBalpoomDetail(@RequestParam Long request_id, HttpServletRequest request){
+        HttpSession session = request.getSession(false); // 발품자 session
+        Member member = (Member) session.getAttribute("loginMember");
+
+        List<PlusRequest> plusRequestList = requestService.getPlusRequest(request_id);
+
+    }
 
 }

@@ -62,4 +62,9 @@ public class RequestService {
         // ??
         return alramListDTO;
     }
+
+    public List<PlusRequest> getPlusRequest(Long request_id){
+        List<PlusRequest> plusRequests = plusRequestRepository.getReferenceByRequestId(request_id);
+        return plusRequests;
+    }
 }
