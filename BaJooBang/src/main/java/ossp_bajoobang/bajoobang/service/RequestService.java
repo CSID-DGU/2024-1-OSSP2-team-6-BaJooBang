@@ -70,4 +70,18 @@ public class RequestService {
 
         return BalpoomForm.toDTO(plusRequests, requestInfo);
     }
+
+    public void patchInfo(Long request_id, BalpoomForm balpoomForm){
+        Request request = requestRepository.getReferenceById(request_id);
+        request.setPowerShower(balpoomForm.getPowerShower());
+        request.setPowerWater(balpoomForm.getPowerWater());
+        request.setPowerWash(balpoomForm.getPowerWash());
+        request.setTimeWater(balpoomForm.getTimeWater());
+        request.setMoldLiving(balpoomForm.getMoldLiving());
+        request.setMoldRest(balpoomForm.getMoldRest());
+        request.setMoldVeranda(balpoomForm.getMoldVeranda());
+        request.setMoldShoes(balpoomForm.getMoldShoes());
+        request.setMoldWindow(balpoomForm.getMoldWindow());
+        requestRepository.save(request);
+    }
 }

@@ -22,6 +22,24 @@ public class BalpoomForm {
     // 추가 질문 사항.
     private List<PlusRequest> plusRequestList;
 
+    // 수압
+    private Integer powerWater = null;
+    private Integer powerWash = null;
+    private Integer powerShower = null;
+
+    // 온수 시간
+    private String timeWater = null;
+
+    // 채광
+    private String lighting = null;
+
+    // 곰팡이
+    private Boolean moldLiving = null;
+    private Boolean moldRest = null;
+    private Boolean moldVeranda = null;
+    private Boolean moldShoes = null;
+    private Boolean moldWindow = null;
+
     public static BalpoomForm toDTO(List<PlusRequest> plusRequests, Request requestInfo){
         return BalpoomForm.builder()
                 .priceRequest(requestInfo.getPriceRequest())

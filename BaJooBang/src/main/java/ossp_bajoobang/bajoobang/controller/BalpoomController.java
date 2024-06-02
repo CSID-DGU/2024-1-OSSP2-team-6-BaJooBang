@@ -80,7 +80,10 @@ public class BalpoomController {
     }
 
     // 발품서 작성
-//    @PostMapping("balpoom-form")
-//    public
+    @PatchMapping("/balpoom-form")
+    public void postBalpoomForm(@RequestParam Long request_id, @RequestBody BalpoomForm balpoomForm){
+        requestService.patchInfo(request_id, balpoomForm);
+
+    }
 
 }
