@@ -8,10 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.domain.PlusRequest;
-import ossp_bajoobang.bajoobang.dto.HouseDTO;
-import ossp_bajoobang.bajoobang.dto.MemberDTO;
-import ossp_bajoobang.bajoobang.dto.RequestDTO;
-import ossp_bajoobang.bajoobang.dto.RequestPatchForm;
+import ossp_bajoobang.bajoobang.dto.*;
 import ossp_bajoobang.bajoobang.service.BaDreamService;
 import ossp_bajoobang.bajoobang.service.BalpoomService;
 import ossp_bajoobang.bajoobang.service.RequestService;
@@ -73,13 +70,17 @@ public class BalpoomController {
     }
 
     // 발품서 작성 페이지 이동 시
-    @GetMapping("/balpoomSee")
-    public void seeBalpoomDetail(@RequestParam Long request_id, HttpServletRequest request){
+    @GetMapping("/balpoom-form/{request_id}")
+    public void seeBalpoomDetail(@PathVariable Long request_id, HttpServletRequest request){
         HttpSession session = request.getSession(false); // 발품자 session
         Member member = (Member) session.getAttribute("loginMember");
 
-        List<PlusRequest> plusRequestList = requestService.getPlusRequest(request_id);
-
+        BalpoomForm balpoomForm = requestService.getRequestInfo(request_id);
+        // + return 바꿔줘야함.
     }
+
+    // 발품서 작성
+//    @PostMapping("balpoom-form")
+//    public
 
 }

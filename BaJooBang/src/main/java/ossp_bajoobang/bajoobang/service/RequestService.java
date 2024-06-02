@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ossp_bajoobang.bajoobang.domain.*;
+import ossp_bajoobang.bajoobang.dto.BalpoomForm;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
 import ossp_bajoobang.bajoobang.repository.AlarmRepository;
 import ossp_bajoobang.bajoobang.repository.PlusRequestRepository;
@@ -63,8 +64,10 @@ public class RequestService {
         return alramListDTO;
     }
 
-    public List<PlusRequest> getPlusRequest(Long request_id){
+    public BalpoomForm getRequestInfo(Long request_id){
         List<PlusRequest> plusRequests = plusRequestRepository.getReferenceByRequestId(request_id);
-        return plusRequests;
+        Request requestInfo = requestRepository.getReferenceById(request_id);
+
+        return BalpoomForm.toDTO(plusRequests, requestInfo);
     }
 }
