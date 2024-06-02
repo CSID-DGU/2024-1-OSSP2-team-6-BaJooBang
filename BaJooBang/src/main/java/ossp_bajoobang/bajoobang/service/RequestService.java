@@ -83,5 +83,14 @@ public class RequestService {
         request.setMoldShoes(balpoomForm.getMoldShoes());
         request.setMoldWindow(balpoomForm.getMoldWindow());
         requestRepository.save(request);
+        List<PlusRequest> plusRequestList = plusRequestRepository.getReferenceByRequestId(request_id);
+        List<String> plusRequestAnswers = balpoomForm.getPlusAnswerList();
+
+        for (int i = 0; i < plusRequestList.size(); i++) {
+            PlusRequest plusRequest = plusRequestList.get(i);
+            plusRequest.setPlus_answer(plusRequestAnswers.get(i));
+            plusRequestRepository.save(plusRequest);
+        }
+
     }
 }

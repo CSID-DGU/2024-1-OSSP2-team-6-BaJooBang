@@ -21,6 +21,8 @@ public class BalpoomForm {
     private int priceRequest;
     // 추가 질문 사항.
     private List<PlusRequest> plusRequestList;
+    // 추가 질문 사항.
+    private List<String> plusAnswerList;
 
     // 수압
     private Integer powerWater = null;
