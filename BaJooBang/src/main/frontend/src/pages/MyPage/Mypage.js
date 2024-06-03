@@ -29,7 +29,9 @@ function MyPage() {
 
       {mode ?
         <div className='MyBottom1'>
-          <BottomBox content={'찜한 방'} number={'5'} Icon={Heart}/> 
+          <Link to='/member/heart' style={{textDecoration: 'none'}}>
+            <BottomBox content={'찜한 방'} number={'5'} Icon={Heart}/> 
+          </Link>
           <Link to='/member/registered' style={{textDecoration: 'none'}}>
             <BottomBox content={'등록 매물'} number={'5'} Icon={File}/>
           </Link>
@@ -40,7 +42,7 @@ function MyPage() {
         </div>
         :
         <div className='MyBottom2'>
-          <BottomBox content={'나의 별점'} number={'5'} Icon={Star}/> 
+          <BottomBox content={'나의 별점'} number={'5'} Icon={Star} score={true}/> 
           <Link to='/member/footwork' style={{textDecoration: 'none'}}>
             <BottomBox content={'신청 발품'} number={'5'} Icon={Search}/>
           </Link>
