@@ -16,7 +16,7 @@ export const dopositions = [
       "lat": 37.558077,
       "lng": 127.000882
     },
-   "hasNotification": true
+    "hasNotification": true
   },
   {
     "house_id": 2,
@@ -29,8 +29,7 @@ export const dopositions = [
       "lat": 37.566882968825,
       "lng": 126.99092687291
     },
-    
-   "hasNotification": false
+    "hasNotification": false
   },
   {
     "house_id": 3,
@@ -130,9 +129,11 @@ const DopageMap = ({ search, showOnlyNotified }) => {
 
     let bounds = new kakao.maps.LatLngBounds();
 
-    const houseIdCounts = new Map();
+    const houseIdNotificationCounts = new Map();
     dopositions.forEach(pos => {
-      houseIdCounts.set(pos.house_id, (houseIdCounts.get(pos.house_id) || 0) + 1);
+      if (pos.hasNotification) {
+        houseIdNotificationCounts.set(pos.house_id, (houseIdNotificationCounts.get(pos.house_id) || 0) + 1);
+      }
     });
 
     filteredPositions.forEach(position => {
@@ -141,7 +142,7 @@ const DopageMap = ({ search, showOnlyNotified }) => {
         position: new kakao.maps.LatLng(position.latLng.lat, position.latLng.lng)
       });
 
-      let infowindowContent = `알림 받은 개수: ${houseIdCounts.get(position.house_id)}`;
+      let infowindowContent = `알림 받은 개수: ${houseIdNotificationCounts.get(position.house_id) || 0}`;
       let infowindow = new kakao.maps.InfoWindow({
         content: infowindowContent
       });
