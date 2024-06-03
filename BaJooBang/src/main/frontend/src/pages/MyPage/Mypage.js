@@ -10,25 +10,22 @@ import { ReactComponent as Person } from '../../components/images/myPerson.svg';
 import { ReactComponent as Star } from '../../components/images/myStar.svg';
 import { ReactComponent as Search } from '../../components/images/mySearch.svg';
 import { ReactComponent as Alarm } from '../../components/images/myAlarm.svg';
+import { ReactComponent as Speak} from '../../components/images/speak_people.svg';
 
 
 function MyPage() {
   const [mode, setMode] = useState(false);
 
-  function changeMode() {
-    setMode(!mode);
-  }
+  
 
   return (
     <div className="MyPageBackground">
       <Profile/>
       <p className='MPName'>박주형님</p>
       <InfoBox name={'박주형'} ID={'pjh030826'} location={'서울특별시 은평구 은평로 21길 52'}/>
-
-      <button onClick={() => changeMode()}>Change Mode</button>
-
-      {mode ?
+      <div className='Bottom'>
         <div className='MyBottom1'>
+        <p>요청인</p> 
           <BottomBox content={'찜한 방'} number={'5'} Icon={Heart}/> 
           <Link to='/member/registered' style={{textDecoration: 'none'}}>
             <BottomBox content={'등록 매물'} number={'5'} Icon={File}/>
@@ -38,8 +35,9 @@ function MyPage() {
           </Link>
           
         </div>
-        :
+        
         <div className='MyBottom2'>
+        <p>발품인</p> 
           <BottomBox content={'나의 별점'} number={'5'} Icon={Star}/> 
           <Link to='/member/footwork' style={{textDecoration: 'none'}}>
             <BottomBox content={'신청 발품'} number={'5'} Icon={Search}/>
@@ -49,7 +47,8 @@ function MyPage() {
           </Link>
           
         </div>
-      }
+        </div>
+      
       
     </div>
   );
