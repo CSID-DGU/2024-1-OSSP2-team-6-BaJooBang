@@ -1,19 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './moldCheck.css';
 
-function Checkboxes() {
+function MoldCheck({ complete, savedState }) {
   const [checkedState, setCheckedState] = useState({
     hasItem: false,
     noItem: false
   });
 
+  useEffect(() => {
+    if (complete) {
+      setCheckedState(savedState);
+    } else {
+      setCheckedState({
+        hasItem: false,
+        noItem: false
+      });
+    }
+  }, [complete, savedState]);
+
   const handleOnChange = (e) => {
-    const { name } = e.target;
-    setCheckedState({
-      hasItem: false,
-      noItem: false,
-      [name]: !checkedState[name]
-    });
+    if (!complete) {
+      const { name } = e.target;
+      setCheckedState({
+        hasItem: false,
+        noItem: false,
+        [name]: !checkedState[name]
+      });
+    }
   };
 
   return (
@@ -24,9 +37,9 @@ function Checkboxes() {
           name="hasItem"
           checked={checkedState.hasItem}
           onChange={handleOnChange}
+          disabled={complete}
         />
         <p style={{fontSize: '0.9vw'}}>있음</p>
-        
       </label>
       <label style={{display: 'flex', alignItems: 'center'}}>
         <input
@@ -34,6 +47,7 @@ function Checkboxes() {
           name="noItem"
           checked={checkedState.noItem}
           onChange={handleOnChange}
+          disabled={complete}
         />
         <p style={{fontSize: '0.9vw'}}>없음</p>
       </label>
@@ -41,4 +55,4 @@ function Checkboxes() {
   );
 }
 
-export default Checkboxes;
+export default MoldCheck;

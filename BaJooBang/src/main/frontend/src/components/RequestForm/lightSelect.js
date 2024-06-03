@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function LightSelect() {
+function LightSelect({ complete, savedState }) {
   const [selectedOption, setSelectedOption] = useState("");
 
+  useEffect(() => {
+    if (complete && savedState) {
+      setSelectedOption(savedState);
+    } else {
+      setSelectedOption("");
+    }
+  }, [complete, savedState]);
+
   const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value);
+    if (!complete) {
+      setSelectedOption(e.target.value);
+    }
   };
 
   return (
@@ -12,8 +22,8 @@ function LightSelect() {
       <label>
         <input
           type="radio"
-          value="Option1"
-          checked={selectedOption === "Option1"}
+          value="좋음"
+          checked={selectedOption === "좋음"}
           onChange={handleOptionChange}
         />
         좋음
@@ -22,8 +32,8 @@ function LightSelect() {
       <label>
         <input
           type="radio"
-          value="Option2"
-          checked={selectedOption === "Option2"}
+          value="건물에 가림"
+          checked={selectedOption === "건물에 가림"}
           onChange={handleOptionChange}
         />
         건물에 가림
@@ -32,8 +42,8 @@ function LightSelect() {
       <label>
         <input
           type="radio"
-          value="Option3"
-          checked={selectedOption === "Option3"}
+          value="해와 역방향"
+          checked={selectedOption === "해와 역방향"}
           onChange={handleOptionChange}
         />
         해와 역방향
@@ -42,8 +52,8 @@ function LightSelect() {
       <label>
         <input
           type="radio"
-          value="Option4"
-          checked={selectedOption === "Option4"}
+          value="기타"
+          checked={selectedOption === "기타"}
           onChange={handleOptionChange}
         />
         기타
