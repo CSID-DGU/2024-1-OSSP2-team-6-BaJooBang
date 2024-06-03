@@ -27,6 +27,8 @@ public class PlusRequest {
     private String plus_q;
     // 질문 타입
     private String q_type;
+    // 질문 답변
+    private String plus_answer;
 
     //    @JoinColumn(name="request_id", insertable = false, updatable = false)
     @ManyToOne

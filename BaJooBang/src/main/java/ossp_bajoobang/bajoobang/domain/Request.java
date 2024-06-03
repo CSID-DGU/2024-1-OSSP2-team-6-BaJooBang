@@ -27,23 +27,23 @@ public class Request {
     // 발품 가격
     private int priceRequest;
 
-//    // 수압
-//    private int powerWater;
-//    private int powerWash;
-//    private int powerShower;
-//
-//    // 온수 시간
-//    private String timeWater;
-//
-//    // 채광
-//    private String lighting;
-//
-//    // 곰팡이
-//    private boolean moldLiving;
-//    private boolean moldRest;
-//    private boolean moldVeranda;
-//    private boolean moldShoes;
-//    private boolean moldWindow;
+    // 수압
+    private Integer powerWater = null;
+    private Integer powerWash = null;
+    private Integer powerShower = null;
+
+    // 온수 시간
+    private String timeWater = null;
+
+    // 채광
+    private String lighting = null;
+
+    // 곰팡이
+    private Boolean moldLiving = null;
+    private Boolean moldRest = null;
+    private Boolean moldVeranda = null;
+    private Boolean moldShoes = null;
+    private Boolean moldWindow = null;
 
     @OneToMany(mappedBy = "request")
     @JsonManagedReference

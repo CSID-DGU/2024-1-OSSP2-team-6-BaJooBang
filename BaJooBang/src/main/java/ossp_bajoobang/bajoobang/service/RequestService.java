@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ossp_bajoobang.bajoobang.domain.*;
+import ossp_bajoobang.bajoobang.dto.BalpoomForm;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
 import ossp_bajoobang.bajoobang.repository.AlarmRepository;
 import ossp_bajoobang.bajoobang.repository.PlusRequestRepository;
@@ -61,5 +62,35 @@ public class RequestService {
         List<RequestDTO> alramListDTO = new ArrayList<>();
         // ??
         return alramListDTO;
+    }
+
+    public BalpoomForm getRequestInfo(Long request_id){
+        List<PlusRequest> plusRequests = plusRequestRepository.getReferenceByRequestId(request_id);
+        Request requestInfo = requestRepository.getReferenceById(request_id);
+
+        return BalpoomForm.toDTO(plusRequests, requestInfo);
+    }
+
+    public void patchInfo(Long request_id, BalpoomForm balpoomForm){
+        Request request = requestRepository.getReferenceById(request_id);
+        request.setPowerShower(balpoomForm.getPowerShower());
+        request.setPowerWater(balpoomForm.getPowerWater());
+        request.setPowerWash(balpoomForm.getPowerWash());
+        request.setTimeWater(balpoomForm.getTimeWater());
+        request.setMoldLiving(balpoomForm.getMoldLiving());
+        request.setMoldRest(balpoomForm.getMoldRest());
+        request.setMoldVeranda(balpoomForm.getMoldVeranda());
+        request.setMoldShoes(balpoomForm.getMoldShoes());
+        request.setMoldWindow(balpoomForm.getMoldWindow());
+        requestRepository.save(request);
+        List<PlusRequest> plusRequestList = plusRequestRepository.getReferenceByRequestId(request_id);
+        List<String> plusRequestAnswers = balpoomForm.getPlusAnswerList();
+
+        for (int i = 0; i < plusRequestList.size(); i++) {
+            PlusRequest plusRequest = plusRequestList.get(i);
+            plusRequest.setPlus_answer(plusRequestAnswers.get(i));
+            plusRequestRepository.save(plusRequest);
+        }
+
     }
 }
