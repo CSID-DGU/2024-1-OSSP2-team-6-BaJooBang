@@ -91,8 +91,9 @@ function DONav({ positions }) {
             <p><span className="blank"></span>위치 | {position.content}</p>
             <p><span className="blank"></span>요청인<span className="blank"></span>|<span className="blank"></span>{position.human}</p>
             <p><span className="blank"></span>도보 | <span className="blank_gray">{position.time}분</span><span className="blank"></span>거리 | <span className="blank_gray">{position.distance}m</span></p>
-            <Link 
+            <Link
               to={`/request/${position.house_id}`}
+              onClick={(e) => handleLinkClick(e, `/request/${position.house_id}`)}
             >
               <span className="blank"></span>요청서 보러가기 {'>>'}
             </Link>

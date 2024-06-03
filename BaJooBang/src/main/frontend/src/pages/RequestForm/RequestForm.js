@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './RequestForm.css';
@@ -16,6 +16,11 @@ import { ReactComponent as Shower } from '../../components/images/shower.svg';
 import { ReactComponent as Plus1 } from '../../components/images/plus1.svg';
 import { ReactComponent as Check } from '../../components/images/check(heavy).svg';
 
+import image1 from './A-1-3.PNG';
+import image2 from './A-1-4.PNG';
+import image3 from './A-1-5.PNG';
+import image4 from './A-2-1.PNG';
+
 function RequestForm() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,17 +31,31 @@ function RequestForm() {
     const content = location.state ? location.state.content : '기본값';
 
     const [requests, setRequests] = useState([
-        { title: '콘센트 위치 확인하고 사진으로 찍어주세요.' },
-        { title: '방음 상태 확인해주세요.' },
-        { title: '창문 잠금장치 상태 확인해주세요.' }
+        {
+            title: '콘센트 위치 확인하고 사진으로 찍어주세요.',
+            text: '거실 왼쪽 안에 있습니다.',
+            images: [image1, image2]
+        },
+        {
+            title: '방음 상태 확인해주세요.',
+            text: '잘 됩니다.',
+            images: [image3, image4]
+        },
+        {
+            title: '창문 잠금장치 상태 확인해주세요.',
+            text: '견고합니다.',
+            images: [image1, image3]
+        }
     ]);
+    
 
     const [inputs, setInputs] = useState([{ plus_q: '' }]);
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
     const [write, setWrite] = useState(false); // 요청인이 발품 요청서를 작성할 상태인지 아닌지를 저장
-    const [apply, setApply] = useState(false);
-    const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: '' })));
+    const [apply, setApply] = useState(false); // 발품인이 신청했는지에 대한 상태
+    const [complete, setComplete] = useState(false);
+    const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: request.text })));
     const contentRefs = useRef([]);
     const imageBoxRefs = useRef([]);
     const fileInputs = useRef([]);
@@ -117,6 +136,38 @@ function RequestForm() {
         }
     }
 
+    const WaterState = {
+        sink: { selected: 1, // 상, 중, 하 중 선택된 값 (1: 상, 2: 중, 3: 하)
+        hotWaterTime1: '01분 30초', // 김이 모락모락 나기까지의 시간
+        hotWaterTime2: '02분 15초' },
+        basin: {
+            selected: 1, // 상, 중, 하 중 선택된 값 (1: 상, 2: 중, 3: 하)
+        hotWaterTime1: '01분 30초', // 김이 모락모락 나기까지의 시간
+        hotWaterTime2: '02분 15초'
+        },
+        shower: {selected: 1, // 상, 중, 하 중 선택된 값 (1: 상, 2: 중, 3: 하)
+        hotWaterTime1: '01분 30초', // 김이 모락모락 나기까지의 시간
+        hotWaterTime2: '02분 15초'}
+        
+    };
+    const savedLightSelectOption = "좋음"; // Example saved state
+    const savedMoldStates = {
+        livingRoom: { hasItem: true, noItem: false },
+        bathroom: { hasItem: false, noItem: true },
+        balcony: { hasItem: true, noItem: false },
+        shoeRack: { hasItem: false, noItem: true },
+        windowFrame: { hasItem: true, noItem: false },
+    };
+
+    useEffect(() => {
+        const updatedRequests = requests.map((request, index) => ({
+            ...request,
+            text: complete ? contentEditableStates[index].text : '',
+            images: complete && imageBoxRefs.current[index] ? Array.from(imageBoxRefs.current[index].children).map(img => img.src) : []
+        }));
+        setRequests(updatedRequests);
+    }, [complete, contentEditableStates, requests]);
+
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5vw', paddingBottom: '5vw', backgroundColor: '#ffffdd' }}>
             <div className='footWorkBG'>
@@ -159,9 +210,9 @@ function RequestForm() {
                         content2={'2. 김이 모락모락 나기까지의 시간'}
                     />
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
-                        <WaterBox Icon={Sink1} title={'싱크대'} />
-                        <WaterBox Icon={Sink2} title={'세면대'} />
-                        <WaterBox Icon={Shower} title={'샤워기'} />
+                        <WaterBox Icon={Sink1} title={'싱크대'} complete={complete} savedState={WaterState.sink} />
+                        <WaterBox Icon={Sink2} title={'세면대'} complete={complete} savedState={WaterState.basin} />
+                        <WaterBox Icon={Shower} title={'샤워기'} complete={complete} savedState={WaterState.shower} />
                     </div>
                 </div>
 
@@ -170,7 +221,7 @@ function RequestForm() {
                         <Sun />
                         <p style={{ color: '#5F5F5F', fontSize: '21px' }}>채광</p>
                     </div>
-                    <LightSelect />
+                    <LightSelect complete={complete} savedState={savedLightSelectOption} />
                 </div>
 
                 <div className='requestBox'>
@@ -179,11 +230,11 @@ function RequestForm() {
                         <p style={{ color: '#5F5F5F', fontSize: '21px' }}>곰팡이</p>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
-                        <MoldBox title={'거실'} />
-                        <MoldBox title={'화장실'} />
-                        <MoldBox title={'베란다'} />
-                        <MoldBox title={'신발장'} />
-                        <MoldBox title={'창틀'} />
+                        <MoldBox title={'거실'} complete={complete} savedState={savedMoldStates.livingRoom} />
+                        <MoldBox title={'화장실'} complete={complete} savedState={savedMoldStates.bathroom} />
+                        <MoldBox title={'베란다'} complete={complete} savedState={savedMoldStates.balcony} />
+                        <MoldBox title={'신발장'} complete={complete} savedState={savedMoldStates.shoeRack} />
+                        <MoldBox title={'창틀'} complete={complete} savedState={savedMoldStates.windowFrame} />
                     </div>
                 </div>
 
@@ -235,25 +286,39 @@ function RequestForm() {
                                         </div>
                                         <div
                                             className="plusrequestContent"
-                                            contentEditable="true"
+                                            contentEditable={!complete}
                                             placeholder="요청 사항을 작성해주세요."
                                             onInput={e => handleContentEditableChange(index, e)}
                                             ref={el => contentRefs.current[index] = el}
+                                            suppressContentEditableWarning={true}
                                         >
-                                            {/* {contentEditableStates[index].text} */}
+                                            {complete ?  contentEditableStates[index].text : input.text}
                                         </div>
-                                        <div className='plusrequestImageBox' ref={el => imageBoxRefs.current[index] = el}></div>
-                                        <button className='plusrequestFile' contentEditable="false" onClick={() => document.getElementById(`fileInput-${index}`).click()}>
-                                            파일 업로드
-                                        </button>
-                                        <input 
-                                            type="file" 
-                                            id={`fileInput-${index}`} 
-                                            ref={el => fileInputs.current[index] = el}
-                                            style={{ display: 'none' }} 
-                                            onChange={e => handleFileChange(index, e)}
-                                            accept="image/*"
-                                        />
+                                        <div className='plusrequestImageBox' ref={el => imageBoxRefs.current[index] = el}>
+                                            {complete && input.images.map((src, imgIndex) => (
+                                                <img 
+                                                    key={imgIndex} 
+                                                    src={src} 
+                                                    style={{ width: '50px', height: '50px', cursor: 'pointer' }} 
+                                                    onClick={() => setSelectedImage(src)} 
+                                                />
+                                            ))}
+                                        </div>
+                                        {!complete && (
+                                            <>
+                                                <button className='plusrequestFile' contentEditable="false" onClick={() => document.getElementById(`fileInput-${index}`).click()}>
+                                                    파일 업로드
+                                                </button>
+                                                <input 
+                                                    type="file" 
+                                                    id={`fileInput-${index}`} 
+                                                    ref={el => fileInputs.current[index] = el}
+                                                    style={{ display: 'none' }} 
+                                                    onChange={e => handleFileChange(index, e)}
+                                                    accept="image/*"
+                                                />
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             ))}

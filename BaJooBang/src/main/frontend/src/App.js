@@ -16,6 +16,7 @@ import ListPage1 from './pages/List/ListPage1';
 import ListPage2 from './pages/List/ListPage2';
 import ListPage3 from './pages/List/ListPage3';
 import ListPage4 from './pages/List/ListPage4';
+import ListPage5 from './pages/List/ListPage5';
 import Matching from './pages/Matching/Matching';
 import Homepage from './pages/Home/Home';
 import "./fonts/fonts.css";
@@ -39,6 +40,7 @@ function App() {
           <Route path='/member/registered' element={<ListPage2 />} />
           <Route path='/member/alarm' element={<ListPage3 />} />
           <Route path='/member/footwork' element={<ListPage4 />} />
+          <Route path='/member/heart' element={<ListPage5 />} />
           <Route path='/matching' element={<Matching />} />
       </Routes>
       </div>

@@ -2,11 +2,11 @@ import React from 'react';
 import './moldBox.css';
 import MoldCheck from './moldCheck';
 
-function MoldBox({title}) {
+function MoldBox({title, complete, savedState }) {
     return(
         <div className='moldBox'>
             {title}
-            <MoldCheck/>
+            <MoldCheck complete={complete} savedState={savedState}/>
         </div>
     );
 }

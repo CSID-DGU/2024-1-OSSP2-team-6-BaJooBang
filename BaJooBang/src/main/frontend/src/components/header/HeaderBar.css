@@ -7,7 +7,7 @@
     justify-content: space-between;
     align-items: center;
     position: relative; /* z-index를 사용하기 위해 position 설정 필요 */
-  z-index: 10;
+    z-index: 10;
   }
 
   .header-bar a {
