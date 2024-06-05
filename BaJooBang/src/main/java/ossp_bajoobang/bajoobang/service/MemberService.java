@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.dto.MemberDTO;
+import ossp_bajoobang.bajoobang.dto.MypageDTO;
 import ossp_bajoobang.bajoobang.dto.SignupForm;
 import ossp_bajoobang.bajoobang.repository.MemberRepository;
 
@@ -29,12 +30,30 @@ import java.util.stream.Collectors;
 @Slf4j
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final InquiryService inquiryService;
+    private final RegisteredService registeredService;
+    private final FootworkService footworkService;
+    private final AlarmService alarmService;
     private static final String apiKey = "qIAUNilofLN3xQfCcoTiRrBbwYR/bwzVSatLptsLaPM";
 
     // 회원가입
     public void register(SignupForm signupForm) {
         Member entity = Member.toEntity(signupForm);
         memberRepository.save(entity);
+    }
+
+    public MypageDTO getMypageDTO(Member member) {
+        MemberDTO memberDTO = MemberDTO.toDTO(member);
+        // 등록매물 개수
+        int numOfRegistered = registeredService.getNumOfRegistered(member);
+        // 신청조회 개수
+        int numOfInquiries = inquiryService.getNumOfInquiries(member);
+        // 신청발품 개수
+        int numOfFootworks = footworkService.getNumOfFootworks(member);
+        // 알림 개수
+        int numOfAlarms = alarmService.getNumOfAlarms(member);
+
+        return MypageDTO.toDTO(memberDTO, numOfRegistered, numOfInquiries, numOfFootworks, numOfAlarms);
     }
 
     // 매물에 가까운 주변 회원들에 대해서 (대중교통) 총 소요시간 계산하여 10명 오름차순 정렬.

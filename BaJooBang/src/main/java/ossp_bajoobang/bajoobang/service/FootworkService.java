@@ -32,4 +32,9 @@ public class FootworkService {
         }
         return footworks;
     }
+
+    public int getNumOfFootworks(Member member) {
+        List<BaDream> baDreams = member.getBaDreams();
+        return baDreams.size();
+    }
 }

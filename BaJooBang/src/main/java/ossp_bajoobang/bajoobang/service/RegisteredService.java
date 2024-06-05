@@ -32,4 +32,10 @@ public class RegisteredService {
         log.info("registeredList={}", registeredList);
         return registeredList;
     }
+
+    // 등록매물 개수 전달하기
+    public int getNumOfRegistered(Member member) {
+        List<Request> requests = member.getRequests();
+        return requests.size();
+    }
 }

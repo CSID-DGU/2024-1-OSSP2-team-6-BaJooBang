@@ -21,5 +21,6 @@ public class BaDream {
     @JoinColumn(name = "request_id")
     private Request request;
 
+    // ex) 발품 신청합니다!
     private String message;
 }

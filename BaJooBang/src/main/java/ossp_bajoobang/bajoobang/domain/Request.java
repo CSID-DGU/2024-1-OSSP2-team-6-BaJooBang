@@ -55,6 +55,9 @@ public class Request {
     @OneToMany(mappedBy = "request")
     private List<BaDream> baDreams = new ArrayList<>();
 
+    // 매칭 상태값
+    private String status;
+
     // 요청인
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")

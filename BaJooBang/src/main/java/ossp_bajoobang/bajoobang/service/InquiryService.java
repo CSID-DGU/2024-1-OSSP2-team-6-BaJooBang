@@ -18,7 +18,6 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class InquiryService {
-    private final MemberRepository memberRepository;
     private final RequestRepository requestRepository;
     private final BaDreamRepository baDreamRepository;
 
@@ -28,7 +27,7 @@ public class InquiryService {
         return baDreamRepository.findByRequestIn(requests);
     }
 
-    public List<Map<String, Object>> getInquires(Member member) {
+    public List<Map<String, Object>> getInquiries(Member member) {
         List<BaDream> baDreams = getBaDreamsByMember(member);
         List<Map<String, Object>> inquiries = new ArrayList<>();
         for (BaDream baDream : baDreams) {
@@ -42,5 +41,11 @@ public class InquiryService {
             inquiries.add(inquiry);
         }
         return inquiries;
+    }
+
+    // 신청조회 수
+    public int getNumOfInquiries(Member member) {
+        List<BaDream> baDreams = getBaDreamsByMember(member);
+        return baDreams.size();
     }
 }
