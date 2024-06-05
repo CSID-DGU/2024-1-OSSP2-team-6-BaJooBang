@@ -14,6 +14,7 @@ import ossp_bajoobang.bajoobang.repository.RequestRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -65,10 +66,11 @@ public class RequestService {
     }
 
     public BalpoomForm getRequestInfo(Long request_id){
-        List<PlusRequest> plusRequests = plusRequestRepository.getReferenceByRequestId(request_id);
-        Request requestInfo = requestRepository.getReferenceById(request_id);
+        Request request = requestRepository.findById(request_id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + request_id));
+        List<PlusRequest> byRequest = plusRequestRepository.findByRequest(request);
 
-        return BalpoomForm.toDTO(plusRequests, requestInfo);
+        return BalpoomForm.toDTO(byRequest, request);
     }
 
     public void patchInfo(Long request_id, BalpoomForm balpoomForm){
@@ -83,7 +85,8 @@ public class RequestService {
         request.setMoldShoes(balpoomForm.getMoldShoes());
         request.setMoldWindow(balpoomForm.getMoldWindow());
         requestRepository.save(request);
-        List<PlusRequest> plusRequestList = plusRequestRepository.getReferenceByRequestId(request_id);
+
+        List<PlusRequest> plusRequestList = plusRequestRepository.findByRequest(request);
         List<String> plusRequestAnswers = balpoomForm.getPlusAnswerList();
 
         for (int i = 0; i < plusRequestList.size(); i++) {
