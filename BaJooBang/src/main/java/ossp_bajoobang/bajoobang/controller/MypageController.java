@@ -5,12 +5,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
-import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.MypageDTO;
 import ossp_bajoobang.bajoobang.service.*;
 
@@ -59,7 +55,7 @@ public class MypageController {
     }
 
     // 나는 요청인이고 발품 신청 들어온 것 수락
-    @GetMapping("/inquiry/accept")
+    @PatchMapping("/inquiry/accept")
     public String accpetInquiry(HttpServletRequest request,
                                 @RequestBody Long request_id,
                                 @RequestBody Long worker_id) {
