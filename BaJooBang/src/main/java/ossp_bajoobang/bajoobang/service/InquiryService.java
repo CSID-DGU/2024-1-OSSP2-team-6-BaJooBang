@@ -26,7 +26,14 @@ public class InquiryService {
     // 요청인을 파라미터에 넣으면 요청인이 쓴 요청서에 대한 발품신청(바드림)들을 뽑아줌
     public List<BaDream> getBaDreamsByMember(Member member) {
         List<Request> requests = requestRepository.findByMember(member);
-        return baDreamRepository.findByRequestIn(requests);
+        List<Request> requestsBeforeMatching = new ArrayList<>();
+        // 매칭 전인 것만 넣을 것
+        for (Request request : requests) {
+            if (request.getStatus().equals("매칭 전")) {
+                requestsBeforeMatching.add(request);
+            }
+        }
+        return baDreamRepository.findByRequestIn(requestsBeforeMatching);
     }
 
     public List<Map<String, Object>> getInquiries(Member member) {

@@ -70,6 +70,21 @@ public class MypageController {
         }
     }
 
+//    @DeleteMapping ("/inquiry/reject")
+//    public String rejectInquiry(HttpServletRequest request,
+//                                @RequestBody Long request_id,
+//                                @RequestBody Long worker_id) {
+//        HttpSession session = request.getSession(false);
+//        if (session != null) {
+//            // 요청서에 발품인 아이디 넣어주고 매칭 상태값에 매칭완료 넣기
+//            inquiryService.reject(request_id, worker_id);
+//            return "요청을 거절하였습니다.";
+//        }
+//        else {
+//            return "FAIL";
+//        }
+//    }
+
     // 등록매물
     @GetMapping("/registered")
     public ResponseEntity<?> getRegistered(HttpServletRequest request) {
