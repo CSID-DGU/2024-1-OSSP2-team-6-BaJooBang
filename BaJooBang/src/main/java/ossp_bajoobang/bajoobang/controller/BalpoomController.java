@@ -70,6 +70,7 @@ public class BalpoomController {
                                @RequestBody RequestPatchForm requestPatchForm,
                                HttpServletRequest request) {
         HttpSession session = request.getSession(false);
+        log.info("========================");
         if (session != null) {
             Member member = (Member) session.getAttribute("loginMember");
             // 바드림에 저장

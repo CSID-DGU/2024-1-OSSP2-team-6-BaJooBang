@@ -232,7 +232,7 @@
          // 마커를 생성합니다
          let marker = new kakao.maps.Marker({
            map: map,
-           position: new kakao.maps.LatLng(position.latLng.lat, position.latLng.lng)
+           position: new kakao.maps.LatLng(position.latLng.latitude, position.latLng.longitude)
          });
    
          // 마커에 표시할 인포윈도우를 생성합니다 
@@ -247,7 +247,7 @@
          markers.push(marker);
    
          // bounds 객체에 마커의 좌표를 추가합니다
-         bounds.extend(new kakao.maps.LatLng(position.latLng.lat, position.latLng.lng));
+         bounds.extend(new kakao.maps.LatLng(position.latLng.latitude, position.latLng.longitude));
        });
    
        // 검색 결과가 있을 경우, 해당 마커들의 위치가 모두 보이도록 지도 영역을 재설정합니다
