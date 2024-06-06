@@ -76,12 +76,12 @@ public class BalpoomController {
 
     // 발품서 작성 페이지 이동 시
     @GetMapping("/balpoom-form/{request_id}")
-    public void seeBalpoomDetail(@PathVariable Long request_id, HttpServletRequest request){
+    public BalpoomForm seeBalpoomDetail(@PathVariable Long request_id, HttpServletRequest request){
         HttpSession session = request.getSession(false); // 발품자 session
         Member member = (Member) session.getAttribute("loginMember");
 
         BalpoomForm balpoomForm = requestService.getRequestInfo(request_id);
-        // + return 바꿔줘야함.
+        return balpoomForm;
     }
 
     // 발품서 작성

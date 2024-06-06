@@ -68,9 +68,9 @@ public class RequestService {
     public BalpoomForm getRequestInfo(Long request_id){
         Request request = requestRepository.findById(request_id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + request_id));
-        List<PlusRequest> byRequest = plusRequestRepository.findByRequest(request);
+        List<PlusRequest> plusRequestList = plusRequestRepository.findByRequest(request);
 
-        return BalpoomForm.toDTO(byRequest, request);
+        return BalpoomForm.toDTO(plusRequestList, request);
     }
 
     public List<Request> getRequest(){
