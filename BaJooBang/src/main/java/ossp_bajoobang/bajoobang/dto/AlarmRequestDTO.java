@@ -14,8 +14,6 @@ import ossp_bajoobang.bajoobang.domain.Request;
 public class AlarmRequestDTO {
     private Long house_id; //
     private String dealmoney;
-    private double time; // 빼
-    private double distance; // 빼
     private String human; //
     private String content; //
     private LatLng latLng; //
