@@ -36,9 +36,7 @@ function MyPage() {
 
   return (
     <div className="MyPageBackground">
-      <div className="MyPageHeader">
-        <button className="LogoutButton" onClick={handleLogout}>로그아웃</button>
-      </div>
+      
       <Profile/>
       <p className='MPName'>박주형님</p>
       <InfoBox name={'박주형'} ID={'pjh030826'} location={'서울특별시 은평구 은평로 21길 52'}/>
