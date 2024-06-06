@@ -23,8 +23,8 @@ public class RegisteredService {
             Map<String, Object> registered = new HashMap<>();
             registered.put("address", request.getHouse().getContent());
             registered.put("price", request.getPriceRequest());
-            if (request.getBalpoomin() == null) registered.put("state", "요청 중");
-            else registered.put("state", "매칭 완료");
+            // 매칭 상태값 가져오기
+            registered.put("state", request.getStatus());
             registered.put("date", request.getRequestDate());
             registered.put("request_id", request.getRequestId());
             registeredList.add(registered);

@@ -16,6 +16,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class FootworkService {
 
+    // 신청 발품
     public List<Map<String, Object>> getFootworks(Member member) {
         List<BaDream> baDreams = member.getBaDreams();
         List<Map<String, Object>> footworks = new ArrayList<>();
@@ -25,8 +26,27 @@ public class FootworkService {
             House house = request.getHouse();
             footwork.put("address", house.getContent());
             footwork.put("price", request.getPriceRequest());
-            if (request.getBalpoomin() == null) footwork.put("state", "요청 중");
-            else footwork.put("state", "매칭 완료");
+            // 매칭 상태값 전달하기
+//            if (request.getBalpoomin() == null) footwork.put("state", "요청 중");
+//            else footwork.put("state", "매칭 완료");
+            // 매칭 전
+            if (request.getStatus().equals("매칭 전")) footwork.put("state", "요청 중");
+            // 매칭 후
+            else {
+                // 매칭 성공 (발품인 == member)
+                if (request.getBalpoomin().equals(member)) {
+                    if (request.getStatus().equals("평가 완료")) {
+                        // 작성 후(작성 완료)
+                        footwork.put("state", "작성 완료");
+                    }
+                    // 작성 전(매칭 완료)
+                    else footwork.put("state", request.getStatus());
+                }
+                else {
+                    // 매칭 실패 (발품인 != member)
+                    footwork.put("state", "매칭 실패");
+                }
+            }
             footwork.put("date", request.getRequestDate());
             footworks.add(footwork);
         }
