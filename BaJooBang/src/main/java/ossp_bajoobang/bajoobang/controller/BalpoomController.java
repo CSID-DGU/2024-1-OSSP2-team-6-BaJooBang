@@ -4,10 +4,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
-import ossp_bajoobang.bajoobang.domain.PlusRequest;
+import ossp_bajoobang.bajoobang.domain.Request;
 import ossp_bajoobang.bajoobang.dto.*;
 import ossp_bajoobang.bajoobang.service.BaDreamService;
 import ossp_bajoobang.bajoobang.service.BalpoomService;
@@ -28,23 +27,29 @@ public class BalpoomController {
 
     @GetMapping("/balpoom")
     // 우성 S
-    public ResponseEntity<?> getBalPoom(@RequestParam Long local_id,
-                                     HttpServletRequest request){
+    public List<AlarmRequestDTO> getBalPoom(@RequestParam Long local_id,
+                                            HttpServletRequest request){
         Map<String, Object> response = new HashMap<>();
         HttpSession session = request.getSession(false);
+        MemberDTO memberDTO = null;
+
         if (session != null) {
             // 세션에서 멤버를 꺼내오기
             Member member = (Member) session.getAttribute("loginMember");
-            MemberDTO memberDTO = MemberDTO.toDTO(member);
+            memberDTO = MemberDTO.toDTO(member);
             // 알림 리스트 받아오기
-            List<RequestDTO> receivedRequests = requestService
-                    .getAlramList(memberDTO.getId());
-            response.put("receivedRequests", receivedRequests);
+//            List<RequestDTO> receivedRequests = requestService
+//                    .getAlramList(memberDTO.getId());
+//            response.put("receivedRequests", receivedRequests);
+
         }
-        // 발품 매물 리스트 받아오기
+        // local_id에 있는 요청서 다 불러오고,
+        // 그 요청서에서 session과 비교해서 hasNotification 만들어줘야할 듯.
         List<HouseDTO> balpoomHouseList = balpoomService.getBalpoom(local_id);
-        response.put("balpoomHouseList", balpoomHouseList);
-        return ResponseEntity.ok(response);
+
+        List<Request> requestList = requestService.getRequest();
+        List<AlarmRequestDTO> alarmRequestDTOList = balpoomService.getAlarmBalpoom(requestList, balpoomHouseList, memberDTO);
+        return alarmRequestDTOList;
     }
     // 우성 E
 

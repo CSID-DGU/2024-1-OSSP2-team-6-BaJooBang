@@ -73,6 +73,10 @@ public class RequestService {
         return BalpoomForm.toDTO(byRequest, request);
     }
 
+    public List<Request> getRequest(){
+        return requestRepository.findAll();
+    }
+
     public void patchInfo(Long request_id, BalpoomForm balpoomForm){
         Request request = requestRepository.getReferenceById(request_id);
         request.setPowerShower(balpoomForm.getPowerShower());
