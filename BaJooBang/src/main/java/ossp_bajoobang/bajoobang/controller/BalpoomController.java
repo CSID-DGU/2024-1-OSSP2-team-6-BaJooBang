@@ -4,14 +4,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ossp_bajoobang.bajoobang.domain.Member;
+import ossp_bajoobang.bajoobang.domain.PlusRequest;
 import ossp_bajoobang.bajoobang.domain.Request;
 import ossp_bajoobang.bajoobang.dto.*;
 import ossp_bajoobang.bajoobang.service.BaDreamService;
+import ossp_bajoobang.bajoobang.service.BalpoomFileService;
 import ossp_bajoobang.bajoobang.service.BalpoomService;
 import ossp_bajoobang.bajoobang.service.RequestService;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +29,7 @@ public class BalpoomController {
     private final BalpoomService balpoomService;
     private final RequestService requestService;
     private final BaDreamService baDreamService;
+    private final BalpoomFileService balpoomFileService;
 
     @GetMapping("/balpoom")
     // 우성 S
@@ -85,10 +91,16 @@ public class BalpoomController {
     }
 
     // 발품서 작성
-    @PatchMapping("/balpoom-form")
-    public void postBalpoomForm(@RequestParam Long request_id, @RequestBody BalpoomForm balpoomForm){
+    @PatchMapping("/balpoom-form/{request_id}")
+    public ResponseEntity<String> postBalpoomForm(@RequestPart("jsonData") BalpoomForm balpoomForm, @RequestPart("requests") List<RequestFileForm> requests, @RequestParam Long request_id) throws IOException {
         requestService.patchInfo(request_id, balpoomForm);
+//        List<PlusRequest> plusRequestList = balpoomForm.getPlusRequestList();
+        for(RequestFileForm request : requests){
+            String answer = request.getAnswer();
+            List<MultipartFile> files = request.getFiles();
+            balpoomFileService.saveFile(files);
+        }
 
+        return ResponseEntity.ok("Files and data uploaded successfully!");
     }
-
 }
