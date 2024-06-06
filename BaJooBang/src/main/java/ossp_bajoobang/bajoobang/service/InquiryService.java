@@ -43,10 +43,9 @@ public class InquiryService {
             Request request = baDream.getRequest();
             House house = request.getHouse();
             Map<String, Object> inquiry = new HashMap<>();
+            inquiry.put("request_id", request.getRequestId()); // 요청서 id
             inquiry.put("address", house.getContent());
-            // ------------
             inquiry.put("worker_id", baDream.getMember().getId()); // 발품인 id
-            // ------------
             inquiry.put("name", baDream.getMember().getName()); // 발품인 이름
             inquiry.put("star", ""); // 별점
             inquiry.put("message", baDream.getMessage()); // 메세지
