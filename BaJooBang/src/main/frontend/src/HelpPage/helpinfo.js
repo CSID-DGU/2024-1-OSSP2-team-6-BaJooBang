@@ -21,7 +21,7 @@ const Imformation = ({ positions }) => {
     if (selectedPosition) {
       setPosition(selectedPosition); // 직접적으로 positions 배열에서 데이터를 로드
     } else {
-// 서버에서 데이터를 가져오는 경우
+// 매물지도 상세정보 api 연결
       const fetchPosition = async () => {
         try {
           const response = await axios.get(`http://localhost:8000/helpinfo/detail?house_id=${house_id}`);
