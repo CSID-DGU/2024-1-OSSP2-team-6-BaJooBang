@@ -6,7 +6,7 @@
  import { ReactComponent as House_image2 } from '../components/images/house_image2.svg';
  import { ReactComponent as House_all_image } from '../components/images/house_all_image.svg';
  //import Imfor from "./helpinfo";
- //import axios from 'axios';
+ import axios from 'axios';
   // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
       // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
  export const positions=[
