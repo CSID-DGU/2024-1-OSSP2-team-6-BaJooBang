@@ -33,7 +33,7 @@ function ListPage2() {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/member/registered'); // Replace with your actual API endpoint
-                const requestData = response.data.list.map((item, index) => ({
+                const requestData = response.data.map((item, index) => ({
                     Num: index + 1,
                     Address: item.address,
                     Price: item.price,
