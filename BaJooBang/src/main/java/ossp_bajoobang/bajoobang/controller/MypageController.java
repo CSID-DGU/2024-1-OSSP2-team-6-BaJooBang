@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ossp_bajoobang.bajoobang.domain.Member;
@@ -72,6 +73,23 @@ public class MypageController {
         }
     }
 
+    // 등록매물에서 매칭 정보 확인
+    @GetMapping("/registered/matching")
+    public ResponseEntity<?> getMatching(HttpServletRequest request,
+                                @RequestBody Long requestId) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // 세션에서 멤버를 꺼내오기
+            Member member = (Member) session.getAttribute("loginMember");
+            // 매칭 정보 가져오기
+            Map<String, Object> matchingInfo = registeredService.getMatchingInfo(member, requestId);
+            return ResponseEntity.ok(matchingInfo);
+        }
+        else {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
+    }
+
     // 신청 발품 (내가 신청한 발품 리스트)
     @GetMapping("/footwork")
     public ResponseEntity<?> getFootwork(HttpServletRequest request) {
@@ -101,7 +119,5 @@ public class MypageController {
         else {
             return ResponseEntity.status(401).body("Unauthorized");
         }
-
-
     }
 }
