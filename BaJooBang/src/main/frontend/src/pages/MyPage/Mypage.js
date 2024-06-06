@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import './MyPage.css'; 
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from './AuthProvider'; // AuthProvider 파일 경로를 맞춰주세요.
+import { AuthContext } from '../../AuthContext';
 import { ReactComponent as Profile } from '../../components/images/mp_profile.svg';
 import InfoBox from '../../components/MyPage/MyInfoBox';
 import BottomBox from './BottomBox';
