@@ -197,7 +197,7 @@
          updatedPositions = updatedPositions.filter(position => position.content.includes(search));
        }
        setFilteredPositions(updatedPositions);
-     }, [filter, search,showOnlyNotified]);
+     }, [positions,filter, search,showOnlyNotified]);
      
  //-----------------------------------------------------------------------------------------------------
      useEffect(() => {
