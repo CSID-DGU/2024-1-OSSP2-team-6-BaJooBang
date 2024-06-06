@@ -109,6 +109,7 @@ function RequestForm() {
 
         // JSON 데이터를 FormData에 추가 (plus_list만 추가)
         formData.append('jsonData', JSON.stringify({ plus_list: inputs }));
+        formData.append("house_id", house_id);
 
         // 요청 사항과 이미지들을 FormData에 추가
         requests.forEach((input, index) => {
