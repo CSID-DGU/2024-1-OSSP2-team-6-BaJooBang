@@ -10,6 +10,7 @@
   // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
       // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
  export const positions=[
+  /*
    {
      "house_id": 1,
      "content": "서울특별시 중구 필동로1길 30",
@@ -44,10 +45,10 @@
  {
    "house_id": 3,
    "content": "서울특별시 중구 장충로 지하256",
-   "money1": 400,
-   "money2": 20,
-   "stair": 2,
-   "management": 4,
+   "money1": 350,
+   "money2": 70,
+   "stair": 9,
+   "management": 10,
    "size": 46,
    "type" : "전세",
    "latLng": {
@@ -72,11 +73,11 @@
  {
    "house_id": 5,
    "content": "서울특별시 중구 명동 지하256",
-   "money1": 400,
-   "money2": 20,
-   "stair": 2,
-   "management": 4,
-   "size": 46,
+   "money1": 1770,
+   "money2": 47,
+   "stair": 7,
+   "management": 6,
+   "size": 36,
    "type" : "전세",
    "latLng": {
        "lat": 37.562795037739,
@@ -86,10 +87,10 @@
  {
    "house_id": 6,
    "content": "서울특별시 중구 필동이다요",
-   "money1": 400,
-   "money2": 20,
-   "stair": 2,
-   "management": 4,
+   "money1": 900,
+   "money2": 30,
+   "stair": 4,
+   "management": 15,
    "size": 46,
    "type" : "월세",
    "latLng": {
@@ -97,7 +98,7 @@
        "lng": 126.99536275539
    }
  }
- 
+ */
  ];
  
  const Nav = ({ positions }) => {
@@ -163,7 +164,7 @@
  const MypageMap = ({filter,search, showOnlyNotified}) => {
  
  //--------------------------------------------api 매물지도 get------------------------------------------
-  /* const [positions, setPositions] = useState([]);
+   const [positions, setPositions] = useState([]);
    const { house_id } = useParams();
    useEffect(() => {
      // API로부터 데이터를 가져오는 함수 정의
@@ -180,7 +181,7 @@
  
      // fetchData 함수 호출
      fetchData();
-   }, []);*/
+   }, []);
  //----------------------------------------------------------------------------------------------------
  
  
