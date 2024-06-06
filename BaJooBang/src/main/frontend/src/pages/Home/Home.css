@@ -119,9 +119,13 @@ video {
   }
 }
 #video1 {
-  width: 100%;
+  width: 100%; /* 전체 너비를 차지하도록 설정 */
+  position: absolute; /* 절대 위치 지정 */
+  top: 0; /* 부모 요소 상단에 위치 */
+
   opacity: 0.3;
   filter: invert(100%); /*영상 반전요소*/
+  z-index: 0; /* 다른 요소 위에 위치하도록 설정 */
 }
 #video2, #video3 {
   width: 20%; /* Set each video to take half the width of the container */
