@@ -21,7 +21,7 @@ import image2 from './A-1-4.PNG';
 import image3 from './A-1-5.PNG';
 import image4 from './A-2-1.PNG';
 
-function RequestForm() {
+function RequestForm(request_id) {
     const navigate = useNavigate();
     const location = useLocation();
     const { house_id } = useParams();
@@ -172,9 +172,9 @@ function RequestForm() {
 
 
     //api연결
-    const requestPatch = async (message) => {
+    const requestPatch = async (request_id, message) => {
         try {
-            const response = await axios.patch(`http://localhost:8000/request?request_id={}`, {
+            const response = await axios.patch(`http://localhost:8000/request?request_id=${request_id}`, {
                 message: message,
             }); // Replace with your actual API endpoint
             console.log('Response:', response);
@@ -182,6 +182,7 @@ function RequestForm() {
             console.error('Error fetching data:', error);
         }
     };
+
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5vw', paddingBottom: '5vw', backgroundColor: '#ffffdd' }}>
@@ -377,7 +378,7 @@ function RequestForm() {
                                     onChange={(e) => setRequestMessage(e.target.value)}
                                 />
                                 <button 
-                                    onClick={() => { requestPatch(requestMessage); setApply(true); closeModal(); }} 
+                                    onClick={() => { requestPatch(house_id, requestMessage); setApply(true); closeModal(); }} 
                                     className='modal-button'
                                 >
                                     신청하기
