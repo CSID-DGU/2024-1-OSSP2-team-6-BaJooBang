@@ -61,6 +61,7 @@ function RequestForm() {
     const fileInputs = useRef([]);
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 창 상태
+    const [requestMessage, setRequestMessage] = useState(''); // 발품 신청 메시지
 
     const handleInputChange = (index, event) => {
         const newInputs = inputs.map((input, i) => i === index ? { plus_q: event.target.value } : input);
@@ -168,6 +169,19 @@ function RequestForm() {
         }));
         setRequests(updatedRequests);
     }, [complete, contentEditableStates, requests]);
+
+
+    //api연결
+    const requestPatch = async (message) => {
+        try {
+            const response = await axios.patch(`http://localhost:8000/request?request_id={}`, {
+                message: message,
+            }); // Replace with your actual API endpoint
+            console.log('Response:', response);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5vw', paddingBottom: '5vw', backgroundColor: '#ffffdd' }}>
@@ -355,8 +369,19 @@ function RequestForm() {
                             <span className='close' onClick={closeModal}>&times;</span>
                             <p style={{fontSize: '25px', fontWeight: '500'}}>발품 신청</p>
                             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                            <input type='text' placeholder='신청 메시지를 입력하세요.  예) 홍길동 발품 신청합니다!' className='modal-input' />
-                            <button onClick={() => { setApply(true); closeModal(); }} className='modal-button'>신청하기</button>
+                                <input 
+                                    type='text' 
+                                    placeholder='신청 메시지를 입력하세요.  예) 홍길동 발품 신청합니다!' 
+                                    className='modal-input'
+                                    value={requestMessage}
+                                    onChange={(e) => setRequestMessage(e.target.value)}
+                                />
+                                <button 
+                                    onClick={() => { requestPatch(requestMessage); setApply(true); closeModal(); }} 
+                                    className='modal-button'
+                                >
+                                    신청하기
+                                </button>
                             </div>
                         </div>
                     </div>
