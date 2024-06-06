@@ -79,9 +79,9 @@ function ListPage4() {
                 </div>
                 {currentItems.map((item, index) => (
                     <React.Fragment key={index}>
-                        
+                        <Link to='/matching' className='ListLinkNotLine'>
                             <ListBlock4 Num={item.Num} Address={item.Address} Price={item.Price} Date={item.Date} Request_id={item.Request_id} State={item.State} />
-                        
+                        </Link>
                         <div className='ListLine' />
                     </React.Fragment>
                 ))}
