@@ -62,6 +62,7 @@ public class TestDataInit {
         house1.setMoney2(50);
         house1.setSize(23);
         house1.setStair(3);
+        house1.setType("월세");
         houseRepository.save(house1);
 
         House house2 = new House();
@@ -74,6 +75,7 @@ public class TestDataInit {
         house2.setMoney2(50);
         house2.setSize(33);
         house2.setStair(5);
+        house2.setType("전세");
         houseRepository.save(house2);
 
         House house3 = new House();
@@ -86,6 +88,7 @@ public class TestDataInit {
         house3.setMoney2(50);
         house3.setSize(13);
         house3.setStair(1);
+        house3.setType("월세");
         houseRepository.save(house3);
     }
 }

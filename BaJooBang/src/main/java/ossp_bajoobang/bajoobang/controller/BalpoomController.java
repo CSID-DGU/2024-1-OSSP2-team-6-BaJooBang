@@ -91,15 +91,24 @@ public class BalpoomController {
     }
 
     // 발품서 작성
-    @PatchMapping("/balpoom-form/{request_id}")
-    public ResponseEntity<String> postBalpoomForm(@RequestPart("jsonData") BalpoomForm balpoomForm, @RequestPart("requests") List<RequestFileForm> requests, @RequestParam Long request_id) throws IOException {
+    @PatchMapping(path = "/balpoom-form/{request_id}", consumes = {"multipart/form-data"})
+    public ResponseEntity<String> postBalpoomForm(@RequestPart("jsonData") BalpoomForm balpoomForm, @RequestPart("requests") List<MultipartFile> requests) throws IOException {
+        log.info("111111111111111111111111111111111");
+        Long request_id = 1L;
         requestService.patchInfo(request_id, balpoomForm);
 //        List<PlusRequest> plusRequestList = balpoomForm.getPlusRequestList();
-        for(RequestFileForm request : requests){
-            String answer = request.getAnswer();
-            List<MultipartFile> files = request.getFiles();
-            balpoomFileService.saveFile(files);
-        }
+        log.info("2222222222222222222222222222");
+
+//        for(RequestFileForm request : requests){
+//            String answer = request.getAnswer();
+//            List<MultipartFile> files = request.getFiles();
+//            log.info("3333333333333333333333333");
+//
+//            balpoomFileService.saveFile(files);
+//        }
+
+        balpoomFileService.saveFile(requests);
+        log.info("3333333333333333333333333");
 
         return ResponseEntity.ok("Files and data uploaded successfully!");
     }
