@@ -71,7 +71,7 @@ function ListPage4() {
             <div className='ListBox'>
                 <div className='ListTitle' style={{backgroundColor: 'rgba(162, 197, 121, 0.3)'}}>
                    <div className='ListTitleText2'>번호</div> 
-                   <div className='ListTitleText_address'>매물 주소</div>
+                   <div className='ListTitleText_address' style={{fontWeight: '600'}}>매물 주소</div>
                    <div className='ListTitleText2'>거래 가격</div>
                    <div className='ListTitleText2'>상태</div>
                    <div className='ListTitleText2'>요청서</div>

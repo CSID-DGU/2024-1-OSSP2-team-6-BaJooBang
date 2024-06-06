@@ -7,9 +7,10 @@
 
 .ListBox {
     width: 70vw;
-    border-top: 2px solid black;  /* 위쪽 테두리 */
-    border-bottom: 2px solid black;  /* 아래쪽 테두리 */
+    
     margin-top: 5vw;
+    border-top: 1px solid black;  /* 위쪽 테두리 */
+    border-bottom: 1px solid black;  /* 아래쪽 테두리 */
 }
 
 .ListTitle {
@@ -47,11 +48,13 @@
 }
 
 .ListTitleText2 {
-    width: 12%
+    width: 12%;
+    font-weight: 500
 }
 
 .ListTitleText2_address {
     width: 40%;
+    
 }
 
 
