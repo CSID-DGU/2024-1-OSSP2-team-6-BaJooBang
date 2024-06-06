@@ -5,8 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ossp_bajoobang.bajoobang.domain.House;
 import ossp_bajoobang.bajoobang.domain.Member;
+import ossp_bajoobang.bajoobang.domain.Request;
 import ossp_bajoobang.bajoobang.repository.HouseRepository;
 import ossp_bajoobang.bajoobang.repository.MemberRepository;
+import ossp_bajoobang.bajoobang.repository.RequestRepository;
+
+import java.time.LocalDate;
 
 @Component
 @RequiredArgsConstructor
@@ -14,6 +18,8 @@ public class TestDataInit {
 
     private final MemberRepository memberRepository;
     private final HouseRepository houseRepository;
+    private final RequestRepository requestRepository;
+
     @PostConstruct
     public void init() {
         Member member1 = new Member();
@@ -63,6 +69,7 @@ public class TestDataInit {
         house1.setSize(23);
         house1.setStair(3);
         house1.setType("월세");
+        house1.setLocalId(1L);
         houseRepository.save(house1);
 
         House house2 = new House();
@@ -76,6 +83,7 @@ public class TestDataInit {
         house2.setSize(33);
         house2.setStair(5);
         house2.setType("전세");
+        house1.setLocalId(1L);
         houseRepository.save(house2);
 
         House house3 = new House();
@@ -89,6 +97,21 @@ public class TestDataInit {
         house3.setSize(13);
         house3.setStair(1);
         house3.setType("월세");
+        house3.setLocalId(1L);
         houseRepository.save(house3);
+
+        Request request1 = new Request();
+        request1.setPriceRequest(5000);
+        request1.setRequestDate(LocalDate.parse("2024-06-08"));
+        request1.setHouse(house1);
+        request1.setMember(member1);
+        requestRepository.save(request1);
+
+        Request request2 = new Request();
+        request2.setPriceRequest(12000);
+        request2.setRequestDate(LocalDate.parse("2024-12-25"));
+        request2.setHouse(house2);
+        request2.setMember(member2);
+        requestRepository.save(request2);
     }
 }
