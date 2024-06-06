@@ -1,10 +1,10 @@
 /*global kakao*/
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useParams } from 'react-router-dom';
 import './showmap.css';
 
-export const dopositions = [
+export const dopositions = [/*
   {
     "house_id": 1,
     "dealmoney": "20,000",
@@ -56,7 +56,7 @@ export const dopositions = [
       "lng": 127.00768457766
     },
     "hasNotification": false
-  }
+  }*/
 ];
 
 function groupByHouseId(positions) {
@@ -105,6 +105,27 @@ function DONav({ positions }) {
 }
 
 const DopageMap = ({ search, showOnlyNotified }) => {
+  //--------------------------------------------api 발품지도 get------------------------------------------
+  const [dopositions, setPositions] = useState([]);
+  const { house_id } = useParams();
+  useEffect(() => {
+    // API로부터 데이터를 가져오는 함수 정의
+    const fetchData = async () => {
+      try {
+        // axios를 사용하여 GET 요청 보내고 데이터 받아오기
+        const response = await axios.get(`http://localhost:8000/balpoom?local_id=1`);
+        // API에서 받은 데이터를 dopositions 상태에 설정
+        setPositions(response.data);
+      } catch (error) {
+        console.error('api 에러:', error);
+      }
+    };
+
+    // fetchData 함수 호출
+    fetchData();
+  }, []);
+//----------------------------------------------------------------------------------------------------
+
   const filteredPositions = dopositions.filter(position =>
     position.content.includes(search) &&
     (!showOnlyNotified || (showOnlyNotified && position.hasNotification))
