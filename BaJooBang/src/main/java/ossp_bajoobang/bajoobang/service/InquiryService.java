@@ -62,6 +62,7 @@ public class InquiryService {
     }
 
     // 신청조회에서 요청 수락
+    @Transactional
     public void accept(Long requestId, Long workerId) {
         // 요청서에 발품인 아이디 넣어주고 매칭 상태값에 매칭완료 넣기
         Request request = requestRepository.findById(requestId)

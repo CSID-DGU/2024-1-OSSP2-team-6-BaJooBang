@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ossp_bajoobang.bajoobang.domain.*;
 import ossp_bajoobang.bajoobang.dto.BalpoomForm;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
@@ -23,7 +24,6 @@ import java.util.Optional;
 public class RequestService {
     private final RequestRepository requestRepository;
     private final PlusRequestRepository plusRequestRepository;
-    private final AlarmRepository alarmRepository;
 
     public Request saveRequest(RequestDTO requestDTO, Member member, House house){
         Request request = Request.toEntity(requestDTO, member, house);
@@ -57,13 +57,6 @@ public class RequestService {
 //        return myRequestsDTO;
 //    }
 
-    // 알람 조회
-    // 매물 리스트?, 요청서 리스트?
-    public List<RequestDTO> getAlramList(Long memberId) {
-        List<RequestDTO> alramListDTO = new ArrayList<>();
-        // ??
-        return alramListDTO;
-    }
 
     public BalpoomForm getRequestInfo(Long request_id){
         Request request = requestRepository.findById(request_id)
@@ -77,6 +70,7 @@ public class RequestService {
         return requestRepository.findAll();
     }
 
+    @Transactional
     public void patchInfo(Long request_id, BalpoomForm balpoomForm){
         Request request = requestRepository.getReferenceById(request_id);
         request.setPowerShower(balpoomForm.getPowerShower());
@@ -88,7 +82,8 @@ public class RequestService {
         request.setMoldVeranda(balpoomForm.getMoldVeranda());
         request.setMoldShoes(balpoomForm.getMoldShoes());
         request.setMoldWindow(balpoomForm.getMoldWindow());
-        requestRepository.save(request);
+        // transactional로 대체
+        // requestRepository.save(request);
 
 //        List<PlusRequest> plusRequestList = plusRequestRepository.findByRequest(request);
 //        List<String> plusRequestAnswers = balpoomForm.getPlusAnswerList();
