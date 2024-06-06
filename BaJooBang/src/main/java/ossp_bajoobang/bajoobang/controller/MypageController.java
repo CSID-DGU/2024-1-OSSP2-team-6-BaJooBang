@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
+import ossp_bajoobang.bajoobang.dto.InquiryAcceptForm;
 import ossp_bajoobang.bajoobang.dto.MypageDTO;
 import ossp_bajoobang.bajoobang.service.*;
 
@@ -57,12 +58,11 @@ public class MypageController {
     // 나는 요청인이고 발품 신청 들어온 것 수락
     @PatchMapping("/inquiry/accept")
     public String accpetInquiry(HttpServletRequest request,
-                                @RequestBody Long request_id,
-                                @RequestBody Long worker_id) {
+                                @RequestBody InquiryAcceptForm acceptForm) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             // 요청서에 발품인 아이디 넣어주고 매칭 상태값에 매칭완료 넣기
-            inquiryService.accept(request_id, worker_id);
+            inquiryService.accept(acceptForm.getRequest_id(), acceptForm.getWorker_id());
             return "요청을 수락하였습니다.";
         }
         else {
