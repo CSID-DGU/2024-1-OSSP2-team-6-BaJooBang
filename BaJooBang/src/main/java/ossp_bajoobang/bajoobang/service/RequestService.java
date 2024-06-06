@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ossp_bajoobang.bajoobang.domain.*;
 import ossp_bajoobang.bajoobang.dto.BalpoomForm;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
@@ -14,6 +15,7 @@ import ossp_bajoobang.bajoobang.repository.RequestRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -22,13 +24,14 @@ import java.util.List;
 public class RequestService {
     private final RequestRepository requestRepository;
     private final PlusRequestRepository plusRequestRepository;
-    private final AlarmRepository alarmRepository;
 
     public Request saveRequest(RequestDTO requestDTO, Member member, House house){
         Request request = Request.toEntity(requestDTO, member, house);
         // 저장할 때, house_id와 함께 저장해주어야 함. => 테이블도 join해주어야 함!!! --> 위에 함
         member.setRequest(request);
         house.setRequest(request);
+        // 매칭 상태값 매칭 전으로 초기화
+        request.setStatus("매칭 전");
         Request saveRequest = requestRepository.save(request);
 
         // test
@@ -56,21 +59,20 @@ public class RequestService {
 //        return myRequestsDTO;
 //    }
 
-    // 알람 조회
-    // 매물 리스트?, 요청서 리스트?
-    public List<RequestDTO> getAlramList(Long memberId) {
-        List<RequestDTO> alramListDTO = new ArrayList<>();
-        // ??
-        return alramListDTO;
-    }
 
     public BalpoomForm getRequestInfo(Long request_id){
-        List<PlusRequest> plusRequests = plusRequestRepository.getReferenceByRequestId(request_id);
-        Request requestInfo = requestRepository.getReferenceById(request_id);
+        Request request = requestRepository.findById(request_id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + request_id));
+        List<PlusRequest> plusRequestList = plusRequestRepository.findByRequest(request);
 
-        return BalpoomForm.toDTO(plusRequests, requestInfo);
+        return BalpoomForm.toDTO(plusRequestList, request);
     }
 
+    public List<Request> getRequest(){
+        return requestRepository.findAll();
+    }
+
+    @Transactional
     public void patchInfo(Long request_id, BalpoomForm balpoomForm){
         Request request = requestRepository.getReferenceById(request_id);
         request.setPowerShower(balpoomForm.getPowerShower());
@@ -82,15 +84,19 @@ public class RequestService {
         request.setMoldVeranda(balpoomForm.getMoldVeranda());
         request.setMoldShoes(balpoomForm.getMoldShoes());
         request.setMoldWindow(balpoomForm.getMoldWindow());
-        requestRepository.save(request);
-        List<PlusRequest> plusRequestList = plusRequestRepository.getReferenceByRequestId(request_id);
-        List<String> plusRequestAnswers = balpoomForm.getPlusAnswerList();
+        // 매칭 상태값 -> 평가 완료
+        request.setStatus("평가 완료");
+        // transactional로 대체
+        // requestRepository.save(request);
 
-        for (int i = 0; i < plusRequestList.size(); i++) {
-            PlusRequest plusRequest = plusRequestList.get(i);
-            plusRequest.setPlus_answer(plusRequestAnswers.get(i));
-            plusRequestRepository.save(plusRequest);
-        }
 
+//        List<PlusRequest> plusRequestList = plusRequestRepository.findByRequest(request);
+//        List<String> plusRequestAnswers = balpoomForm.getPlusAnswerList();
+//
+//        for (int i = 0; i < plusRequestList.size(); i++) {
+//            PlusRequest plusRequest = plusRequestList.get(i);
+//            plusRequest.setPlus_answer(plusRequestAnswers.get(i));
+//            plusRequestRepository.save(plusRequest);
+//        }
     }
 }

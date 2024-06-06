@@ -14,22 +14,26 @@ import java.util.List;
 @NoArgsConstructor
 public class MypageDTO {
     private MemberDTO memberDTO;
-    // 요청인 모드
-    private List<RequestDTO> myRequests; // 등록 매물
-    // 신청 조회 (내 요청서에 여러 명이 발품 요청)
-    // 발품인 모드
-    private List<RequestDTO> applyBalpooms; // 내가 신청한 발품
-    private List<RequestDTO> alarmList; // 알림 리스트
+    // 등록매물 개수
+    private int numOfRegistered;
+    // 신청조회 개수
+    private int numOfInquiries;
+    // 신청발품 개수
+    private int numOfFootworks;
+    // 알림 개수
+    private int numOfAlarms;
 
     public static MypageDTO toDTO(MemberDTO memberDTO,
-                                  List<RequestDTO> myRequests,
-                                  List<RequestDTO> applyBalpooms,
-                                  List<RequestDTO> alarmList){
+                                  int numOfRegistered,
+                                  int numOfInquiries,
+                                  int numOfFootworks,
+                                  int numOfAlarms){
         return MypageDTO.builder()
                 .memberDTO(memberDTO)
-                .myRequests(myRequests)
-                .applyBalpooms(applyBalpooms)
-                .alarmList(alarmList)
+                .numOfRegistered(numOfRegistered)
+                .numOfInquiries(numOfInquiries)
+                .numOfFootworks(numOfFootworks)
+                .numOfAlarms(numOfAlarms)
                 .build();
     }
 }

@@ -49,4 +49,9 @@ public class AlarmService {
         }
         return alarmList;
     }
+
+    public int getNumOfAlarms(Member member) {
+        List<Alarm> alarms = member.getAlarms();
+        return alarms.size();
+    }
 }
