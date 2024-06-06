@@ -7,10 +7,10 @@ import axios from 'axios';
 function ListPage2() {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentItems, setCurrentItems] = useState([]);
-    //const [listData, setListData] = useState([]);
+    const [listData, setListData] = useState([]);
     const itemsPerPage = 10;
 
-    
+    /*
     const listData = [
         { Num: '1', Address: '서울특별시 서초구 서초동', Price: '2000/130', Date: '2024.03.29', request: '0', State: '매칭 전' },
         { Num: '2', Address: '서울특별시 강남구 역삼동', Price: '1000/50', Date: '2024.03.28', request: '1', State: '매칭 전' },
@@ -26,7 +26,7 @@ function ListPage2() {
         { Num: '12', Address: '서울특별시 강남구 청담동', Price: '1500/150', Date: '2024.03.14', request: '1', State: '매칭 전' },
         { Num: '13', Address: '서울특별시 영등포구 여의도동', Price: '2500/250', Date: '2024.03.13', request: '0', State: '매칭 전' },
     ];
-    
+    */
 
     useEffect(() => {
         // Fetch data from the API
@@ -41,7 +41,7 @@ function ListPage2() {
                     Date: item.date,
                     Request_id: item.request_id,
                 }));
-                //setListData(requestData);
+                setListData(requestData);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

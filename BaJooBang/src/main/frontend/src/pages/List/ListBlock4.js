@@ -10,6 +10,8 @@ function ListBlock4({ Num, Address, Price, Date, Request_id, State }) {
                 return { color: '#FFC633', backgroundColor: '#FFFCE5' };
             case '작성 완료':
                 return { color: '#3888FF', backgroundColor: '#E5F0FF' };
+            case '매칭 실패':
+                return { color: '#FF5555', backgroundColor: '#FFF0EE' };
             default:
                 return { color: 'black', backgroundColor: 'transparent' };
         }

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './MyPage.css'; 
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -14,53 +14,61 @@ import { ReactComponent as Search } from '../../components/images/mySearch.svg';
 import { ReactComponent as Alarm } from '../../components/images/myAlarm.svg';
 
 function MyPage() {
-  const { isLoggedIn, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [listData, setListData] = useState({
+    memberDTO: {},
+    numOfRegistered: 0,
+    numOfInquiries: 0,
+    numOfFootworks: 0,
+    numOfAlarms: 0
+  });
 
-  const handleLogout = async () => {
-    try {
-      const sessionId = sessionStorage.getItem('sessionId'); // 세션 ID를 세션 스토리지에서 가져옴
-      const response = await axios.post('http://localhost:8000/api/logout', {}, {
-        headers: {
-          'Authorization': `Bearer ${sessionId}`,
-        },
-        withCredentials: true,
-      });
-      console.log('Logout successful:', response.data);
-      logout(); // AuthContext의 logout 함수 호출
-      navigate('/login');
-    } catch (error) {
-      console.error('Error logging out:', error);
-    }
-  };
+  useEffect(() => {
+    // Fetch data from the API
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/member'); // Replace with your actual API endpoint
+            const requestData = response.data;
+            setListData(requestData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    fetchData();
+}, []);
 
   return (
     <div className="MyPageBackground">
       
       <Profile/>
-      <p className='MPName'>박주형님</p>
-      <InfoBox name={'박주형'} ID={'pjh030826'} location={'서울특별시 은평구 은평로 21길 52'}/>
+      <p className='MPName'>{listData.memberDTO.name}님</p>
+      <InfoBox 
+        name={listData.memberDTO.name} 
+        ID={listData.memberDTO.email} 
+        location={listData.memberDTO.address}
+      />
       <div className='Bottom'>
         <div className='MyBottom1'>
           <p>요청인</p> 
           <Link to='/member/heart' style={{textDecoration: 'none'}}>
-            <BottomBox content={'찜한 방'} number={'5'} Icon={Heart}/> 
+            <BottomBox content={'찜한 방'} number={'0'} Icon={Heart}/> 
           </Link>
           <Link to='/member/registered' style={{textDecoration: 'none'}}>
-            <BottomBox content={'등록 매물'} number={'5'} Icon={File}/>
+            <BottomBox content={'등록 매물'} number={listData.numOfRegistered} Icon={File}/>
           </Link>
           <Link to="/member/inquiry" style={{textDecoration: 'none'}}>
-            <BottomBox content={'신청 조회'} number={'5'} Icon={Person}/>
+            <BottomBox content={'신청 조회'} number={listData.numOfInquiries} Icon={Person}/>
           </Link>
         </div>
         <div className='MyBottom2'>
           <p>발품인</p> 
-          <BottomBox content={'나의 별점'} number={'5'} Icon={Star} score={true}/> 
+          <BottomBox content={'나의 별점'} number={'4.8'} Icon={Star} score={true}/> 
           <Link to='/member/footwork' style={{textDecoration: 'none'}}>
-            <BottomBox content={'신청 발품'} number={'5'} Icon={Search}/>
+            <BottomBox content={'신청 발품'} number={listData.numOfFootworks} Icon={Search}/>
           </Link>
           <Link to='/member/alarm' style={{textDecoration: 'none'}}>
-            <BottomBox content={'알림'} number={'5'} Icon={Alarm}/>
+            <BottomBox content={'알림'} number={listData.numOfAlarms} Icon={Alarm}/>
           </Link>
         </div>
       </div>
