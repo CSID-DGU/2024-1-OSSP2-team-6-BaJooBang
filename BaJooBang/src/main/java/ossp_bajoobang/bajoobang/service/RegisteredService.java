@@ -46,6 +46,7 @@ public class RegisteredService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + requestId));
         matchingInfo.put("requester", member.getName());
         matchingInfo.put("worker", request.getBalpoomin());
+        matchingInfo.put("worker_id", request.getBalpoomin().getId());
         matchingInfo.put("price", request.getPriceRequest());
         matchingInfo.put("request_id", request.getRequestId());
         matchingInfo.put("date", request.getRequestDate());

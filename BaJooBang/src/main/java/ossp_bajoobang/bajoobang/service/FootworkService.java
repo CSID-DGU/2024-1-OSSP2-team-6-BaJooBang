@@ -24,13 +24,17 @@ public class FootworkService {
             Map<String, Object> footwork = new HashMap<>();
             Request request = baDream.getRequest();
             House house = request.getHouse();
+            footwork.put("request_id", request.getRequestId());
             footwork.put("address", house.getContent());
             footwork.put("price", request.getPriceRequest());
             // 매칭 상태값 전달하기
 //            if (request.getBalpoomin() == null) footwork.put("state", "요청 중");
 //            else footwork.put("state", "매칭 완료");
             // 매칭 전
-            if (request.getStatus().equals("매칭 전")) footwork.put("state", "요청 중");
+            if (request.getStatus().equals("매칭 전")) {
+                footwork.put("state", "요청 중");
+                footwork.put("worker_id", "");
+            }
             // 매칭 후
             else {
                 // 매칭 성공 (발품인 == member)
@@ -38,13 +42,18 @@ public class FootworkService {
                     if (request.getStatus().equals("평가 완료")) {
                         // 작성 후(작성 완료)
                         footwork.put("state", "작성 완료");
+                        footwork.put("worker_id", request.getBalpoomin().getId());
                     }
                     // 작성 전(매칭 완료)
-                    else footwork.put("state", request.getStatus());
+                    else {
+                        footwork.put("state", request.getStatus());
+                        footwork.put("worker_id", request.getBalpoomin().getId());
+                    }
                 }
                 else {
                     // 매칭 실패 (발품인 != member)
                     footwork.put("state", "매칭 실패");
+                    footwork.put("worker_id", "");
                 }
             }
             footwork.put("date", request.getRequestDate());
