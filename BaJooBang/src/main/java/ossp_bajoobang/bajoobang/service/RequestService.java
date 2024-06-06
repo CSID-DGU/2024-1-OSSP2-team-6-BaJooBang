@@ -30,6 +30,8 @@ public class RequestService {
         // 저장할 때, house_id와 함께 저장해주어야 함. => 테이블도 join해주어야 함!!! --> 위에 함
         member.setRequest(request);
         house.setRequest(request);
+        // 매칭 상태값 매칭 전으로 초기화
+        request.setStatus("매칭 전");
         Request saveRequest = requestRepository.save(request);
 
         // test
@@ -82,8 +84,11 @@ public class RequestService {
         request.setMoldVeranda(balpoomForm.getMoldVeranda());
         request.setMoldShoes(balpoomForm.getMoldShoes());
         request.setMoldWindow(balpoomForm.getMoldWindow());
+        // 매칭 상태값 -> 평가 완료
+        request.setStatus("평가 완료");
         // transactional로 대체
         // requestRepository.save(request);
+
 
 //        List<PlusRequest> plusRequestList = plusRequestRepository.findByRequest(request);
 //        List<String> plusRequestAnswers = balpoomForm.getPlusAnswerList();
