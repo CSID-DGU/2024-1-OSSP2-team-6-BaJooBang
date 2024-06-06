@@ -8,8 +8,6 @@ export const dopositions = [/*
   {
     "house_id": 1,
     "dealmoney": "20,000",
-    "time": 10,
-    "distance": 765,
     "human": "홍길동",
     "content": "서울특별시 필동",
     "latLng": {
@@ -21,8 +19,6 @@ export const dopositions = [/*
   {
     "house_id": 2,
     "dealmoney": "10,000",
-    "time": 10,
-    "distance": 765,
     "human": "안녕",
     "content": "서울특별시 을지로",
     "latLng": {
@@ -34,8 +30,6 @@ export const dopositions = [/*
   {
     "house_id": 3,
     "dealmoney": "30,000",
-    "time": 10,
-    "distance": 765,
     "human": "김유민",
     "content": "서울특별시 장충로",
     "latLng": {
@@ -47,8 +41,6 @@ export const dopositions = [/*
   {
     "house_id": 3,
     "dealmoney": "30,000",
-    "time": 10,
-    "distance": 765,
     "human": "dksljf",
     "content": "서울특별시 장충로",
     "latLng": {
@@ -90,7 +82,6 @@ function DONav({ positions }) {
             <h2>￦ {position.dealmoney}</h2>
             <p><span className="blank"></span>위치 | {position.content}</p>
             <p><span className="blank"></span>요청인<span className="blank"></span>|<span className="blank"></span>{position.human}</p>
-            <p><span className="blank"></span>도보 | <span className="blank_gray">{position.time}분</span><span className="blank"></span>거리 | <span className="blank_gray">{position.distance}m</span></p>
             <Link
               to={`/request/${position.house_id}`}
               onClick={(e) => handleLinkClick(e, `/request/${position.house_id}`)}
@@ -161,7 +152,7 @@ const DopageMap = ({ search, showOnlyNotified }) => {
     filteredPositions.forEach(position => {
       let marker = new kakao.maps.Marker({
         map: map,
-        position: new kakao.maps.LatLng(position.latLng.lat, position.latLng.lng)
+        position: new kakao.maps.LatLng(position.latLng.latitude, position.latLng.longitude)
       });
 
       let infowindowContent = `알림 받은 개수: ${houseIdNotificationCounts.get(position.house_id) || 0}`;
@@ -173,7 +164,7 @@ const DopageMap = ({ search, showOnlyNotified }) => {
       kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 
       markers.push(marker);
-      bounds.extend(new kakao.maps.LatLng(position.latLng.lat, position.latLng.lng));
+      bounds.extend(new kakao.maps.LatLng(position.latLng.latitude, position.latLng.longitude));
     });
 
     if (filteredPositions.length > 0) {
