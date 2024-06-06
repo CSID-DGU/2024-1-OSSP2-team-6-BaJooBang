@@ -16,6 +16,7 @@ public class HouseDTO {
     private int money2;
     private int stair;
     private int management;
+    private String type;
     private int size;
     private LatLng latLng;
 
@@ -31,6 +32,7 @@ public class HouseDTO {
                 .management(entity.getManagement())
                 .size(entity.getSize())
                 .latLng(latLng)
+                .type(entity.getType())
                 .build();
     }
 }

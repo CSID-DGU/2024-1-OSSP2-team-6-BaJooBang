@@ -31,6 +31,7 @@ public class House {
     private int size;
     private double latitude;
     private double longitude;
+    private String type;
 
     public void setRequest(Request request) {
         this.getRequests().add(request);
