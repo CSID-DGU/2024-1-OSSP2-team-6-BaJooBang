@@ -57,6 +57,23 @@ public class MypageController {
             return ResponseEntity.status(401).body("Unauthorized");
         }
     }
+
+    // 나는 요청인이고 발품 신청 들어온 것 수락
+    @GetMapping("/inquiry/accept")
+    public String accpetInquiry(HttpServletRequest request,
+                                @RequestBody Long request_id,
+                                @RequestBody Long worker_id) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // 요청서에 발품인 아이디 넣어주고 매칭 상태값에 매칭완료 넣기
+            inquiryService.accept(request_id, worker_id);
+            return "요청을 수락하였습니다.";
+        }
+        else {
+            return "FAIL";
+        }
+    }
+
     // 등록매물
     @GetMapping("/registered")
     public ResponseEntity<?> getRegistered(HttpServletRequest request) {
@@ -76,7 +93,7 @@ public class MypageController {
     // 등록매물에서 매칭 정보 확인
     @GetMapping("/registered/matching")
     public ResponseEntity<?> getMatching(HttpServletRequest request,
-                                @RequestBody Long requestId) {
+                                         @RequestBody Long requestId) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             // 세션에서 멤버를 꺼내오기
@@ -106,6 +123,7 @@ public class MypageController {
         }
     }
 
+    // 알람 리스트 보내기
     @GetMapping("/alarm")
     public ResponseEntity<?> getAlarm(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
