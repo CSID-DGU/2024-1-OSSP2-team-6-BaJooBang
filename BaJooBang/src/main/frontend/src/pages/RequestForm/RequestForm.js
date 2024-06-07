@@ -211,7 +211,7 @@ function RequestForm() {
 
         console.log('WritePost 함수 호출됨');
 
-
+        console.log("W: " + write);
         // JSON 데이터를 FormData에 추가 (plus_list만 추가)
         formData.append("house_id", house_id);
         formData.append("date", date);

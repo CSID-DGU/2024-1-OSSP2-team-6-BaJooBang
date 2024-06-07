@@ -113,8 +113,15 @@ public class BalpoomController {
     }
 
     // + 3. 리턴값 수정되주어야 함.
+    // 요청서 픽스 -> 이미지 뿌려주기
     @GetMapping(path = "/test-imageget")
     public ResponseEntity<List<FileDto>> getTestTimage(){
+//        "answer1" : {파일경로1, 파일경로2, 파일경로3}
+//        "answer2" : {파일경로1, 파일경로2, 파일경로3}
+//        "answer3" : {파일경로1}
+//        "plusRequest1" : {"설명"}
+
+
         List<File> files = balpoomFileService.returnFileList();
         List<FileDto> fileDtos = files.stream()
                 .map(this::convertToFileDto)

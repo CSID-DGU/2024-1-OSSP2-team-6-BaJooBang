@@ -24,6 +24,7 @@ public class BalpoomForm {
     // 추가 질문 사항.
     private List<String> plusAnswerList;
 
+    private String address;
     private String status;
 
     // 수압
@@ -48,6 +49,7 @@ public class BalpoomForm {
         return BalpoomForm.builder()
                 .priceRequest(requestInfo.getPriceRequest())
                 .requestDate(requestInfo.getRequestDate())
+                .address(requestInfo.getAddress())
                 .status(requestInfo.getStatus())
                 .plusRequestList(plusRequests)
                 .build();

@@ -25,8 +25,8 @@ public class RequestService {
     private final RequestRepository requestRepository;
     private final PlusRequestRepository plusRequestRepository;
 
-    public Request saveRequest(RequestDTO requestDTO, Member member, House house){
-        Request request = Request.toEntity(requestDTO, member, house);
+    public Request saveRequest(RequestDTO requestDTO, Member member, House house, String address){
+        Request request = Request.toEntity(requestDTO, member, house, address);
         // 저장할 때, house_id와 함께 저장해주어야 함. => 테이블도 join해주어야 함!!! --> 위에 함
         member.setRequest(request);
         house.setRequest(request);
@@ -84,8 +84,8 @@ public class RequestService {
         request.setMoldVeranda(balpoomForm.getMoldVeranda());
         request.setMoldShoes(balpoomForm.getMoldShoes());
         request.setMoldWindow(balpoomForm.getMoldWindow());
-        // 매칭 상태값 -> 평가 완료
-        request.setStatus("평가 완료");
+        // 매칭 상태값 -> 작성 완료
+        request.setStatus("작성 완료");
         // transactional로 대체
         // requestRepository.save(request);
 
