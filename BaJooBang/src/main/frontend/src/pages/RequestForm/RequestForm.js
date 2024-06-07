@@ -30,6 +30,9 @@ function RequestForm(request_id) {
 
     const content = location.state ? location.state.content : '기본값';
 
+    // 매물 상세 정보 페이지에서 넘어갈 때만 입력할 수 있도록 상태 정보 저장
+    const isFromInformation = location.pathname.includes('/helpinfo');
+
     const [requests, setRequests] = useState([
         {
             title: '콘센트 위치 확인하고 사진으로 찍어주세요.',
@@ -47,14 +50,13 @@ function RequestForm(request_id) {
             images: [image1, image3]
         }
     ]);
-    
 
     const [inputs, setInputs] = useState([{ plus_q: '' }]);
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
-    const [write, setWrite] = useState(false); // 요청인이 발품 요청서를 작성할 상태인지 아닌지를 저장
+    const [write, setWrite] = useState(!isFromInformation); // Set write based on navigation source
     const [apply, setApply] = useState(false); // 발품인이 신청했는지에 대한 상태
-    const [complete, setComplete] = useState(false);
+    const [complete, setComplete] = useState(false); // 발품인이 발품서를 작성했는지에 대한 상태
     const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: request.text })));
     const contentRefs = useRef([]);
     const imageBoxRefs = useRef([]);
@@ -105,7 +107,29 @@ function RequestForm(request_id) {
         setIsModalOpen(true);
     };
 
-    async function RequestPost() {
+    async function WritePost() {
+        const formData = new FormData();
+    
+        // JSON 데이터를 FormData에 추가 (plus_list만 추가)
+        formData.append("house_id", house_id);
+        formData.append("date", date);
+        formData.append("price", price);
+        formData.append('jsonData', JSON.stringify({ plus_list: inputs }));
+
+        try {
+            const response = await axios.post(`http://localhost:8000/request-form?house_id=${house_id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('Request success:', response.data);
+        } catch (error) {
+            console.error('Register failed:', error);
+        }
+    }
+    
+
+    async function CompletePost() {
         const formData = new FormData();
 
         // JSON 데이터를 FormData에 추가 (plus_list만 추가)
@@ -343,19 +367,27 @@ function RequestForm(request_id) {
                 </div>
 
                 <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
-                    {
-                        apply ? 
-                        <div onClick={RequestPost} style={{ width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <Check />
-                            <p style={{ fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw' }}>작성완료</p>
+                    {write ? (
+                        <div onClick={WritePost} style={{ width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <p style={{ fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw' }}>발품 등록</p>
                         </div>
-                         :
+                    ) : (
+                        apply ? (
+                            complete ?
+                            <></>
+                            :
+                            <div onClick={CompletePost} style={{ width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <Check />
+                                <p style={{ fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw' }}>발품 작성</p>
+                            </div>
+                         ) : (
                         <div onClick={openModal} style={{ width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <p style={{ fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw' }}>발품 신청하기</p>
+                            <p style={{ fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw' }}>발품 신청</p>
                         </div>
-
-                    }
+                         )
+                    )}
                 </div>
+
 
                 {selectedImage && (
                     <div className='modal' onClick={closeModal}>
