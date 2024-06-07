@@ -90,6 +90,10 @@ public class BalpoomController {
         Member member = (Member) session.getAttribute("loginMember");
 
         BalpoomForm balpoomForm = requestService.getRequestInfo(request_id);
+
+//        if(){
+//
+//        }
         return balpoomForm;
     }
 
@@ -120,11 +124,21 @@ public class BalpoomController {
     }
 
 
+    // + 4. 각 답변마다 필요한 파일 갯수로
     @PatchMapping(path = "/test-images")
-    public void testImage(@RequestPart("requests") List<MultipartFile> requests) throws IOException {
+    public void testImage(@RequestPart("request_id") Long request_id,
+                          @RequestPart("requests") List<MultipartFile> requests,
+                          @RequestPart("jsonData") BalpoomForm balpoomForm,
+                          @RequestPart("plusAnswerData") PlusAnswerForm plusAnswerForm) throws IOException {
+
+        log.info(requests.toString());
+        log.info("-------------------------------");
+        requestService.patchInfo(request_id, balpoomForm);
+
         balpoomFileService.saveFile(requests);
     }
 
+    // + 3. 리턴값 수정되주어야 함.
     @GetMapping(path = "/test-imageget")
     public ResponseEntity<List<FileDto>> getTestTimage(){
         List<File> files = balpoomFileService.returnFileList();
@@ -134,6 +148,7 @@ public class BalpoomController {
         return ResponseEntity.ok(fileDtos);
     }
 
+    // + 2. 함수 위치 바꿀 수 있으면 바꾸고.
     private FileDto convertToFileDto(File file) {
         return new FileDto(file.getFile_id(), file.getFilename(), file.getFilepath(), file.getSize(), file.getUploadedDate());
     }

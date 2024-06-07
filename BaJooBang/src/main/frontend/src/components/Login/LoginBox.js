@@ -17,6 +17,7 @@ function LoginBox() {
 
     const [email, setEmail] = useState('');
     const [pw, setPw] = useState('');
+    
 
     async function LoginPost() {
         const data = {
@@ -52,8 +53,8 @@ function LoginBox() {
             <div className='rightBox'>
                 <p className='title'>Log In</p>
                 <div className='emptyBox'/>
-                <Input title={"Email Address"} placeholder={'Email Address'} onChange={(e) => setEmail(e.target.value)} />
-                <Input title={"Password"} placeholder={'Password'}  onChange={(e) => setPw(e.target.value)}/>
+                <Input isPrivate={false} title={"Email Address"} placeholder={'Email Address'} onChange={(e) => setEmail(e.target.value)} />
+                <Input isPrivate={true} title={"Password"} placeholder={'Password'}  onChange={(e) => setPw(e.target.value)}/>
                 <button className='button' style={{backgroundColor: '#33BE42', marginTop: '40px'}} onClick={LoginPost}>Log in</button>
                 <div className='line'/>
                 <button className='bottomButton' onClick={handleSignUpClick}>Sign up</button>

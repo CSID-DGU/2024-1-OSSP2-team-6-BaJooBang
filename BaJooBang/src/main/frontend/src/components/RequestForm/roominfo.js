@@ -2,7 +2,7 @@ import React from 'react';
 import './roominfo.css';
 
 function RequestForm({title, placeholder, content, onChange}) {
-    console.log(content);
+    //console.log(content);
     return(
         <div className='room-box'>
             <p className='roomtitle'>{title}</p>

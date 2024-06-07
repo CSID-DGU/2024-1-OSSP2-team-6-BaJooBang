@@ -1,39 +1,50 @@
 .header-bar {
-    height: 40px;
-    background-color: #559F5D; /* 배경색 설정 */
-    padding: 10px 20px; /* 패딩 설정 */
-    color: white; /* 텍스트 색상을 흰색으로 설정 */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative; /* z-index를 사용하기 위해 position 설정 필요 */
-    z-index: 10;
-  }
+  height: 40px;
+  background-color: #559F5D; /* 배경색 설정 */
+  padding: 10px 20px; /* 패딩 설정 */
+  color: white; /* 텍스트 색상을 흰색으로 설정 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative; /* z-index를 사용하기 위해 position 설정 필요 */
+  z-index: 10;
+}
 
-  .header-bar a {
-    color: inherit; /* 부모 요소의 색상을 상속 */
-    text-decoration: none; /* 밑줄 제거 */
-  }
+.header-bar a {
+  color: inherit; /* 부모 요소의 색상을 상속 */
+  text-decoration: none; /* 밑줄 제거 */
+}
 
-  
-  .outBox {
-    display: flex; /* 이 선언을 통해 자식 요소들을 가로로 정렬 */
-    justify-content: center; /* 가로 축 중앙 정렬 */
-    align-items: center; /* 세로 축 중앙 정렬 */
-    /* background-color: aqua; */
-  }
+.outBox {
+  display: flex; /* 이 선언을 통해 자식 요소들을 가로로 정렬 */
+  justify-content: center; /* 가로 축 중앙 정렬 */
+  align-items: center; /* 세로 축 중앙 정렬 */
+  /* background-color: aqua; */
+}
 
-  .innerBox {
-    width: 100px;
-    height: 40px;
-    display: flex;
-    margin: 10px;
-    /* background-color: blue; */
-    border-radius: 15px;
-    justify-content: center;
-    align-items: center;
-  }
+.innerBox {
+  width: 100px;
+  height: 40px;
+  display: flex;
+  margin: 10px;
+  /* background-color: blue; */
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+}
 
-  .innerBox:hover {
-    background-color: #4A8951;
-  }
+.innerBox:hover{
+  background-color: #4A8951;
+  background-color: #4A8951;
+}
+ .innerBox .active {
+  width: 150px;
+  height: 40px;
+  display: flex;
+
+  /* background-color: blue; */
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+  background-color: #4A8951;
+ }
