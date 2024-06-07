@@ -27,6 +27,10 @@ public class Request {
     // 발품 가격
     private int priceRequest;
 
+    //tf
+    private boolean apply = false;
+    private boolean complete = false;
+
     // 수압
     private Integer powerWater = null;
     private Integer powerWash = null;
