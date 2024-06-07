@@ -52,6 +52,16 @@ public class BalpoomForm {
                 .address(requestInfo.getAddress())
                 .status(requestInfo.getStatus())
                 .plusRequestList(plusRequests)
+                .powerShower(requestInfo.getPowerShower())
+                .powerWash(requestInfo.getPowerWash())
+                .powerWater(requestInfo.getPowerWater())
+                .timeWater(requestInfo.getTimeWater())
+                .lighting(requestInfo.getLighting())
+                .moldLiving(requestInfo.getMoldLiving())
+                .moldRest(requestInfo.getMoldRest())
+                .moldVeranda(requestInfo.getMoldVeranda())
+                .moldShoes(requestInfo.getMoldShoes())
+                .moldWindow(requestInfo.getMoldWindow())
                 .build();
     }
 }
