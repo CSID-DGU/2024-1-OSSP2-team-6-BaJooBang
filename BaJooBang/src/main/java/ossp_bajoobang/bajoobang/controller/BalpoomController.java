@@ -115,7 +115,7 @@ public class BalpoomController {
     // + 3. 리턴값 수정되주어야 함.
     // 요청서 픽스 -> 이미지 뿌려주기
     @GetMapping(path = "/test-imageget")
-    public ResponseEntity<List<FileDto>> getTestTimage(){
+    public ResponseEntity<FinishForm> getTestTimage(@RequestPart("request_id") Long request_id){
 //        "answer1" : {파일경로1, 파일경로2, 파일경로3}
 //        "answer2" : {파일경로1, 파일경로2, 파일경로3}
 //        "answer3" : {파일경로1}
@@ -126,7 +126,17 @@ public class BalpoomController {
         List<FileDto> fileDtos = files.stream()
                 .map(this::convertToFileDto)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(fileDtos);
+
+        FinishForm finishForm = new FinishForm();
+        BalpoomForm balpoomForm = requestService.getRequestInfo(request_id);
+        List<PlusRequest> plusRequestList = requestService.getPlusRequestList(request_id);
+        PlusReqeustForFinishDTO plusReqeustForFinishDTO = PlusReqeustForFinishDTO.toDTO(plusRequestList);
+
+        finishForm.setFileDtos(fileDtos);
+        finishForm.setBalpoomForm(balpoomForm);
+        finishForm.setPlusReqeustForFinishDTO(plusReqeustForFinishDTO);
+
+        return ResponseEntity.ok(finishForm);
     }
 
     // + 2. 함수 위치 바꿀 수 있으면 바꾸고.

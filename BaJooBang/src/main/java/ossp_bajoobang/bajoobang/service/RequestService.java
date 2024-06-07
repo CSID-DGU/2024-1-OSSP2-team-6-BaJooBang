@@ -123,4 +123,15 @@ public class RequestService {
 
     }
 
+    public Request getOneRequest(Long request_id){
+        return requestRepository.findById(request_id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + request_id));
+    }
+
+    public List<PlusRequest> getPlusRequestList(Long request_id){
+        Request request = requestRepository.findById(request_id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + request_id));
+        return plusRequestRepository.findByRequest(request);
+    }
+
 }
