@@ -61,7 +61,7 @@ function RequestForm() {
     const [complete, setComplete] = useState(false); // 발품인이 발품서를 작성했는지에 대한 상태
 
     const [requests, setRequests] = useState([]);
-    const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: request.text })));
+    //const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: request.text })));
 
     const contentRefs = useRef([]);
     const imageBoxRefs = useRef([]);
@@ -79,9 +79,11 @@ function RequestForm() {
     };
 
     const handleContentEditableChange = (index, event) => {
-        const newRequests = requests.map((request, i) => i === index ? { ...request, text: event.target.textContent } : request);
-        setRequests(newRequests);
-    };
+        if (!complete) {
+            const newRequests = requests.map((request, i) => i === index ? { ...request, text: event.target.textContent } : request);
+            setRequests(newRequests);
+        }
+    };  
     
 
     const handleAddRequest = () => {
@@ -117,24 +119,19 @@ function RequestForm() {
     };
 
     
-
-    const [WaterState, setWaterState] = useState({
-        sink: { 
-            selected: null, 
-            hotWaterTime1: null, 
-            hotWaterTime2: null 
-        },
-        basin: { 
-            selected: null, 
-            hotWaterTime1: null, 
-            hotWaterTime2: null 
-        },
-        shower: { 
-            selected: null, 
-            hotWaterTime1: null, 
-            hotWaterTime2: null 
-        }
+    // 수압 데이터
+    const [waterState, setWaterState] = useState({
+        sink: { selected: null, hotWaterTime1: '', hotWaterTime2: '' },
+        basin: { selected: null, hotWaterTime1: '', hotWaterTime2: '' },
+        shower: { selected: null, hotWaterTime1: '', hotWaterTime2: '' }
     });
+    // 수압 post
+    const handleWaterStateChange = (type, state) => {
+        setWaterState(prevState => ({
+            ...prevState,
+            [type]: state
+        }));
+    };
     
     // 수압 get
     const updateWaterState = (data) => {
@@ -159,11 +156,14 @@ function RequestForm() {
 
     // 채광 get
     const [lightState, setLightState] = useState('');
-    const updateLightState = (data) => {
+    const updateLightState = (data) => { //get할 때
         setLightState(data);
     }
+    const handleLightStateChange = (state) => { //post할 때
+        setLightState(state);
+    };
     
-    // 곰팡이 get 
+    // 곰팡이 데이터
     const [moldStates, setMoldStates] = useState({
         livingRoom: { hasItem: false, noItem: false },
         bathroom: { hasItem: false, noItem: false },
@@ -171,6 +171,7 @@ function RequestForm() {
         shoeRack: { hasItem: false, noItem: false },
         windowFrame: { hasItem: false, noItem: false },
     });
+    // 곰팡이 get 
     const updateMoldState = (data) => {
         setMoldStates({
             livingRoom: { hasItem: data.moldLiving || false, noItem: !data.moldLiving },
@@ -180,19 +181,26 @@ function RequestForm() {
             windowFrame: { hasItem: data.moldFrame || false, noItem: !data.moldFrame },
         });
     };
+    //곰팡이 post
+    const handleMoldStateChange = (type, state) => { 
+        setMoldStates(prevState => ({
+            ...prevState,
+            [type]: state
+        }));
+    };
     
 
-    useEffect(() => {
-        const updatedRequests = requests.map((request, index) => ({
-            ...request,
-            text: complete ? contentEditableStates[index].text : '',
-            images: complete && imageBoxRefs.current[index] ? Array.from(imageBoxRefs.current[index].children).map(img => img.src) : []
-        }));
-        setRequests(updatedRequests);
-    }, [complete, contentEditableStates, requests]);
+    // useEffect(() => {
+    //     const updatedRequests = requests.map((request, index) => ({
+    //         ...request,
+    //         text: complete ? contentEditableStates[index].text : '',
+    //         images: complete && imageBoxRefs.current[index] ? Array.from(imageBoxRefs.current[index].children).map(img => img.src) : []
+    //     }));
+    //     setRequests(updatedRequests);
+    // }, [complete, contentEditableStates, requests]);
 
 
-    //api연결
+    // 발품인이 발품 신청하는 api
     const requestPatch = async (request_id, message) => {
         try {
             const response = await axios.patch(`http://localhost:8000/request?request_id=${request_id}`, {
@@ -235,26 +243,37 @@ function RequestForm() {
     // 발품인이 발품서 작성하는 api
     async function CompletePost() {
         const formData = new FormData();
+        
+        formData.append('sinkSelected', waterState.sink.selected);
+        formData.append('sinkHotWaterTime1', waterState.sink.hotWaterTime1);
+        formData.append('sinkHotWaterTime2', waterState.sink.hotWaterTime2);
+        
+        formData.append('basinSelected', waterState.basin.selected);
+        formData.append('basinHotWaterTime1', waterState.basin.hotWaterTime1);
+        formData.append('basinHotWaterTime2', waterState.basin.hotWaterTime2);
+        
+        formData.append('showerSelected', waterState.shower.selected);
+        formData.append('showerHotWaterTime1', waterState.shower.hotWaterTime1);
+        formData.append('showerHotWaterTime2', waterState.shower.hotWaterTime2);
+    
+        formData.append('lightState', lightState);
+        
+        formData.append('moldLivingRoom', moldStates.livingRoom.hasItem ? '있음' : '없음');
+        formData.append('moldBathroom', moldStates.bathroom.hasItem ? '있음' : '없음');
+        formData.append('moldBalcony', moldStates.balcony.hasItem ? '있음' : '없음');
+        formData.append('moldShoeRack', moldStates.shoeRack.hasItem ? '있음' : '없음');
+        formData.append('moldWindowFrame', moldStates.windowFrame.hasItem ? '있음' : '없음');
 
-        // JSON 데이터를 FormData에 추가 (plus_list만 추가)
-        formData.append('jsonData', JSON.stringify({ plus_list: inputs }));
-        formData.append("house_id", house_id);
-
-        // 요청 사항과 이미지들을 FormData에 추가*
-        requests.forEach((input, index) => {
-            formData.append(`requests[${index}][title]`, input.title);
-            formData.append(`requests[${index}][text]`, contentEditableStates[index].text);
-
-            const fileInput = fileInputs.current[index];
-            if (fileInput && fileInput.files.length > 0) {
-                Array.from(fileInput.files).forEach((file, fileIndex) => {
-                    formData.append(`requests[${index}][files][${fileIndex}]`, file);
-                });
-            }
+        requests.forEach((request, index) => {
+            formData.append(`requests[${index}][title]`, request.title);
+            formData.append(`requests[${index}][text]`, request.text);
+            request.images.forEach((image, imgIndex) => {
+                formData.append(`requests[${index}][images][${imgIndex}]`, image);
+            });
         });
-
+    
         try {
-            const response = await axios.post(`http://localhost:8000/request-form?house_id=${house_id}`, formData, {
+            const response = await axios.post(`http://localhost:8000/request-form?request_id=${request_id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -302,7 +321,7 @@ function RequestForm() {
                     // WaterState 업데이트
                     updateWaterState(data);
                     updateLightState(data.lighting);
-                    updateMoldState();
+                    updateMoldState(data);
                 } catch (error) {
                     console.error('Error fetching property info:', error);
                 }
@@ -358,9 +377,27 @@ function RequestForm() {
                         content2={'2. 김이 모락모락 나기까지의 시간'}
                     />
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
-                        <WaterBox Icon={Sink1} title={'싱크대'} complete={complete} savedState={WaterState.sink} />
-                        <WaterBox Icon={Sink2} title={'세면대'} complete={complete} savedState={WaterState.basin} />
-                        <WaterBox Icon={Shower} title={'샤워기'} complete={complete} savedState={WaterState.shower} />
+                        <WaterBox 
+                            Icon={Sink1} 
+                            title={'싱크대'} 
+                            complete={complete} 
+                            savedState={waterState.sink} 
+                            onChange={(state) => handleWaterStateChange('sink', state)} 
+                        />
+                        <WaterBox 
+                            Icon={Sink2} 
+                            title={'세면대'} 
+                            complete={complete} 
+                            savedState={waterState.basin} 
+                            onChange={(state) => handleWaterStateChange('basin', state)} 
+                        />
+                        <WaterBox 
+                            Icon={Shower} 
+                            title={'샤워기'} 
+                            complete={complete} 
+                            savedState={waterState.shower} 
+                            onChange={(state) => handleWaterStateChange('shower', state)} 
+                        />
                     </div>
                 </div>
 
@@ -369,7 +406,7 @@ function RequestForm() {
                         <Sun />
                         <p style={{ color: '#5F5F5F', fontSize: '21px' }}>채광</p>
                     </div>
-                    <LightSelect complete={complete} savedState={lightState} />
+                    <LightSelect complete={complete} savedState={lightState} onChange={handleLightStateChange} />
                 </div>
 
                 <div className='requestBox'>
@@ -378,11 +415,36 @@ function RequestForm() {
                         <p style={{ color: '#5F5F5F', fontSize: '21px' }}>곰팡이</p>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
-                        <MoldBox title={'거실'} complete={complete} savedState={moldStates.livingRoom} />
-                        <MoldBox title={'화장실'} complete={complete} savedState={moldStates.bathroom} />
-                        <MoldBox title={'베란다'} complete={complete} savedState={moldStates.balcony} />
-                        <MoldBox title={'신발장'} complete={complete} savedState={moldStates.shoeRack} />
-                        <MoldBox title={'창틀'} complete={complete} savedState={moldStates.windowFrame} />
+                    <MoldBox 
+                        title={'거실'} 
+                        complete={complete} 
+                        savedState={moldStates.livingRoom} 
+                        onChange={(state) => handleMoldStateChange('livingRoom', state)} 
+                    />
+                    <MoldBox 
+                        title={'화장실'} 
+                        complete={complete} 
+                        savedState={moldStates.bathroom} 
+                        onChange={(state) => handleMoldStateChange('bathroom', state)} 
+                    />
+                    <MoldBox 
+                        title={'베란다'} 
+                        complete={complete} 
+                        savedState={moldStates.balcony} 
+                        onChange={(state) => handleMoldStateChange('balcony', state)} 
+                    />
+                    <MoldBox 
+                        title={'신발장'} 
+                        complete={complete} 
+                        savedState={moldStates.shoeRack} 
+                        onChange={(state) => handleMoldStateChange('shoeRack', state)} 
+                    />
+                    <MoldBox 
+                        title={'창틀'} 
+                        complete={complete} 
+                        savedState={moldStates.windowFrame} 
+                        onChange={(state) => handleMoldStateChange('windowFrame', state)} 
+                    />
                     </div>
                 </div>
 

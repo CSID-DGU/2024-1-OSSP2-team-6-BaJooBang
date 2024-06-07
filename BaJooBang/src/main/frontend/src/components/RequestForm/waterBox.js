@@ -3,7 +3,7 @@ import './CircleSelector.css';
 import './waterBox.css';    
 import { ReactComponent as Check } from '../../components/images/check(white).svg';
 
-function WaterBox({ Icon, title, complete, savedState }) {
+function WaterBox({ Icon, title, complete, savedState, onChange }) {
     const [selected, setSelected] = useState(null);
     const [hotWaterTime1, setHotWaterTime1] = useState('');
     const [hotWaterTime2, setHotWaterTime2] = useState('');
@@ -20,9 +20,15 @@ function WaterBox({ Icon, title, complete, savedState }) {
         }
     }, [complete, savedState]);
 
+    useEffect(() => {
+        if (onChange) {
+            onChange({ selected, hotWaterTime1, hotWaterTime2 });
+        }
+    }, [selected, hotWaterTime1, hotWaterTime2, onChange]);
+
     const renderCircle = (index) => {
-        const circleClass = `circle${index}`; // 원의 클래스 이름 생성
-        const isSelected = selected === index; // 현재 원이 선택되었는지 확인
+        const circleClass = `circle${index}`;
+        const isSelected = selected === index;
 
         return (
             <div

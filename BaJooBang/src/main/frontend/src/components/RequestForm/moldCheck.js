@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './moldCheck.css';
 
-function MoldCheck({ complete, savedState }) {
+function MoldCheck({ complete, savedState, onChange }) {
   const [checkedState, setCheckedState] = useState({
     hasItem: false,
     noItem: false
@@ -18,14 +18,19 @@ function MoldCheck({ complete, savedState }) {
     }
   }, [complete, savedState]);
 
+  useEffect(() => {
+    if (onChange) {
+      onChange(checkedState);
+    }
+  }, [checkedState, onChange]);
+
   const handleOnChange = (e) => {
     if (!complete) {
       const { name } = e.target;
-      setCheckedState({
-        hasItem: false,
-        noItem: false,
-        [name]: !checkedState[name]
-      });
+      setCheckedState(prevState => ({
+        ...prevState,
+        [name]: !prevState[name]
+      }));
     }
   };
 

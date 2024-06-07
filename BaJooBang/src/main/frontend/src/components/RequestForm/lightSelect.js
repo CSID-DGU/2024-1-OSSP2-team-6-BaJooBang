@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function LightSelect({ complete, savedState }) {
+function LightSelect({ complete, savedState, onChange }) {
   const [selectedOption, setSelectedOption] = useState("");
 
   useEffect(() => {
@@ -10,6 +10,12 @@ function LightSelect({ complete, savedState }) {
       setSelectedOption("");
     }
   }, [complete, savedState]);
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(selectedOption);
+    }
+  }, [selectedOption, onChange]);
 
   const handleOptionChange = (e) => {
     if (!complete) {
