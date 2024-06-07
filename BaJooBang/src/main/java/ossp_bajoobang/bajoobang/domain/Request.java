@@ -79,6 +79,10 @@ public class Request {
     @JoinColumn(name = "balpoomin_id")
     private Member balpoomin;
 
+    // 파일들
+    @OneToMany(mappedBy = "request")
+    private List<File> files = new ArrayList<>();
+
     public void setBaDream(BaDream baDream) {
         this.getBaDreams().add(baDream);
     }
