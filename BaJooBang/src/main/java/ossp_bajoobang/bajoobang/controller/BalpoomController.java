@@ -101,15 +101,15 @@ public class BalpoomController {
     // + 4. 각 답변마다 필요한 파일 갯수로
     @PatchMapping(path = "/balpoom-form")
     public void testImage(@RequestPart("request_id") Long request_id,
-                          @RequestPart("requests") List<MultipartFile> requests,
+                          @RequestPart("files") List<MultipartFile> files,
                           @RequestPart("jsonData") BalpoomForm balpoomForm,
                           @RequestPart("plusAnswerData") PlusAnswerForm plusAnswerForm) throws IOException {
-
-        log.info(requests.toString());
-        log.info("-------------------------------");
+        // plusAnswerForm.answers = ["답변1","답변2",...,"답변n"] -> plus request 테이블
+        // plusAnswerForm.filecounts = [2, 0, ... , 1] -> plus request 테이블
         requestService.patchInfo(request_id, balpoomForm);
+        requestService.patchAnswerFilecounts(plusAnswerForm, request_id);
+        balpoomFileService.saveFile(files, request_id);
 
-        balpoomFileService.saveFile(requests);
     }
 
     // + 3. 리턴값 수정되주어야 함.
