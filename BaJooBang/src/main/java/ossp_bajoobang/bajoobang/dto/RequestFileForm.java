@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 public class RequestFileForm {
     private String answer;
-    private List<MultipartFile> files;
+//    private List<MultipartFile> files;
 }

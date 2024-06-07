@@ -26,6 +26,7 @@ public class BalpoomFileService {
             Path targetLocation = getFileStorageLocation(filename);
 
             file.transferTo(targetLocation);
+            log.info("File saved: " + targetLocation.toString());
 
             File fileEntity = new File();
             fileEntity.setFilename(filename);
@@ -39,6 +40,30 @@ public class BalpoomFileService {
     }
 
     private Path getFileStorageLocation(String filename){
-        return Paths.get("uploda-dir").resolve(filename).normalize();
+        return Paths.get("C:\\Users\\i1t28\\OneDrive\\Desktop\\2-2\\2024-1-OSSP2-team-6-BaJooBang\\BaJooBang\\src\\main\\resources\\templates").resolve(filename).normalize();
     }
+
+    public List<File> returnFileList(){
+        return balpoomFileRepository.findAll();
+    }
+
+//    public void saveTestFile(List<MultipartFile> files){
+//        for(MultipartFile file : files){
+//            String filename = file.getOriginalFilename();
+//            Path targetLocation = getFileStorageLocation(filename);
+//
+//            file.transferTo(targetLocation);
+//
+//            File fileEntity = new File();
+//            fileEntity.setFilename(filename);
+//            fileEntity.setFilepath(targetLocation.toString());
+//            fileEntity.setSize(file.getSize());
+//            fileEntity.setContentType(file.getContentType());
+//            fileEntity.setUploadedDate(LocalDateTime.now());
+//
+//            balpoomFileRepository.save(fileEntity);
+//        }
+//    }
+
+
 }

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ossp_bajoobang.bajoobang.domain.File;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.domain.PlusRequest;
 import ossp_bajoobang.bajoobang.domain.Request;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -92,25 +94,47 @@ public class BalpoomController {
     }
 
     // 발품서 작성
-    @PatchMapping(path = "/balpoom-form/{request_id}", consumes = {"multipart/form-data"})
-    public ResponseEntity<String> postBalpoomForm(@RequestPart("jsonData") BalpoomForm balpoomForm, @RequestPart("requests") List<MultipartFile> requests) throws IOException {
+    @PatchMapping(path = "/balpoom-form")
+    public ResponseEntity<String> postBalpoomForm(@RequestPart Long request_id,
+                                                  @RequestPart("jsonData") BalpoomForm balpoomForm,
+                                                  @RequestPart("requests") List<RequestFileForm> requests) throws IOException {
         log.info("111111111111111111111111111111111");
-        Long request_id = 1L;
         requestService.patchInfo(request_id, balpoomForm);
 //        List<PlusRequest> plusRequestList = balpoomForm.getPlusRequestList();
         log.info("2222222222222222222222222222");
 
-//        for(RequestFileForm request : requests){
-//            String answer = request.getAnswer();
+        for(RequestFileForm request : requests){
+            String answer = request.getAnswer();
+            log.info("Answer: " + answer);
 //            List<MultipartFile> files = request.getFiles();
-//            log.info("3333333333333333333333333");
-//
-//            balpoomFileService.saveFile(files);
-//        }
+//            if(files != null){
+//                balpoomFileService.saveFile(files);
+//                log.info("44444444444444");
+//            }
 
-        balpoomFileService.saveFile(requests);
+        }
+
         log.info("3333333333333333333333333");
 
         return ResponseEntity.ok("Files and data uploaded successfully!");
+    }
+
+
+    @PatchMapping(path = "/test-images")
+    public void testImage(@RequestPart("requests") List<MultipartFile> requests) throws IOException {
+        balpoomFileService.saveFile(requests);
+    }
+
+    @GetMapping(path = "/test-imageget")
+    public ResponseEntity<List<FileDto>> getTestTimage(){
+        List<File> files = balpoomFileService.returnFileList();
+        List<FileDto> fileDtos = files.stream()
+                .map(this::convertToFileDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(fileDtos);
+    }
+
+    private FileDto convertToFileDto(File file) {
+        return new FileDto(file.getFile_id(), file.getFilename(), file.getFilepath(), file.getSize(), file.getUploadedDate());
     }
 }
