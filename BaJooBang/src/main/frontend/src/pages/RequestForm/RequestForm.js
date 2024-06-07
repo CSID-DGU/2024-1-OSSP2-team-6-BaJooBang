@@ -21,10 +21,10 @@ import image2 from './A-1-4.PNG';
 import image3 from './A-1-5.PNG';
 import image4 from './A-2-1.PNG';
 
-function RequestForm(request_id) {
+function RequestForm() {
     const navigate = useNavigate();
     const location = useLocation();
-    const { house_id } = useParams();
+    const { house_id, request_id } = useParams();
 
     //console.log("Location state:", location.state);
 
@@ -33,6 +33,7 @@ function RequestForm(request_id) {
     // 매물 상세 정보 페이지에서 넘어갈 때만 입력할 수 있도록 상태 정보 저장
     const isFromInformation = location.pathname.includes('/helpinfo');
 
+    /*
     const [requests, setRequests] = useState([
         {
             title: '콘센트 위치 확인하고 사진으로 찍어주세요.',
@@ -50,20 +51,27 @@ function RequestForm(request_id) {
             images: [image1, image3]
         }
     ]);
+    */
 
     const [inputs, setInputs] = useState([{ plus_q: '' }]);
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
-    const [write, setWrite] = useState(!isFromInformation); // Set write based on navigation source
+    const [write, setWrite] = useState(isFromInformation); // Set write based on navigation source
     const [apply, setApply] = useState(false); // 발품인이 신청했는지에 대한 상태
     const [complete, setComplete] = useState(false); // 발품인이 발품서를 작성했는지에 대한 상태
+
+    const [requests, setRequests] = useState([]);
     const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: request.text })));
+
     const contentRefs = useRef([]);
     const imageBoxRefs = useRef([]);
     const fileInputs = useRef([]);
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 창 상태
     const [requestMessage, setRequestMessage] = useState(''); // 발품 신청 메시지
+    const [propertyInfo, setPropertyInfo] = useState({}); // get info
+    
+
 
     const handleInputChange = (index, event) => {
         const newInputs = inputs.map((input, i) => i === index ? { plus_q: event.target.value } : input);
@@ -71,9 +79,10 @@ function RequestForm(request_id) {
     };
 
     const handleContentEditableChange = (index, event) => {
-        const newContentEditableStates = contentEditableStates.map((state, i) => i === index ? { text: event.target.textContent } : state);
-        setContentEditableStates(newContentEditableStates);
+        const newRequests = requests.map((request, i) => i === index ? { ...request, text: event.target.textContent } : request);
+        setRequests(newRequests);
     };
+    
 
     const handleAddRequest = () => {
         setInputs([...inputs, { plus_q: '' }]);
@@ -107,6 +116,95 @@ function RequestForm(request_id) {
         setIsModalOpen(true);
     };
 
+    
+
+    const [WaterState, setWaterState] = useState({
+        sink: { 
+            selected: null, 
+            hotWaterTime1: null, 
+            hotWaterTime2: null 
+        },
+        basin: { 
+            selected: null, 
+            hotWaterTime1: null, 
+            hotWaterTime2: null 
+        },
+        shower: { 
+            selected: null, 
+            hotWaterTime1: null, 
+            hotWaterTime2: null 
+        }
+    });
+    
+    // 수압 get
+    const updateWaterState = (data) => {
+        setWaterState({
+            sink: { 
+                selected: data.powerWater, // 상, 중, 하 중 선택된 값 (1: 상, 2: 중, 3: 하)
+                hotWaterTime1: data.timeWater1, // 김이 모락모락 나기까지의 시간
+                hotWaterTime2: data.timeWater2
+            },
+            basin: { 
+                selected: data.powerWash, // 상, 중, 하 중 선택된 값 (1: 상, 2: 중, 3: 하)
+                hotWaterTime1: data.timeWash1, // 김이 모락모락 나기까지의 시간
+                hotWaterTime2: data.timeWash2
+            },
+            shower: { 
+                selected: data.powerShower, // 상, 중, 하 중 선택된 값 (1: 상, 2: 중, 3: 하)
+                hotWaterTime1: data.timeShower1, // 김이 모락모락 나기까지의 시간
+                hotWaterTime2: data.timeShower2
+            }
+        });
+    };
+
+    // 채광 get
+    const [lightState, setLightState] = useState('');
+    const updateLightState = (data) => {
+        setLightState(data);
+    }
+    
+    // 곰팡이 get 
+    const [moldStates, setMoldStates] = useState({
+        livingRoom: { hasItem: false, noItem: false },
+        bathroom: { hasItem: false, noItem: false },
+        balcony: { hasItem: false, noItem: false },
+        shoeRack: { hasItem: false, noItem: false },
+        windowFrame: { hasItem: false, noItem: false },
+    });
+    const updateMoldState = (data) => {
+        setMoldStates({
+            livingRoom: { hasItem: data.moldLiving || false, noItem: !data.moldLiving },
+            bathroom: { hasItem: data.moldRest || false, noItem: !data.moldRest },
+            balcony: { hasItem: data.moldVeranda || false, noItem: !data.moldVeranda },
+            shoeRack: { hasItem: data.moldRack || false, noItem: !data.moldRack },
+            windowFrame: { hasItem: data.moldFrame || false, noItem: !data.moldFrame },
+        });
+    };
+    
+
+    useEffect(() => {
+        const updatedRequests = requests.map((request, index) => ({
+            ...request,
+            text: complete ? contentEditableStates[index].text : '',
+            images: complete && imageBoxRefs.current[index] ? Array.from(imageBoxRefs.current[index].children).map(img => img.src) : []
+        }));
+        setRequests(updatedRequests);
+    }, [complete, contentEditableStates, requests]);
+
+
+    //api연결
+    const requestPatch = async (request_id, message) => {
+        try {
+            const response = await axios.patch(`http://localhost:8000/request?request_id=${request_id}`, {
+                message: message,
+            }); // Replace with your actual API endpoint
+            console.log('Response:', response);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    //요청인이 발품 요청서 등록하는 api
     async function WritePost() {
         console.log("라이트포스트 찍힘")
         const formData = new FormData();
@@ -118,6 +216,7 @@ function RequestForm(request_id) {
         formData.append("house_id", house_id);
         formData.append("date", date);
         formData.append("price", price);
+        formData.append("address", content);
         formData.append('jsonData', JSON.stringify({ plus_list: inputs }));
 
         try {
@@ -127,12 +226,13 @@ function RequestForm(request_id) {
                 }
             });
             console.log('Request success:', response.data);
+            navigate('/domap');
         } catch (error) {
             console.error('Register failed:', error);
         }
     }
     
-
+    // 발품인이 발품서 작성하는 api
     async function CompletePost() {
         const formData = new FormData();
 
@@ -166,51 +266,55 @@ function RequestForm(request_id) {
         }
     }
 
-    const WaterState = {
-        sink: { selected: 1, // 상, 중, 하 중 선택된 값 (1: 상, 2: 중, 3: 하)
-        hotWaterTime1: '01분 30초', // 김이 모락모락 나기까지의 시간
-        hotWaterTime2: '02분 15초' },
-        basin: {
-            selected: 1, // 상, 중, 하 중 선택된 값 (1: 상, 2: 중, 3: 하)
-        hotWaterTime1: '01분 30초', // 김이 모락모락 나기까지의 시간
-        hotWaterTime2: '02분 15초'
-        },
-        shower: {selected: 1, // 상, 중, 하 중 선택된 값 (1: 상, 2: 중, 3: 하)
-        hotWaterTime1: '01분 30초', // 김이 모락모락 나기까지의 시간
-        hotWaterTime2: '02분 15초'}
-        
-    };
-    const savedLightSelectOption = "좋음"; // Example saved state
-    const savedMoldStates = {
-        livingRoom: { hasItem: true, noItem: false },
-        bathroom: { hasItem: false, noItem: true },
-        balcony: { hasItem: true, noItem: false },
-        shoeRack: { hasItem: false, noItem: true },
-        windowFrame: { hasItem: true, noItem: false },
-    };
-
     useEffect(() => {
-        const updatedRequests = requests.map((request, index) => ({
-            ...request,
-            text: complete ? contentEditableStates[index].text : '',
-            images: complete && imageBoxRefs.current[index] ? Array.from(imageBoxRefs.current[index].children).map(img => img.src) : []
-        }));
-        setRequests(updatedRequests);
-    }, [complete, contentEditableStates, requests]);
-
-
-    //api연결
-    const requestPatch = async (request_id, message) => {
-        try {
-            const response = await axios.patch(`http://localhost:8000/request?request_id=${request_id}`, {
-                message: message,
-            }); // Replace with your actual API endpoint
-            console.log('Response:', response);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
+        const fetchData = async () => {
+            if (!write) {
+                try {
+                    // 매물 정보 가져오기
+                    const response = await axios.get(`http://localhost:8000/get-form?request_id=${request_id}`);
+                    const data = response.data;
+    
+                    // plusRequestList를 requests 형식에 맞게 변환
+                    const updatedRequests = data.plusRequestList.map((item) => ({
+                        title: item.plus_q,
+                        text: item.plus_answer,
+                        images: []
+                    }));
+    
+                    setPropertyInfo(data);
+                    setRequests(updatedRequests);
+    
+                    // status 값에 따라 상태 설정
+                    if (data.status === '매칭 전') {
+                        setWrite(false);
+                        setApply(false);
+                        setComplete(false);
+                    } else if (data.status === '매칭 완료') {
+                        setWrite(false);
+                        setApply(true);
+                        setComplete(false);
+                    } else if (data.status === '작성 완료') {
+                        setWrite(false);
+                        setApply(true);
+                        setComplete(true);
+                    }
+    
+                    // WaterState 업데이트
+                    updateWaterState(data);
+                    updateLightState(data.lighting);
+                    updateMoldState();
+                } catch (error) {
+                    console.error('Error fetching property info:', error);
+                }
+            }
+        };
+    
+        fetchData();
+    }, [write, request_id]);
+    
+    
+    
+    
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5vw', paddingBottom: '5vw', backgroundColor: '#ffffdd' }}>
@@ -228,9 +332,9 @@ function RequestForm(request_id) {
                     </>
                         :
                     <>
-                        <Roominfo title={'매물 주소'} content={'서울특별시 중구 필동'} />
-                        <Roominfo title={'발품 기간'} content={'2024/05/26 ~ 2024/05/30'} />
-                        <Roominfo title={'발품 가격'} content={'10,000원'} />
+                        <Roominfo title={'매물 주소'} content={propertyInfo.address} />
+                        <Roominfo title={'발품 기간'} content={propertyInfo.requestDate} />
+                        <Roominfo title={'발품 가격'} content={propertyInfo.priceRequest} />
                     </>
                      }
                     
@@ -265,7 +369,7 @@ function RequestForm(request_id) {
                         <Sun />
                         <p style={{ color: '#5F5F5F', fontSize: '21px' }}>채광</p>
                     </div>
-                    <LightSelect complete={complete} savedState={savedLightSelectOption} />
+                    <LightSelect complete={complete} savedState={lightState} />
                 </div>
 
                 <div className='requestBox'>
@@ -274,11 +378,11 @@ function RequestForm(request_id) {
                         <p style={{ color: '#5F5F5F', fontSize: '21px' }}>곰팡이</p>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
-                        <MoldBox title={'거실'} complete={complete} savedState={savedMoldStates.livingRoom} />
-                        <MoldBox title={'화장실'} complete={complete} savedState={savedMoldStates.bathroom} />
-                        <MoldBox title={'베란다'} complete={complete} savedState={savedMoldStates.balcony} />
-                        <MoldBox title={'신발장'} complete={complete} savedState={savedMoldStates.shoeRack} />
-                        <MoldBox title={'창틀'} complete={complete} savedState={savedMoldStates.windowFrame} />
+                        <MoldBox title={'거실'} complete={complete} savedState={moldStates.livingRoom} />
+                        <MoldBox title={'화장실'} complete={complete} savedState={moldStates.bathroom} />
+                        <MoldBox title={'베란다'} complete={complete} savedState={moldStates.balcony} />
+                        <MoldBox title={'신발장'} complete={complete} savedState={moldStates.shoeRack} />
+                        <MoldBox title={'창틀'} complete={complete} savedState={moldStates.windowFrame} />
                     </div>
                 </div>
 
@@ -336,10 +440,10 @@ function RequestForm(request_id) {
                                             ref={el => contentRefs.current[index] = el}
                                             suppressContentEditableWarning={true}
                                         >
-                                            {complete ?  contentEditableStates[index].text : input.text}
+                                            {input.text}
                                         </div>
                                         <div className='plusrequestImageBox' ref={el => imageBoxRefs.current[index] = el}>
-                                            {complete && input.images.map((src, imgIndex) => (
+                                            {input.images.map((src, imgIndex) => (
                                                 <img 
                                                     key={imgIndex} 
                                                     src={src} 
@@ -366,6 +470,7 @@ function RequestForm(request_id) {
                                     </div>
                                 </div>
                             ))}
+
                         </>
                     )}
                 </div>
