@@ -7,6 +7,9 @@ import { ReactComponent as Call } from '../components/images/call.svg';
 import { ReactComponent as Profilecircle } from '../components/images/profile_circle.svg';
 import { ReactComponent as List } from '../components/images/list.svg';
 import { ReactComponent as Heart } from '../components/images/heart.svg';
+import { ReactComponent as House_image1 } from '../components/images/house_image1.svg';
+import { ReactComponent as House_image2 } from '../components/images/house_image2.svg';
+import { ReactComponent as House_all_image } from '../components/images/house_all_image.svg';
 
 const Imformation = ({ positions }) => {
   const navigate = useNavigate();
@@ -53,9 +56,9 @@ const Imformation = ({ positions }) => {
 
         <div id="house_info">
           <p style={{fontWeight: '500', fontSize: '22px'}}> 매물 사진 </p>
-          <p><span className="blank"></span>{position.house_image1}<span className="blank"></span>{position.house_image2}</p>
+          <p><span className="blank"></span><House_image1/><span className="blank"></span><House_image2/></p>
           <p style={{fontWeight: '500', fontSize: '22px', marginTop: '6vw'}}> 매물 평면도 </p>
-          <p><span className="blank"></span>{position.house_all_image}</p>
+          <p><span className="blank"></span><House_all_image/></p>
           <p style={{fontWeight: '500', fontSize: '22px', marginTop: '6vw'}}> 매물 정보 </p>
           <div id="house_detail">
             <div id="house_detail_title">

@@ -1,47 +1,93 @@
 .MyPageBackground {
-    display: flex; /* Flexbox 사용 */
-    flex-direction: column; /* 자식 요소들을 세로로 정렬 */
-    justify-content: center; /* 세로 축 중앙 정렬 */
-    align-items: center; /* 수평 축 중앙 정렬 */
-    height: 800px; /* 뷰포트 높이의 100% */
-    background-color: white; /* 배경색 설정 */
-    margin-top:50px;
-}
-.MyPageBackground > * {
-    flex: 0 0 auto; /* Flex item이 크기를 자동으로 유지하도록 설정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+    background-color: white;
 }
 
-.MyName {
+.MyPageBackground > * {
+    flex: 0 0 auto;
+}
+
+.MPName {
     font-size: 25px;
     color: black;
 }
 
+.MyBottom1,
+.MyBottom2 {
+    width: 100%;
+    height: 220px;
+    padding-top: 15px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 0; /* Remove margin-top to eliminate gap */
+}
+
 .MyBottom1 {
     background-color: rgba(162, 197, 121, 0.3);
-    width: 100%;
-    height: 220px;
-    margin-top: 50px;
-    padding-top:15px;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: center;
-    
 }
-.Bottom{
-    width:100%;
-}
+
 .MyBottom2 {
-    background-color: rgba(162, 197, 121, 0.3);
-    margin-top :0;
+    background-color: #A2C579;
+}
+
+.Bottom {
     width: 100%;
-    height: 220px;
-    padding-bottom:15px;
+    margin-top:100px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.ButtonGroup {
+    display: flex;
     flex-direction: row;
-    justify-content: center;
-    text-decoration: none;
+    position: absolute;
+    bottom:235px;
+    top: -50px;  /* Adjust this value as needed */
+    left: 10px;  /* Adjust this value as needed */
+}
+
+.ToggleBottomButton {
+    margin-bottom: 0;
+    margin-right: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px 5px 0px 0px;
+    background-color: rgba(162, 197, 121, 0.3);
+    color: black;
+    cursor: pointer;
+}
+
+.ToggleBottomButton:hover {
+    background-color: #8BA963;
+}
+
+.ToggleBottomButton.active-bottom1 {
+    background-color: rgba(162, 197, 121, 0.3); /* Active background color for 요청인 */
+    color: black; /* Active text color */
+}
+
+.ToggleBottomButton.active-bottom2 {
+    background-color: #A2C579; /* Active background color for 발품인 */
+    color: white; /* Active text color */
+}
+
+.ToggleBottomButton.inactive-bottom1 {
+    background-color: rgba(162, 197, 121, 0.3); /* Inactive background color for 발품인 when 요청인 is active */
+    color: black; /* Inactive text color */
+}
+
+.ToggleBottomButton.inactive-bottom2 {
+    background-color: #A2C579; /* Inactive background color for 요청인 when 발품인 is active */
+    color: white; /* Inactive text color */
 }
 
 .BottomBox {
@@ -49,8 +95,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center; /* 텍스트를 상자 가운데에 정렬 */
-    margin: 10px; /* 상자 간격 조정 */
+    text-align: center;
+    margin: 10px;
 }
 
 .LogoutButton {
@@ -71,6 +117,6 @@
 }
 
 .LogoutButton:hover {
-    background-color: #5F5F5F; /* 밝은 회색 배경 */
-    color: #F5F4F4; /* 어두운 글씨색 */
-  }
+    background-color: #5F5F5F;
+    color: #F5F4F4;
+}
