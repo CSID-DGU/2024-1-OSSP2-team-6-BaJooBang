@@ -108,8 +108,13 @@ function RequestForm(request_id) {
     };
 
     async function WritePost() {
+        console.log("라이트포스트 찍힘")
         const formData = new FormData();
+<<<<<<< HEAD
         console.log('WritePost 함수 호출됨');
+=======
+
+>>>>>>> ea14481729fa8c55965d3680ca4272e8659cb249
         // JSON 데이터를 FormData에 추가 (plus_list만 추가)
         formData.append("house_id", house_id);
         formData.append("date", date);
@@ -136,7 +141,7 @@ function RequestForm(request_id) {
         formData.append('jsonData', JSON.stringify({ plus_list: inputs }));
         formData.append("house_id", house_id);
 
-        // 요청 사항과 이미지들을 FormData에 추가
+        // 요청 사항과 이미지들을 FormData에 추가*
         requests.forEach((input, index) => {
             formData.append(`requests[${index}][title]`, input.title);
             formData.append(`requests[${index}][text]`, contentEditableStates[index].text);
