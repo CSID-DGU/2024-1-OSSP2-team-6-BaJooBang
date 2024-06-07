@@ -84,8 +84,8 @@ public class RequestService {
         request.setMoldVeranda(balpoomForm.getMoldVeranda());
         request.setMoldShoes(balpoomForm.getMoldShoes());
         request.setMoldWindow(balpoomForm.getMoldWindow());
-        // 매칭 상태값 -> 평가 완료
-        request.setStatus("평가 완료");
+        // 매칭 상태값 -> 작성 완료
+        request.setStatus("작성 완료");
         // transactional로 대체
         // requestRepository.save(request);
 
