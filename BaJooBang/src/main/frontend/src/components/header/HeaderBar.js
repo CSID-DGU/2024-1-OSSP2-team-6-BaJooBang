@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './HeaderBar.css'; // CSS 파일 임포트
 import { AuthContext } from '../../AuthContext';
@@ -32,20 +32,26 @@ function HeaderBar() {
 
   return (
     <header className="header-bar">
-      <Link to="/">
+      <NavLink to="/" exact>
         <h1>바줘방</h1>
-      </Link>
+      </NavLink>
       <div className='outBox'>
         <div className='innerBox'>
-          <Link to="/domap"><p>발품 지도</p></Link>
+          <NavLink to="/domap" activeClassName="active">
+            <p>발품 지도</p>
+          </NavLink>
         </div>
         <div className='innerBox'>
-          <Link to="/helpmap"><p>매물 지도</p></Link>
+          <NavLink to="/helpmap" activeClassName="active">
+            <p>매물 지도</p>
+          </NavLink>
         </div>
         {isLoggedIn ? (
           <>
             <div className='innerBox'>
-              <Link to="/member"><p>마이페이지</p></Link>
+              <NavLink to="/member" activeClassName="active">
+                <p>마이페이지</p>
+              </NavLink>
             </div>
             <div className='innerBox'>
               <p onClick={handleLogout}>로그아웃</p>
@@ -53,7 +59,9 @@ function HeaderBar() {
           </>
         ) : (
           <div className='innerBox'>
-            <Link to="/login"><p>로그인</p></Link>
+            <NavLink to="/login">
+              <p>로그인</p>
+            </NavLink>
           </div>
         )}
       </div>
