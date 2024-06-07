@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ossp_bajoobang.bajoobang.domain.*;
 import ossp_bajoobang.bajoobang.dto.BalpoomForm;
+import ossp_bajoobang.bajoobang.dto.PlusAnswerForm;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
 import ossp_bajoobang.bajoobang.repository.AlarmRepository;
 import ossp_bajoobang.bajoobang.repository.PlusRequestRepository;
@@ -86,6 +87,7 @@ public class RequestService {
         request.setMoldWindow(balpoomForm.getMoldWindow());
         // 매칭 상태값 -> 작성 완료
         request.setStatus("작성 완료");
+        requestRepository.save(request);
         // transactional로 대체
         // requestRepository.save(request);
 
@@ -99,4 +101,38 @@ public class RequestService {
 //            plusRequestRepository.save(plusRequest);
 //        }
     }
+
+    @Transactional
+    public void patchAnswerFilecounts(PlusAnswerForm plusAnswerForm, Long request_id){
+        Request request = requestRepository.findById(request_id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + request_id));
+        List<PlusRequest> plusRequestList = plusRequestRepository.findByRequest(request);
+
+        List<String> answers = plusAnswerForm.getAnswers();
+        List<Integer> fileCounts = plusAnswerForm.getFileCounts();
+
+        for(int i=0; i<plusRequestList.size(); i++){
+            PlusRequest plusRequest = plusRequestList.get(i);
+            String answer = answers.get(i);
+            Integer filecount = fileCounts.get(i);
+
+            plusRequest.setPlus_answer(answer);
+            plusRequest.setFileCount(filecount);
+
+            plusRequestRepository.save(plusRequest);
+        }
+
+    }
+
+    public Request getOneRequest(Long request_id){
+        return requestRepository.findById(request_id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + request_id));
+    }
+
+    public List<PlusRequest> getPlusRequestList(Long request_id){
+        Request request = requestRepository.findById(request_id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + request_id));
+        return plusRequestRepository.findByRequest(request);
+    }
+
 }
