@@ -105,6 +105,7 @@ public class TestDataInit {
         request1.setRequestDate(LocalDate.parse("2024-06-08"));
         request1.setHouse(house1);
         request1.setMember(member1);
+        request1.setStatus("매칭 전");
         requestRepository.save(request1);
 
         Request request2 = new Request();
@@ -112,6 +113,7 @@ public class TestDataInit {
         request2.setRequestDate(LocalDate.parse("2024-12-25"));
         request2.setHouse(house2);
         request2.setMember(member2);
+        request1.setStatus("매칭 전");
         requestRepository.save(request2);
     }
 }

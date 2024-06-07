@@ -6,3 +6,7 @@
   justify-content: space-between; 
   align-items: center;  
 }
+.label-container {
+  padding-left: 20px; /* Adjust the value as needed */
+  padding-bottom:4px;
+}

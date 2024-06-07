@@ -13,45 +13,55 @@
   margin-right: 20px;
   margin-left: 5px;
   border-style: none;
+  outline: none;
 }
-
+.label-container {
+  padding-left: 20px; /* Adjust the value as needed */
+  padding-bottom: 4px;
+}
 .searchbox {
   border-radius: 20px;
-  border : 1px solid gray;
+  border: 1px solid gray; /* 회색 테두리 */
+  display: flex;
+  align-items: center;
 }
 
 /*매물검색라인_월세전세선택 버튼*/
 .house_type_buttons button {
   border-radius: 30px;
   background-color: transparent;
-  border: 1px solid rgb(74, 74, 74);
+  border: 1px solid gray; /* 회색 테두리 */
   color: rgb(0, 0, 0);
   font-size: 13px;
   padding: 5px 16px;
   cursor: pointer;
   margin-right: 8px;
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s;
 }
 
 .house_type_buttons button:hover,
 .house_type_buttons button.active {
-  background-color: #D2DE32;
+  background-color: #559F5D;
   color: rgb(255, 255, 255);
 }
+
+.house_type_buttons button:active {
+  background-color: #447a4a; /* Slightly darker green for active state */
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.1); /* Inner shadow and outer shadow for depth */
+  transform: translateY(2px); /* Slightly move the button down to create a pressed effect */
+}
+
 .search {
   display: flex;
   align-items: center;
   width: 100%; /* 전체 너비를 사용하도록 설정 */
 }
 
-.searchbox {
-  display: flex;
-  align-items: center;
-}
-
 .right_elements {
   margin-left: auto;
   margin-right: 150px;
 }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -78,6 +88,5 @@
 }
 
 .notification-container {
-  padding-right:150px;
+  padding-right: 150px;
 }
-

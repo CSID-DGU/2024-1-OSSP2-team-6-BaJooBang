@@ -29,8 +29,10 @@ public class InquiryService {
         List<Request> requestsBeforeMatching = new ArrayList<>();
         // 매칭 전인 것만 넣을 것
         for (Request request : requests) {
-            if (request.getStatus().equals("매칭 전")) {
-                requestsBeforeMatching.add(request);
+            if (request.getStatus() != null) {
+                if (request.getStatus().equals("매칭 전")) {
+                    requestsBeforeMatching.add(request);
+                }
             }
         }
         return baDreamRepository.findByRequestIn(requestsBeforeMatching);

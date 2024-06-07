@@ -6,10 +6,12 @@ import Bell from './bell.js';
 import { positions } from './kakaomap';
 
 // 매물지도의 검색라인
-const SearchBar = ({ onFilterChange, onSearchChange, currentFilter}) => {
+const SearchBar = ({ onFilterChange, onSearchChange, currentFilter }) => {
   return (
     <div className="search">
-      <label htmlFor="searchfor">매물 검색<span className='blank'></span>|</label><span className='blank'></span>
+      <div className="label-container">
+        <label htmlFor="searchfor">매물 검색<span className='blank'></span>|</label><span className='blank'></span>
+      </div>
       <div className='searchbox'>
         <Closer />
         <input 
@@ -46,7 +48,6 @@ const SearchBar = ({ onFilterChange, onSearchChange, currentFilter}) => {
   );
 };
 
-
 const Helppage = () => {
   const [filter, setFilter] = useState('전체');
   const [search, setSearch] = useState('');
@@ -58,8 +59,6 @@ const Helppage = () => {
   const handleSearchChange = (newSearch) => {
     setSearch(newSearch);
   };
-
-
 
   return (
     <div className="container">  
@@ -74,7 +73,5 @@ const Helppage = () => {
     </div>
   );
 };
-
-
 
 export default Helppage;

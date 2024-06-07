@@ -8,7 +8,9 @@ import Bell from '../HelpPage/bell';
 const SearchBar = ({ onSearchChange }) => {
   return (
     <div className="search">
-      <label htmlFor="searchfor">매물 검색<span className='blank'></span>|</label><span className='blank'></span>
+      <div className="label-container">
+        <label htmlFor="searchfor">매물 검색<span className='blank'></span>|</label><span className='blank'></span>
+      </div>
       <div className='searchbox'>
         <Closer />
         <input 
