@@ -40,7 +40,9 @@ public class RequestController {
 
     // 요청서 작성 완료 시.
     @PostMapping("/request-form")
-    public String requestForm(@RequestPart("jsonData") RequestDTO requestDTO, HttpServletRequest request, @RequestParam Long house_id) throws IOException {
+    public String requestForm(@RequestPart("jsonData") RequestDTO requestDTO, HttpServletRequest request,
+                              @RequestParam Long house_id,
+                              @RequestPart("address") String address) throws IOException {
         HttpSession session = request.getSession(false);
         log.info("---------------");
         log.info("house id: " + house_id);
@@ -55,7 +57,7 @@ public class RequestController {
             // 새로운 요청서 저장
 
             // + 상태값 저장해주는 거 해줘야함.
-            Request newRequest = requestService.saveRequest(requestDTO, member, house);
+            Request newRequest = requestService.saveRequest(requestDTO, member, house, address);
 
             // 주어진 house의 위도와 경도로부터 가까운 회원 20명 검색
             List<Member> nearbyMembers = memberRepository.findTop20MembersByDistance(house.getLatitude(), house.getLongitude());

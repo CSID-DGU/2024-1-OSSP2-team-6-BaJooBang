@@ -27,6 +27,9 @@ public class Request {
     // 발품 가격
     private int priceRequest;
 
+    // 주소
+    private String address;
+
     //tf
 //    private boolean apply = false;
 //    private boolean complete = false;
@@ -81,13 +84,14 @@ public class Request {
     }
 
 
-    public static Request toEntity(RequestDTO dto, Member member, House house){
+    public static Request toEntity(RequestDTO dto, Member member, House house, String address){
 
         return Request.builder()
                 .house(house)
                 .member(member)
                 .requestDate(dto.getRequest_date())
                 .priceRequest(dto.getPrice_request())
+                .address(address)
                 .build();
     }
 }
