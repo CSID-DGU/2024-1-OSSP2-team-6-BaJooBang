@@ -28,8 +28,8 @@ public class Request {
     private int priceRequest;
 
     //tf
-    private boolean apply = false;
-    private boolean complete = false;
+//    private boolean apply = false;
+//    private boolean complete = false;
 
     // 수압
     private Integer powerWater = null;

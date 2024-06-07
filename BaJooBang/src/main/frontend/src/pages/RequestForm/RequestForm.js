@@ -108,8 +108,9 @@ function RequestForm(request_id) {
     };
 
     async function WritePost() {
+        console.log("라이트포스트 찍힘")
         const formData = new FormData();
-    
+
         // JSON 데이터를 FormData에 추가 (plus_list만 추가)
         formData.append("house_id", house_id);
         formData.append("date", date);
@@ -136,7 +137,7 @@ function RequestForm(request_id) {
         formData.append('jsonData', JSON.stringify({ plus_list: inputs }));
         formData.append("house_id", house_id);
 
-        // 요청 사항과 이미지들을 FormData에 추가
+        // 요청 사항과 이미지들을 FormData에 추가*
         requests.forEach((input, index) => {
             formData.append(`requests[${index}][title]`, input.title);
             formData.append(`requests[${index}][text]`, contentEditableStates[index].text);
@@ -368,7 +369,7 @@ function RequestForm(request_id) {
 
                 <div style={{ width: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
                     {write ? (
-                        <div onClick={() => WritePost} style={{ width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div onClick={WritePost} style={{ width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <p style={{ fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw' }}>발품 등록</p>
                         </div>
                     ) : (

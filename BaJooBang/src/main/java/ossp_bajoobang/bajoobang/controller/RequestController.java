@@ -5,10 +5,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.House;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.domain.Request;
+import ossp_bajoobang.bajoobang.dto.BalpoomForm;
 import ossp_bajoobang.bajoobang.dto.HouseDTO;
 import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
@@ -86,5 +88,12 @@ public class RequestController {
     public List<RequestDTO> GetRequests(@RequestParam Long house_id){
         List<RequestDTO> requestDTOList = houseService.getRequests(house_id);
         return requestDTOList;
+    }
+
+    // 요청/발품서 form get
+    @GetMapping("/get-form")
+    public BalpoomForm getForm(@RequestParam Long request_id){
+        BalpoomForm balpoomForm = requestService.getRequestInfo(request_id);
+        return balpoomForm;
     }
 }

@@ -90,6 +90,10 @@ public class BalpoomController {
         Member member = (Member) session.getAttribute("loginMember");
 
         BalpoomForm balpoomForm = requestService.getRequestInfo(request_id);
+
+//        if(){
+//
+//        }
         return balpoomForm;
     }
 
