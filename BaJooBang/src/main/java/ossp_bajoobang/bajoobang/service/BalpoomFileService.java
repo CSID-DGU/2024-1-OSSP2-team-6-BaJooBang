@@ -40,7 +40,7 @@ public class BalpoomFileService {
     }
 
     private Path getFileStorageLocation(String filename){
-        return Paths.get("C:\\Users\\i1t28\\OneDrive\\Desktop\\2-2\\2024-1-OSSP2-team-6-BaJooBang\\BaJooBang\\src\\main\\resources\\templates").resolve(filename).normalize();
+        return Paths.get("/home/chldntjd49/chldntjd49/images/").resolve(filename).normalize();
     }
 
     public List<File> returnFileList(){
