@@ -191,8 +191,8 @@ function RequestForm() {
             livingRoom: { hasItem: data.moldLiving || false, noItem: !data.moldLiving },
             bathroom: { hasItem: data.moldRest || false, noItem: !data.moldRest },
             balcony: { hasItem: data.moldVeranda || false, noItem: !data.moldVeranda },
-            shoeRack: { hasItem: data.moldRack || false, noItem: !data.moldRack },
-            windowFrame: { hasItem: data.moldFrame || false, noItem: !data.moldFrame },
+            shoeRack: { hasItem: data.moldShoes || false, noItem: !data.moldShoes },
+            windowFrame: { hasItem: data.moldWindow || false, noItem: !data.moldWindow },
         });
     };
     //곰팡이 post
@@ -259,22 +259,23 @@ function RequestForm() {
         const formData = new FormData();
     
         const jsonData = {
-            sinkSelected: waterState.sink.selected,
-            sinkHotWaterTime1: waterState.sink.hotWaterTime1,
-            sinkHotWaterTime2: waterState.sink.hotWaterTime2,
-            basinSelected: waterState.basin.selected,
-            basinHotWaterTime1: waterState.basin.hotWaterTime1,
-            basinHotWaterTime2: waterState.basin.hotWaterTime2,
-            showerSelected: waterState.shower.selected,
-            showerHotWaterTime1: waterState.shower.hotWaterTime1,
-            showerHotWaterTime2: waterState.shower.hotWaterTime2,
-            lightState: lightState,
-            moldLivingRoom: moldStates.livingRoom.hasItem,
-            moldBathroom: moldStates.bathroom.hasItem,
-            moldBalcony: moldStates.balcony.hasItem,
-            moldShoeRack: moldStates.shoeRack.hasItem,
-            moldWindowFrame: moldStates.windowFrame.hasItem,
+            powerWater: waterState.sink.selected,
+            timeWater1: waterState.sink.hotWaterTime1,
+            timeWater2: waterState.sink.hotWaterTime2,
+            powerWash: waterState.basin.selected,
+            timeWash1: waterState.basin.hotWaterTime1,
+            timeWash2: waterState.basin.hotWaterTime2,
+            powerShower: waterState.shower.selected,
+            timeShower1: waterState.shower.hotWaterTime1,
+            timeShower2: waterState.shower.hotWaterTime2,
+            lighting: lightState,
+            moldLiving: moldStates.livingRoom.hasItem,
+            moldRest: moldStates.bathroom.hasItem,
+            moldVeranda: moldStates.balcony.hasItem,
+            moldShoes: moldStates.shoeRack.hasItem,
+            moldWindow: moldStates.windowFrame.hasItem,
         };
+        
     
         formData.append('jsonData', JSON.stringify(jsonData));
         formData.append('request_id', request_id);
@@ -325,34 +326,34 @@ function RequestForm() {
                     const data = response.data;
     
                     // plusRequestList를 requests 형식에 맞게 변환
-                    const updatedRequests = data.plusRequestList.map((item) => ({
+                    const updatedRequests = data.balpoomForm.plusRequestList.map((item, index) => ({
                         title: item.plus_q,
                         text: item.plus_answer,
-                        images: []
+                        images: data.fileDtos.slice(index * item.fileCount, (index + 1) * item.fileCount).map(file => file.filepath)
                     }));
     
-                    setPropertyInfo(data);
+                    setPropertyInfo(data.balpoomForm);
                     setRequests(updatedRequests);
     
                     // status 값에 따라 상태 설정
-                    if (data.status === '매칭 전') {
+                    if (data.balpoomForm.status === '매칭 전') {
                         setWrite(false);
                         setApply(false);
                         setComplete(false);
-                    } else if (data.status === '매칭 완료') {
+                    } else if (data.balpoomForm.status === '매칭 완료') {
                         setWrite(false);
                         setApply(true);
                         setComplete(false);
-                    } else if (data.status === '작성 완료') {
+                    } else if (data.balpoomForm.status === '작성 완료') {
                         setWrite(false);
                         setApply(true);
                         setComplete(true);
                     }
     
                     // WaterState 업데이트
-                    updateWaterState(data);
-                    updateLightState(data.lighting);
-                    updateMoldState(data);
+                    updateWaterState(data.balpoomForm);
+                    updateLightState(data.balpoomForm.lighting);
+                    updateMoldState(data.balpoomForm);
                 } catch (error) {
                     console.error('Error fetching property info:', error);
                 }
@@ -361,6 +362,7 @@ function RequestForm() {
     
         fetchData();
     }, [write, request_id]);
+    
     
     
     
