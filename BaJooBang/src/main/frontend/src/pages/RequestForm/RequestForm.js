@@ -296,7 +296,7 @@ function RequestForm() {
         });
     
         try {
-            const response = await axios.post(`http://localhost:8000/request-form`, formData, {
+            const response = await axios.patch(`http://localhost:8000/balpoom-form`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
