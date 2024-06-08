@@ -8,16 +8,16 @@ function MoldCheck({ complete, savedState, onChange }) {
   });
 
   useEffect(() => {
-    if (complete) {
+    if (savedState !== undefined && complete === true) {
       setCheckedState(savedState);
     }
   }, [complete, savedState]);
 
   useEffect(() => {
-    if (onChange) {
+    if (!complete && onChange) {
       onChange(checkedState);
     }
-  }, [checkedState, onChange]);
+  }, [checkedState, onChange, complete]);
 
   const handleOnChange = (e) => {
     if (!complete) {

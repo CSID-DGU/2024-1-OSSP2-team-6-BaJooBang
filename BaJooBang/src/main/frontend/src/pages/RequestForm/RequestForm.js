@@ -39,31 +39,26 @@ function RequestForm() {
     const isFromInformation = location.state ? location.state.isFromInformation : false;
 
 
-    /*
-    const [requests, setRequests] = useState([
-        {
-            title: '콘센트 위치 확인하고 사진으로 찍어주세요.',
-            text: '거실 왼쪽 안에 있습니다.',
-            images: [image1, image2]
-        },
-        {
-            title: '방음 상태 확인해주세요.',
-            text: '잘 됩니다.',
-            images: [image3, image4]
-        },
-        {
-            title: '창문 잠금장치 상태 확인해주세요.',
-            text: '견고합니다.',
-            images: [image1, image3]
-        }
-    ]);
-    */
+    
+    // const [requests, setRequests] = useState([
+    //     {
+    //         title: '콘센트 위치 확인하고 사진으로 찍어주세요.',
+    //         text: '거실 왼쪽 안에 있습니다.',
+    //         images: []
+    //     },
+    //     {
+    //         title: '방음 상태 확인해주세요.',
+    //         text: '잘 됩니다.',
+    //         images: []
+    //     }
+    // ]);
+    
 
     const [inputs, setInputs] = useState([{ plus_q: '' }]);
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
     const [write, setWrite] = useState(isFromInformation); // Set write based on navigation source
-    const [apply, setApply] = useState(false); // 발품인이 신청했는지에 대한 상태
+    const [apply, setApply] = useState(true); // 발품인이 신청했는지에 대한 상태
     const [complete, setComplete] = useState(false); // 발품인이 발품서를 작성했는지에 대한 상태
 
     const [requests, setRequests] = useState([]);
@@ -102,20 +97,11 @@ function RequestForm() {
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.style.width = '50px'; // 이미지 정사각형 크기 조절
-                img.style.height = '50px';
-                img.style.cursor = 'pointer';
-                img.onclick = () => setSelectedImage(img.src); // 이미지 클릭 시 모달 열기
-                if (imageBoxRefs.current[index]) {
-                    imageBoxRefs.current[index].appendChild(img);
-                }
                 const newRequests = [...requests];
                 if (!newRequests[index].images) {
                     newRequests[index].images = [];
                 }
-                newRequests[index].images.push(file);
+                newRequests[index].images.push(e.target.result); // 데이터 URL을 저장합니다.
                 setRequests(newRequests);
             };
             reader.readAsDataURL(file);
@@ -319,6 +305,11 @@ function RequestForm() {
 
     useEffect(() => {
         const fetchData = async () => {
+            // console.log('함수 실행');
+            // updateWaterState();
+            // updateLightState('');
+            // updateMoldState();
+
             if (!write) {
                 try {
                     // 매물 정보 가져오기
@@ -351,6 +342,7 @@ function RequestForm() {
                     }
     
                     // WaterState 업데이트
+                    
                     updateWaterState(data);
                     updateLightState(data.balpoomForm.lighting);
                     updateMoldState(data.balpoomForm);
