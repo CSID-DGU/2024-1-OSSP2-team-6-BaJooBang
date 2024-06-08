@@ -33,7 +33,12 @@ public class BalpoomForm {
     private Integer powerShower = null;
 
     // 온수 시간
-    private String timeWater = null;
+    private String timeWater1 = null;
+    private String timeWater2 = null;
+    private String timeWash1 = null;
+    private String timeWash2 = null;
+    private String timeShower1 = null;
+    private String timeShower2 = null;
 
     // 채광
     private String lighting = null;
@@ -55,7 +60,12 @@ public class BalpoomForm {
                 .powerShower(requestInfo.getPowerShower())
                 .powerWash(requestInfo.getPowerWash())
                 .powerWater(requestInfo.getPowerWater())
-                .timeWater(requestInfo.getTimeWater())
+                .timeShower1(requestInfo.getTimeShower1())
+                .timeShower2(requestInfo.getTimeShower2())
+                .timeWash1(requestInfo.getTimeWash1())
+                .timeWash2(requestInfo.getTimeWash2())
+                .timeWater1(requestInfo.getTimeWater1())
+                .timeWater2(requestInfo.getTimeWater2())
                 .lighting(requestInfo.getLighting())
                 .moldLiving(requestInfo.getMoldLiving())
                 .moldRest(requestInfo.getMoldRest())

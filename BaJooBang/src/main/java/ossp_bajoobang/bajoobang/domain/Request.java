@@ -40,7 +40,14 @@ public class Request {
     private Integer powerShower = null;
 
     // 온수 시간
-    private String timeWater = null;
+    private String timeWater1 = null;
+    private String timeWater2 = null;
+    private String timeWash1 = null;
+    private String timeWash2 = null;
+    private String timeShower1 = null;
+    private String timeShower2 = null;
+
+
 
     // 채광
     private String lighting = null;
