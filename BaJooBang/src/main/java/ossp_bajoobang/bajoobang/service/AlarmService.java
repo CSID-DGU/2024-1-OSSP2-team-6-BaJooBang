@@ -51,7 +51,8 @@ public class AlarmService {
     }
 
     public int getNumOfAlarms(Member member) {
-        List<Alarm> alarms = member.getAlarms();
-        return alarms.size();
+//        List<Alarm> alarms = member.getAlarms();
+        List<Alarm> byMember = alarmRepository.findByMember(member);
+        return byMember.size();
     }
 }
