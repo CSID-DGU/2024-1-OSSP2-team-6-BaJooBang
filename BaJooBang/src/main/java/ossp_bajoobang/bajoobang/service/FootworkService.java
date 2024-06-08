@@ -41,7 +41,7 @@ public class FootworkService {
             // 매칭 후
             else {
                 // 매칭 성공 (발품인 == member)
-                if (request.getBalpoomin().getId() == member.getId()) {
+                if (request.getBalpoomin().getId().equals(member.getId())) {
                     // 작성 완료 혹은 매칭완료
                     footwork.put("state", request.getStatus());
                     footwork.put("worker_id", request.getBalpoomin().getId());
@@ -59,7 +59,9 @@ public class FootworkService {
     }
 
     public int getNumOfFootworks(Member member) {
-        List<BaDream> baDreams = member.getBaDreams();
-        return baDreams.size();
+//        List<BaDream> baDreams = member.getBaDreams();
+        List<BaDream> byMember = baDreamRepository.findByMember(member);
+
+        return byMember.size();
     }
 }
