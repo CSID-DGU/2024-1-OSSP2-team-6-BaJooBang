@@ -93,8 +93,8 @@ public class Request {
         return Request.builder()
                 .house(house)
                 .member(member)
-                .requestDate(dto.getRequest_date())
-                .priceRequest(dto.getPrice_request())
+                .requestDate(dto.getDate())
+                .priceRequest(dto.getPrice())
                 .address(address)
                 .build();
     }

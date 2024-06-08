@@ -23,6 +23,7 @@ import ossp_bajoobang.bajoobang.service.MemberService;
 import ossp_bajoobang.bajoobang.service.RequestService;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,10 @@ public class RequestController {
 
     // 요청서 작성 완료 시.
     @PostMapping("/request-form")
-    public String requestForm(@RequestPart("jsonData") RequestDTO requestDTO, HttpServletRequest request,
+    public String requestForm(@RequestPart("jsonData") RequestDTO requestDTO,
+                              @RequestPart("date") LocalDate date,
+                              @RequestPart("price") int price,
+                              HttpServletRequest request,
                               @RequestParam Long house_id,
                               @RequestPart("address") String address) throws IOException {
         HttpSession session = request.getSession(false);
@@ -57,8 +61,12 @@ public class RequestController {
             // 새로운 요청서 저장
 
             // + 상태값 저장해주는 거 해줘야함.
+            requestDTO.setDate(date); // 급한대로 그냥 이렇게 처리ㅋ
+            requestDTO.setPrice(price);
             Request newRequest = requestService.saveRequest(requestDTO, member, house, address);
 
+            log.info("requestDTO.getPrice_request() = {}", requestDTO.getPrice());
+            log.info("newRequest.getPriceRequest() = {}", requestDTO.getDate());
             // 주어진 house의 위도와 경도로부터 가까운 회원 20명 검색
             List<Member> nearbyMembers = memberRepository.findTop20MembersByDistance(house.getLatitude(), house.getLongitude());
             nearbyMembers.forEach(m -> log.info("Member Address: " + m.getAddress()));
