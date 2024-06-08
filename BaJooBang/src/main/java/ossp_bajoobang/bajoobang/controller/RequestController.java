@@ -72,8 +72,8 @@ public class RequestController {
             // 주어진 house의 위도와 경도로부터 가까운 회원 20명 검색
             List<Member> nearbyMembers = memberRepository.findTop20MembersByDistance(house.getLatitude(), house.getLongitude());
             nearbyMembers.forEach(m -> log.info("Member Address: " + m.getAddress()));
-
-            List<Member> alarmMembers = memberService.findMembersByTravelTime(nearbyMembers, house.getLatitude(), house.getLongitude());
+// 여기다
+            List<Member> alarmMembers = memberService.findMembersByTravelTime(member.getId(), nearbyMembers, house.getLatitude(), house.getLongitude());
 
             for(Member mem : alarmMembers){
                 alarmService.saveMemberRequest(mem, newRequest);
