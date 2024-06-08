@@ -43,8 +43,9 @@ const Imformation = ({ positions }) => {
 
   const handleClick = (content) => {
     console.log(content);
-    navigate(`/request/${house_id}`, { state: { content: content } });
-  };
+    navigate(`/request/${house_id}`, { state: { content: content, isFromInformation: true } });
+};
+
   
   return (
     <div className="container">

@@ -31,7 +31,8 @@ function RequestForm() {
     const content = location.state ? location.state.content : '기본값';
 
     // 매물 상세 정보 페이지에서 넘어갈 때만 입력할 수 있도록 상태 정보 저장
-    const isFromInformation = location.pathname.includes('/helpinfo');
+    const isFromInformation = location.state ? location.state.isFromInformation : false;
+
 
     /*
     const [requests, setRequests] = useState([
