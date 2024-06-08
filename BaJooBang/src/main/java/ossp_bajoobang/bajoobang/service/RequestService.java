@@ -76,6 +76,7 @@ public class RequestService {
     @Transactional
     public void patchInfo(Long request_id, BalpoomForm balpoomForm){
         Request request = requestRepository.getReferenceById(request_id);
+        request.setLighting(balpoomForm.getLighting());
         request.setPowerShower(balpoomForm.getPowerShower());
         request.setPowerWater(balpoomForm.getPowerWater());
         request.setPowerWash(balpoomForm.getPowerWash());

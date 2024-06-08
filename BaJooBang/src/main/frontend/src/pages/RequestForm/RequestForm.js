@@ -227,7 +227,7 @@ function RequestForm() {
         console.log("W: " + write);
         // JSON 데이터를 FormData에 추가 (plus_list만 추가)
         formData.append("date", date);
-        formData.append("request", price);
+        formData.append("price", price);
         formData.append("address", content);
         formData.append('jsonData', JSON.stringify({ plus_list: inputs }));
 
