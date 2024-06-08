@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 function LightSelect({ complete, savedState, onChange }) {
-  const [selectedOption, setSelectedOption] = useState(savedState || "");
+  const [selectedOption, setSelectedOption] = useState(savedState);
 
   useEffect(() => {
-    if (savedState !== undefined && complete === true) {
+    if (complete) {
+      console.log('채광'+ savedState);
       setSelectedOption(savedState);
     }
   }, [savedState, complete]);

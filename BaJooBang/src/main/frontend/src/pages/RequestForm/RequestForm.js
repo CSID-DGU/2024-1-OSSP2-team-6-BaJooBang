@@ -179,11 +179,11 @@ function RequestForm() {
     // 곰팡이 get 
     const updateMoldState = (data) => {
         setMoldStates({
-            livingRoom: { hasItem: data.moldLiving || false, noItem: !data.moldLiving },
-            bathroom: { hasItem: data.moldRest || false, noItem: !data.moldRest },
-            balcony: { hasItem: data.moldVeranda || false, noItem: !data.moldVeranda },
-            shoeRack: { hasItem: data.moldShoes || false, noItem: !data.moldShoes },
-            windowFrame: { hasItem: data.moldWindow || false, noItem: !data.moldWindow },
+            livingRoom: { hasItem: data.moldLiving, noItem: !data.moldLiving },
+            bathroom: { hasItem: data.moldRest, noItem: !data.moldRest },
+            balcony: { hasItem: data.moldVeranda, noItem: !data.moldVeranda },
+            shoeRack: { hasItem: data.moldShoes, noItem: !data.moldShoes },
+            windowFrame: { hasItem: data.moldWindow, noItem: !data.moldWindow },
         });
     };
     //곰팡이 post
