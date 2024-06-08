@@ -259,21 +259,21 @@ function RequestForm() {
         const formData = new FormData();
     
         const jsonData = {
-            sinkSelected: waterState.sink.selected,
-            sinkHotWaterTime1: waterState.sink.hotWaterTime1,
-            sinkHotWaterTime2: waterState.sink.hotWaterTime2,
-            basinSelected: waterState.basin.selected,
-            basinHotWaterTime1: waterState.basin.hotWaterTime1,
-            basinHotWaterTime2: waterState.basin.hotWaterTime2,
-            showerSelected: waterState.shower.selected,
-            showerHotWaterTime1: waterState.shower.hotWaterTime1,
-            showerHotWaterTime2: waterState.shower.hotWaterTime2,
-            lightState: lightState,
-            moldLivingRoom: moldStates.livingRoom.hasItem,
-            moldBathroom: moldStates.bathroom.hasItem,
-            moldBalcony: moldStates.balcony.hasItem,
-            moldShoeRack: moldStates.shoeRack.hasItem,
-            moldWindowFrame: moldStates.windowFrame.hasItem,
+            powerWater: waterState.sink.selected,
+            timeWater1: waterState.sink.hotWaterTime1,
+            timeWater2: waterState.sink.hotWaterTime2,
+            powerWash: waterState.basin.selected,
+            timeWash1: waterState.basin.hotWaterTime1,
+            timeWash2: waterState.basin.hotWaterTime2,
+            powerShower: waterState.shower.selected,
+            timeShower1: waterState.shower.hotWaterTime1,
+            timeShower2: waterState.shower.hotWaterTime2,
+            lighting: lightState,
+            moldLiving: moldStates.livingRoom.hasItem,
+            moldRest: moldStates.bathroom.hasItem,
+            moldVeranda: moldStates.balcony.hasItem,
+            moldShoes: moldStates.shoeRack.hasItem,
+            moldWindow: moldStates.windowFrame.hasItem,
         };
     
         formData.append('jsonData', JSON.stringify(jsonData));
