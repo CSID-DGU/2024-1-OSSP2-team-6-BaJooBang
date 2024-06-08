@@ -25,11 +25,11 @@ function RequestForm() {
     let house_id = null;
     let request_id = null;
 
-    // if (id.startsWith('a')) {
-    //     house_id = id.substring(1);
-    // } else {
-    //     request_id = id;
-    // }
+    if (id.startsWith('a')) {
+        house_id = id.substring(1);
+    } else {
+        request_id = id;
+    }
 
     //console.log("Location state:", location.state);
 
@@ -40,28 +40,28 @@ function RequestForm() {
 
 
     
-    const [requests, setRequests] = useState([
-        {
-            title: '콘센트 위치 확인하고 사진으로 찍어주세요.',
-            text: '거실 왼쪽 안에 있습니다.',
-            images: []
-        },
-        {
-            title: '방음 상태 확인해주세요.',
-            text: '잘 됩니다.',
-            images: []
-        }
-    ]);
+    // const [requests, setRequests] = useState([
+    //     {
+    //         title: '콘센트 위치 확인하고 사진으로 찍어주세요.',
+    //         text: '거실 왼쪽 안에 있습니다.',
+    //         images: []
+    //     },
+    //     {
+    //         title: '방음 상태 확인해주세요.',
+    //         text: '잘 됩니다.',
+    //         images: []
+    //     }
+    // ]);
     
 
     const [inputs, setInputs] = useState([{ plus_q: '' }]);
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
     const [write, setWrite] = useState(isFromInformation); // Set write based on navigation source
-    const [apply, setApply] = useState(true); // 발품인이 신청했는지에 대한 상태
+    const [apply, setApply] = useState(false); // 발품인이 신청했는지에 대한 상태
     const [complete, setComplete] = useState(false); // 발품인이 발품서를 작성했는지에 대한 상태
 
-    //const [requests, setRequests] = useState([]);
+    const [requests, setRequests] = useState([]);
     //const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: request.text })));
 
     const contentRefs = useRef([]);
@@ -226,9 +226,8 @@ function RequestForm() {
 
         console.log("W: " + write);
         // JSON 데이터를 FormData에 추가 (plus_list만 추가)
-        formData.append("house_id", house_id);
         formData.append("date", date);
-        formData.append("price", price);
+        formData.append("request", price);
         formData.append("address", content);
         formData.append('jsonData', JSON.stringify({ plus_list: inputs }));
 
