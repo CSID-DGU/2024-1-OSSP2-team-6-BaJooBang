@@ -25,11 +25,11 @@ function RequestForm() {
     let house_id = null;
     let request_id = null;
 
-    // if (id.startsWith('a')) {
-    //     house_id = id.substring(1);
-    // } else {
-    //     request_id = id;
-    // }
+    if (id.startsWith('a')) {
+        house_id = id.substring(1);
+    } else {
+        request_id = id;
+    }
 
     //console.log("Location state:", location.state);
 
@@ -62,8 +62,8 @@ function RequestForm() {
     const [inputs, setInputs] = useState([{ plus_q: '' }]);
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
-    const [write, setWrite] = useState(false); // Set write based on navigation source
-    const [apply, setApply] = useState(true); // 발품인이 신청했는지에 대한 상태
+    const [write, setWrite] = useState(isFromInformation); // Set write based on navigation source
+    const [apply, setApply] = useState(false); // 발품인이 신청했는지에 대한 상태
     const [complete, setComplete] = useState(false); // 발품인이 발품서를 작성했는지에 대한 상태
 
     const [requests, setRequests] = useState([]);
