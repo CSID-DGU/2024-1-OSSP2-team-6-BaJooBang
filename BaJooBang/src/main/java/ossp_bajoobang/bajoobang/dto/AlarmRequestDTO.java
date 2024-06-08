@@ -13,6 +13,7 @@ import ossp_bajoobang.bajoobang.domain.Request;
 @ToString
 public class AlarmRequestDTO {
     private Long house_id; //
+    private Long request_id;
     private String dealmoney;
     private String human; //
     private String content; //
@@ -23,6 +24,7 @@ public class AlarmRequestDTO {
         LatLng latLng = new LatLng(requestHouse.getLatitude(), requestHouse.getLongitude());
 
         return AlarmRequestDTO.builder()
+                .request_id(request.getRequestId())
                 .house_id(requestHouse.getHouseId())
                 .dealmoney(String.valueOf(request.getPriceRequest()))
                 .human(request.getMember().getName())
