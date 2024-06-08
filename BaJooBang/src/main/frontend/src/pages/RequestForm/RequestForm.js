@@ -322,7 +322,7 @@ function RequestForm() {
             if (!write) {
                 try {
                     // 매물 정보 가져오기
-                    const response = await axios.get(`http://localhost:8000/get-form?request_id=${request_id}`);
+                    const response = await axios.get(`http://localhost:8000/test-imageget?request_id=${request_id}`);
                     const data = response.data;
     
                     // plusRequestList를 requests 형식에 맞게 변환
@@ -351,7 +351,7 @@ function RequestForm() {
                     }
     
                     // WaterState 업데이트
-                    updateWaterState(data.balpoomForm);
+                    updateWaterState(data);
                     updateLightState(data.balpoomForm.lighting);
                     updateMoldState(data.balpoomForm);
                 } catch (error) {
