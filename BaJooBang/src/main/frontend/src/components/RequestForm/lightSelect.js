@@ -4,24 +4,25 @@ function LightSelect({ complete, savedState, onChange }) {
   const [selectedOption, setSelectedOption] = useState("");
 
   useEffect(() => {
-    if (complete && savedState) {
+    if (savedState) {
       setSelectedOption(savedState);
     } else {
       setSelectedOption("");
     }
-  }, [complete, savedState]);
-
+  }, [savedState]);
+  
   useEffect(() => {
     if (onChange) {
       onChange(selectedOption);
     }
   }, [selectedOption, onChange]);
-
+  
   const handleOptionChange = (e) => {
     if (!complete) {
       setSelectedOption(e.target.value);
     }
   };
+  
 
   return (
     <form style={{display: 'flex', flexDirection: 'column', height: '10vw', justifyContent: 'space-around', marginLeft: '4vw'}}>

@@ -1,30 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './CircleSelector.css';
 import './waterBox.css';    
 import { ReactComponent as Check } from '../../components/images/check(white).svg';
 
 function WaterBox({ Icon, title, complete, savedState, onChange }) {
-    const [selected, setSelected] = useState(null);
-    const [hotWaterTime1, setHotWaterTime1] = useState('');
-    const [hotWaterTime2, setHotWaterTime2] = useState('');
+    const [selected, setSelected] = useState(savedState?.selected || null);
+    const [hotWaterTime1, setHotWaterTime1] = useState(savedState?.hotWaterTime1 || '');
+    const [hotWaterTime2, setHotWaterTime2] = useState(savedState?.hotWaterTime2 || '');
+
+    const prevSavedStateRef = useRef();
 
     useEffect(() => {
-        if (complete && savedState) {
-            setSelected(savedState.selected);
-            setHotWaterTime1(savedState.hotWaterTime1);
-            setHotWaterTime2(savedState.hotWaterTime2);
-        } else {
-            setSelected(null);
-            setHotWaterTime1('');
-            setHotWaterTime2('');
+        if (prevSavedStateRef.current !== savedState) {
+            setSelected(savedState?.selected || null);
+            setHotWaterTime1(savedState?.hotWaterTime1 || '');
+            setHotWaterTime2(savedState?.hotWaterTime2 || '');
+            prevSavedStateRef.current = savedState;
         }
-    }, [complete, savedState]);
+    }, [savedState]);
 
-    useEffect(() => {
-        if (onChange) {
-            onChange({ selected, hotWaterTime1, hotWaterTime2 });
+    const handleCircleClick = useCallback((index) => {
+        if (!complete) {
+            setSelected(index);
+            if (onChange) {
+                onChange({ selected: index, hotWaterTime1, hotWaterTime2 });
+            }
         }
-    }, [selected, hotWaterTime1, hotWaterTime2, onChange]);
+    }, [complete, hotWaterTime1, hotWaterTime2, onChange]);
+
+    const handleTimeChange = useCallback((setter, value) => {
+        if (!complete) {
+            setter(value);
+            if (onChange) {
+                onChange({ selected, hotWaterTime1: setter === setHotWaterTime1 ? value : hotWaterTime1, hotWaterTime2: setter === setHotWaterTime2 ? value : hotWaterTime2 });
+            }
+        }
+    }, [complete, selected, hotWaterTime1, hotWaterTime2, onChange]);
 
     const renderCircle = (index) => {
         const circleClass = `circle${index}`;
@@ -33,7 +44,7 @@ function WaterBox({ Icon, title, complete, savedState, onChange }) {
         return (
             <div
                 className={`${circleClass} ${isSelected ? 'selected' : ''}`}
-                onClick={() => !complete && setSelected(index)}
+                onClick={() => handleCircleClick(index)}
                 key={index}
             >
                 {isSelected ? <Check /> : (index === 1 ? '상' : index === 2 ? '중' : '하')}
@@ -66,7 +77,7 @@ function WaterBox({ Icon, title, complete, savedState, onChange }) {
                         className='waterTextInput'
                         placeholder={'00분 00초'}
                         value={hotWaterTime1}
-                        onChange={e => !complete && setHotWaterTime1(e.target.value)}
+                        onChange={e => handleTimeChange(setHotWaterTime1, e.target.value)}
                         readOnly={complete}
                     />
                 </div>
@@ -77,7 +88,7 @@ function WaterBox({ Icon, title, complete, savedState, onChange }) {
                         className='waterTextInput'
                         placeholder={'00분 00초'}
                         value={hotWaterTime2}
-                        onChange={e => !complete && setHotWaterTime2(e.target.value)}
+                        onChange={e => handleTimeChange(setHotWaterTime2, e.target.value)}
                         readOnly={complete}
                     />
                 </div>

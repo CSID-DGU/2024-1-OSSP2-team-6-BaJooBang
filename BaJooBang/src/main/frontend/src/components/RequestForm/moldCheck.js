@@ -10,11 +10,6 @@ function MoldCheck({ complete, savedState, onChange }) {
   useEffect(() => {
     if (complete) {
       setCheckedState(savedState);
-    } else {
-      setCheckedState({
-        hasItem: false,
-        noItem: false
-      });
     }
   }, [complete, savedState]);
 
@@ -27,10 +22,22 @@ function MoldCheck({ complete, savedState, onChange }) {
   const handleOnChange = (e) => {
     if (!complete) {
       const { name } = e.target;
-      setCheckedState(prevState => ({
-        ...prevState,
-        [name]: !prevState[name]
-      }));
+      setCheckedState(prevState => {
+        const newState = {
+          ...prevState,
+          [name]: !prevState[name]
+        };
+
+        // Ensure only one checkbox is selected at a time
+        if (name === 'hasItem' && newState[name]) {
+          newState.noItem = false;
+        }
+        if (name === 'noItem' && newState[name]) {
+          newState.hasItem = false;
+        }
+
+        return newState;
+      });
     }
   };
 
@@ -42,7 +49,6 @@ function MoldCheck({ complete, savedState, onChange }) {
           name="hasItem"
           checked={checkedState.hasItem}
           onChange={handleOnChange}
-          disabled={complete}
         />
         <p style={{fontSize: '0.9vw'}}>있음</p>
       </label>
@@ -52,7 +58,6 @@ function MoldCheck({ complete, savedState, onChange }) {
           name="noItem"
           checked={checkedState.noItem}
           onChange={handleOnChange}
-          disabled={complete}
         />
         <p style={{fontSize: '0.9vw'}}>없음</p>
       </label>

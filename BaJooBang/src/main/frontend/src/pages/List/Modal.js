@@ -15,6 +15,7 @@ function Modal({ isOpen, onClose, data, Worker_id, Request_id }) {
                 worker_id: Worker_id,
             }); // Replace with your actual API endpoint
             console.log('Response:', response);
+            alert('매칭되었습니다');
         } catch (error) {
             console.error('Error fetching data:', error);
         }
