@@ -101,12 +101,13 @@ function RequestForm() {
                 if (!newRequests[index].images) {
                     newRequests[index].images = [];
                 }
-                newRequests[index].images.push(e.target.result); // 데이터 URL을 저장합니다.
+                newRequests[index].images.push({ src: e.target.result, file }); // 파일 객체와 데이터 URL을 함께 저장
                 setRequests(newRequests);
             };
             reader.readAsDataURL(file);
         }
     };
+    
     
 
     const closeModal = () => {
@@ -261,30 +262,29 @@ function RequestForm() {
             moldShoes: moldStates.shoeRack.hasItem,
             moldWindow: moldStates.windowFrame.hasItem,
         };
-        
     
         formData.append('jsonData', JSON.stringify(jsonData));
         formData.append('request_id', request_id);
     
-        const files = [];
         const answers = [];
         const fileCounts = [];
+        let filesAdded = false;
     
         requests.forEach((request, index) => {
             answers.push(request.text);
             fileCounts.push(request.images.length);
             request.images.forEach(image => {
-                files.push(image);
+                if (image.file) {
+                    formData.append('files', image.file); // 파일 객체를 FormData에 추가
+                    filesAdded = true;
+                }
             });
         });
     
         formData.append('plusAnswerData', JSON.stringify({ answers, fileCounts }));
     
-        files.forEach((file, index) => {
-            formData.append('files', file);
-        });
-    
-        if (files.length === 0) {
+        // 파일이 없는 경우 빈 Blob 추가
+        if (!filesAdded) {
             formData.append('files', new Blob());
         }
     
@@ -300,6 +300,7 @@ function RequestForm() {
             console.error('Request failed:', error);
         }
     }
+    
     
     
 
