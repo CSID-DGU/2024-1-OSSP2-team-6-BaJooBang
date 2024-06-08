@@ -11,13 +11,13 @@ function WaterBox({ Icon, title, complete, savedState, onChange }) {
     const prevSavedStateRef = useRef();
 
     useEffect(() => {
-        if (prevSavedStateRef.current !== savedState) {
+        if (prevSavedStateRef.current !== savedState && complete === true) {
             setSelected(savedState?.selected || null);
             setHotWaterTime1(savedState?.hotWaterTime1 || '');
             setHotWaterTime2(savedState?.hotWaterTime2 || '');
             prevSavedStateRef.current = savedState;
         }
-    }, [savedState]);
+    }, [savedState, complete]);
 
     const handleCircleClick = useCallback((index) => {
         if (!complete) {
