@@ -24,6 +24,7 @@ import ossp_bajoobang.bajoobang.service.RequestService;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class RequestController {
     // 요청서 작성 완료 시.
     @PostMapping("/request-form")
     public String requestForm(@RequestPart("jsonData") RequestDTO requestDTO,
-                              @RequestPart("date") LocalDate date,
+                              @RequestPart("date") String date,
                               @RequestPart("price") int price,
                               HttpServletRequest request,
                               @RequestParam Long house_id,
@@ -59,9 +60,10 @@ public class RequestController {
             // 퀴리 파라미터로 매물 가져오기
             House house = houseRepository.findByHouseId(house_id);
             // 새로운 요청서 저장
-
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parsingDate = LocalDate.parse(date, formatter);
             // + 상태값 저장해주는 거 해줘야함.
-            requestDTO.setDate(date); // 급한대로 그냥 이렇게 처리ㅋ
+            requestDTO.setDate(parsingDate); // 급한대로 그냥 이렇게 처리ㅋ
             requestDTO.setPrice(price);
             Request newRequest = requestService.saveRequest(requestDTO, member, house, address);
 
