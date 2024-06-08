@@ -83,7 +83,7 @@ function ListPage3() {
                 {currentItems.map((item, index) => (
                     <React.Fragment key={index}>
                         
-                            <ListBlock3 Num={item.Num} Address={item.Address} Price={item.Price} Date={item.Date} Request_id={item.Request_id} State={item.State} />
+                            <ListBlock3 Num={item.Num} Address={item.Address} Price={item.Price} Date={item.Date} Request_id={item.Request_id} Requester={item.Requester} />
                         
                         <div className='ListLine' />
                     </React.Fragment>
