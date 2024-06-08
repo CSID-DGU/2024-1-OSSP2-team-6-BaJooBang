@@ -90,7 +90,8 @@ function RequestForm() {
 
     const handleContentEditableChange = (index, event) => {
         if (!complete) {
-            const newRequests = requests.map((request, i) => i === index ? { ...request, text: event.target.textContent } : request);
+            const newRequests = [...requests];
+            newRequests[index].text = event.target.innerText;
             setRequests(newRequests);
         }
     };  
@@ -253,37 +254,49 @@ function RequestForm() {
     // 발품인이 발품서 작성하는 api
     async function CompletePost() {
         const formData = new FormData();
-        
-        formData.append('sinkSelected', waterState.sink.selected);
-        formData.append('sinkHotWaterTime1', waterState.sink.hotWaterTime1);
-        formData.append('sinkHotWaterTime2', waterState.sink.hotWaterTime2);
-        
-        formData.append('basinSelected', waterState.basin.selected);
-        formData.append('basinHotWaterTime1', waterState.basin.hotWaterTime1);
-        formData.append('basinHotWaterTime2', waterState.basin.hotWaterTime2);
-        
-        formData.append('showerSelected', waterState.shower.selected);
-        formData.append('showerHotWaterTime1', waterState.shower.hotWaterTime1);
-        formData.append('showerHotWaterTime2', waterState.shower.hotWaterTime2);
     
-        formData.append('lightState', lightState);
-        
-        formData.append('moldLivingRoom', moldStates.livingRoom.hasItem ? '있음' : '없음');
-        formData.append('moldBathroom', moldStates.bathroom.hasItem ? '있음' : '없음');
-        formData.append('moldBalcony', moldStates.balcony.hasItem ? '있음' : '없음');
-        formData.append('moldShoeRack', moldStates.shoeRack.hasItem ? '있음' : '없음');
-        formData.append('moldWindowFrame', moldStates.windowFrame.hasItem ? '있음' : '없음');
-
+        // Water and other state data
+        const jsonData = {
+            sinkSelected: waterState.sink.selected,
+            sinkHotWaterTime1: waterState.sink.hotWaterTime1,
+            sinkHotWaterTime2: waterState.sink.hotWaterTime2,
+            basinSelected: waterState.basin.selected,
+            basinHotWaterTime1: waterState.basin.hotWaterTime1,
+            basinHotWaterTime2: waterState.basin.hotWaterTime2,
+            showerSelected: waterState.shower.selected,
+            showerHotWaterTime1: waterState.shower.hotWaterTime1,
+            showerHotWaterTime2: waterState.shower.hotWaterTime2,
+            lightState: lightState,
+            moldLivingRoom: moldStates.livingRoom.hasItem ? '있음' : '없음',
+            moldBathroom: moldStates.bathroom.hasItem ? '있음' : '없음',
+            moldBalcony: moldStates.balcony.hasItem ? '있음' : '없음',
+            moldShoeRack: moldStates.shoeRack.hasItem ? '있음' : '없음',
+            moldWindowFrame: moldStates.windowFrame.hasItem ? '있음' : '없음',
+        };
+    
+        formData.append('jsonData', JSON.stringify(jsonData));
+        formData.append('request_id', request_id);
+    
+        const files = [];
+        const answers = [];
+        const fileCounts = [];
+    
         requests.forEach((request, index) => {
-            formData.append(`requests[${index}][title]`, request.title);
-            formData.append(`requests[${index}][text]`, request.text);
-            request.images.forEach((image, imgIndex) => {
-                formData.append(`requests[${index}][images][${imgIndex}]`, image);
+            answers.push(request.text);
+            fileCounts.push(request.images.length);
+            request.images.forEach(image => {
+                files.push(image);
             });
         });
     
+        formData.append('plusAnswerData', JSON.stringify({ answers, fileCounts }));
+    
+        files.forEach((file, index) => {
+            formData.append('files', file);
+        });
+    
         try {
-            const response = await axios.post(`http://localhost:8000/request-form?request_id=${request_id}`, formData, {
+            const response = await axios.post(`http://localhost:8000/request-form`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -294,6 +307,7 @@ function RequestForm() {
             console.error('Request failed:', error);
         }
     }
+    
 
     useEffect(() => {
         const fetchData = async () => {
