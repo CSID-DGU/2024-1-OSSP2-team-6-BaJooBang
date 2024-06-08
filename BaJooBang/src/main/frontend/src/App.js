@@ -33,7 +33,8 @@ function App() {
           <Route path="/helpmap" element={<HelpMap />} />
           <Route path="/domap" element={<DoMap/>} />
           <Route path='/helpinfo/:house_id' element={<Imformation positions={positions} />}></Route>
-          <Route path="/request/:house_id" element={<RequestForm />} />
+          <Route path="/request/:id" element={<RequestForm />} />
+          {/* <Route path="/request" element={<RequestForm />} /> */}
           {/* <Route path="/request" element={<RequestForm />} /> */}
           <Route path='/member' element={<MyPage />} />
           <Route path='/member/inquiry' element={<ListPage1 />} />
