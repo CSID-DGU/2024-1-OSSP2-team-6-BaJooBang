@@ -83,8 +83,8 @@ function DONav({ positions }) {
             <p><span className="blank"></span>위치 | {position.content}</p>
             <p><span className="blank"></span>요청인<span className="blank"></span>|<span className="blank"></span>{position.human}</p>
             <Link
-              to={`/request/${position.house_id}`}
-              onClick={(e) => handleLinkClick(e, `/request/${position.house_id}`)}
+              to={`/request/${position.request_id}`} 
+              onClick={(e) => handleLinkClick(e, `/request/${position.request_id}`)}
             >
               <span className="blank"></span>요청서 보러가기 {'>>'}
             </Link>
