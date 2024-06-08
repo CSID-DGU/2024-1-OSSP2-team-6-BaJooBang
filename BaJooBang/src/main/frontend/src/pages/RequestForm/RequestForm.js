@@ -350,7 +350,7 @@ function RequestForm() {
     
                     // WaterState 업데이트
                     
-                    updateWaterState(data);
+                    updateWaterState(data.balpoomForm);
                     updateLightState(data.balpoomForm.lighting);
                     updateMoldState(data.balpoomForm);
                 } catch (error) {
