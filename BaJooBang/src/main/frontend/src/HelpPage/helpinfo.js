@@ -43,7 +43,7 @@ const Imformation = ({ positions }) => {
 
   const handleClick = (content) => {
     console.log(content);
-    navigate(`/request/${house_id}`, { state: { content: content, isFromInformation: true } });
+    navigate(`/request/a${house_id}`, { state: { content: content, isFromInformation: true } });
 };
 
   

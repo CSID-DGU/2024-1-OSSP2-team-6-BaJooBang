@@ -24,7 +24,16 @@ import image4 from './A-2-1.PNG';
 function RequestForm() {
     const navigate = useNavigate();
     const location = useLocation();
-    const { house_id, request_id } = useParams();
+    const { id } = useParams();
+
+    let house_id = null;
+    let request_id = null;
+
+    if (id.startsWith('a')) {
+        house_id = id.substring(1);
+    } else {
+        request_id = id;
+    }
 
     //console.log("Location state:", location.state);
 
