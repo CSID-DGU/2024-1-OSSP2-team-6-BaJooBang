@@ -25,7 +25,7 @@ const NotificationIcon = ({ hasNotification, notificationCount, onClickNotificat
   );
 };
 const Bell = ({ onNotificationClick, dopositions, showOnlyNotified, setShowOnlyNotified }) => {
-  const notificationCount = dopositions.filter(doposition => doposition.hasNotification).length;
+  const notificationCount = dopositions.filter(doposition => doposition.hasNotification).length+1;
   const hasNotification = notificationCount > 0;
 
   const handleBellClick = () => {
