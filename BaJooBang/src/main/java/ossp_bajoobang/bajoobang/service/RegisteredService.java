@@ -17,7 +17,7 @@ public class RegisteredService {
 
     public List<Map<String, Object>> getRegistered(Member member) {
         List<Map<String, Object>> registeredList = new ArrayList<>();
-        List<Request> requests = member.getRequests();
+        List<Request> requests = requestRepository.findByMember(member);
         log.info("requests={}", requests);
         for (Request request : requests) {
             Map<String, Object> registered = new HashMap<>();
@@ -25,6 +25,7 @@ public class RegisteredService {
             registered.put("price", request.getPriceRequest());
             // 매칭 상태값 가져오기
             registered.put("state", request.getStatus());
+            log.info("STATE: " + request.getStatus());
             registered.put("date", request.getRequestDate());
             registered.put("request_id", request.getRequestId());
             registeredList.add(registered);

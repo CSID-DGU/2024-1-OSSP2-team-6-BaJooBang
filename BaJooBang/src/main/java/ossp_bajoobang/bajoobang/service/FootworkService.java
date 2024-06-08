@@ -6,6 +6,8 @@ import ossp_bajoobang.bajoobang.domain.BaDream;
 import ossp_bajoobang.bajoobang.domain.House;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.domain.Request;
+import ossp_bajoobang.bajoobang.repository.BaDreamRepository;
+import ossp_bajoobang.bajoobang.repository.RequestRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,10 +17,11 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class FootworkService {
-
+    private final BaDreamRepository baDreamRepository;
+    private final RequestRepository requestRepository;
     // 신청 발품
     public List<Map<String, Object>> getFootworks(Member member) {
-        List<BaDream> baDreams = member.getBaDreams();
+        List<BaDream> baDreams = baDreamRepository.findByMember(member);
         List<Map<String, Object>> footworks = new ArrayList<>();
         for (BaDream baDream : baDreams) {
             Map<String, Object> footwork = new HashMap<>();
@@ -38,7 +41,7 @@ public class FootworkService {
             // 매칭 후
             else {
                 // 매칭 성공 (발품인 == member)
-                if (request.getBalpoomin().equals(member)) {
+                if (request.getBalpoomin().getId() == member.getId()) {
                     // 작성 완료 혹은 매칭완료
                     footwork.put("state", request.getStatus());
                     footwork.put("worker_id", request.getBalpoomin().getId());

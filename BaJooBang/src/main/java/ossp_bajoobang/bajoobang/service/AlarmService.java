@@ -36,7 +36,7 @@ public class AlarmService {
 
     public List<Map<String, Object>> getAlarmList(Member member) {
         List<Map<String, Object>> alarmList = new ArrayList<>();
-        List<Alarm> alarms = member.getAlarms();
+        List<Alarm> alarms = alarmRepository.findByMember(member);
         List<Request> requestsOfAlarm = getRequestsOfAlarm(alarms);
         for (Request request : requestsOfAlarm) {
             Map<String, Object> alarm = new HashMap<>();
