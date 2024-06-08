@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.domain.Request;
+import ossp_bajoobang.bajoobang.repository.MemberRepository;
 import ossp_bajoobang.bajoobang.repository.RequestRepository;
 
 import java.util.*;
@@ -14,6 +15,7 @@ import java.util.*;
 @Slf4j
 public class RegisteredService {
     private final RequestRepository requestRepository;
+    private final MemberRepository memberRepository;
 
     public List<Map<String, Object>> getRegistered(Member member) {
         List<Map<String, Object>> registeredList = new ArrayList<>();
@@ -36,8 +38,9 @@ public class RegisteredService {
 
     // 등록매물 개수 전달하기
     public int getNumOfRegistered(Member member) {
-        List<Request> requests = member.getRequests();
-        return requests.size();
+//        List<Request> requests = member.getRequests();
+        List<Request> byMember = requestRepository.findByMember(member);
+        return byMember.size();
     }
 
     // 등록매물에서 매칭 정보 확인하기
