@@ -16,10 +16,6 @@ import { ReactComponent as Shower } from '../../components/images/shower.svg';
 import { ReactComponent as Plus1 } from '../../components/images/plus1.svg';
 import { ReactComponent as Check } from '../../components/images/check(heavy).svg';
 
-import image1 from './A-1-3.PNG';
-import image2 from './A-1-4.PNG';
-import image3 from './A-1-5.PNG';
-import image4 from './A-2-1.PNG';
 
 function RequestForm() {
     const navigate = useNavigate();
@@ -29,11 +25,11 @@ function RequestForm() {
     let house_id = null;
     let request_id = null;
 
-    if (id.startsWith('a')) {
-        house_id = id.substring(1);
-    } else {
-        request_id = id;
-    }
+    // if (id.startsWith('a')) {
+    //     house_id = id.substring(1);
+    // } else {
+    //     request_id = id;
+    // }
 
     //console.log("Location state:", location.state);
 
@@ -66,8 +62,8 @@ function RequestForm() {
     const [inputs, setInputs] = useState([{ plus_q: '' }]);
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
-    const [write, setWrite] = useState(isFromInformation); // Set write based on navigation source
-    const [apply, setApply] = useState(false); // 발품인이 신청했는지에 대한 상태
+    const [write, setWrite] = useState(false); // Set write based on navigation source
+    const [apply, setApply] = useState(true); // 발품인이 신청했는지에 대한 상태
     const [complete, setComplete] = useState(false); // 발품인이 발품서를 작성했는지에 대한 상태
 
     const [requests, setRequests] = useState([]);
@@ -91,10 +87,10 @@ function RequestForm() {
     const handleContentEditableChange = (index, event) => {
         if (!complete) {
             const newRequests = [...requests];
-            newRequests[index].text = event.target.innerText;
+            newRequests[index].text = event.target.innerHTML;
             setRequests(newRequests);
         }
-    };  
+    };
     
 
     const handleAddRequest = () => {
@@ -115,10 +111,17 @@ function RequestForm() {
                 if (imageBoxRefs.current[index]) {
                     imageBoxRefs.current[index].appendChild(img);
                 }
+                const newRequests = [...requests];
+                if (!newRequests[index].images) {
+                    newRequests[index].images = [];
+                }
+                newRequests[index].images.push(file);
+                setRequests(newRequests);
             };
             reader.readAsDataURL(file);
         }
     };
+    
 
     const closeModal = () => {
         setSelectedImage(null);
@@ -255,7 +258,6 @@ function RequestForm() {
     async function CompletePost() {
         const formData = new FormData();
     
-        // Water and other state data
         const jsonData = {
             sinkSelected: waterState.sink.selected,
             sinkHotWaterTime1: waterState.sink.hotWaterTime1,
@@ -267,11 +269,11 @@ function RequestForm() {
             showerHotWaterTime1: waterState.shower.hotWaterTime1,
             showerHotWaterTime2: waterState.shower.hotWaterTime2,
             lightState: lightState,
-            moldLivingRoom: moldStates.livingRoom.hasItem ? '있음' : '없음',
-            moldBathroom: moldStates.bathroom.hasItem ? '있음' : '없음',
-            moldBalcony: moldStates.balcony.hasItem ? '있음' : '없음',
-            moldShoeRack: moldStates.shoeRack.hasItem ? '있음' : '없음',
-            moldWindowFrame: moldStates.windowFrame.hasItem ? '있음' : '없음',
+            moldLivingRoom: moldStates.livingRoom.hasItem,
+            moldBathroom: moldStates.bathroom.hasItem,
+            moldBalcony: moldStates.balcony.hasItem,
+            moldShoeRack: moldStates.shoeRack.hasItem,
+            moldWindowFrame: moldStates.windowFrame.hasItem,
         };
     
         formData.append('jsonData', JSON.stringify(jsonData));
@@ -295,6 +297,10 @@ function RequestForm() {
             formData.append('files', file);
         });
     
+        if (files.length === 0) {
+            formData.append('files', new Blob());
+        }
+    
         try {
             const response = await axios.patch(`http://localhost:8000/balpoom-form`, formData, {
                 headers: {
@@ -307,6 +313,7 @@ function RequestForm() {
             console.error('Request failed:', error);
         }
     }
+    
     
 
     useEffect(() => {
