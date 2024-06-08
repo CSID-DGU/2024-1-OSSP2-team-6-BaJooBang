@@ -79,7 +79,12 @@ public class RequestService {
         request.setPowerShower(balpoomForm.getPowerShower());
         request.setPowerWater(balpoomForm.getPowerWater());
         request.setPowerWash(balpoomForm.getPowerWash());
-        request.setTimeWater(balpoomForm.getTimeWater());
+        request.setTimeWater1(balpoomForm.getTimeWater1());
+        request.setTimeWater2(balpoomForm.getTimeWater2());
+        request.setTimeWash1(balpoomForm.getTimeWash1());
+        request.setTimeWash2(balpoomForm.getTimeWash2());
+        request.setTimeShower1(balpoomForm.getTimeShower1());
+        request.setTimeShower2(balpoomForm.getTimeShower2());
         request.setMoldLiving(balpoomForm.getMoldLiving());
         request.setMoldRest(balpoomForm.getMoldRest());
         request.setMoldVeranda(balpoomForm.getMoldVeranda());
