@@ -58,12 +58,14 @@ public class MemberService {
 
     // 매물에 가까운 주변 회원들에 대해서 (대중교통) 총 소요시간 계산하여 10명 오름차순 정렬.
     // List<Member>
-    public List<Member> findMembersByTravelTime(List<Member> nearbyMembers, double latitude, double longitude){
+    public List<Member> findMembersByTravelTime(Long member_id, List<Member> nearbyMembers, double latitude, double longitude){
         Map<Double, Member> travelTimeToMemberMap  = new HashMap<>();
         for(Member member : nearbyMembers){
             double travelTime = getTravelTime(member, latitude, longitude);
             log.info("travel Time : " + travelTime);
-            travelTimeToMemberMap.put(travelTime, member);
+            if (!member.getId().equals(member_id)) {
+                travelTimeToMemberMap.put(travelTime, member);
+            }
         }
 
         List<Double> sortedTimes = new ArrayList<>(travelTimeToMemberMap.keySet());
