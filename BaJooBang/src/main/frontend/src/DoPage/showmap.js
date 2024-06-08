@@ -84,7 +84,7 @@ function DONav({ positions }) {
             <p><span className="blank"></span>요청인<span className="blank"></span>|<span className="blank"></span>{position.human}</p>
             <Link
               to={`/request/${position.house_id}?request_id=${position.request_id}`} // local_id를 쿼리 매개변수로 포함
-              onClick={(e) => handleLinkClick(e, `/request/${position.house_id}?local_id=${position.request_id}`)} // 전체 경로를 전달
+              onClick={(e) => handleLinkClick(e, `/request/${position.house_id}?request_id=${position.request_id}`)} // 전체 경로를 전달
             >
               <span className="blank"></span>요청서 보러가기 {'>>'}
             </Link>
