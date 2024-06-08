@@ -591,7 +591,7 @@ function RequestForm() {
                                     onChange={(e) => setRequestMessage(e.target.value)}
                                 />
                                 <button 
-                                    onClick={() => { requestPatch(house_id, requestMessage); setApply(true); closeModal(); }} 
+                                    onClick={() => { requestPatch(request_id, requestMessage); setApply(true); closeModal(); }}
                                     className='modal-button'
                                 >
                                     신청하기
