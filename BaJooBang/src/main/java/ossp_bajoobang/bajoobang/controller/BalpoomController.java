@@ -90,58 +90,53 @@ public class BalpoomController {
         Member member = (Member) session.getAttribute("loginMember");
 
         BalpoomForm balpoomForm = requestService.getRequestInfo(request_id);
+
+//        if(){
+//
+//        }
         return balpoomForm;
     }
 
     // 발품서 작성
-    @PatchMapping(path = "/balpoom-form")
-    public ResponseEntity<String> postBalpoomForm(@RequestPart Long request_id,
-                                                  @RequestPart("jsonData") BalpoomForm balpoomForm,
-                                                  @RequestPart("requests") List<RequestFileForm> requests) throws IOException {
-        log.info("111111111111111111111111111111111");
-        requestService.patchInfo(request_id, balpoomForm);
-//        List<PlusRequest> plusRequestList = balpoomForm.getPlusRequestList();
-        log.info("2222222222222222222222222222");
-
-        for(RequestFileForm request : requests){
-            String answer = request.getAnswer();
-            log.info("Answer: " + answer);
-//            List<MultipartFile> files = request.getFiles();
-//            if(files != null){
-//                balpoomFileService.saveFile(files);
-//                log.info("44444444444444");
-//            }
-
-        }
-
-        log.info("3333333333333333333333333");
-
-        return ResponseEntity.ok("Files and data uploaded successfully!");
-    }
-
-
     // + 4. 각 답변마다 필요한 파일 갯수로
-    @PatchMapping(path = "/test-images")
+    @PatchMapping(path = "/balpoom-form")
     public void testImage(@RequestPart("request_id") Long request_id,
-                          @RequestPart("requests") List<MultipartFile> requests,
+                          @RequestPart("files") List<MultipartFile> files,
                           @RequestPart("jsonData") BalpoomForm balpoomForm,
                           @RequestPart("plusAnswerData") PlusAnswerForm plusAnswerForm) throws IOException {
-
-        log.info(requests.toString());
-        log.info("-------------------------------");
+        // plusAnswerForm.answers = ["답변1","답변2",...,"답변n"] -> plus request 테이블
+        // plusAnswerForm.filecounts = [2, 0, ... , 1] -> plus request 테이블
         requestService.patchInfo(request_id, balpoomForm);
+        requestService.patchAnswerFilecounts(plusAnswerForm, request_id);
+        balpoomFileService.saveFile(files, request_id);
 
-        balpoomFileService.saveFile(requests);
     }
 
     // + 3. 리턴값 수정되주어야 함.
+    // 요청서 픽스 -> 이미지 뿌려주기
     @GetMapping(path = "/test-imageget")
-    public ResponseEntity<List<FileDto>> getTestTimage(){
+    public ResponseEntity<FinishForm> getTestTimage(@RequestPart("request_id") Long request_id){
+//        "answer1" : {파일경로1, 파일경로2, 파일경로3}
+//        "answer2" : {파일경로1, 파일경로2, 파일경로3}
+//        "answer3" : {파일경로1}
+//        "plusRequest1" : {"설명"}
+
+
         List<File> files = balpoomFileService.returnFileList();
         List<FileDto> fileDtos = files.stream()
                 .map(this::convertToFileDto)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(fileDtos);
+
+        FinishForm finishForm = new FinishForm();
+        BalpoomForm balpoomForm = requestService.getRequestInfo(request_id);
+        List<PlusRequest> plusRequestList = requestService.getPlusRequestList(request_id);
+        PlusReqeustForFinishDTO plusReqeustForFinishDTO = PlusReqeustForFinishDTO.toDTO(plusRequestList);
+
+        finishForm.setFileDtos(fileDtos);
+        finishForm.setBalpoomForm(balpoomForm);
+        finishForm.setPlusReqeustForFinishDTO(plusReqeustForFinishDTO);
+
+        return ResponseEntity.ok(finishForm);
     }
 
     // + 2. 함수 위치 바꿀 수 있으면 바꾸고.

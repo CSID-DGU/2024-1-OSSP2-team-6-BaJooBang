@@ -39,16 +39,9 @@ public class FootworkService {
             else {
                 // 매칭 성공 (발품인 == member)
                 if (request.getBalpoomin().equals(member)) {
-                    if (request.getStatus().equals("평가 완료")) {
-                        // 작성 후(작성 완료)
-                        footwork.put("state", "작성 완료");
-                        footwork.put("worker_id", request.getBalpoomin().getId());
-                    }
-                    // 작성 전(매칭 완료)
-                    else {
-                        footwork.put("state", request.getStatus());
-                        footwork.put("worker_id", request.getBalpoomin().getId());
-                    }
+                    // 작성 완료 혹은 매칭완료
+                    footwork.put("state", request.getStatus());
+                    footwork.put("worker_id", request.getBalpoomin().getId());
                 }
                 else {
                     // 매칭 실패 (발품인 != member)

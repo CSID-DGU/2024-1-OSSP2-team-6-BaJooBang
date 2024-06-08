@@ -27,8 +27,10 @@ public class PlusRequest {
     private String plus_q;
     // 질문 타입
     private String q_type;
-    // 질문 답변
+    // 답변 내용
     private String plus_answer;
+    // 이미지 개수
+    private int fileCount;
 
     //    @JoinColumn(name="request_id", insertable = false, updatable = false)
     @ManyToOne

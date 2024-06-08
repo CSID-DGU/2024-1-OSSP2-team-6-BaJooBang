@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ossp_bajoobang.bajoobang.domain.File;
+import ossp_bajoobang.bajoobang.domain.Request;
 import ossp_bajoobang.bajoobang.repository.BalpoomFileRepository;
+import ossp_bajoobang.bajoobang.repository.RequestRepository;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,8 +21,11 @@ import java.util.List;
 @Slf4j
 public class BalpoomFileService {
     private final BalpoomFileRepository balpoomFileRepository;
+    private final RequestRepository requestRepository;
 
-    public void saveFile(List<MultipartFile> files) throws IOException {
+    public void saveFile(List<MultipartFile> files, Long request_id) throws IOException {
+        Request request = requestRepository.findById(request_id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + request_id));
         for(MultipartFile file : files){
             String filename = file.getOriginalFilename();
             Path targetLocation = getFileStorageLocation(filename);
@@ -34,14 +39,16 @@ public class BalpoomFileService {
             fileEntity.setSize(file.getSize());
             fileEntity.setContentType(file.getContentType());
             fileEntity.setUploadedDate(LocalDateTime.now());
+            fileEntity.setRequest(request);
 
             balpoomFileRepository.save(fileEntity);
         }
     }
 
     private Path getFileStorageLocation(String filename){
-        // + 1. 경로 수정 해주어야 함.
-        return Paths.get("C:\\Users\\i1t28\\OneDrive\\Desktop\\2-2\\2024-1-OSSP2-team-6-BaJooBang\\BaJooBang\\src\\main\\resources\\templates").resolve(filename).normalize();
+        // "/home/chldntjd49/chldntjd49/images/"
+        // "C:\\Users\\i1t28\\OneDrive\\Desktop\\2-2\\2024-1-OSSP2-team-6-BaJooBang\\BaJooBang\\src\\main\\resources\\templates"
+        return Paths.get("/home/chldntjd49/chldntjd49/images/").resolve(filename).normalize();
     }
 
     public List<File> returnFileList(){

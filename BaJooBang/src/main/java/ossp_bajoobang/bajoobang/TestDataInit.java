@@ -113,7 +113,7 @@ public class TestDataInit {
         request2.setRequestDate(LocalDate.parse("2024-12-25"));
         request2.setHouse(house2);
         request2.setMember(member2);
-        request1.setStatus("매칭 전");
+        request2.setStatus("매칭 전");
         requestRepository.save(request2);
     }
 }

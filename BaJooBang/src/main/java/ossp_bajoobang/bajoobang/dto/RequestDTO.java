@@ -15,9 +15,9 @@ public class RequestDTO {
     // 요청서 아이디
     private Long request_id;
     // 발품 기간
-    private LocalDate request_date;
+    private LocalDate date;
     // 발품 가격
-    private int price_request;
+    private int price;
     // 추가 요청
     private List<PlusRequestDTO> plus_list;
 
@@ -30,8 +30,8 @@ public class RequestDTO {
 
         return RequestDTO.builder()
                 .request_id(entity.getRequestId())
-                .request_date(entity.getRequestDate())
-                .price_request(entity.getPriceRequest())
+                .date(entity.getRequestDate())
+                .price(entity.getPriceRequest())
                 .plus_list(PlusRequestListDTO.toDTO(entity.getPlusRequests()))
                 .build();
     }
