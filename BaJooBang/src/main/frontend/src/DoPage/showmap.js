@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link, useNavigate,useParams } from 'react-router-dom';
 import './showmap.css';
 
-export const dopositions = [/*
+export const dopositions = [
   {
     "house_id": 1,
     "dealmoney": "20,000",
@@ -25,7 +25,7 @@ export const dopositions = [/*
       "lat": 37.566882968825,
       "lng": 126.99092687291
     },
-    "hasNotification": false
+    "hasNotification": true
   },
   {
     "house_id": 3,
@@ -39,7 +39,7 @@ export const dopositions = [/*
     "hasNotification": false
   },
   {
-    "house_id": 3,
+    "house_id": 4,
     "dealmoney": "30,000",
     "human": "dksljf",
     "content": "서울특별시 장충로",
@@ -48,7 +48,7 @@ export const dopositions = [/*
       "lng": 127.00768457766
     },
     "hasNotification": false
-  }*/
+  }
 ];
 
 function groupByHouseId(positions) {
@@ -83,8 +83,8 @@ function DONav({ positions }) {
             <p><span className="blank"></span>위치 | {position.content}</p>
             <p><span className="blank"></span>요청인<span className="blank"></span>|<span className="blank"></span>{position.human}</p>
             <Link
-              to={`/request/${position.house_id}?request_id=${position.request_id}`} // local_id를 쿼리 매개변수로 포함
-              onClick={(e) => handleLinkClick(e, `/request/${position.house_id}?request_id=${position.request_id}`)} // 전체 경로를 전달
+              to={`/request/${position.request_id}`} 
+              onClick={(e) => handleLinkClick(e, `/request/${position.request_id}`)} // 전체 경로를 전달
             >
               <span className="blank"></span>요청서 보러가기 {'>>'}
             </Link>
