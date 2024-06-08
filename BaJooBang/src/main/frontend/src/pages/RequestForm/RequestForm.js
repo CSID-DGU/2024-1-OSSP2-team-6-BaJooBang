@@ -25,11 +25,11 @@ function RequestForm() {
     let house_id = null;
     let request_id = null;
 
-    if (id.startsWith('a')) {
-        house_id = id.substring(1);
-    } else {
-        request_id = id;
-    }
+    // if (id.startsWith('a')) {
+    //     house_id = id.substring(1);
+    // } else {
+    //     request_id = id;
+    // }
 
     //console.log("Location state:", location.state);
 
@@ -40,18 +40,18 @@ function RequestForm() {
 
 
     
-    // const [requests, setRequests] = useState([
-    //     {
-    //         title: '콘센트 위치 확인하고 사진으로 찍어주세요.',
-    //         text: '거실 왼쪽 안에 있습니다.',
-    //         images: []
-    //     },
-    //     {
-    //         title: '방음 상태 확인해주세요.',
-    //         text: '잘 됩니다.',
-    //         images: []
-    //     }
-    // ]);
+    const [requests, setRequests] = useState([
+        {
+            title: '콘센트 위치 확인하고 사진으로 찍어주세요.',
+            text: '거실 왼쪽 안에 있습니다.',
+            images: []
+        },
+        {
+            title: '방음 상태 확인해주세요.',
+            text: '잘 됩니다.',
+            images: []
+        }
+    ]);
     
 
     const [inputs, setInputs] = useState([{ plus_q: '' }]);
@@ -61,7 +61,7 @@ function RequestForm() {
     const [apply, setApply] = useState(true); // 발품인이 신청했는지에 대한 상태
     const [complete, setComplete] = useState(false); // 발품인이 발품서를 작성했는지에 대한 상태
 
-    const [requests, setRequests] = useState([]);
+    //const [requests, setRequests] = useState([]);
     //const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: request.text })));
 
     const contentRefs = useRef([]);
@@ -103,10 +103,12 @@ function RequestForm() {
                 }
                 newRequests[index].images.push({ src: e.target.result, file }); // 파일 객체와 데이터 URL을 함께 저장
                 setRequests(newRequests);
+                //console.log('파일 추가됨:', { src: e.target.result, file }); // 디버그 로그 추가
             };
             reader.readAsDataURL(file);
         }
     };
+    
     
     
 
@@ -136,6 +138,7 @@ function RequestForm() {
     
     // 수압 get
     const updateWaterState = (data) => {
+        console.log('updateWaterState 함수 호출', data);
         setWaterState({
             sink: { 
                 selected: data.powerWater, // 상, 중, 하 중 선택된 값 (1: 상, 2: 중, 3: 하)
@@ -158,6 +161,7 @@ function RequestForm() {
     // 채광 get
     const [lightState, setLightState] = useState('');
     const updateLightState = (data) => { //get할 때
+        console.log('실행된당')
         setLightState(data);
     }
     const handleLightStateChange = (state) => { //post할 때
@@ -306,10 +310,13 @@ function RequestForm() {
 
     useEffect(() => {
         const fetchData = async () => {
-            // console.log('함수 실행');
-            // updateWaterState();
+            // console.log('useEffect 실행');
+            // updateWaterState('');
+            // console.log('updateWaterState 호출');
             // updateLightState('');
-            // updateMoldState();
+            // console.log('updateLightState 호출');
+            // updateMoldState('');
+            // console.log('updateMoldState 호출');
 
             if (!write) {
                 try {
@@ -531,14 +538,15 @@ function RequestForm() {
                                             {input.text}
                                         </div>
                                         <div className='plusrequestImageBox' ref={el => imageBoxRefs.current[index] = el}>
-                                            {input.images.map((src, imgIndex) => (
-                                                <img 
-                                                    key={imgIndex} 
-                                                    src={src} 
-                                                    style={{ width: '50px', height: '50px', cursor: 'pointer' }} 
-                                                    onClick={() => setSelectedImage(src)} 
-                                                />
-                                            ))}
+                                        {input.images.map((image, imgIndex) => (
+                                            <img 
+                                                key={imgIndex} 
+                                                src={image.src} 
+                                                style={{ width: '50px', height: '50px', cursor: 'pointer' }} 
+                                                onClick={() => setSelectedImage(image.src)} 
+                                            />
+                                        ))}
+
                                         </div>
                                         {!complete && (
                                             <>
