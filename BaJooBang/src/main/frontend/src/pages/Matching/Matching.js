@@ -14,9 +14,9 @@ function Matching({ Request_id }) {
     useEffect(() => {
         // Set the API endpoint based on the referring page
         if (location.state && location.state.fromPage === 'ListPage2') {
-            setApiEndpoint('http://localhost:8000/member/registered/matching');
+            setApiEndpoint('/member/registered/matching');
         } else if (location.state && location.state.fromPage === 'ListPage4') {
-            setApiEndpoint('http://localhost:8000/member/footwork/matching');
+            setApiEndpoint('/member/footwork/matching');
         }
     }, [location]);
 
