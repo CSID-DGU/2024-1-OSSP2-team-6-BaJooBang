@@ -3,8 +3,8 @@ import './moldCheck.css';
 
 function MoldCheck({ complete, savedState, onChange }) {
   const [checkedState, setCheckedState] = useState({
-    hasItem: savedState?.hasItem || null,
-    noItem: savedState?.noItem || null
+    hasItem: savedState?.hasItem || false,
+    noItem: savedState?.noItem || false
   });
 
   useEffect(() => {
@@ -45,6 +45,7 @@ function MoldCheck({ complete, savedState, onChange }) {
 
   return (
     <div className="checkbox-container">
+
       {complete ?
         <>
           <label style={{display: 'flex', alignItems: 'center'}}>
@@ -90,7 +91,6 @@ function MoldCheck({ complete, savedState, onChange }) {
           </label>
           </>
         }
-      
     </div>
   );
 }
