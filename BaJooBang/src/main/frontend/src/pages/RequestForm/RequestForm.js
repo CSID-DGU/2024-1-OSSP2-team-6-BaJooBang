@@ -43,7 +43,7 @@ function RequestForm() {
     // const [requests, setRequests] = useState([
     //     {
     //         title: '콘센트 위치 확인하고 사진으로 찍어주세요.',
-    //         text: '거실 왼쪽 안에 있습니다.',
+    //         text: '',
     //         images: []
     //     },
     //     {
@@ -82,10 +82,18 @@ function RequestForm() {
     const handleContentEditableChange = (index, event) => {
         if (!complete) {
             const newRequests = [...requests];
-            newRequests[index].text = event.target.innerHTML;
+            newRequests[index].text = event.target.innerText;
             setRequests(newRequests);
         }
     };
+    const handleContentChange = (index, event) => {
+        if (!complete) {
+            const newRequests = [...requests];
+            newRequests[index].text = event.target.value; // Use value from textarea
+            setRequests(newRequests);
+        }
+    };
+    
     
 
     const handleAddRequest = () => {
@@ -190,7 +198,7 @@ function RequestForm() {
     const updateMoldState = (data) => {
         //console.log('곰팡이 get~'+ data.moldLiving);
         setMoldStates({
-            livingRoom: { hasItem: data.moldLiving, noItem: !data.moldLiving },
+            livingRoom: { hasItem: true, noItem: false },
             bathroom: { hasItem: data.moldRest, noItem: !data.moldRest },
             balcony: { hasItem: data.moldVeranda, noItem: !data.moldVeranda },
             shoeRack: { hasItem: data.moldShoes, noItem: !data.moldShoes },
@@ -537,16 +545,17 @@ function RequestForm() {
                                             <div style={{ width: '1.5px', height: '1.5vw', backgroundColor: '#5F5F5F', borderRadius: '1px', marginLeft: '1vw', marginRight: '1vw' }} />
                                             Q. {input.title}
                                         </div>
-                                        <div
-                                            className="plusrequestContent"
-                                            contentEditable={!complete}
-                                            placeholder="요청 사항을 작성해주세요."
-                                            onInput={e => handleContentEditableChange(index, e)}
-                                            ref={el => contentRefs.current[index] = el}
-                                            suppressContentEditableWarning={true}
-                                        >
-                                            {input.text}
+                                        <div className="plusrequestContentWrapper">
+                                            <textarea
+                                                className="plusrequestContent"
+                                                placeholder="요청 사항을 작성해주세요."
+                                                value={input.text}
+                                                onChange={e => handleContentChange(index, e)}
+                                                disabled={complete} // Disable textarea if complete is true
+                                            />
                                         </div>
+
+
                                         <div className='plusrequestImageBox' ref={el => imageBoxRefs.current[index] = el}>
                                         {input.images.map((image, imgIndex) => (
                                             <img
