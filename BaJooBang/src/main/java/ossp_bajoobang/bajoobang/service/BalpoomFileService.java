@@ -28,15 +28,15 @@ public class BalpoomFileService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + request_id));
         for(MultipartFile file : files){
             String filename = file.getOriginalFilename();
+            // 서버에 저장할 경로
             Path targetLocation = getFileStorageLocation(filename);
-            // 서버에 저장은 절대경로로
             file.transferTo(targetLocation);
             log.info("File saved: " + targetLocation.toString());
-            // 상대경로 뽑기
-            Path locationRelative = getLocation_relative(filename);
+            // 가짜경로 뽑기
+            Path locationRelative = getLocationFake(filename);
             File fileEntity = new File();
             fileEntity.setFilename(filename);
-            // 상대경로 저장
+            // 가짜경로 저장
             fileEntity.setFilepath(locationRelative.toString());
             fileEntity.setSize(file.getSize());
             fileEntity.setContentType(file.getContentType());
@@ -54,17 +54,17 @@ public class BalpoomFileService {
         // "/Users/woosungchoi/study/file"
         // /Users/woosungchoi/Desktop/mypage/2024-1-OSSP2-team-6-BaJooBang/BaJooBang/src/main/frontend/public
 
-        return Paths.get("/Users/woosungchoi/Desktop/mypage/2024-1-OSSP2-team-6-BaJooBang/BaJooBang/src/main/frontend/public/public_assets").resolve(filename).normalize();
+        // 서버에 저장할 진짜 경로
+        return Paths.get("/Users/woosungchoi/study/file").resolve(filename).normalize();
 
     }
-    private Path getLocation_relative(String filename){
+    private Path getLocationFake(String filename){
         // "/home/chldntjd49/chldntjd49/images/"
         // "C:\\Users\\i1t28\\OneDrive\\Desktop\\2-2\\2024-1-OSSP2-team-6-BaJooBang\\BaJooBang\\src\\main\\resources\\templates"
         // "/Users/woosungchoi/study/file"
-        // "/Users/woosungchoi/study/file"
-        // /Users/woosungchoi/Desktop/mypage/2024-1-OSSP2-team-6-BaJooBang/BaJooBang/src/main/frontend/public
 
-        return Paths.get("/public_assets").resolve(filename).normalize();
+        // 통신에서 사용할 가짜 경로
+        return Paths.get("/attach/images/").resolve(filename).normalize();
 
     }
 
