@@ -70,6 +70,10 @@ public class BalpoomFileService {
 
     public List<File> returnFileList(){
         return balpoomFileRepository.findAll();
+    public List<File> returnFileList(Long request_id){
+        Request request = requestRepository.findById(request_id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + request_id));
+        return balpoomFileRepository.findByRequest(request);
     }
 
 //    public void saveTestFile(List<MultipartFile> files){

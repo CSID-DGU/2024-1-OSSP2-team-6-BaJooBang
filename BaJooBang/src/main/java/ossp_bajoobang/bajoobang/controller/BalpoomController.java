@@ -122,7 +122,7 @@ public class BalpoomController {
 //        "plusRequest1" : {"설명"}
 
 
-        List<File> files = balpoomFileService.returnFileList();
+        List<File> files = balpoomFileService.returnFileList(request_id);
         List<FileDto> fileDtos = files.stream()
                 .map(this::convertToFileDto)
                 .collect(Collectors.toList());
