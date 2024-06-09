@@ -213,7 +213,7 @@ function RequestForm() {
     // 발품인이 발품 신청하는 api
     const requestPatch = async (request_id, message) => {
         try {
-            const response = await axios.patch(`http://localhost:8000/request?request_id=${request_id}`, {
+            const response = await axios.patch(`/request?request_id=${request_id}`, {
                 message: message,
             }); // Replace with your actual API endpoint
             console.log('Response:', response);
@@ -237,7 +237,7 @@ function RequestForm() {
         formData.append('jsonData', JSON.stringify({ plus_list: inputs }));
 
         try {
-            const response = await axios.post(`http://localhost:8000/request-form?house_id=${house_id}`, formData, {
+            const response = await axios.post(`/request-form?house_id=${house_id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -300,7 +300,7 @@ function RequestForm() {
         }
     
         try {
-            const response = await axios.patch(`http://localhost:8000/balpoom-form`, formData, {
+            const response = await axios.patch(`/balpoom-form`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -328,7 +328,7 @@ function RequestForm() {
             if (!write) {
                 try {
                     // 매물 정보 가져오기
-                    const response = await axios.get(`http://localhost:8000/test-imageget?request_id=${request_id}`);
+                    const response = await axios.get(`/test-imageget?request_id=${request_id}`);
                     const data = response.data;
 
                     let startIndex = 0; // 슬라이싱 시작 인덱스 초기화
