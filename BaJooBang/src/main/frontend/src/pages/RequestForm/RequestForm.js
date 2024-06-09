@@ -163,8 +163,8 @@ function RequestForm() {
         setLightState(state);
     };
     const updateLightState = (data) => { //get할 때
-        console.log('채광 실행' + data)
-        setLightState(data);
+        console.log('채광 실행' + data.lighting);
+        setLightState(data.lighting);
     }
     useEffect(() => {
         console.log('변경된 채광 : ' + lightState);
@@ -187,16 +187,15 @@ function RequestForm() {
     };
     // 곰팡이 get 
     const updateMoldState = (data) => {
-        //console.log('곰팡이 get~'+ data.moldLiving);
         setMoldStates({
-            livingRoom: { hasItem: true, noItem: false },
+            livingRoom: { hasItem: data.moldLiving, noItem: !data.moldLiving },
             bathroom: { hasItem: data.moldRest, noItem: !data.moldRest },
             balcony: { hasItem: data.moldVeranda, noItem: !data.moldVeranda },
             shoeRack: { hasItem: data.moldShoes, noItem: !data.moldShoes },
             windowFrame: { hasItem: data.moldWindow, noItem: !data.moldWindow },
         });
-        //console.log('변경된 곰팡이 : ' + moldStates.livingRoom);
     };
+    
     
 
     // useEffect(() => {
@@ -357,7 +356,7 @@ function RequestForm() {
                     // WaterState 업데이트
                     
                     updateWaterState(data.balpoomForm);
-                    updateLightState(data.balpoomForm.lighting);
+                    updateLightState(data.balpoomForm);
                     updateMoldState(data.balpoomForm);
                 } catch (error) {
                     console.error('Error fetching property info:', error);
@@ -448,7 +447,7 @@ function RequestForm() {
                         complete ? 
                         <LightSelect complete={true} savedState={lightState} />
                         :
-                        <LightSelect complete={false}  onChange={handleLightStateChange} />
+                        <LightSelect complete={false} onChange={handleLightStateChange} />
                     }
                     
                 </div>
