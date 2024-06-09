@@ -477,11 +477,11 @@ function RequestForm() {
                     {
                         complete ? 
                         <>
-                            <MoldBox title={'거실'} complete={true} savedState={moldStates.livingRoom.hasItem} type="livingRoom" />
-                            <MoldBox title={'화장실'} complete={true} savedState={moldStates.bathroom.hasItem} type="bathroom" />
-                            <MoldBox title={'베란다'} complete={true} savedState={moldStates.balcony.hasItem} type="balcony" />
-                            <MoldBox title={'신발장'} complete={true} savedState={moldStates.shoeRack.hasItem} type="shoeRack" />
-                            <MoldBox title={'창틀'} complete={true} savedState={moldStates.windowFrame.hasItem} type="windowFrame" />
+                            <MoldBox title={'거실'} complete={true} savedState={moldStates.livingRoom} type="livingRoom" />
+                            <MoldBox title={'화장실'} complete={true} savedState={moldStates.bathroom} type="bathroom" />
+                            <MoldBox title={'베란다'} complete={true} savedState={moldStates.balcony} type="balcony" />
+                            <MoldBox title={'신발장'} complete={true} savedState={moldStates.shoeRack} type="shoeRack" />
+                            <MoldBox title={'창틀'} complete={true} savedState={moldStates.windowFrame} type="windowFrame" />
                         </>
                         :
                         <>
