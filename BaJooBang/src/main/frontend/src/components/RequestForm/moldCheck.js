@@ -49,7 +49,7 @@ function MoldCheck({ complete, savedState, onChange }) {
         <input
           type="checkbox"
           name="hasItem"
-          checked={checkedState.hasItem}
+          checked={checkedState}
           onChange={handleOnChange}
           disabled={complete}
         />
@@ -59,7 +59,7 @@ function MoldCheck({ complete, savedState, onChange }) {
         <input
           type="checkbox"
           name="noItem"
-          checked={checkedState.noItem}
+          checked={!checkedState}
           onChange={handleOnChange}
           disabled={complete}
         />
