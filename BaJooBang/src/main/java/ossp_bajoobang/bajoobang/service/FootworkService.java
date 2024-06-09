@@ -64,4 +64,17 @@ public class FootworkService {
 
         return byMember.size();
     }
+
+    public Map<String, Object> getMatchingInfo(Member member, Long requestId) {
+        Map<String, Object> matchingInfo = new HashMap<>();
+        Request request = requestRepository.findById(requestId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + requestId));
+        matchingInfo.put("requester", request.getBalpoomin().getName());
+        matchingInfo.put("worker", member.getName());
+        matchingInfo.put("worker_id", member.getId());
+        matchingInfo.put("price", request.getPriceRequest());
+        matchingInfo.put("request_id", request.getRequestId());
+        matchingInfo.put("date", request.getRequestDate());
+        return matchingInfo;
+    }
 }

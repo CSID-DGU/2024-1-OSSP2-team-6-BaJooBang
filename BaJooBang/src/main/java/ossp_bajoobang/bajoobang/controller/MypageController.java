@@ -134,6 +134,23 @@ public class MypageController {
         }
     }
 
+    // 신청발품에서 매칭 정보 확인
+    @GetMapping("/footwork/matching")
+    public ResponseEntity<?> getMatchingOfFootwork(HttpServletRequest request,
+                                                   @RequestBody Long requestId) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // 세션에서 멤버를 꺼내오기
+            Member member = (Member) session.getAttribute("loginMember");
+            // 매칭 정보 가져오기
+            Map<String, Object> matchingInfo = footworkService.getMatchingInfo(member, requestId);
+            return ResponseEntity.ok(matchingInfo);
+        }
+        else {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
+    }
+
     // 알람 리스트 보내기
     @GetMapping("/alarm")
     public ResponseEntity<?> getAlarm(HttpServletRequest request) {
