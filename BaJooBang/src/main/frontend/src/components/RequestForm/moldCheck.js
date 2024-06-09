@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './moldCheck.css';
 
 function MoldCheck({ complete, savedState, onChange }) {
@@ -13,8 +13,9 @@ function MoldCheck({ complete, savedState, onChange }) {
     if (prevSavedStateRef.current !== savedState && complete) {
       setCheckedState(savedState);
       prevSavedStateRef.current = savedState;
+      console.log(checkedState);
     }
-  }, [savedState, complete]);
+  }, [savedState, complete, checkedState]);
 
   useEffect(() => {
     if (!complete && onChange) {
@@ -22,7 +23,7 @@ function MoldCheck({ complete, savedState, onChange }) {
     }
   }, [checkedState, complete, onChange]);
 
-  const handleOnChange = (e) => {
+  const handleOnChange = useCallback((e) => {
     if (!complete) {
       const { name } = e.target;
       setCheckedState(prevState => {
@@ -42,7 +43,7 @@ function MoldCheck({ complete, savedState, onChange }) {
         return newState;
       });
     }
-  };
+  }, [complete]);
 
   return (
     <div className="checkbox-container">
@@ -52,6 +53,7 @@ function MoldCheck({ complete, savedState, onChange }) {
           name="hasItem"
           checked={checkedState.hasItem}
           onChange={handleOnChange}
+          disabled={complete}
         />
         <p style={{fontSize: '0.9vw'}}>있음</p>
       </label>
@@ -61,6 +63,7 @@ function MoldCheck({ complete, savedState, onChange }) {
           name="noItem"
           checked={checkedState.noItem}
           onChange={handleOnChange}
+          disabled={complete}
         />
         <p style={{fontSize: '0.9vw'}}>없음</p>
       </label>

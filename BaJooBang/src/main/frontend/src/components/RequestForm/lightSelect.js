@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 function LightSelect({ complete, savedState, onChange }) {
   const [selectedOption, setSelectedOption] = useState(savedState);
@@ -12,17 +12,17 @@ function LightSelect({ complete, savedState, onChange }) {
     }
   }, [savedState, complete]);
 
+  const handleOptionChange = useCallback((e) => {
+    if (!complete) {
+      setSelectedOption(e.target.value);
+    }
+  }, [complete]);
+
   useEffect(() => {
     if (!complete && onChange) {
       onChange(selectedOption);
     }
   }, [selectedOption, complete, onChange]);
-
-  const handleOptionChange = (e) => {
-    if (!complete) {
-      setSelectedOption(e.target.value);
-    }
-  };
 
   return (
     <form style={{ display: 'flex', flexDirection: 'column', height: '10vw', justifyContent: 'space-around', marginLeft: '4vw' }}>

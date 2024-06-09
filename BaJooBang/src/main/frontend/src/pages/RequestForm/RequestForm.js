@@ -25,11 +25,11 @@ function RequestForm() {
     let house_id = null;
     let request_id = null;
 
-    if (id.startsWith('a')) {
-        house_id = id.substring(1);
-    } else {
-        request_id = id;
-    }
+    // if (id.startsWith('a')) {
+    //     house_id = id.substring(1);
+    // } else {
+    //     request_id = id;
+    // }
 
     //console.log("Location state:", location.state);
 
@@ -58,8 +58,8 @@ function RequestForm() {
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
     const [write, setWrite] = useState(isFromInformation); // Set write based on navigation source
-    const [apply, setApply] = useState(false); // 발품인이 신청했는지에 대한 상태
-    const [complete, setComplete] = useState(false); // 발품인이 발품서를 작성했는지에 대한 상태
+    const [apply, setApply] = useState(true); // 발품인이 신청했는지에 대한 상태
+    const [complete, setComplete] = useState(true); // 발품인이 발품서를 작성했는지에 대한 상태
 
     const [requests, setRequests] = useState([]);
     //const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: request.text })));
@@ -164,17 +164,20 @@ function RequestForm() {
         console.log('채광 실행' + data)
         setLightState(data);
     }
+    useEffect(() => {
+        console.log('변경된 채광 : ' + lightState);
+    }, [lightState]);
     const handleLightStateChange = (state) => { //post할 때
         setLightState(state);
     };
     
     // 곰팡이 데이터
     const [moldStates, setMoldStates] = useState({
-        livingRoom: { hasItem: false, noItem: false },
-        bathroom: { hasItem: false, noItem: false },
-        balcony: { hasItem: false, noItem: false },
-        shoeRack: { hasItem: false, noItem: false },
-        windowFrame: { hasItem: false, noItem: false },
+        livingRoom: { hasItem: null, noItem: null },
+        bathroom: { hasItem: null, noItem: null },
+        balcony: { hasItem: null, noItem: null },
+        shoeRack: { hasItem: null, noItem: null },
+        windowFrame: { hasItem: null, noItem: null },
     });
     // 곰팡이 get 
     const updateMoldState = (data) => {
@@ -186,6 +189,7 @@ function RequestForm() {
             shoeRack: { hasItem: data.moldShoes, noItem: !data.moldShoes },
             windowFrame: { hasItem: data.moldWindow, noItem: !data.moldWindow },
         });
+        console.log('변경된 곰팡이 : ' + moldStates.livingRoom);
     };
     //곰팡이 post
     const handleMoldStateChange = (type, state) => { 
@@ -311,12 +315,12 @@ function RequestForm() {
     useEffect(() => {
         const fetchData = async () => {
             // console.log('useEffect 실행');
-            // updateWaterState('');
+            // updateWaterState();
             // console.log('updateWaterState 호출');
-            // updateLightState('');
-            // console.log('updateLightState 호출');
-            // updateMoldState('');
-            // console.log('updateMoldState 호출');
+            updateLightState('건물에 가림');
+            console.log('updateLightState 호출');
+            updateMoldState('');
+            console.log('updateMoldState 호출');
 
             if (!write) {
                 try {
