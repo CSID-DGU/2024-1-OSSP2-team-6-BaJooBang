@@ -3,8 +3,10 @@ import './Modal.css';
 import {ReactComponent as Profile2} from '../../components/images/profile2.svg';
 import {ReactComponent as Message} from '../../components/images/message.svg';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Modal({ isOpen, onClose, data, Worker_id, Request_id }) {
+    const navigate = useNavigate();
     if (!isOpen) return null;
 
     // Fetch data from the API
