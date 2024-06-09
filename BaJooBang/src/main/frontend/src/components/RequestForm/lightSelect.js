@@ -18,11 +18,15 @@ function LightSelect({ complete, savedState, onChange }) {
     }
   }, [complete]);
 
-  useEffect(() => {
-    if (!complete && onChange) {
+  const handleChange = useCallback(() => {
+    if (!complete) {
       onChange(selectedOption);
     }
   }, [selectedOption, complete, onChange]);
+
+  useEffect(() => {
+    handleChange();
+  }, [selectedOption, handleChange]);
 
   return (
     <form style={{ display: 'flex', flexDirection: 'column', height: '10vw', justifyContent: 'space-around', marginLeft: '4vw' }}>
