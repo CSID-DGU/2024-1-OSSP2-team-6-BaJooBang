@@ -1,17 +1,14 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 function LightSelect({ complete, savedState, onChange }) {
   const [selectedOption, setSelectedOption] = useState(savedState);
-  const prevSavedStateRef = useRef(savedState);
 
   useEffect(() => {
-    console.log('prev : '+ prevSavedStateRef.current);
-    if (prevSavedStateRef.current !== savedState && complete) {
+    if (complete && savedState !== selectedOption) {
       console.log('채광', savedState);
       setSelectedOption(savedState);
-      prevSavedStateRef.current = savedState;
     }
-  }, [savedState, complete]);
+  }, [savedState, complete, selectedOption]);
 
   const handleOptionChange = useCallback((e) => {
     if (!complete) {
@@ -19,15 +16,11 @@ function LightSelect({ complete, savedState, onChange }) {
     }
   }, [complete]);
 
-  const handleChange = useCallback(() => {
+  useEffect(() => {
     if (!complete) {
       onChange(selectedOption);
     }
   }, [selectedOption, complete, onChange]);
-
-  useEffect(() => {
-    handleChange();
-  }, [selectedOption, handleChange]);
 
   return (
     <form style={{ display: 'flex', flexDirection: 'column', height: '10vw', justifyContent: 'space-around', marginLeft: '4vw' }}>

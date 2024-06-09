@@ -1,26 +1,22 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './moldCheck.css';
 
 function MoldCheck({ complete, savedState, onChange }) {
   const [checkedState, setCheckedState] = useState({
-    hasItem: false,
-    noItem: false
+    hasItem: savedState.hasItem,
+    noItem: savedState.noItem
   });
 
-  const prevSavedStateRef = useRef(savedState);
-
   useEffect(() => {
-    if (prevSavedStateRef.current !== savedState && complete) {
+    if (complete) {
       setCheckedState(savedState);
-      prevSavedStateRef.current = savedState;
-      console.log('곰팡이 상태 : '+ checkedState);
+      console.log('곰팡이 상태 : ', savedState);
     }
-  }, [savedState, complete, checkedState]);
+  }, [savedState, complete]);
 
   useEffect(() => {
     if (!complete && onChange) {
       onChange(checkedState);
-      //console.log(checkedState);
     }
   }, [checkedState, complete, onChange]);
 
