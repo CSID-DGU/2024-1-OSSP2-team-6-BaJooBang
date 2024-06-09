@@ -552,9 +552,6 @@ function RequestForm() {
                                                 onClick={() => setSelectedImage(complete ? image : image.src)} 
                                             />
                                         ))}
-
-
-
                                         </div>
                                         {!complete && (
                                             <>

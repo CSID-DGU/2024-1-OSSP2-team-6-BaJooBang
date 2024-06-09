@@ -29,13 +29,15 @@ public class BalpoomFileService {
         for(MultipartFile file : files){
             String filename = file.getOriginalFilename();
             Path targetLocation = getFileStorageLocation(filename);
-
+            // 서버에 저장은 절대경로로
             file.transferTo(targetLocation);
             log.info("File saved: " + targetLocation.toString());
-
+            // 상대경로 뽑기
+            Path locationRelative = getLocation_relative(filename);
             File fileEntity = new File();
             fileEntity.setFilename(filename);
-            fileEntity.setFilepath(targetLocation.toString());
+            // 상대경로 저장
+            fileEntity.setFilepath(locationRelative.toString());
             fileEntity.setSize(file.getSize());
             fileEntity.setContentType(file.getContentType());
             fileEntity.setUploadedDate(LocalDateTime.now());
@@ -48,7 +50,22 @@ public class BalpoomFileService {
     private Path getFileStorageLocation(String filename){
         // "/home/chldntjd49/chldntjd49/images/"
         // "C:\\Users\\i1t28\\OneDrive\\Desktop\\2-2\\2024-1-OSSP2-team-6-BaJooBang\\BaJooBang\\src\\main\\resources\\templates"
-        return Paths.get("/home/chldntjd49/chldntjd49/images/").resolve(filename).normalize();
+        // "/Users/woosungchoi/study/file"
+        // "/Users/woosungchoi/study/file"
+        // /Users/woosungchoi/Desktop/mypage/2024-1-OSSP2-team-6-BaJooBang/BaJooBang/src/main/frontend/public
+
+        return Paths.get("/Users/woosungchoi/Desktop/mypage/2024-1-OSSP2-team-6-BaJooBang/BaJooBang/src/main/frontend/public/public_assets").resolve(filename).normalize();
+
+    }
+    private Path getLocation_relative(String filename){
+        // "/home/chldntjd49/chldntjd49/images/"
+        // "C:\\Users\\i1t28\\OneDrive\\Desktop\\2-2\\2024-1-OSSP2-team-6-BaJooBang\\BaJooBang\\src\\main\\resources\\templates"
+        // "/Users/woosungchoi/study/file"
+        // "/Users/woosungchoi/study/file"
+        // /Users/woosungchoi/Desktop/mypage/2024-1-OSSP2-team-6-BaJooBang/BaJooBang/src/main/frontend/public
+
+        return Paths.get("/public_assets").resolve(filename).normalize();
+
     }
 
     public List<File> returnFileList(){
