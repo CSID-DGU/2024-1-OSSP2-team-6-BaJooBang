@@ -10,7 +10,7 @@ function Modal({ isOpen, onClose, data, Worker_id, Request_id }) {
     // Fetch data from the API
     const fetchData = async () => {
         try {
-            const response = await axios.patch('http://localhost:8000/member/inquiry/accept', {
+            const response = await axios.patch('/member/inquiry/accept', {
                 request_id: Request_id,
                 worker_id: Worker_id,
             }); // Replace with your actual API endpoint

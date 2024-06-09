@@ -14,7 +14,7 @@ function ListPage4() {
         // Fetch data from the API
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/member/footwork'); // Replace with your actual API endpoint
+                const response = await axios.get('/member/footwork'); // Replace with your actual API endpoint
                 const requestData = response.data.map((item, index) => ({
                     Num: index + 1,
                     Address: item.address,
