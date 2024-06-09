@@ -7,19 +7,20 @@ function MoldCheck({ complete, savedState, onChange }) {
     noItem: false
   });
 
-  const prevSavedStateRef = useRef();
+  const prevSavedStateRef = useRef(savedState);
 
   useEffect(() => {
     if (prevSavedStateRef.current !== savedState && complete) {
       setCheckedState(savedState);
       prevSavedStateRef.current = savedState;
-      console.log(checkedState);
+      console.log('곰팡이 상태 : '+ checkedState);
     }
   }, [savedState, complete, checkedState]);
 
   useEffect(() => {
     if (!complete && onChange) {
       onChange(checkedState);
+      //console.log(checkedState);
     }
   }, [checkedState, complete, onChange]);
 
