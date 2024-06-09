@@ -25,7 +25,7 @@ function SignUpBox() {
         };
         try {
             console.log(name);
-            const response = await axios.post('http://localhost:8000/signup', data, {
+            const response = await axios.post('/signup', data, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

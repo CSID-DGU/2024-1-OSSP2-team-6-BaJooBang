@@ -104,7 +104,7 @@ const DopageMap = ({ search, showOnlyNotified }) => {
     const fetchData = async () => {
       try {
         // axios를 사용하여 GET 요청 보내고 데이터 받아오기
-        const response = await axios.get(`http://localhost:8000/balpoom?local_id=1`);
+        const response = await axios.get(`/balpoom?local_id=1`);
         // API에서 받은 데이터를 dopositions 상태에 설정
         setPositions(response.data);
       } catch (error) {

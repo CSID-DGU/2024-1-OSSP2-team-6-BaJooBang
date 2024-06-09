@@ -3,21 +3,21 @@ import './moldCheck.css';
 
 function MoldCheck({ complete, savedState, onChange }) {
   const [checkedState, setCheckedState] = useState({
-    hasItem: savedState?.hasItem || null,
-    noItem: savedState?.noItem || null
+    hasItem: savedState?.hasItem || false,
+    noItem: savedState?.noItem || false
   });
 
   useEffect(() => {
-    if (complete) {
+    if (savedState) {
       setCheckedState(savedState);
       console.log('곰팡이 상태 : ', savedState);
     }
-  }, [savedState, complete]);
+  }, [savedState]);
 
   useEffect(() => {
     if (!complete && onChange) {
       onChange(checkedState);
-      //console.log('check: '+checkedState.hasItem)
+      console.log('check: '+checkedState.hasItem)
     }
   }, [checkedState, complete, onChange]);
 
@@ -31,10 +31,10 @@ function MoldCheck({ complete, savedState, onChange }) {
         };
 
         // Ensure only one checkbox is selected at a time
-        if (name === 'hasItem' && newState[name]) {
+        if (newState.hasItem) {
           newState.noItem = false;
         }
-        if (name === 'noItem' && newState[name]) {
+        if (newState.noItem) {
           newState.hasItem = false;
         }
 
@@ -45,11 +45,12 @@ function MoldCheck({ complete, savedState, onChange }) {
 
   return (
     <div className="checkbox-container">
+
       <label style={{display: 'flex', alignItems: 'center'}}>
         <input
           type="checkbox"
           name="hasItem"
-          checked={checkedState}
+          checked={checkedState.hasItem}
           onChange={handleOnChange}
           disabled={complete}
         />
@@ -59,12 +60,13 @@ function MoldCheck({ complete, savedState, onChange }) {
         <input
           type="checkbox"
           name="noItem"
-          checked={!checkedState}
+          checked={checkedState.noItem}
           onChange={handleOnChange}
           disabled={complete}
         />
         <p style={{fontSize: '0.9vw'}}>없음</p>
       </label>
+
     </div>
   );
 }
