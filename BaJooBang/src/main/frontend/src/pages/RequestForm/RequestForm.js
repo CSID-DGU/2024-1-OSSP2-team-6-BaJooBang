@@ -459,36 +459,35 @@ function RequestForm() {
                         complete={complete} 
                         savedState={moldStates.livingRoom} 
                         onChange={(state) => handleMoldStateChange('livingRoom', state)}
-                        key={`livingRoom-${complete}`} 
+                        
                     />
                     <MoldBox 
                         title={'화장실'} 
                         complete={complete} 
                         savedState={moldStates.bathroom} 
                         onChange={(state) => handleMoldStateChange('bathroom', state)} 
-                        key={`livingRoom-${complete}`}
+                        
                         />
                     <MoldBox 
                         title={'베란다'} 
                         complete={complete} 
                         savedState={moldStates.balcony} 
                         onChange={(state) => handleMoldStateChange('balcony', state)} 
-                        key={`livingRoom-${complete}`}
+                        
                         />
                     <MoldBox 
                         title={'신발장'} 
                         complete={complete} 
                         savedState={moldStates.shoeRack} 
                         onChange={(state) => handleMoldStateChange('shoeRack', state)} 
-                        key={`livingRoom-${complete}`}
+                        
                         />
                     <MoldBox 
                         title={'창틀'} 
                         complete={complete} 
                         savedState={moldStates.windowFrame} 
                         onChange={(state) => handleMoldStateChange('windowFrame', state)} 
-                        key={`livingRoom-${complete}`}
-                        />
+                                                />
                     </div>
                 </div>
 
