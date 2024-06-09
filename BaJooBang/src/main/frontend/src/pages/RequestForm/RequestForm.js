@@ -161,7 +161,7 @@ function RequestForm() {
     // 채광 get
     const [lightState, setLightState] = useState('');
     const updateLightState = (data) => { //get할 때
-        console.log('실행된당')
+        console.log('채광 실행' + data)
         setLightState(data);
     }
     const handleLightStateChange = (state) => { //post할 때
@@ -178,6 +178,7 @@ function RequestForm() {
     });
     // 곰팡이 get 
     const updateMoldState = (data) => {
+        console.log('곰팡이 get~'+ data.moldLiving);
         setMoldStates({
             livingRoom: { hasItem: data.moldLiving, noItem: !data.moldLiving },
             bathroom: { hasItem: data.moldRest, noItem: !data.moldRest },
