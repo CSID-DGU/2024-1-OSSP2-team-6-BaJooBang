@@ -188,7 +188,7 @@ function RequestForm() {
     };
     // 곰팡이 get 
     const updateMoldState = (data) => {
-        console.log('곰팡이 get~'+ data.moldLiving);
+        //console.log('곰팡이 get~'+ data.moldLiving);
         setMoldStates({
             livingRoom: { hasItem: data.moldLiving, noItem: !data.moldLiving },
             bathroom: { hasItem: data.moldRest, noItem: !data.moldRest },
@@ -196,7 +196,7 @@ function RequestForm() {
             shoeRack: { hasItem: data.moldShoes, noItem: !data.moldShoes },
             windowFrame: { hasItem: data.moldWindow, noItem: !data.moldWindow },
         });
-        console.log('변경된 곰팡이 : ' + moldStates.livingRoom);
+        //console.log('변경된 곰팡이 : ' + moldStates.livingRoom);
     };
     
 
@@ -252,6 +252,8 @@ function RequestForm() {
     // 발품인이 발품서 작성하는 api
     async function CompletePost() {
         const formData = new FormData();
+        console.log(moldStates.livingRoom.hasItem)
+        console.log(moldStates.bathroom.hasItem)
     
         const jsonData = {
             powerWater: waterState.sink.selected,
@@ -319,7 +321,7 @@ function RequestForm() {
             // console.log('updateWaterState 호출');
             // updateLightState('건물에 가림');
             // console.log('updateLightState 호출');
-            // updateMoldState('');
+            // updateMoldState(true);
             // console.log('updateMoldState 호출');
 
             if (!write) {
@@ -443,7 +445,7 @@ function RequestForm() {
                         <Sun />
                         <p style={{ color: '#5F5F5F', fontSize: '21px' }}>채광</p>
                     </div>
-                    <LightSelect complete={complete} savedState={lightState} onChange={handleLightStateChange} />
+                    <LightSelect complete={complete} savedState={lightState} onChange={(state)=>handleLightStateChange(state)} />
                 </div>
 
                 <div className='requestBox'>
@@ -550,12 +552,11 @@ function RequestForm() {
                                         {input.images.map((image, imgIndex) => (
                                             <img 
                                                 key={imgIndex} 
-                                                src={image.src} 
+                                                src={complete ? image : image.src} // complete가 true일 때 .src를 제거
                                                 style={{ width: '50px', height: '50px', cursor: 'pointer' }} 
-                                                onClick={() => setSelectedImage(image.src)} 
+                                                onClick={() => setSelectedImage(complete ? image : image.src)} 
                                             />
                                         ))}
-
                                         </div>
                                         {!complete && (
                                             <>
