@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 function LightSelect({ complete, savedState, onChange }) {
   const [selectedOption, setSelectedOption] = useState(savedState);
-  const prevSavedStateRef = useRef();
+  const prevSavedStateRef = useRef(savedState);
 
   useEffect(() => {
+    console.log('prev : '+ prevSavedStateRef.current);
     if (prevSavedStateRef.current !== savedState && complete) {
       console.log('채광', savedState);
       setSelectedOption(savedState);
