@@ -162,9 +162,9 @@ function RequestForm() {
     const handleLightStateChange = (state) => { //post할 때
         setLightState(state);
     };
-    const updateLightState = (data) => { //get할 때
-        console.log('채광 실행' + data.lighting);
-        setLightState(data.lighting);
+    const updateLightState = (data) => { 
+        console.log('채광 실행', data); // 로그 추가
+        setLightState(data);
     }
     useEffect(() => {
         console.log('변경된 채광 : ' + lightState);
@@ -179,12 +179,14 @@ function RequestForm() {
         windowFrame: { hasItem: null, noItem: null },
     });
     //곰팡이 post
-    const handleMoldStateChange = (type, state) => { 
+    const handleMoldStateChange = (type, state) => {
+        //console.log('곰팡이 상태 변경:', type, state);
         setMoldStates(prevState => ({
             ...prevState,
             [type]: state
         }));
     };
+    
     // 곰팡이 get 
     const updateMoldState = (data) => {
         setMoldStates({
@@ -270,6 +272,7 @@ function RequestForm() {
             moldShoes: moldStates.shoeRack.hasItem,
             moldWindow: moldStates.windowFrame.hasItem,
         };
+        console.log('곰팜 : '+ moldStates.livingRoom.hasItem)
     
         formData.append('jsonData', JSON.stringify(jsonData));
         formData.append('request_id', request_id);
@@ -356,7 +359,7 @@ function RequestForm() {
                     // WaterState 업데이트
                     
                     updateWaterState(data.balpoomForm);
-                    updateLightState(data.balpoomForm);
+                    updateLightState(data.balpoomForm.lighting);
                     updateMoldState(data.balpoomForm);
                 } catch (error) {
                     console.error('Error fetching property info:', error);
@@ -447,8 +450,9 @@ function RequestForm() {
                         complete ? 
                         <LightSelect complete={true} savedState={lightState} />
                         :
-                        <LightSelect complete={false} onChange={handleLightStateChange} />
+                        <LightSelect complete={false} savedState={lightState} onChange={handleLightStateChange} />
                     }
+
                     
                 </div>
 
@@ -461,19 +465,19 @@ function RequestForm() {
                     {
                         complete ? 
                         <>
-                            <MoldBox title={'거실'} complete={true} savedState={moldStates.livingRoom}  />
-                            <MoldBox title={'화장실'} complete={true} savedState={moldStates.bathroom}  />
-                            <MoldBox title={'베란다'} complete={true} savedState={moldStates.balcony}  />
-                            <MoldBox title={'신발장'} complete={true} savedState={moldStates.shoeRack}  />
-                            <MoldBox title={'창틀'} complete={true} savedState={moldStates.windowFrame}  />
+                            <MoldBox title={'거실'} complete={true} savedState={moldStates.livingRoom} type="livingRoom" />
+                            <MoldBox title={'화장실'} complete={true} savedState={moldStates.bathroom} type="bathroom" />
+                            <MoldBox title={'베란다'} complete={true} savedState={moldStates.balcony} type="balcony" />
+                            <MoldBox title={'신발장'} complete={true} savedState={moldStates.shoeRack} type="shoeRack" />
+                            <MoldBox title={'창틀'} complete={true} savedState={moldStates.windowFrame} type="windowFrame" />
                         </>
                         :
                         <>
-                            <MoldBox title={'거실'} complete={false} onChange={handleMoldStateChange} />
-                            <MoldBox title={'화장실'} complete={false} onChange={handleMoldStateChange} />
-                            <MoldBox title={'베란다'} complete={false} onChange={handleMoldStateChange} />
-                            <MoldBox title={'신발장'} complete={false} onChange={handleMoldStateChange} />
-                            <MoldBox title={'창틀'} complete={false} onChange={handleMoldStateChange} />
+                            <MoldBox title={'거실'} complete={false} onChange={handleMoldStateChange} type="livingRoom" />
+                            <MoldBox title={'화장실'} complete={false} onChange={handleMoldStateChange} type="bathroom" />
+                            <MoldBox title={'베란다'} complete={false} onChange={handleMoldStateChange} type="balcony" />
+                            <MoldBox title={'신발장'} complete={false} onChange={handleMoldStateChange} type="shoeRack" />
+                            <MoldBox title={'창틀'} complete={false} onChange={handleMoldStateChange} type="windowFrame" />
                         </>
                     }
 
