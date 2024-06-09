@@ -39,8 +39,14 @@ function Modal({ isOpen, onClose, data, Worker_id, Request_id }) {
                         <div className='modalButton'>
                             요청 거부
                         </div>
-                        <div className='modalButton' style={{backgroundColor: 'rgba(210, 222, 50, 0.4)'}} onClick={fetchData}>
-                            요청 수락
+                        <div 
+                        className='modalButton' 
+                        style={{ backgroundColor: 'rgba(210, 222, 50, 0.4)' }} 
+                        onClick={() => { 
+                            fetchData(); // 데이터를 가져오는 함수 호출
+                            navigate('/member'); // 이동할 경로를 지정
+                        }}
+                    >                              요청 수락
                         </div>
                         <div/>
                     </div>

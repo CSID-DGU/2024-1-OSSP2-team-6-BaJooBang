@@ -630,9 +630,10 @@ function RequestForm() {
                                     onChange={(e) => setRequestMessage(e.target.value)}
                                 />
                                 <button 
-                                    onClick={() => { requestPatch(request_id, requestMessage); setApply(true); closeModal(); }}
+                                    onClick={() => { requestPatch(request_id, requestMessage); setApply(true); closeModal(); navigate('/member'); }}
                                     className='modal-button'
                                 >
+
                                     신청하기
                                 </button>
                             </div>
