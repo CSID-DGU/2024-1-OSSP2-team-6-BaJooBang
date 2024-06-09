@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 function LightSelect({ complete, savedState, onChange }) {
   const [selectedOption, setSelectedOption] = useState(savedState);
+  const prevSavedStateRef = useRef();
 
   useEffect(() => {
-    if (complete) {
-      console.log('채광'+ savedState);
+    if (prevSavedStateRef.current !== savedState && complete) {
+      console.log('채광', savedState);
       setSelectedOption(savedState);
+      prevSavedStateRef.current = savedState;
     }
   }, [savedState, complete]);
 
@@ -23,7 +25,7 @@ function LightSelect({ complete, savedState, onChange }) {
   };
 
   return (
-    <form style={{display: 'flex', flexDirection: 'column', height: '10vw', justifyContent: 'space-around', marginLeft: '4vw'}}>
+    <form style={{ display: 'flex', flexDirection: 'column', height: '10vw', justifyContent: 'space-around', marginLeft: '4vw' }}>
       <label>
         <input
           type="radio"
