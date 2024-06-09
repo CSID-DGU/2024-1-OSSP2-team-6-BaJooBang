@@ -26,7 +26,7 @@ function LoginBox() {
         };
         try {
             console.log(email);
-            const response = await axios.post('http://localhost:8000/login', data, {
+            const response = await axios.post('/login', data, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

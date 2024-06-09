@@ -27,7 +27,7 @@ const Imformation = ({ positions }) => {
 // 매물지도 상세정보 api 연결
       const fetchPosition = async () => {
         try {
-          const response = await axios.get(`http://localhost:8000/helpinfo/detail?house_id=${house_id}`);
+          const response = await axios.get(`/helpinfo/detail?house_id=${house_id}`);
           setPosition(response.data);
         } catch (error) {
           console.error('Failed to fetch position:', error);

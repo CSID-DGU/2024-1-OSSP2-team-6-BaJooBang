@@ -14,7 +14,7 @@ function HeaderBar() {
 
     try {
       const sessionId = sessionStorage.getItem('sessionId'); // 세션 ID를 세션 스토리지에서 가져옴
-      const response = await axios.post('http://localhost:8000/logout', {}, {
+      const response = await axios.post('/logout', {}, {
         headers: {
           'Authorization': `Bearer ${sessionId}`,
         },
