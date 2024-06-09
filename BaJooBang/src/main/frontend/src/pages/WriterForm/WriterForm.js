@@ -56,7 +56,7 @@ import { ReactComponent as Check } from '../../components/images/check(heavy).sv
                 console.log(price);
                 console.log(date);
                 console.log(inputs);
-                const response = await axios.post(`http://localhost:8000/request-form?house_id=${house_id}`, data, {
+                const response = await axios.post(`/request-form?house_id=${house_id}`, data, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
