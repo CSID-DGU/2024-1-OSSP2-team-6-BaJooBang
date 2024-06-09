@@ -4,24 +4,19 @@ function LightSelect({ complete, savedState, onChange }) {
   const [selectedOption, setSelectedOption] = useState(savedState);
 
   useEffect(() => {
-    
-    if (savedState) {
+    if (complete && savedState) {
       setSelectedOption(savedState);
       console.log('채광', savedState);
     }
-  }, [savedState]);
+  }, [savedState, complete]);
 
   const handleOptionChange = useCallback((e) => {
     if (!complete) {
-      setSelectedOption(e.target.value);
+      const newValue = e.target.value;
+      setSelectedOption(newValue);
+      onChange(newValue);
     }
-  }, [complete]);
-
-  useEffect(() => {
-    if (!complete) {
-      onChange(selectedOption);
-    }
-  }, [selectedOption, complete, onChange]);
+  }, [complete, onChange]);
 
   return (
     <form style={{ display: 'flex', flexDirection: 'column', height: '10vw', justifyContent: 'space-around', marginLeft: '4vw' }}>
