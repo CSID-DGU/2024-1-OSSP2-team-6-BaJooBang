@@ -3,8 +3,8 @@ import './moldCheck.css';
 
 function MoldCheck({ complete, savedState, onChange }) {
   const [checkedState, setCheckedState] = useState({
-    hasItem: savedState?.hasItem || null,
-    noItem: savedState?.noItem || null
+    hasItem: savedState?.hasItem || false,
+    noItem: savedState?.noItem || false
   });
 
   useEffect(() => {
