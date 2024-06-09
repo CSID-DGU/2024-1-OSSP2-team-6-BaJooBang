@@ -17,6 +17,7 @@ function MoldCheck({ complete, savedState, onChange }) {
   useEffect(() => {
     if (!complete && onChange) {
       onChange(checkedState);
+      //console.log('check: '+checkedState.hasItem)
     }
   }, [checkedState, complete, onChange]);
 

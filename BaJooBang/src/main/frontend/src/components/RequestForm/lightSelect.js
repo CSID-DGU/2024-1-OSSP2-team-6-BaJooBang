@@ -4,11 +4,12 @@ function LightSelect({ complete, savedState, onChange }) {
   const [selectedOption, setSelectedOption] = useState(savedState);
 
   useEffect(() => {
-    if (complete && savedState !== selectedOption) {
-      console.log('채광', savedState);
+    
+    if (savedState) {
       setSelectedOption(savedState);
+      console.log('채광', savedState);
     }
-  }, [savedState, complete, selectedOption]);
+  }, [savedState]);
 
   const handleOptionChange = useCallback((e) => {
     if (!complete) {
