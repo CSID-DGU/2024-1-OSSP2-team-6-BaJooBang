@@ -25,11 +25,11 @@ function RequestForm() {
     let house_id = null;
     let request_id = null;
 
-    if (id.startsWith('a')) {
-        house_id = id.substring(1);
-    } else {
-        request_id = id;
-    }
+    // if (id.startsWith('a')) {
+    //     house_id = id.substring(1);
+    // } else {
+    //     request_id = id;
+    // }
 
     //console.log("Location state:", location.state);
 
@@ -58,8 +58,8 @@ function RequestForm() {
     const [price, setPrice] = useState('');
     const [date, setDate] = useState('');
     const [write, setWrite] = useState(isFromInformation); // Set write based on navigation source
-    const [apply, setApply] = useState(false); // 발품인이 신청했는지에 대한 상태
-    const [complete, setComplete] = useState(false); // 발품인이 발품서를 작성했는지에 대한 상태
+    const [apply, setApply] = useState(true); // 발품인이 신청했는지에 대한 상태
+    const [complete, setComplete] = useState(true); // 발품인이 발품서를 작성했는지에 대한 상태
 
     const [requests, setRequests] = useState([]);
     //const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: request.text })));
@@ -318,10 +318,10 @@ function RequestForm() {
             // console.log('useEffect 실행');
             // updateWaterState();
             // console.log('updateWaterState 호출');
-            // updateLightState('건물에 가림');
-            // console.log('updateLightState 호출');
-            // updateMoldState(true);
-            // console.log('updateMoldState 호출');
+            updateLightState('건물에 가림');
+            console.log('updateLightState 호출');
+            updateMoldState(true);
+            console.log('updateMoldState 호출');
 
             if (!write) {
                 try {
@@ -444,7 +444,13 @@ function RequestForm() {
                         <Sun />
                         <p style={{ color: '#5F5F5F', fontSize: '21px' }}>채광</p>
                     </div>
-                    <LightSelect complete={complete} savedState={lightState} onChange={(state)=>handleLightStateChange(state)} />
+                    {
+                        complete ? 
+                        <LightSelect complete={true} savedState={lightState} />
+                        :
+                        <LightSelect complete={false}  onChange={handleLightStateChange} />
+                    }
+                    
                 </div>
 
                 <div className='requestBox'>
@@ -453,40 +459,25 @@ function RequestForm() {
                         <p style={{ color: '#5F5F5F', fontSize: '21px' }}>곰팡이</p>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
-                    <MoldBox 
-                        title={'거실'} 
-                        complete={complete} 
-                        savedState={moldStates.livingRoom} 
-                        onChange={(state) => handleMoldStateChange('livingRoom', state)}
-                        
-                    />
-                    <MoldBox 
-                        title={'화장실'} 
-                        complete={complete} 
-                        savedState={moldStates.bathroom} 
-                        onChange={(state) => handleMoldStateChange('bathroom', state)} 
-                        
-                        />
-                    <MoldBox 
-                        title={'베란다'} 
-                        complete={complete} 
-                        savedState={moldStates.balcony} 
-                        onChange={(state) => handleMoldStateChange('balcony', state)} 
-                        
-                        />
-                    <MoldBox 
-                        title={'신발장'} 
-                        complete={complete} 
-                        savedState={moldStates.shoeRack} 
-                        onChange={(state) => handleMoldStateChange('shoeRack', state)} 
-                        
-                        />
-                    <MoldBox 
-                        title={'창틀'} 
-                        complete={complete} 
-                        savedState={moldStates.windowFrame} 
-                        onChange={(state) => handleMoldStateChange('windowFrame', state)} 
-                                                />
+                    {
+                        complete ? 
+                        <>
+                            <MoldBox title={'거실'} complete={true} savedState={moldStates.livingRoom}  />
+                            <MoldBox title={'화장실'} complete={true} savedState={moldStates.bathroom}  />
+                            <MoldBox title={'베란다'} complete={true} savedState={moldStates.balcony}  />
+                            <MoldBox title={'신발장'} complete={true} savedState={moldStates.shoeRack}  />
+                            <MoldBox title={'창틀'} complete={true} savedState={moldStates.windowFrame}  />
+                        </>
+                        :
+                        <>
+                            <MoldBox title={'거실'} complete={false} onChange={handleMoldStateChange} />
+                            <MoldBox title={'화장실'} complete={false} onChange={handleMoldStateChange} />
+                            <MoldBox title={'베란다'} complete={false} onChange={handleMoldStateChange} />
+                            <MoldBox title={'신발장'} complete={false} onChange={handleMoldStateChange} />
+                            <MoldBox title={'창틀'} complete={false} onChange={handleMoldStateChange} />
+                        </>
+                    }
+
                     </div>
                 </div>
 
