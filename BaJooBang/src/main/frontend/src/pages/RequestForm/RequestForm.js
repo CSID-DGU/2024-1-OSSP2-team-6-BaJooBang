@@ -327,13 +327,25 @@ function RequestForm() {
                     // 매물 정보 가져오기
                     const response = await axios.get(`http://localhost:8000/test-imageget?request_id=${request_id}`);
                     const data = response.data;
-    
+
+                    let startIndex = 0; // 슬라이싱 시작 인덱스 초기화
+
                     // plusRequestList를 requests 형식에 맞게 변환
-                    const updatedRequests = data.balpoomForm.plusRequestList.map((item, index) => ({
-                        title: item.plus_q,
-                        text: item.plus_answer,
-                        images: data.fileDtos.slice(index * item.fileCount, (index + 1) * item.fileCount).map(file => file.filepath)
-                    }));
+                    const updatedRequests = data.balpoomForm.plusRequestList.map((item) => {
+                        const fileCount = item.fileCount; // 현재 요청의 파일 개수
+                        const endIndex = startIndex + fileCount; // 슬라이싱 종료 인덱스 계산
+
+                        const images = data.fileDtos.slice(startIndex, endIndex).map(file => file.filepath); // 파일 슬라이싱
+
+                        // 다음 요청을 위해 시작 인덱스 업데이트
+                        startIndex = endIndex;
+
+                        return {
+                            title: item.plus_q,
+                            text: item.plus_answer,
+                            images: images
+                        };
+                    });
     
                     setPropertyInfo(data.balpoomForm);
                     setRequests(updatedRequests);
