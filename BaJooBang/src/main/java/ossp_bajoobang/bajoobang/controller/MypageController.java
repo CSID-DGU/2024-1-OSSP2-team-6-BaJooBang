@@ -104,7 +104,7 @@ public class MypageController {
     // 등록매물에서 매칭 정보 확인
     @GetMapping("/registered/matching")
     public ResponseEntity<?> getMatching(HttpServletRequest request,
-                                         @RequestBody Long requestId) {
+                                         @RequestHeader Long requestId) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             // 세션에서 멤버를 꺼내오기
@@ -137,7 +137,7 @@ public class MypageController {
     // 신청발품에서 매칭 정보 확인
     @GetMapping("/footwork/matching")
     public ResponseEntity<?> getMatchingOfFootwork(HttpServletRequest request,
-                                                   @RequestBody Long requestId) {
+                                                   @RequestHeader Long requestId) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             // 세션에서 멤버를 꺼내오기
