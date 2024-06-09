@@ -160,6 +160,9 @@ function RequestForm() {
 
     // 채광 get
     const [lightState, setLightState] = useState('');
+    const handleLightStateChange = (state) => { //post할 때
+        setLightState(state);
+    };
     const updateLightState = (data) => { //get할 때
         console.log('채광 실행' + data)
         setLightState(data);
@@ -167,9 +170,6 @@ function RequestForm() {
     useEffect(() => {
         console.log('변경된 채광 : ' + lightState);
     }, [lightState]);
-    const handleLightStateChange = (state) => { //post할 때
-        setLightState(state);
-    };
     
     // 곰팡이 데이터
     const [moldStates, setMoldStates] = useState({
@@ -179,6 +179,13 @@ function RequestForm() {
         shoeRack: { hasItem: null, noItem: null },
         windowFrame: { hasItem: null, noItem: null },
     });
+    //곰팡이 post
+    const handleMoldStateChange = (type, state) => { 
+        setMoldStates(prevState => ({
+            ...prevState,
+            [type]: state
+        }));
+    };
     // 곰팡이 get 
     const updateMoldState = (data) => {
         console.log('곰팡이 get~'+ data.moldLiving);
@@ -190,13 +197,6 @@ function RequestForm() {
             windowFrame: { hasItem: data.moldWindow, noItem: !data.moldWindow },
         });
         console.log('변경된 곰팡이 : ' + moldStates.livingRoom);
-    };
-    //곰팡이 post
-    const handleMoldStateChange = (type, state) => { 
-        setMoldStates(prevState => ({
-            ...prevState,
-            [type]: state
-        }));
     };
     
 
@@ -365,7 +365,7 @@ function RequestForm() {
         };
     
         fetchData();
-    }, [write, request_id, updateWaterState, updateLightState, updateMoldState]);
+    }, [write, request_id]);
     
     
     
