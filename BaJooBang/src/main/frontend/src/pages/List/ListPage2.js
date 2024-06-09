@@ -66,7 +66,11 @@ function ListPage2() {
                                 <ListBlock2 Num={item.Num} Address={item.Address} Price={item.Price} State={item.State} Date={item.Date} Request_id={item.Request_id} />
                             </div>
                         ) : (
-                            <Link to='/matching' className='ListLinkNotLine'>
+                            <Link 
+                                to='/registered/matching' 
+                                state={{ fromPage: 'ListPage2', Request_id: item.Request_id }} 
+                                className='ListLinkNotLine'
+                            >
                                 <ListBlock2 Num={item.Num} Address={item.Address} Price={item.Price} State={item.State} Date={item.Date} Request_id={item.Request_id} />
                             </Link>
                         )}
