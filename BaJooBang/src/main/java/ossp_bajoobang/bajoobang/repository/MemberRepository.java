@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(String email);
 
-    @Query(value = "SELECT *, (6371 * acos(cos(radians(:lat)) * cos(radians(latitude)) * cos(radians(longitude) - radians(:lng)) + sin(radians(:lat)) * sin(radians(latitude)))) AS distance FROM Member ORDER BY distance ASC LIMIT 20", nativeQuery = true)
+    @Query(value = "SELECT *, (6371 * acos(cos(radians(:lat)) * cos(radians(latitude)) * cos(radians(longitude) - radians(:lng)) + sin(radians(:lat)) * sin(radians(latitude)))) AS distance FROM member ORDER BY distance ASC LIMIT 20", nativeQuery = true)
     List<Member> findTop20MembersByDistance(@Param("lat") double latitude, @Param("lng") double longitude);
 }
