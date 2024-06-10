@@ -5,8 +5,8 @@
  import { ReactComponent as House_image1 } from '../components/images/house_image1.svg';
  import { ReactComponent as House_image2 } from '../components/images/house_image2.svg';
  import { ReactComponent as House_all_image } from '../components/images/house_all_image.svg';
- //import Imfor from "./helpinfo";
- import axios from 'axios';
+ import Loading from '../pages/Loading/Spinner';
+  import axios from 'axios';
   // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
       // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
  export const positions=[
@@ -166,6 +166,8 @@
  //--------------------------------------------api 매물지도 get------------------------------------------
    const [positions, setPositions] = useState([]);
    const { house_id } = useParams();
+   const [loading, setLoading] = useState(true); // 로딩 상태 추가
+
    useEffect(() => {
      // API로부터 데이터를 가져오는 함수 정의
      const fetchData = async () => {
@@ -174,6 +176,7 @@
          const response = await axios.get(`/helpinfo?local_id=1`);
          // API에서 받은 데이터를 positions 상태에 설정
          setPositions(response.data);
+         setLoading(false);// 데이터 완료 후 로딩 상태 변경
        } catch (error) {
          console.error('api 에러:', error);
        }
@@ -269,7 +272,9 @@
        }
      }, [filteredPositions]);
  //-----------------------------------------------------------------------------------------------------------
- 
+ if (loading) {
+  return <Loading />; // 데이터 로딩 중일 때 로딩 컴포넌트 렌더링
+}
      return (
        <div className="map_wrap">
          <div id="map"></div>
