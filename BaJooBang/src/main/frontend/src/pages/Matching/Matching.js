@@ -5,11 +5,13 @@ import {ReactComponent as Profile2} from '../../components/images/profile2.svg';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-function Matching({ Request_id }) {
+function Matching() {
     const navigate = useNavigate();
     const location = useLocation();
     const [data, setData] = useState();
     const [apiEndpoint, setApiEndpoint] = useState('');
+
+    const Request_id = location.state ? location.state.Request_id : null;
 
     useEffect(() => {
         // Set the API endpoint based on the referring page
@@ -23,6 +25,7 @@ function Matching({ Request_id }) {
     useEffect(() => {
         // Fetch data from the API
         const fetchData = async () => {
+            console.log('request_id : ' + Request_id)
             try {
                 if (apiEndpoint) {
                     const response = await axios.get(apiEndpoint, {
@@ -32,6 +35,7 @@ function Matching({ Request_id }) {
                     }); // Replace with your actual API endpoint
                     
                     setData(response.data);
+                    console.log('매칭데이터 : ' + data);
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -39,7 +43,7 @@ function Matching({ Request_id }) {
         };
 
         fetchData();
-    }, [Request_id, apiEndpoint]);
+    }, [Request_id, apiEndpoint, data]);
     
     return(
         <div style={{display: 'flex', flexDirection:'column', justifyContent: 'center', alignItems: 'center' }}>
