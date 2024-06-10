@@ -10,6 +10,7 @@ import { ReactComponent as Heart } from '../components/images/heart.svg';
 import { ReactComponent as House_image1 } from '../components/images/house_image1.svg';
 import { ReactComponent as House_image2 } from '../components/images/house_image2.svg';
 import { ReactComponent as House_all_image } from '../components/images/house_all_image.svg';
+import Loading from '../pages/Loading/Spinner';
 
 const Imformation = ({ positions }) => {
   const navigate = useNavigate();
@@ -17,28 +18,32 @@ const Imformation = ({ positions }) => {
   const numericHouseId = parseInt(house_id); // 문자열을 숫자로 변환
 
   const [position, setPosition] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-// 선택된 house_id가 유효한지 확인하고 해당하는 position을 찾습니다.
-    const selectedPosition = positions.find(pos => pos.house_id === numericHouseId);
-    if (selectedPosition) {
-      setPosition(selectedPosition); // 직접적으로 positions 배열에서 데이터를 로드
-    } else {
-// 매물지도 상세정보 api 연결
-      const fetchPosition = async () => {
-        try {
+    const fetchData = async () => {
+      try {
+        const selectedPosition = positions.find(pos => pos.house_id === numericHouseId);
+        if (selectedPosition) {
+          setPosition(selectedPosition);
+          setLoading(false); // 데이터가 로드되면 로딩 상태를 false로 변경
+        } else {
           const response = await axios.get(`/helpinfo/detail?house_id=${house_id}`);
           setPosition(response.data);
-        } catch (error) {
-          console.error('Failed to fetch position:', error);
+          setLoading(false); // 데이터가 로드되면 로딩 상태를 false로 변경
         }
-      };
-      fetchPosition();
-    }
-  }, [house_id, positions]); // dependencies에 positions도 추가
+      } catch (error) {
+        console.error('Failed to fetch position:', error);
+      }
+    };
+    fetchData();
+  }, [house_id, numericHouseId, positions]); // dependencies에 positions도 추가
 
   if (!position) {
     return <div>해당하는 위치 정보를 찾을 수 없습니다.</div>;
+  }
+  if (loading) {
+    return <Loading />;
   }
 
   const handleClick = (content) => {
