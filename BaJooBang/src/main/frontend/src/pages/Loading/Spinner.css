@@ -1,0 +1,11 @@
+.loading-container {
+  position: fixed; /* 화면을 기준으로 고정 */
+  top: 50%; /* 세로 중앙 정렬을 위해 화면의 50% 위치로 이동 */
+  left: 50%; /* 가로 중앙 정렬을 위해 화면의 50% 위치로 이동 */
+  transform: translate(-50%, -50%); /* 요소의 가로 및 세로 크기의 절반만큼 이동하여 정중앙에 위치 */
+  text-align: center; /* 내부 요소의 가로 정렬을 위해 사용 */
+}
+
+.loading-text {
+  margin-top: 10px; /* 이미지와 텍스트 간격 조절 */
+}
