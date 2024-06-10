@@ -67,7 +67,7 @@ function ListPage2() {
                             </div>
                         ) : (
                             <Link 
-                                to='/registered/matching' 
+                                to='/matching' 
                                 state={{ fromPage: 'ListPage2', Request_id: item.Request_id }} 
                                 className='ListLinkNotLine'
                             >
