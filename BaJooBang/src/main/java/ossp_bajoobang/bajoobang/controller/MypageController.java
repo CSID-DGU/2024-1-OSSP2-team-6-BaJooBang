@@ -104,13 +104,13 @@ public class MypageController {
     // 등록매물에서 매칭 정보 확인
     @GetMapping("/registered/matching")
     public ResponseEntity<?> getMatching(HttpServletRequest request,
-                                         @RequestHeader Long requestId) {
+                                         @RequestHeader Long request_id) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             // 세션에서 멤버를 꺼내오기
             Member member = (Member) session.getAttribute("loginMember");
             // 매칭 정보 가져오기
-            Map<String, Object> matchingInfo = registeredService.getMatchingInfo(member, requestId);
+            Map<String, Object> matchingInfo = registeredService.getMatchingInfo(member, request_id);
             return ResponseEntity.ok(matchingInfo);
         }
         else {
@@ -137,13 +137,13 @@ public class MypageController {
     // 신청발품에서 매칭 정보 확인
     @GetMapping("/footwork/matching")
     public ResponseEntity<?> getMatchingOfFootwork(HttpServletRequest request,
-                                                   @RequestHeader Long requestId) {
+                                                   @RequestParam Long request_id) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             // 세션에서 멤버를 꺼내오기
             Member member = (Member) session.getAttribute("loginMember");
             // 매칭 정보 가져오기
-            Map<String, Object> matchingInfo = footworkService.getMatchingInfo(member, requestId);
+            Map<String, Object> matchingInfo = footworkService.getMatchingInfo(member, request_id);
             return ResponseEntity.ok(matchingInfo);
         }
         else {
