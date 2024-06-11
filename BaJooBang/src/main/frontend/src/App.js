@@ -2,6 +2,8 @@ import React from 'react';
 import {  Routes, Route, Router } from 'react-router-dom';
 import HeaderBar from './components/header/HeaderBar';
 import { AuthProvider } from './AuthContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //import Home from './pages/Home/Home';
 // import MyPage from './MyPage';
 import { positions } from './HelpPage/kakaomap';
@@ -44,6 +46,7 @@ function App() {
           <Route path='/member/heart' element={<ListPage5 />} />
           <Route path='/matching' element={<Matching />} />
       </Routes>
+      <ToastContainer />
       </div>
     </AuthProvider>
       

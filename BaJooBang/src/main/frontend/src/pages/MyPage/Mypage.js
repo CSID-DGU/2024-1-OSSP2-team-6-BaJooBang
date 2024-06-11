@@ -16,6 +16,7 @@ function MyPage() {
   const navigate = useNavigate();
   const [listData, setListData] = useState({
     memberDTO: {},
+    numOfLikes: 0,
     numOfRegistered: 0,
     numOfInquiries: 0,
     numOfFootworks: 0,
@@ -78,7 +79,7 @@ function MyPage() {
         {showBottom1 && (
           <div className='MyBottom1'>
             <Link to='/member/heart' style={{textDecoration: 'none'}}>
-              <BottomBox content={'찜한 방'} number={'0'} Icon={Heart}/> 
+              <BottomBox content={'찜한 방'} number={listData.numOfLikes} Icon={Heart}/>
             </Link>
             <Link to='/member/registered' style={{textDecoration: 'none'}}>
               <BottomBox content={'등록 매물'} number={listData.numOfRegistered} Icon={File}/>

@@ -15,6 +15,8 @@ import { ReactComponent as Sink2 } from '../../components/images/sink2.svg';
 import { ReactComponent as Shower } from '../../components/images/shower.svg';
 import { ReactComponent as Plus1 } from '../../components/images/plus1.svg';
 import { ReactComponent as Check } from '../../components/images/check(heavy).svg';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function RequestForm() {
@@ -216,8 +218,10 @@ function RequestForm() {
             const response = await axios.patch(`/request?request_id=${request_id}`, {
                 message: message,
             }); // Replace with your actual API endpoint
+            toast.success('발품 신청이 완료되었습니다.');
             console.log('Response:', response);
         } catch (error) {
+            toast.success('발품 신청을 실패하였습니다. 다시 시도해주세요');
             console.error('Error fetching data:', error);
         }
     };
@@ -243,9 +247,11 @@ function RequestForm() {
                 }
             });
             console.log('Request success:', response.data);
+            toast.success('발품을 성공적으로 등록하였습니다.');
             navigate('/domap');
         } catch (error) {
             console.error('Register failed:', error);
+            toast.error('발품 등록을 실패하였습니다.');
         }
     }
     
@@ -306,8 +312,10 @@ function RequestForm() {
                 }
             });
             console.log('Request success:', response.data);
+            toast.success('발품서 작성이 완료되었습니다.');
             navigate('/domap');
         } catch (error) {
+            toast.error('발품서 작성을 실패하였습니다.');
             console.error('Request failed:', error);
         }
     }
