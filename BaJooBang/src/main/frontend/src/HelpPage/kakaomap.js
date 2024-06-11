@@ -173,7 +173,8 @@
      
 // 매물지도 상세정보 api 연결
     const fetchPosition = async () => {
-       try {
+    
+         try {
          // axios를 사용하여 GET 요청 보내고 데이터 받아오기
          const response = await axios.get(`/helpinfo?local_id=1`);
          // API에서 받은 데이터를 positions 상태에 설정
@@ -187,7 +188,7 @@
      // fetchData 함수 호출
      fetchPosition();
     
-   }, [house_id,positions]);
+   }, [house_id]);
  //----------------------------------------------------------------------------------------------------
  
  
