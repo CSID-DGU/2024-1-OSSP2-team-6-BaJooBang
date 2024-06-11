@@ -16,7 +16,7 @@ const SearchBar = ({ onFilterChange, onSearchChange, currentFilter }) => {
         <Closer />
         <input 
           type="text" 
-          placeholder="매물을 검색하세요" 
+          placeholder="주소를 검색해주세요" 
           onChange={(e) => onSearchChange(e.target.value)}
         />
       </div>
