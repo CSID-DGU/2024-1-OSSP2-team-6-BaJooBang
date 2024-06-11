@@ -41,6 +41,9 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<BaDream> baDreams = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    private List<Likey> likeys = new ArrayList<>();
+
     public void setRequest(Request request) {
         this.getRequests().add(request);
     }
