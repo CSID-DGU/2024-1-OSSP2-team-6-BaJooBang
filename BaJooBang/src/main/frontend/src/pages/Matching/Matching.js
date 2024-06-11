@@ -35,15 +35,18 @@ function Matching() {
                     }); // Replace with your actual API endpoint
                     
                     setData(response.data);
-                    console.log('매칭데이터 : ' + data);
+                    console.log('매칭데이터 : ', response.data); // 콘솔 로그 수정
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
-
-        fetchData();
-    }, [Request_id, apiEndpoint, data]);
+    
+        if (Request_id && apiEndpoint) {
+            fetchData();
+        }
+    }, [Request_id, apiEndpoint]); // 종속성 배열에서 data 제거
+    
     
     return(
         <div style={{display: 'flex', flexDirection:'column', justifyContent: 'center', alignItems: 'center' }}>

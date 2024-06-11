@@ -5,8 +5,8 @@ import { ReactComponent as LoginLeft } from '../images/loginLeft.svg';
 import Input from './Input';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext';
-
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoginBox() {
     const navigate = useNavigate();
@@ -17,7 +17,6 @@ function LoginBox() {
 
     const [email, setEmail] = useState('');
     const [pw, setPw] = useState('');
-    
 
     async function LoginPost() {
         const data = {
@@ -34,29 +33,30 @@ function LoginBox() {
             if (response.status === 200) {
                 // 로그인 성공 시 세션 값 저장
                 login();
+                toast.success('로그인에 성공했습니다.');
                 navigate('/helpmap'); // 로그인 성공 후 리다이렉트할 경로 설정
             } else {
                 console.error('Login failed:', response.data);
-                // 오류 표시?? 어떻게 하지
-                navigate('/login');
+                toast.error('로그인에 실패했습니다. 다시 시도해주세요.');
             }
         } catch (error) {
-            console.error('Signup failed:', error);
+            console.error('Login failed:', error);
+            toast.error('로그인에 실패했습니다. 다시 시도해주세요.');
         }
     }
 
     return (
         <div className='box'>
-            <div className='leftBox' style={{backgroundColor: '#3CB38F'}}>
+            <div className='leftBox' style={{ backgroundColor: '#3CB38F' }}>
                 <LoginLeft />
             </div>
             <div className='rightBox'>
                 <p className='title'>Log In</p>
-                <div className='emptyBox'/>
+                <div className='emptyBox' />
                 <Input isPrivate={false} title={"Email Address"} placeholder={'Email Address'} onChange={(e) => setEmail(e.target.value)} />
-                <Input isPrivate={true} title={"Password"} placeholder={'Password'}  onChange={(e) => setPw(e.target.value)}/>
-                <button className='button' style={{backgroundColor: '#33BE42', marginTop: '40px'}} onClick={LoginPost}>Log in</button>
-                <div className='line'/>
+                <Input isPrivate={true} title={"Password"} placeholder={'Password'} onChange={(e) => setPw(e.target.value)} />
+                <button className='button' style={{ backgroundColor: '#33BE42', marginTop: '40px' }} onClick={LoginPost}>Log in</button>
+                <div className='line' />
                 <button className='bottomButton' onClick={handleSignUpClick}>Sign up</button>
             </div>
         </div>

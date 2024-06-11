@@ -4,6 +4,7 @@ import {ReactComponent as Profile2} from '../../components/images/profile2.svg';
 import {ReactComponent as Message} from '../../components/images/message.svg';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Modal({ isOpen, onClose, data, Worker_id, Request_id }) {
     const navigate = useNavigate();
@@ -17,9 +18,10 @@ function Modal({ isOpen, onClose, data, Worker_id, Request_id }) {
                 worker_id: Worker_id,
             }); // Replace with your actual API endpoint
             console.log('Response:', response);
-            alert('매칭되었습니다');
+            toast.success('요청을 수락하였습니다.');
         } catch (error) {
             console.error('Error fetching data:', error);
+            toast.success('요청을 실패하였습니다..');
         }
     };
 
