@@ -9,7 +9,7 @@ function ListBlock3({Num, Address, Price, Date, Request_id, Requester}) {
         
             
                 <div className='ListTitle'>
-                   <div className='ListTitleText2' style={{fontWeight: 'bold'}}>{Num}</div> 
+                   <div className='ListTitleText2' style={{fontWeight: 'bold'}}>{Num}</div>
                    <div className='ListTitleText2_address'>{Address}</div>
                    <div className='ListTitleText2'> 
                      <div style={{color: '#53C15F', fontWeight: '600'}}>{Price}</div>

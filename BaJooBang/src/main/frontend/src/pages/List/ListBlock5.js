@@ -7,7 +7,7 @@ function ListBlock5({ Num, Address, Month, house_id }) {
 
     const handleClick = () => {
         console.log('house_id : '+house_id);
-        navigate(`/heloinfo/${house_id}`);
+        navigate(`/helpinfo/${house_id}`);
     };
 
     return (
