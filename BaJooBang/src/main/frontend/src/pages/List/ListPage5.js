@@ -17,8 +17,8 @@ function ListPage5() {
                 const requestData = response.data.map((item, index) => ({
                     Num: index + 1,
                     Address: item.address,
-                    Month: item.month,
-                    House_id: item.house_id
+                    Month: item.month_price,
+                    house_id: item.house_id
                 }));
                 setListData(requestData);
             } catch (error) {
@@ -60,7 +60,7 @@ function ListPage5() {
                             Num={item.Num} 
                             Address={item.Address} 
                             Month={item.Month}
-                            house_id={item.House_id}
+                            house_id={item.house_id}
                         />
                         <div className='ListLine' />
                     </React.Fragment>
