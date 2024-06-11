@@ -23,6 +23,7 @@ public class MypageController {
     private final RegisteredService registeredService;
     private final FootworkService footworkService;
     private final AlarmService alarmService;
+    private final LikeyService likeyService;
 
     // 마이페이지
     @GetMapping
@@ -161,6 +162,22 @@ public class MypageController {
             // 알람 가져오기
             List<Map<String, Object>> alarms = alarmService.getAlarmList(member);
             return ResponseEntity.ok(alarms);
+        }
+        else {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
+    }
+
+    // 마이페이지 찜리스트
+    @GetMapping("/like")
+    public ResponseEntity<?> getLikeList(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // 세션에서 멤버를 꺼내오기
+            Member member = (Member) session.getAttribute("loginMember");
+            // 찜 리스트 가져오기
+            List<Map<String, Object>> likeinfo = likeyService.getLikeInfo(member);
+            return ResponseEntity.ok(likeinfo);
         }
         else {
             return ResponseEntity.status(401).body("Unauthorized");
