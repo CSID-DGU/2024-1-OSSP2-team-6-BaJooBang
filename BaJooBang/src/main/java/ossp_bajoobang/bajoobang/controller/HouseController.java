@@ -3,10 +3,7 @@ package ossp_bajoobang.bajoobang.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.dto.HouseDTO;
 import ossp_bajoobang.bajoobang.service.HouseService;
@@ -35,7 +32,7 @@ public class HouseController {
         return houseDTO;
     }
 
-    @GetMapping("/like")
+    @PostMapping("/like")
     public String setLike(HttpServletRequest request,
                           @RequestParam Long house_id) {
         HttpSession session = request.getSession(false);
@@ -49,6 +46,22 @@ public class HouseController {
             return "FAIL";
         }
     }
+
+    @DeleteMapping("/like")
+    public String deleteLike(HttpServletRequest request,
+                          @RequestParam Long house_id) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // 세션에서 멤버를 꺼내오기
+            Member member = (Member) session.getAttribute("loginMember");
+            likeyService.deleteLike(member, house_id);
+            return "GOOD";
+        }
+        else {
+            return "FAIL";
+        }
+    }
+    
 }
 
 
