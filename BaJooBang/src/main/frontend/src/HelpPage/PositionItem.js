@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './box.css';
 
 const PositionItem = ({ position, isLoggedIn }) => {
@@ -35,12 +37,14 @@ const PositionItem = ({ position, isLoggedIn }) => {
       }
 
       if (response.status === 200) {
-        console.log(isFavorite ? '찜하기 취소 성공' : '찜하기 성공');
+        toast.success(isFavorite ? '찜하기를 취소하였습니다.' : '매물을 찜하였습니다.');
         setIsFavorite(!isFavorite);
       } else {
+        toast.error(isFavorite ? '찜하기 취소 실패' : '찜하기 실패');
         console.error(isFavorite ? 'Failed to remove favorite' : 'Failed to add favorite', response.data);
       }
     } catch (error) {
+      toast.error(isFavorite ? '찜하기 취소 실패' : '찜하기 실패');
       console.error(isFavorite ? 'Error removing favorite' : 'Error adding favorite', error);
     }
   };
