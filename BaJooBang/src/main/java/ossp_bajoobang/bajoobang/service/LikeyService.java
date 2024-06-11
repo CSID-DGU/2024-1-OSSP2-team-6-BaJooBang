@@ -2,6 +2,7 @@ package ossp_bajoobang.bajoobang.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ossp_bajoobang.bajoobang.domain.House;
 import ossp_bajoobang.bajoobang.domain.Likey;
 import ossp_bajoobang.bajoobang.domain.Member;
@@ -26,6 +27,16 @@ public class LikeyService {
         House byHouseId = houseRepository.findByHouseId(house_id);
         likey.setHouse(byHouseId);
         likeyRepository.save(likey);
+    }
+
+    @Transactional
+    public void deleteLike(Member member, Long house_id) {
+        List<Likey> byMember = likeyRepository.findByMember(member);
+        for (Likey likey : byMember) {
+            if (likey.getHouse().getHouseId() == house_id) {
+                likeyRepository.delete(likey);
+            }
+        }
     }
 
     // 찜 리스트
