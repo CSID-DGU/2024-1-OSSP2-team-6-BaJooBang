@@ -170,7 +170,9 @@
 
    useEffect(() => {
      // API로부터 데이터를 가져오는 함수 정의
-     const fetchData = async () => {
+     
+// 매물지도 상세정보 api 연결
+    const fetchPosition = async () => {
        try {
          // axios를 사용하여 GET 요청 보내고 데이터 받아오기
          const response = await axios.get(`/helpinfo?local_id=1`);
@@ -183,8 +185,9 @@
      };
  
      // fetchData 함수 호출
-     fetchData();
-   }, []);
+     fetchPosition();
+    
+   }, [house_id,positions]);
  //----------------------------------------------------------------------------------------------------
  
  
@@ -207,7 +210,10 @@
        // 마커를 담을 배열입니다
        let markers = [];
        let mapContainer = document.getElementById("map"); // 지도를 표시할 div
-   
+       if (!mapContainer) {
+        console.error("Map container not found");
+        return;
+    }
        let mapOption = {
          center: new kakao.maps.LatLng(37.559023, 127.005296), // 지도의 중심좌표
          level: 3, // 지도의 확대 레벨
