@@ -13,7 +13,7 @@ function ListPage5() {
         // Fetch data from the API
         const fetchData = async () => {
             try {
-                const response = await axios.get('/member/heart'); // Replace with your actual API endpoint
+                const response = await axios.get('/member/like'); 
                 const requestData = response.data.map((item, index) => ({
                     Num: index + 1,
                     Address: item.address,
