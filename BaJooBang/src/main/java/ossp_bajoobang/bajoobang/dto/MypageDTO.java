@@ -22,18 +22,22 @@ public class MypageDTO {
     private int numOfFootworks;
     // 알림 개수
     private int numOfAlarms;
+    // 찜 개수
+    private int numOfLikes;
 
     public static MypageDTO toDTO(MemberDTO memberDTO,
                                   int numOfRegistered,
                                   int numOfInquiries,
                                   int numOfFootworks,
-                                  int numOfAlarms){
+                                  int numOfAlarms,
+                                  int numOfLikes){
         return MypageDTO.builder()
                 .memberDTO(memberDTO)
                 .numOfRegistered(numOfRegistered)
                 .numOfInquiries(numOfInquiries)
                 .numOfFootworks(numOfFootworks)
                 .numOfAlarms(numOfAlarms)
+                .numOfLikes(numOfLikes)
                 .build();
     }
 }
