@@ -13,7 +13,7 @@ function ListPage5() {
         // Fetch data from the API
         const fetchData = async () => {
             try {
-                const response = await axios.get('/member/like'); 
+                const response = await axios.get('/member/like');
                 const requestData = response.data.map((item, index) => ({
                     Num: index + 1,
                     Address: item.address,
@@ -58,7 +58,7 @@ function ListPage5() {
                     <React.Fragment key={index}>
                         <ListBlock 
                             Num={item.Num} 
-                            Address={item.Address} 
+                            Address={item.Address}
                             Month={item.Month}
                             house_id={item.house_id}
                         />
