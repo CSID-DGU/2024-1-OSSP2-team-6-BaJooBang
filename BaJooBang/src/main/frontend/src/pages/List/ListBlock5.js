@@ -6,6 +6,7 @@ function ListBlock5({ Num, Address, Month, house_id }) {
     const navigate = useNavigate();
 
     const handleClick = () => {
+        console.log('house_id : '+house_id);
         navigate(`/heloinfo/${house_id}`);
     };
 
