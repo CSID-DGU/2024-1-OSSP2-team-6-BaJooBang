@@ -406,8 +406,8 @@ function RequestForm() {
                     {write ? 
                     <>
                         <Roominfo title={'매물 주소'} content={content} />
-                        <Roominfo title={'발품 기간'} placeholder={'발품 기간을 입력해주세요.'} onChange={(e) => setDate(e.target.value)} />
-                        <Roominfo title={'발품 가격'} placeholder={'발품 가격을 입력해주세요.'} onChange={(e) => setPrice(e.target.value)} />
+                        <Roominfo title={'발품 기한'} placeholder={'발품 기한을 입력해주세요. ex) 2020-02-02'} onChange={(e) => setDate(e.target.value)} />
+                        <Roominfo title={'발품 가격'} placeholder={'발품 가격을 입력해주세요. ex) 10000 (숫자만 입력)'} onChange={(e) => setPrice(e.target.value)} />
                     </>
                         :
                     <>
