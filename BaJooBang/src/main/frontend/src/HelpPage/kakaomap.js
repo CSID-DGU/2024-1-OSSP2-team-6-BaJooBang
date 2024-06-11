@@ -6,7 +6,6 @@
  import { ReactComponent as House_image2 } from '../components/images/house_image2.svg';
  import { ReactComponent as House_all_image } from '../components/images/house_all_image.svg';
  import Loading from '../pages/Loading/Spinner';
- import { toast } from 'react-toastify';
  import PositionItem from './PositionItem';
  import axios from 'axios';
   // 더미 데이터 이곳!!!!!!!!!!!!!!!!!!!!!
