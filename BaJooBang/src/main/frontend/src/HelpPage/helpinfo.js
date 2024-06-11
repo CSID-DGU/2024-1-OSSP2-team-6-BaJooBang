@@ -106,7 +106,6 @@ const Imformation = ({ positions }) => {
           </div>
         </div>
         <div className="actions">
-          <button className='helpinfoBtn'><Heart style={{paddingRight: '0.5vw'}}/>찜하기</button>
           <button
             className="helpinfoBtn"
             style={{ width: '11vw' }}
