@@ -42,4 +42,9 @@ public class LikeyService {
         }
         return likeInfo;
     }
+
+    public int getNumOfLikes(Member member) {
+        List<Likey> byMember = likeyRepository.findByMember(member);
+        return byMember.size();
+    }
 }

@@ -34,6 +34,7 @@ public class MemberService {
     private final RegisteredService registeredService;
     private final FootworkService footworkService;
     private final AlarmService alarmService;
+    private final LikeyService likeyService;
     private static final String apiKey = "qIAUNilofLN3xQfCcoTiRrBbwYR/bwzVSatLptsLaPM";
 
     // 회원가입
@@ -52,8 +53,10 @@ public class MemberService {
         int numOfFootworks = footworkService.getNumOfFootworks(member);
         // 알림 개수
         int numOfAlarms = alarmService.getNumOfAlarms(member);
+        // 찜 개수
+        int numOfLikes = likeyService.getNumOfLikes(member);
 
-        return MypageDTO.toDTO(memberDTO, numOfRegistered, numOfInquiries, numOfFootworks, numOfAlarms);
+        return MypageDTO.toDTO(memberDTO, numOfRegistered, numOfInquiries, numOfFootworks, numOfAlarms, numOfLikes);
     }
 
     // 매물에 가까운 주변 회원들에 대해서 (대중교통) 총 소요시간 계산하여 10명 오름차순 정렬.
