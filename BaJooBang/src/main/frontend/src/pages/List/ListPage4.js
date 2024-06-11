@@ -66,13 +66,13 @@ function ListPage4() {
                             <ListBlock4 Num={item.Num} Address={item.Address} Price={item.Price} Date={item.Date} Request_id={item.Request_id} State={item.State} />
                         </div>
                         :
-                        <Link 
-                            to='/matching'
-                            state={{ fromPage: 'ListPage4', Request_id: item.Request_id }} 
+                        <div
+                            //to='/matching'
+                            //state={{ fromPage: 'ListPage4', Request_id: item.Request_id }} 
                             className='ListLinkNotLine'
                         >
                             <ListBlock4 Num={item.Num} Address={item.Address} Price={item.Price} State={item.State} Date={item.Date} Request_id={item.Request_id} />
-                        </Link>
+                        </div>
                         }
                         <div className='ListLine' />
                     </React.Fragment>

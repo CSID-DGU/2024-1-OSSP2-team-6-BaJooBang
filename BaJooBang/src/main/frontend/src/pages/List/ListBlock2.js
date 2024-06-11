@@ -11,7 +11,7 @@ function ListBlock2({Num, Address, Price, State, Request_id, Date}) {
                 return { color: '#FF5555', backgroundColor: '#FFF0EE' };
             case '매칭 완료':
                 return { color: '#FFC633', backgroundColor: '#FFFCE5' };
-            case '평가 완료':
+            case '작성 완료':
                 return { color: '#3888FF', backgroundColor: '#E5F0FF' };
             default:
                 return { color: 'black', backgroundColor: 'transparent' };
