@@ -1,21 +1,24 @@
 package ossp_bajoobang.bajoobang.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.dto.HouseDTO;
 import ossp_bajoobang.bajoobang.service.HouseService;
+import ossp_bajoobang.bajoobang.service.LikeyService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class HouseController {
     private final HouseService houseService;
+    private final LikeyService likeyService;
 
     @GetMapping("/helpinfo")
     @ResponseBody
@@ -32,6 +35,20 @@ public class HouseController {
         return houseDTO;
     }
 
+    @GetMapping("/like")
+    public String setLike(HttpServletRequest request,
+                          @RequestParam Long house_id) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // 세션에서 멤버를 꺼내오기
+            Member member = (Member) session.getAttribute("loginMember");
+            likeyService.setLike(member, house_id);
+            return "GOOD";
+        }
+        else {
+            return "FAIL";
+        }
+    }
 }
 
 
