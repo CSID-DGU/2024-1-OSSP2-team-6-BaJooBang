@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link, useNavigate,useParams } from 'react-router-dom';
 import './showmap.css';
 
-export const dopositions = [
+export const dopositions = [/*
   {
     "house_id": 1,
     "dealmoney": "20,000",
@@ -48,7 +48,7 @@ export const dopositions = [
       "lng": 127.00768457766
     },
     "hasNotification": false
-  }
+  }*/
 ];
 
 function groupByHouseId(positions) {
