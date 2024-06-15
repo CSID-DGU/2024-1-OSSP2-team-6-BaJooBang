@@ -8,7 +8,7 @@
 팀장|김효범|컴퓨터공학과
 팀원|최우성|컴퓨터공학과
 팀원|박주형|컴퓨터공학과
-팀원|김유|컴퓨터공학과
+팀원|김유민|컴퓨터공학과
 
 ## 📚 Frameworks, Platforms and Libraries
 > ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
