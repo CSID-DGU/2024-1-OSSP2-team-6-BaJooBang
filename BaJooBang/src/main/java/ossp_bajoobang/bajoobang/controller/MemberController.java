@@ -17,7 +17,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/member")
 @RequiredArgsConstructor
-public class MypageController {
+public class MemberController {
     private final MemberService memberService;
     private final InquiryService inquiryService;
     private final RegisteredService registeredService;
@@ -182,5 +182,20 @@ public class MypageController {
         else {
             return ResponseEntity.status(401).body("Unauthorized");
         }
+    }
+
+    // 별점 평가 api
+    @PatchMapping("/star")
+    public ResponseEntity<?> patchStar(HttpServletRequest request,
+                                       @RequestParam Float star) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            // 세션에서 멤버를 꺼내오기
+            Member member = (Member) session.getAttribute("loginMember");
+            // 별점 갱신하기
+            memberService.calculateAvgStar(member, star);
+            return ResponseEntity.ok("GOOD");
+        }
+        return ResponseEntity.status(401).body("Unauthorized");
     }
 }
