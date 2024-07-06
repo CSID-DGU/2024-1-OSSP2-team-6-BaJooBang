@@ -2,16 +2,9 @@ package ossp_bajoobang.bajoobang.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springframework.data.relational.core.sql.In;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.MypageDTO;
@@ -23,7 +16,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -57,6 +49,14 @@ public class MemberService {
         int numOfLikes = likeyService.getNumOfLikes(member);
 
         return MypageDTO.toDTO(memberDTO, numOfRegistered, numOfInquiries, numOfFootworks, numOfAlarms, numOfLikes);
+    }
+
+    // 일단 별점 계산 기능 여기에 만듬
+    @Transactional
+    public Float calculateAvgStar(Member member, float star) {
+        float newAvgStar = (member.getStar() * member.getStarCount() + star) / (member.getStar() + 1);
+        member.setStar(newAvgStar);
+        return newAvgStar;
     }
 
     // 매물에 가까운 주변 회원들에 대해서 (대중교통) 총 소요시간 계산하여 10명 오름차순 정렬.
