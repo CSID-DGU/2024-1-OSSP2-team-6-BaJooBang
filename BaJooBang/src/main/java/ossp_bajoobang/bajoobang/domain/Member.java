@@ -29,6 +29,11 @@ public class Member {
     private double latitude;
     private double longitude;
 
+    @Column(columnDefinition = "float default 0")
+    private float star; // 별점
+    @Column(columnDefinition = "integer default 0")
+    private int starCount; // 별점 받은 횟수
+
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<Request> requests = new ArrayList<>();
 

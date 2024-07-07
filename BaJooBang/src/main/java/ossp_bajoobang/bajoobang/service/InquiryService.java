@@ -49,7 +49,7 @@ public class InquiryService {
             inquiry.put("address", house.getContent());
             inquiry.put("worker_id", baDream.getMember().getId()); // 발품인 id
             inquiry.put("name", baDream.getMember().getName()); // 발품인 이름
-            inquiry.put("star", ""); // 별점
+            inquiry.put("star", baDream.getMember().getStar()); // 별점
             inquiry.put("message", baDream.getMessage()); // 메세지
             inquiries.add(inquiry);
         }
