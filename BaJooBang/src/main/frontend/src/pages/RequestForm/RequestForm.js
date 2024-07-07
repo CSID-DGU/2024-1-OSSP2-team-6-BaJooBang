@@ -62,6 +62,7 @@ function RequestForm() {
     const [write, setWrite] = useState(isFromInformation); // Set write based on navigation source
     const [apply, setApply] = useState(false); // 발품인이 신청했는지에 대한 상태
     const [complete, setComplete] = useState(false); // 발품인이 발품서를 작성했는지에 대한 상태
+    const [evaluate, setEvaluate] = useState(false); // 요청인이 발품인을 평가했는지에 대한 상태
 
     const [requests, setRequests] = useState([]);
     //const [contentEditableStates, setContentEditableStates] = useState(requests.map(request => ({ text: request.text })));
@@ -73,6 +74,7 @@ function RequestForm() {
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 창 상태
     const [requestMessage, setRequestMessage] = useState(''); // 발품 신청 메시지
     const [propertyInfo, setPropertyInfo] = useState({}); // get info
+    const [star, setStar] = useState('');
     
 
 
@@ -226,6 +228,20 @@ function RequestForm() {
         }
     };
 
+    // 요청인이 발품 평가하는 api
+    const evaluatePatch = async ( star ) => {
+        try {
+            const response = await axios.patch(`/member/star`, {
+                star: star,
+            }); // Replace with your actual API endpoint
+            toast.success('발품인 평가를 완료되었습니다.');
+            console.log('Response:', response);
+        } catch (error) {
+            toast.success('발품인 평가를 실패하였습니다. 다시 시도해주세요');
+            console.error('Error fetching data:', error);
+        }
+    };
+
     //요청인이 발품 요청서 등록하는 api
     async function WritePost() {
         console.log("라이트포스트 찍힘")
@@ -366,14 +382,22 @@ function RequestForm() {
                         setWrite(false);
                         setApply(false);
                         setComplete(false);
+                        setEvaluate(false);
                     } else if (data.balpoomForm.status === '매칭 완료') {
                         setWrite(false);
                         setApply(true);
                         setComplete(false);
+                        setEvaluate(false);
                     } else if (data.balpoomForm.status === '작성 완료') {
                         setWrite(false);
                         setApply(true);
                         setComplete(true);
+                        setEvaluate(false);
+                    } else if (data.balpoomForm.status === '평가 완료') {
+                        setWrite(false);
+                        setApply(true);
+                        setComplete(true);
+                        setEvaluate(true);
                     }
     
                     // WaterState 업데이트
@@ -601,8 +625,17 @@ function RequestForm() {
                         </div>
                     ) : (
                         apply ? (
-                            complete ?
-                            <></>
+                            complete ? (
+                                evaluate ? (
+                                    <></>
+                                )
+                                :
+                                (
+                                    <div onClick={openModal} style={{ width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <p style={{ fontSize: '1vw', color: '#5F5F5F', marginLeft: '0.3vw' }}>평가하기</p>
+                                    </div>
+                                )
+                            )
                             :
                             <div onClick={CompletePost} style={{ width: '9vw', height: '3.7vw', backgroundColor: '#E9EBEF', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <Check />
@@ -625,28 +658,54 @@ function RequestForm() {
                 )}
 
                 {isModalOpen && (
-                    <div className='modal' onClick={closeModal}>
-                        <div className='modal-content' onClick={(e) => e.stopPropagation()}>
-                            <span className='close' onClick={closeModal}>&times;</span>
-                            <p style={{fontSize: '25px', fontWeight: '500'}}>발품 신청</p>
-                            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                                <input 
-                                    type='text' 
-                                    placeholder='신청 메시지를 입력하세요.  예) 홍길동 발품 신청합니다!' 
-                                    className='modal-input'
-                                    value={requestMessage}
-                                    onChange={(e) => setRequestMessage(e.target.value)}
-                                />
-                                <button 
-                                    onClick={() => { requestPatch(request_id, requestMessage); setApply(true); closeModal(); navigate('/member'); }}
-                                    className='modal-button'
-                                >
+                    apply ? (
+                        <div className='modal' onClick={closeModal}>
+                            <div className='modal-content' onClick={(e) => e.stopPropagation()}>
+                                <span className='close' onClick={closeModal}>&times;</span>
+                                <p style={{fontSize: '25px', fontWeight: '500'}}>발품 평가</p>
+                                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                                    <input 
+                                        type='text' 
+                                        placeholder='발품인의 별점 정보를 입력해주세요( 0.0 ~ 5.0 ).' 
+                                        className='modal-input'
+                                        value={star}
+                                        onChange={(e) => setRequestMessage(e.target.value)}
+                                    />
+                                    <button 
+                                        onClick={() => { evaluatePatch(star); setEvaluate(true); closeModal(); navigate('/member'); }}
+                                        className='modal-button'
+                                    >
 
-                                    신청하기
-                                </button>
+                                        평가 완료
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div className='modal' onClick={closeModal}>
+                            <div className='modal-content' onClick={(e) => e.stopPropagation()}>
+                                <span className='close' onClick={closeModal}>&times;</span>
+                                <p style={{fontSize: '25px', fontWeight: '500'}}>발품 신청</p>
+                                <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                                    <input 
+                                        type='text' 
+                                        placeholder='신청 메시지를 입력하세요.  예) 홍길동 발품 신청합니다!' 
+                                        className='modal-input'
+                                        value={requestMessage}
+                                        onChange={(e) => setRequestMessage(e.target.value)}
+                                    />
+                                    <button 
+                                        onClick={() => { requestPatch(request_id, requestMessage); setApply(true); closeModal(); navigate('/member'); }}
+                                        className='modal-button'
+                                    >
+
+                                        신청하기
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )
+
                 )}
             </div>
         </div>

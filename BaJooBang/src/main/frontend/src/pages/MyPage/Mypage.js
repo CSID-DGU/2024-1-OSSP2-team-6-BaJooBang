@@ -92,7 +92,7 @@ function MyPage() {
         
         {showBottom2 && (
           <div className='MyBottom2'>
-            <BottomBox content={'나의 별점'} number={'5.0'} Icon={Star} score={true}/> 
+            <BottomBox content={'나의 별점'} number={listData.memberDTO.star} Icon={Star} score={true}/> 
             <Link to='/member/footwork' style={{textDecoration: 'none'}}>
               <BottomBox content={'신청 발품'} number={listData.numOfFootworks} Icon={Search}/>
             </Link>
