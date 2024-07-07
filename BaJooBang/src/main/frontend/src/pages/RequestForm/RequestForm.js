@@ -669,7 +669,7 @@ function RequestForm() {
                                         placeholder='발품인의 별점 정보를 입력해주세요( 0.0 ~ 5.0 ).' 
                                         className='modal-input'
                                         value={star}
-                                        onChange={(e) => setRequestMessage(e.target.value)}
+                                        onChange={(e) => setStar(e.target.value)}
                                     />
                                     <button 
                                         onClick={() => { evaluatePatch(star); setEvaluate(true); closeModal(); navigate('/member'); }}
