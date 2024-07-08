@@ -223,7 +223,7 @@ function RequestForm() {
             toast.success('발품 신청이 완료되었습니다.');
             console.log('Response:', response);
         } catch (error) {
-            toast.success('발품 신청을 실패하였습니다. 다시 시도해주세요');
+            toast.error('발품 신청을 실패하였습니다. 다시 시도해주세요');
             console.error('Error fetching data:', error);
         }
     };
@@ -237,7 +237,7 @@ function RequestForm() {
             toast.success('발품인 평가를 완료되었습니다.');
             console.log('Response:', response);
         } catch (error) {
-            toast.success('발품인 평가를 실패하였습니다. 다시 시도해주세요');
+            toast.error('발품인 평가를 실패하였습니다. 다시 시도해주세요');
             console.error('Error fetching data:', error);
         }
     };
