@@ -20,7 +20,8 @@ function MyPage() {
     numOfRegistered: 0,
     numOfInquiries: 0,
     numOfFootworks: 0,
-    numOfAlarms: 0
+    numOfAlarms: 0,
+    star: 0.0,
   });
   const [showBottom1, setShowBottom1] = useState(true);
   const [showBottom2, setShowBottom2] = useState(false);
