@@ -48,7 +48,7 @@ public class MemberService {
         // 찜 개수
         int numOfLikes = likeyService.getNumOfLikes(member);
 
-        return MypageDTO.toDTO(memberDTO, numOfRegistered, numOfInquiries, numOfFootworks, numOfAlarms, numOfLikes);
+        return MypageDTO.toDTO(memberDTO, numOfRegistered, numOfInquiries, numOfFootworks, numOfAlarms, numOfLikes, member.getStar());
     }
 
     // 일단 별점 계산 기능 여기에 만듬
