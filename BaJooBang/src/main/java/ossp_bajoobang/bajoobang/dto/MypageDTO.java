@@ -24,13 +24,16 @@ public class MypageDTO {
     private int numOfAlarms;
     // 찜 개수
     private int numOfLikes;
+    // 별점
+    private float star;
 
     public static MypageDTO toDTO(MemberDTO memberDTO,
                                   int numOfRegistered,
                                   int numOfInquiries,
                                   int numOfFootworks,
                                   int numOfAlarms,
-                                  int numOfLikes){
+                                  int numOfLikes,
+                                  float star){
         return MypageDTO.builder()
                 .memberDTO(memberDTO)
                 .numOfRegistered(numOfRegistered)
@@ -38,6 +41,7 @@ public class MypageDTO {
                 .numOfFootworks(numOfFootworks)
                 .numOfAlarms(numOfAlarms)
                 .numOfLikes(numOfLikes)
+                .star(star)
                 .build();
     }
 }
