@@ -52,11 +52,11 @@ public class MemberService {
     }
 
     // 일단 별점 계산 기능 여기에 만듬
+    // 현재 db에 반영 안되는 중 비영속인듯?
     @Transactional
-    public Float calculateAvgStar(Member member, float star) {
+    public void calculateAvgStar(Member member, float star) {
         float newAvgStar = (member.getStar() * member.getStarCount() + star) / (member.getStar() + 1);
         member.setStar(newAvgStar);
-        return newAvgStar;
     }
 
     // 매물에 가까운 주변 회원들에 대해서 (대중교통) 총 소요시간 계산하여 10명 오름차순 정렬.

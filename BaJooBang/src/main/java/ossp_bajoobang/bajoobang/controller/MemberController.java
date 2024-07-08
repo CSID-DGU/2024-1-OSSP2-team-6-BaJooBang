@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.dto.InquiryAcceptForm;
 import ossp_bajoobang.bajoobang.dto.MypageDTO;
+import ossp_bajoobang.bajoobang.dto.StarForm;
 import ossp_bajoobang.bajoobang.service.*;
 
 import java.util.*;
@@ -187,13 +188,14 @@ public class MemberController {
     // 별점 평가 api
     @PatchMapping("/star")
     public ResponseEntity<?> patchStar(HttpServletRequest request,
-                                       @RequestParam Float star) {
+                                       @RequestBody StarForm starForm) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             // 세션에서 멤버를 꺼내오기
             Member member = (Member) session.getAttribute("loginMember");
             // 별점 갱신하기
-            memberService.calculateAvgStar(member, star);
+            log.info("star = {}", starForm.getStar());
+            memberService.calculateAvgStar(member, starForm.getStar());
             return ResponseEntity.ok("GOOD");
         }
         return ResponseEntity.status(401).body("Unauthorized");
