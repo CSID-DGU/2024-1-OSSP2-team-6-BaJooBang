@@ -188,6 +188,7 @@ public class MemberController {
     // 별점 평가 api
     @PatchMapping("/star")
     public ResponseEntity<?> patchStar(HttpServletRequest request,
+                                       @RequestParam Long requestId,
                                        @RequestBody StarForm starForm) {
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -195,7 +196,7 @@ public class MemberController {
             Member member = (Member) session.getAttribute("loginMember");
             // 별점 갱신하기
             log.info("star = {}", starForm.getStar());
-            memberService.calculateAvgStar(member, starForm.getStar());
+            memberService.updateMemberStar(requestId, starForm.getStar());
             return ResponseEntity.ok("GOOD");
         }
         return ResponseEntity.status(401).body("Unauthorized");
