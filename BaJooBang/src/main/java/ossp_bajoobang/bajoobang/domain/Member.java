@@ -21,6 +21,7 @@ public class Member {
 
     private String name;
 
+    @Column(unique = true)
     private String email;
 
     private String pw;

@@ -29,15 +29,18 @@ public class LoginController {
 
     // 회원가입
     @PostMapping("/signup")
-    public String signup(@RequestBody SignupForm signupForm){
-        // 주소를 위도와 경도로 변환
-        LatLng latLng = geocodeAddress(signupForm.getAddress());
-        signupForm.setLatitude(latLng.getLatitude());
-        signupForm.setLongitude(latLng.getLongitude());
-
-        memberService.register(signupForm);
-
-        return "GOOD";
+    public ResponseEntity<String> signup(@RequestBody SignupForm signupForm){
+        try {
+            // 위도 경도 설정
+            LatLng latLng = geocodeAddress(signupForm.getAddress());
+            signupForm.setLatitude(latLng.getLatitude());
+            signupForm.setLongitude(latLng.getLongitude());
+            // db에 저장
+            memberService.register(signupForm);
+            return ResponseEntity.ok("User registered successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
     @PostMapping("/login")
