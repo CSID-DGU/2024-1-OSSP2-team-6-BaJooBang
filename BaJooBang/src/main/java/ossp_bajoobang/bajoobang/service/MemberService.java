@@ -6,10 +6,12 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ossp_bajoobang.bajoobang.domain.Member;
+import ossp_bajoobang.bajoobang.domain.Request;
 import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.MypageDTO;
 import ossp_bajoobang.bajoobang.dto.SignupForm;
 import ossp_bajoobang.bajoobang.repository.MemberRepository;
+import ossp_bajoobang.bajoobang.repository.RequestRepository;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,6 +24,7 @@ import java.util.*;
 @Slf4j
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final RequestRepository requestRepository;
     private final InquiryService inquiryService;
     private final RegisteredService registeredService;
     private final FootworkService footworkService;
@@ -60,12 +63,14 @@ public class MemberService {
         return MypageDTO.toDTO(memberDTO, numOfRegistered, numOfInquiries, numOfFootworks, numOfAlarms, numOfLikes, member.getStar());
     }
 
-    // 일단 별점 계산 기능 여기에 만듬
-    // 현재 db에 반영 안되는 중 비영속인듯?
+    // 별점 업데이트
     @Transactional
-    public void calculateAvgStar(Member member, float star) {
-        float newAvgStar = (member.getStar() * member.getStarCount() + star) / (member.getStar() + 1);
-        member.setStar(newAvgStar);
+    public void updateMemberStar(Long requestId, float star) {
+        Request request = requestRepository.findById(requestId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid request ID"));
+        Member balpoomin = request.getBalpoomin();
+        balpoomin.updateStar(star);
+        memberRepository.save(balpoomin);
     }
 
     // 매물에 가까운 주변 회원들에 대해서 (대중교통) 총 소요시간 계산하여 10명 오름차순 정렬.
