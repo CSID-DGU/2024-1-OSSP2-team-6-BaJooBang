@@ -31,8 +31,17 @@ public class MemberService {
 
     // 회원가입
     public void register(SignupForm signupForm) {
+        if(isEmailTaken(signupForm.getEmail())) {
+            // 이미 존재하는 이메일
+            throw new IllegalArgumentException("Email already taken");
+        }
         Member entity = Member.toEntity(signupForm);
         memberRepository.save(entity);
+    }
+
+    // 회원가입 - 중복 이메일 방지
+    public boolean isEmailTaken(String email) {
+        return memberRepository.existsByEmail(email);
     }
 
     public MypageDTO getMypageDTO(Member member) {
