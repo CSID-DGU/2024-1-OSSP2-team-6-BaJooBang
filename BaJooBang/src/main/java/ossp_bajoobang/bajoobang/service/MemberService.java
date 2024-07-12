@@ -65,8 +65,8 @@ public class MemberService {
 
     // 별점 업데이트
     @Transactional
-    public void updateMemberStar(Long requestId, float star) {
-        Request request = requestRepository.findById(requestId)
+    public void updateMemberStar(Long request_id, float star) {
+        Request request = requestRepository.findById(request_id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid request ID"));
         Member balpoomin = request.getBalpoomin();
         balpoomin.updateStar(star);
