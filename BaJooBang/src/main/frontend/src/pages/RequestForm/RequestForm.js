@@ -229,11 +229,11 @@ function RequestForm() {
     };
 
     // 요청인이 발품 평가하는 api
-    const evaluatePatch = async ( star ) => {
+    const evaluatePatch = async (request_id, star ) => {
         try {
-            const response = await axios.patch(`/member/star`, {
+            const response = await axios.patch(`/member/star?request_id=${request_id}`, {
                 star: star,
-            }); // Replace with your actual API endpoint
+            });
             toast.success('발품인 평가를 완료되었습니다.');
             console.log('Response:', response);
         } catch (error) {
@@ -672,7 +672,7 @@ function RequestForm() {
                                         onChange={(e) => setStar(e.target.value)}
                                     />
                                     <button 
-                                        onClick={() => { evaluatePatch(star); setEvaluate(true); closeModal(); navigate('/member'); }}
+                                        onClick={() => { evaluatePatch(request_id, star); setEvaluate(true); closeModal(); navigate('/member'); }}
                                         className='modal-button'
                                     >
 
