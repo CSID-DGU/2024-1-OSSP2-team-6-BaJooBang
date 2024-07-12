@@ -212,22 +212,5 @@ public class TestDataInit {
 //        house11.setLocalId(1L);
 //        houseRepository.save(house11);
 
-
-//       // 요청서 더미 안 쓸듯
-//        Request request1 = new Request();
-//        request1.setPriceRequest(5000);
-//        request1.setRequestDate(LocalDate.parse("2024-06-08"));
-//        request1.setHouse(house1);
-//        request1.setMember(member1);
-//        request1.setStatus("매칭 전");
-//        requestRepository.save(request1);
-//
-//        Request request2 = new Request();
-//        request2.setPriceRequest(12000);
-//        request2.setRequestDate(LocalDate.parse("2024-12-25"));
-//        request2.setHouse(house2);
-//        request2.setMember(member2);
-//        request2.setStatus("매칭 전");
-//        requestRepository.save(request2);
     }
 }
