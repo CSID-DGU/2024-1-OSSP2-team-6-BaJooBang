@@ -21,6 +21,7 @@ public class Member {
 
     private String name;
 
+    @Column(unique = true)
     private String email;
 
     private String pw;
@@ -64,6 +65,13 @@ public class Member {
     public void setBaDream(BaDream baDream) {
         this.getBaDreams().add(baDream);
     }
+
+    // 별점 갱신 함수
+    public void updateStar(float newStar) {
+        this.star = (this.star * this.starCount + newStar) / (this.starCount + 1);
+        this.starCount++;
+    }
+
     // dto를 엔티티로 변환
     public static Member toEntity(SignupForm signupForm) {
         return Member.builder()
