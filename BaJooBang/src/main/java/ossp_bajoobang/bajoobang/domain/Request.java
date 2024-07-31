@@ -90,6 +90,10 @@ public class Request {
     @OneToMany(mappedBy = "request")
     private List<File> files = new ArrayList<>();
 
+    @OneToOne(mappedBy = "request", fetch = FetchType.LAZY)
+    private Order order;
+
+
     public void setBaDream(BaDream baDream) {
         this.getBaDreams().add(baDream);
     }

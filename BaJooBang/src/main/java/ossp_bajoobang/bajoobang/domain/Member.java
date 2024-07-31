@@ -38,6 +38,9 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<Request> requests = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    private List<Order> orders = new ArrayList<>();
+
     @OneToMany(mappedBy = "balpoomin", fetch = FetchType.EAGER)
     private List<Request> requestsAsBalpoomin = new ArrayList<>();
 
