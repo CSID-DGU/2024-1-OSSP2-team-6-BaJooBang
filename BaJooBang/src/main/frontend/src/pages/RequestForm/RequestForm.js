@@ -587,11 +587,11 @@ function RequestForm() {
 
                                         <div className='plusrequestImageBox' ref={el => imageBoxRefs.current[index] = el}>
                                         {input.images.map((image, imgIndex) => (
-                                            <img 
-                                                key={imgIndex} 
+                                            <img
+                                                key={imgIndex}
                                                 src={complete ? image : image.src} // complete가 true일 때 .src를 제거
-                                                style={{ width: '50px', height: '50px', cursor: 'pointer' }} 
-                                                onClick={() => setSelectedImage(complete ? image : image.src)} 
+                                                style={{ width: '50px', height: '50px', cursor: 'pointer' }}
+                                                onClick={() => setSelectedImage(complete ? image : image.src)}
                                             />
                                         ))}
                                         </div>
