@@ -48,9 +48,8 @@ public class KakaoPayController {
 
 //            return ResponseEntity.status(HttpStatus.OK)
 //                    .body(kakaoApprove);
-            // 일단 결제 완료되면 요청서 조회로 리다이렉트
-            String request_id = kakaoApprove.getItem_name();
-            return ResponseEntity.status(302).header("Location", "http://localhost:8000/request/" + request_id).build();
+            // 일단 결제 완료되면 마이페이지로 리다이렉트
+            return ResponseEntity.status(302).header("Location", "/member").build();
         }
         catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
