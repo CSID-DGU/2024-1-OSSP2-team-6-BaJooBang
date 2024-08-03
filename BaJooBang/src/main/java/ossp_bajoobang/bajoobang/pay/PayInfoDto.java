@@ -1,4 +1,4 @@
-package ossp_bajoobang.pay;
+package ossp_bajoobang.bajoobang.pay;
 
 import lombok.Getter;
 

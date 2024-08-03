@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.service.KakaoPayService;
-import ossp_bajoobang.pay.PayInfoDto;
-import ossp_bajoobang.pay.response.BaseResponse;
-import ossp_bajoobang.pay.response.PayApproveResDto;
+import ossp_bajoobang.bajoobang.pay.PayInfoDto;
+import ossp_bajoobang.bajoobang.pay.response.BaseResponse;
+import ossp_bajoobang.bajoobang.pay.response.PayApproveResDto;
 
 @RestController
 @RequiredArgsConstructor
@@ -46,8 +46,11 @@ public class KakaoPayController {
         try {
             PayApproveResDto kakaoApprove = kakaoPayService.getApprove(pgToken, orderId);
 
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(kakaoApprove);
+//            return ResponseEntity.status(HttpStatus.OK)
+//                    .body(kakaoApprove);
+            // 일단 결제 완료되면 요청서 조회로 리다이렉트
+            String request_id = kakaoApprove.getItem_name();
+            return ResponseEntity.status(302).header("Location", "http://localhost:8000/request/" + request_id).build();
         }
         catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

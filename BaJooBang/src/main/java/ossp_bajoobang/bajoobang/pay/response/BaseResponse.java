@@ -1,4 +1,4 @@
-package ossp_bajoobang.pay.response;
+package ossp_bajoobang.bajoobang.pay.response;
 
 import lombok.Builder;
 import lombok.Getter;

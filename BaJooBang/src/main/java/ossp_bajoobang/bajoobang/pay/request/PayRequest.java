@@ -1,4 +1,4 @@
-package ossp_bajoobang.pay.request;
+package ossp_bajoobang.bajoobang.pay.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

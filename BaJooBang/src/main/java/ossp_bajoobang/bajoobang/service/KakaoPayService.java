@@ -14,10 +14,10 @@ import ossp_bajoobang.bajoobang.domain.Order;
 import ossp_bajoobang.bajoobang.domain.Request;
 import ossp_bajoobang.bajoobang.repository.OrderRepository;
 import ossp_bajoobang.bajoobang.repository.RequestRepository;
-import ossp_bajoobang.pay.PayInfoDto;
-import ossp_bajoobang.pay.request.PayRequest;
-import ossp_bajoobang.pay.response.PayApproveResDto;
-import ossp_bajoobang.pay.response.PayReadyResDto;
+import ossp_bajoobang.bajoobang.pay.PayInfoDto;
+import ossp_bajoobang.bajoobang.pay.request.PayRequest;
+import ossp_bajoobang.bajoobang.pay.response.PayApproveResDto;
+import ossp_bajoobang.bajoobang.pay.response.PayReadyResDto;
 
 import java.util.HashMap;
 import java.util.Map;
