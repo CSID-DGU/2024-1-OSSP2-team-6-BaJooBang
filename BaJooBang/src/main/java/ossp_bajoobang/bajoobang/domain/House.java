@@ -17,10 +17,10 @@ public class House {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long houseId;
 
-    @OneToMany(mappedBy = "house", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "house", fetch = FetchType.LAZY)
     private List<Request> requests = new ArrayList<>();
 
-    @OneToMany(mappedBy = "house", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "house", fetch = FetchType.LAZY)
     private List<Likey> likeys = new ArrayList<>();
 
     // 지역 아이디

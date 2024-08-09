@@ -35,22 +35,22 @@ public class Member {
     @Column(columnDefinition = "integer default 0")
     private int starCount; // 별점 받은 횟수
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Request> requests = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Order> orders = new ArrayList<>();
 
-    @OneToMany(mappedBy = "balpoomin", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "balpoomin", fetch = FetchType.LAZY)
     private List<Request> requestsAsBalpoomin = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Alarm> alarms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<BaDream> baDreams = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Likey> likeys = new ArrayList<>();
 
     public void setRequest(Request request) {
