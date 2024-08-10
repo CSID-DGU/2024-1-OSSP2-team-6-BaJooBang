@@ -43,6 +43,7 @@ public class BalpoomController {
             MemberDTO memberDTO = MemberDTO.toDTO(member);
             // local_id에 있는 요청서 다 불러오고,
             // 그 요청서에서 session과 비교해서 hasNotification 만들어줘야할 듯.
+//            log.info("getAlarmBalpoom 호출");
             return ResponseEntity.status(HttpStatus.OK)
                     .body(balpoomService.getAlarmBalpoom(memberDTO));
         }

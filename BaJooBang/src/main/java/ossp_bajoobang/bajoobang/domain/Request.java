@@ -30,7 +30,7 @@ public class Request {
     // 주소
     private String address;
 
-    //tf
+    // tf
 //    private boolean apply = false;
 //    private boolean complete = false;
 
@@ -87,12 +87,8 @@ public class Request {
     private Member balpoomin;
 
     // 파일들
-    @OneToMany(mappedBy = "request")
+    @OneToMany(mappedBy = "request", fetch = FetchType.LAZY)
     private List<File> files = new ArrayList<>();
-
-    @OneToOne(mappedBy = "request", fetch = FetchType.LAZY)
-    private Order order;
-
 
     public void setBaDream(BaDream baDream) {
         this.getBaDreams().add(baDream);
