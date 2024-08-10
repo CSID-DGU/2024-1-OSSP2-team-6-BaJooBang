@@ -4,29 +4,31 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ossp_bajoobang.bajoobang.domain.*;
 import ossp_bajoobang.bajoobang.dto.BalpoomForm;
 import ossp_bajoobang.bajoobang.dto.PlusAnswerForm;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
-import ossp_bajoobang.bajoobang.repository.AlarmRepository;
-import ossp_bajoobang.bajoobang.repository.PlusRequestRepository;
-import ossp_bajoobang.bajoobang.repository.RequestRepository;
+import ossp_bajoobang.bajoobang.repository.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class RequestService {
     private final RequestRepository requestRepository;
     private final PlusRequestRepository plusRequestRepository;
+    private final MemberRepository memberRepository;
+    private final HouseRepository houseRepository;
 
     public Request saveRequest(RequestDTO requestDTO, Member member, House house, String address){
+        member = memberRepository.findById(member.getId()).orElseThrow(() -> new IllegalArgumentException("Member not found"));
+        house = houseRepository.findById(house.getHouseId()).orElseThrow(() -> new IllegalArgumentException("House not found"));
         Request request = Request.toEntity(requestDTO, member, house, address);
         // 저장할 때, house_id와 함께 저장해주어야 함. => 테이블도 join해주어야 함!!! --> 위에 함
         member.setRequest(request);

@@ -14,7 +14,6 @@ import ossp_bajoobang.bajoobang.repository.RequestRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,11 +34,14 @@ public class BalpoomService {
         return dtoList;
     }
 
-    public List<AlarmRequestDTO> getAlarmBalpoom(List<Request> requestList, List<HouseDTO> balpoomHouseList, MemberDTO memberDTO){
+    public List<AlarmRequestDTO> getAlarmBalpoom(MemberDTO memberDTO){
         List<AlarmRequestDTO> alarmRequestDTOList = new ArrayList<>();
+        // 모든 요청서 조회,
+        // 매칭전의 요청서만 보이면 좋을듯
+        List<Request> requestList = requestRepository.findAll();
+
         for(Request request : requestList){
             AlarmRequestDTO alarmRequestDTO = new AlarmRequestDTO();
-
             boolean checkAlarm = false;
 
             // 요청서의

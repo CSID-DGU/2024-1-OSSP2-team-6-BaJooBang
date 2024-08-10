@@ -5,16 +5,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ossp_bajoobang.bajoobang.domain.House;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.domain.Request;
 import ossp_bajoobang.bajoobang.dto.BalpoomForm;
-import ossp_bajoobang.bajoobang.dto.HouseDTO;
-import ossp_bajoobang.bajoobang.dto.MemberDTO;
 import ossp_bajoobang.bajoobang.dto.RequestDTO;
-import ossp_bajoobang.bajoobang.repository.AlarmRepository;
 import ossp_bajoobang.bajoobang.repository.HouseRepository;
 import ossp_bajoobang.bajoobang.repository.MemberRepository;
 import ossp_bajoobang.bajoobang.service.AlarmService;
@@ -78,7 +74,6 @@ public class RequestController {
             for(Member mem : alarmMembers){
                 alarmService.saveMemberRequest(mem, newRequest);
             }
-            log.info("member.getRequest() = {}", member.getRequests());
             return "GOOD";
         }
         else {

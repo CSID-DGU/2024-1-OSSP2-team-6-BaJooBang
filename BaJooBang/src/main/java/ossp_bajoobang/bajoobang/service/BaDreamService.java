@@ -7,6 +7,7 @@ import ossp_bajoobang.bajoobang.domain.BaDream;
 import ossp_bajoobang.bajoobang.domain.Member;
 import ossp_bajoobang.bajoobang.domain.Request;
 import ossp_bajoobang.bajoobang.repository.BaDreamRepository;
+import ossp_bajoobang.bajoobang.repository.MemberRepository;
 import ossp_bajoobang.bajoobang.repository.RequestRepository;
 
 
@@ -16,8 +17,10 @@ import ossp_bajoobang.bajoobang.repository.RequestRepository;
 public class BaDreamService {
     private final RequestRepository requestRepository;
     private final BaDreamRepository baDreamRepository;
+    private final MemberRepository memberRepository;
 
     public void createBaDream(Member member, Long requestId, String message) {
+        member = memberRepository.findById(member.getId()).orElseThrow(() -> new IllegalArgumentException("Member not found"));
         Request request = requestRepository.findById(requestId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid requestId: " + requestId));
         BaDream baDream = new BaDream();

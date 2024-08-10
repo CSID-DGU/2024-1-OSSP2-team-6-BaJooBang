@@ -29,7 +29,7 @@ public class File {
 
     private LocalDateTime uploadedDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id")
     private Request request;
 }
